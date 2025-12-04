@@ -14,7 +14,7 @@ const columns: TableColumn<DespetcherTest>[] = [
         cell: ({ img }) => {
             return (
                 <div>
-                    <img src={"./" + img} />
+                    <img src={"./assets/stations.jpg"} />
                 </div>
             )
         },
