@@ -140,7 +140,7 @@ export default function SchemeViewer({ setInfo, points }: SchemeViewerType) {
 
 
     const getPhoto = (name: string | null): string => {
-        return `public/hardware-images/${name}`;
+        return `http://hydrig.gsurso.ru/public/hardware-images/${name}`;
     };
 
     const addPhotoStatus = (status: HardWareStatus | undefined) => {
