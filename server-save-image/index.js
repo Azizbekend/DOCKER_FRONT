@@ -5,7 +5,7 @@ import cors from "cors";
 
 const app = express();
 app.use(cors({
-    origin: 'http://hydrig.gsurso.ru',
+    origin: ['http://127.0.0.1:5000', 'http://hydrig.gsurso.ru'],
     credentials: true
 }));
 
