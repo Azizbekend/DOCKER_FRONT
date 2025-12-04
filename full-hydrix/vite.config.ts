@@ -18,6 +18,11 @@ export default defineConfig(({ command, mode }) => {
       port: Number(env.VITE_APP_PORT),
       cors: false,
       host: env.VITE_REACT_APP_HOST,
+      allowedHosts: [
+        'hydrig.gsurso.ru',
+        'localhost',
+        '127.0.0.1'
+      ],
       proxy: {
         "/api": {
           target: `http://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}`,
