@@ -1,0 +1,1 @@
+export const getTank = [4, 8, 10, 12, 16, 20]

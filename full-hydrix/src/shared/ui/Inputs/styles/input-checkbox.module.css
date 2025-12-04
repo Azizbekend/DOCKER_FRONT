@@ -1,0 +1,175 @@
+/* InputCheckbox.module.css */
+.container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-shadow: 0 0 0 0 rgb(145, 145, 145);
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+    user-select: none;
+}
+
+/* Позиция лейбла */
+.label-left {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.label-right {
+    flex-direction: row;
+}
+
+/* Базовый инпут - скрываем визуально, но оставляем доступным */
+.input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Дефолтный чекбокс */
+.checkbox {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease-in-out;
+    border: 2px solid #d1d5db;
+    background: white;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+}
+
+.checkbox::after {
+    top: 25%;
+    content: '';
+    width: 10px;
+    height: 6px;
+    border: 2px solid white;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg) scale(0);
+    transition: transform 0.2s ease-in-out;
+    position: absolute;
+}
+
+/* Состояния для дефолтного варианта */
+.input:checked+.checkbox {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.input:checked+.checkbox::after {
+    transform: rotate(-45deg) scale(1);
+    
+}
+
+.input:indeterminate+.checkbox {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.input:indeterminate+.checkbox::after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: white;
+    border: none;
+    transform: scale(1) rotate(0);
+}
+
+/* Вариант switch */
+.variant-switch .checkbox {
+    width: 44px;
+    height: 24px;
+    border-radius: 12px;
+    background: #d1d5db;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.switchHandle {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+    transform: translateX(-8px);
+}
+
+.input:checked+.checkbox .switchHandle {
+    transform: translateX(8px);
+}
+
+.input:checked+.checkbox {
+    background: #3b82f6;
+}
+
+/* Вариант button */
+.variant-button .checkbox {
+    padding: 8px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    width: auto;
+    height: auto;
+    background: white;
+    color: #374151;
+}
+
+.variant-button .buttonContent {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input:checked+.checkbox {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+/* Состояния */
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.disabled .label {
+    cursor: not-allowed;
+}
+
+.error .checkbox {
+    border-color: #ef4444;
+}
+
+.errorText {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Фокус состояния */
+/* .input:focus+.checkbox {
+    outline: 2px solid #3b82f6;
+    outline-offset: 5px;
+} */
+
+/* Ховер состояния */
+.label:not(.disabled):hover .checkbox {
+    border-color: #3b82f6;
+}
+
+.variant-button .label:not(.disabled):hover .checkbox {
+    background: #f3f4f6;
+}
+
+.variant-button .input:checked+.checkbox:hover {
+    background: #2563eb;
+}
