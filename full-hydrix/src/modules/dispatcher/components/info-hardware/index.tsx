@@ -38,7 +38,7 @@ export default function HardwareCard({ className, id, onClick }: InfoCompType) {
                     </div>
 
                     <div className="info-comp__image">
-                        <img src={'/hardware/' + model.photoName} alt="Info" />
+                        <img src={'http://hydrig.gsurso.ru/image/' + model.photoName} alt="Info" />
                     </div>
 
                     <div className="flex items-center gap-2 ml-5 mb-5">
