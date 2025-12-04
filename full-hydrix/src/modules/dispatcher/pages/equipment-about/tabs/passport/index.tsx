@@ -23,7 +23,7 @@ export const EquipmentPassport = observer(() => {
             <div className="flex gap-5">
                 <div className="w-[350px]">
                     <div className="info-comp__image">
-                        <img src={"http://hydrig.gsurso.ru/image/" + model?.photoName} alt="Info" />
+                        <img src={"http://hydrig.gsurso.ru/image/uploads/" + model?.photoName} alt="Info" />
                     </div>
                     <div className="flex items-center gap-1 text-[12px] justify-center mb-10 mt-3">
                         <span>Статус подключения к ИАС</span>
