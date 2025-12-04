@@ -80,8 +80,8 @@ const columns: TableColumn<HardwareInterface>[] = [
         header: " ",
         key: '',
         width: '0.5fr',
-        cell: ({ id, isActive }) => {
-            return isActive == null && (
+        cell: ({ id, activatedAt }) => {
+            return activatedAt == "0001-01-01T00:00:00" && (
                 <div className="table__column" >
                     <Button class="px-3 py-2 text-white hover:opacity-50 bg-[var(--clr-accent)]" onClick={() => hardwareListModel.active(id)}>Активировать</Button>
                 </div>

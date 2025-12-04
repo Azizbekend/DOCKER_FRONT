@@ -67,16 +67,19 @@ class EquipmentCreateModel {
 
     async create() {
         const formData = new FormData();
-        formData.append("image", this.saveIMage);
+        formData.append("File", this.saveIMage);
 
-        const response = await fetch("http://localhost:5011/upload", {
-            method: "POST",
-            body: formData
-        });
+        // const response = await fetch("http://hydrig.gsurso.ru/image/upload", {
+        // const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
+        //     method: "POST",
+        //     body: formData
+        // });
 
-        const result = await response.json();
+        // const result = await response.json();
 
-        this.model.img = result.url;
+        // console.log(result)
+        // this.model.img = result.url;
+        this.model.img = "result.url";
 
         await createHardware({
             name: this.model.name,

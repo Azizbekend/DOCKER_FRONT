@@ -39,7 +39,8 @@ class HardwareListModel {
 
             const itemIndex = this.model.findIndex(item => item.id === id);
             if (itemIndex !== -1) {
-                this.model[itemIndex].isActive = true;
+                console.log(this.model[itemIndex])
+                this.model[itemIndex].activatedAt = "true";
             }
 
         }).catch(error => {

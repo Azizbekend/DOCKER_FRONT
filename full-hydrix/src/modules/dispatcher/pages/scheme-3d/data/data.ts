@@ -193,30 +193,44 @@ export const InformationsComponents: InformationsComponentsType[] = [
     },
 ];
 
+
 export const points: SchemeViewerPointType[] = [
-    { top: "48%", left: "5%", size: [18, 18], label: "Насос Н4.1 рецикла", id: 1, accident: true, },
-    { top: "7%", left: "17%", size: [47, 47], label: "Барабанное сито №1", id: 2, accident: true, },
-    { top: "25%", left: "17%", size: [47, 47], label: "Барабанное сито №2", id: 3, accident: true, },
-    { top: "25%", left: "23%", size: [117, 68], label: "Песколовка №1", id: 5, accident: true, },
-    { top: "8%", left: "23%", size: [117, 68], label: "Песколовка №2", id: 4, accident: true, },
-    { top: "30.5%", left: "36%", size: [25, 25], label: "Мешалка усреднителя №1", id: 6, accident: true, },
-    { top: "30.5%", left: "40.5%", size: [25, 25], label: "Мешалка усреднителя №2", id: 7, accident: true, },
-    { top: "30.5%", left: "45.5%", size: [25, 25], label: "Мешалка усреднителя №3", id: 8, accident: true, },
-    {
-        top: "25.5%",
-        left: "77.8%",
-        size: [41, 10],
-        label: "Тестовый мен",
-        id: 8,
-        accident: true,
-        control: {
-            type: "auto",
-            top: "-65%",
-            left: "70%"
-        },
-        status: HardWareStatus.OK,
-        image: "permeate-pump"
-    },
+    { top: "54%", left: "54%", size: [180, 80], label: "Барабанное сито", id: 1, accident: true, image:"Барабанное сито (в работе).png",},
+    { top: "48%", left: "60%", size: [180, 80], label: "Барабанное сито", id: 1, accident: true, image:"Барабанное сито (в ожидании).png",},
+    
+    { top: "33%", left: "75%", size: [180, 160], label: "Песколовка", id: 1, accident: true, image:"Песколовка (в ожидании).png",},
+    { top: "41%", left: "67%", size: [180, 160], label: "Песколовка", id: 1, accident: true, image:"Песколовка (в ожидании).png",},
+    
+    { top: "7%", left: "69%", size: [180, 350], label: "Транспортер", id: 1, accident: true, image:"Транспортер (в работе).png",},
+    
+    { top: "9%", left: "57%", size: [180, 110], label: "Обезвоживатель", id: 1, accident: true, image:"Обезвоживатель (в ожидании).png",},
+    { top: "18%", left: "65%", size: [180, 110], label: "Обезвоживатель", id: 1, accident: true, image:"Обезвоживатель (в работе).png",},
+
+    { top: "40%", left: "42%", size: [180, 90], label: "Воздуходувка", id: 1, accident: true, image:"Воздуходувка (в работе).png",},
+    { top: "33%", left: "35%", size: [180, 90], label: "Воздуходувка", id: 1, accident: true, image:"Воздуходувка (в ожидании).png",},
+    { top: "26%", left: "28%", size: [180, 90], label: "Воздуходувка", id: 1, accident: true, image:"Воздуходувка (в ожидании).png",},
+
+    { top: "25.6%", left: "52.5%", size: [180, 20], label: "Насос дозатор", id: 1, accident: true, image:"Насос дозатор (в ожидании).png",},
+    { top: "27%", left: "50.9%", size: [180, 20], label: "Насос дозатор", id: 1, accident: true, image:"Насос дозатор (в работе).png",},
+
+    { top: "19%", left: "36%", size: [180, 19], label: "Насос дозатор", id: 1, accident: true, image:"Насос в КНС2 (в ожидании).png",},
+    { top: "21%", left: "34%", size: [180, 19], label: "Насос дозатор", id: 1, accident: true, image:"Насос в КНС2 (в ожидании).png",},
+
+    { top: "11%", left: "33%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},
+    { top: "15%", left: "33%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},
+    { top: "18%", left: "33%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
+    { top: "21%", left: "33%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
+
+    { top: "89%", left: "36%", size: [180, 21], label: "Насос дозатор", id: 1, accident: true, image:"Насос КНС 1 (в ожидании).png",},
+    { top: "91%", left: "38%", size: [180, 21], label: "Насос дозатор", id: 1, accident: true, image:"Насос КНС 1 (в ожидании).png",},
+
+    { top: "85%", left: "34.5%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},
+    { top: "88%", left: "34.5%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},
+    { top: "91%", left: "34.5%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
+    { top: "94%", left: "34.5%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
+  
+    { top: "35%", left: "24.4%", size: [180, 20], label: "Воздуходувка", id: 1, accident: true, image:"Датчик давления.png",},
+    { top: "36%", left: "23.1%", size: [180, 20], label: "Воздуходувка", id: 1, accident: true, image:"Датчик давления.png",},
 ];
 
 

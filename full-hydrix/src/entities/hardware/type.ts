@@ -1,7 +1,7 @@
 export interface EquipmentCreateInterface {
     id?: number,
     name: string,
-    img: string,
+    img: number,
     category: string,
     model: string,
     supplier: string,
@@ -43,6 +43,7 @@ export interface HardwareInterface {
     position: string,
     supplierName: string,
     isActive?: boolean,
+    activatedAt?: string,
     controlBlock: ControlBlockInterface
 }
 

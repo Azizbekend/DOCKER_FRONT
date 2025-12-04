@@ -69,15 +69,11 @@ export const Scheme = () => {
                     <div className={`hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold  ${nubmerTab == 4 ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`} onClick={() => setNumberTab(4)}>
                         Охрано-пожарная сигнализация
                     </div>
-                    <div className={`hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold  ${nubmerTab == 5 ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`} onClick={() => setNumberTab(5)}>
-                        Тестовая таблица
-                    </div>
                 </div>
 
                 <div className="grid grid-cols-[1fr_auto] gap-[20px] h-full pb-[80px]">
 
                     {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={points} />}
-                    {nubmerTab == 5 && <TableScheme />}
 
                     {focusHardware != 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
                 </div>
