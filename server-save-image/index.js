@@ -36,6 +36,11 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 
 // Делаем public статичным
+app.get("/test", (req, res) => {
+    res.send("sad");
+});
+
+
 app.use("/uploads", express.static("./public/hardware"));
 
 app.listen(5011, () => {
