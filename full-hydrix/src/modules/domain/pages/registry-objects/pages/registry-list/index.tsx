@@ -3,7 +3,7 @@ import { Table } from '@/shared/ui/table/index';
 import { TableColumn } from '@/shared/ui/table/setting/types';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
-import { stations } from './assets/stations.jpg';
+
 
 
 const columns: TableColumn<DespetcherTest>[] = [
@@ -14,7 +14,7 @@ const columns: TableColumn<DespetcherTest>[] = [
         cell: ({ img }) => {
             return (
                 <div>
-                    <img src={stations} />
+                    <img src={"./assets/stations.jpg"} />
                 </div>
             )
         },
