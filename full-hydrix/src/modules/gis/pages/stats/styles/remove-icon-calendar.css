@@ -1,0 +1,5 @@
+  .removeIconCalendar::-webkit-inner-spin-button,
+.removeIconCalendar::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
