@@ -4,7 +4,10 @@ import path from "path";
 import cors from "cors";
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://hydrig.gsurso.ru',
+    credentials: true
+}));
 
 // Настраиваем хранение
 const storage = multer.diskStorage({
