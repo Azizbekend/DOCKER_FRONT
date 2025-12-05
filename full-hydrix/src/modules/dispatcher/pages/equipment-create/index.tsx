@@ -139,7 +139,7 @@ export const EquipmentCreate = observer(() => {
                                 }
                             />
                             <InputContainer
-                                headerText="Намименование OPC"
+                                headerText="Наименованиe OPC"
                                 classNames={{
                                     wrapper: "w-[calc(50%_-_20px)]"
                                 }}
