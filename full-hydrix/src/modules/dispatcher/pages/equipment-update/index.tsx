@@ -3,24 +3,28 @@ import { InputContainer } from "@/shared/ui/Inputs/input-container"
 import { Input } from "@/shared/ui/Inputs/input-text"
 import { equipmentCreateModel } from "./model/equipment-create-model"
 import { observer } from "mobx-react-lite"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "@/shared/ui/button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Review } from "./tabs/review"
 import { Control } from "./tabs/control"
 import { Scheme } from "./tabs/scheme"
-import { reserchInstance } from "@/app/api/instances"
-import { controlBlockCreate, passportObject } from "@/entities/hardware/api"
 import { Selector } from "@/shared/ui/Selector/selector"
+import { hardwareModel } from "@/entities/hardware/model"
 
-
-
-export const EquipmentCreate = observer(() => {
-
+export const EquipmentUpdate = observer(() => {
+    const { id } = useParams()
     const navigate = useNavigate();
-    const { model, imgPreview, setId, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController,
-    } = equipmentCreateModel
+    const { model, imgPreview, init, setId, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController } = equipmentCreateModel
+    const { initCharacteristic, initControl } = hardwareModel
     const [tab, setTab] = useState<"review" | "control" | "scheme">("scheme")
+
+    useEffect(() => {
+        if (id == undefined) return
+        init(Number(id))
+        initControl(Number(id))
+        initCharacteristic(Number(id))
+    }, [])
 
     return (
         <div className="bg-white rounded-[20px] p-[45px_30px_50px_40px] mb-5 relative">
@@ -32,8 +36,8 @@ export const EquipmentCreate = observer(() => {
                     <label className="w-[460px] h-[242px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                         <input className="hidden" type="file" onChange={(e) => setImg(e)} />
                         {
-                            imgPreview ?
-                                <img src={imgPreview} className="w-full h-full object-container" />
+                            model.fileId ?
+                                <img src={imgPreview ? imgPreview : "https://triapi.ru/research/api/FileStorage/download?id=" + model?.fileId} className="w-full h-full object-container" />
                                 :
                                 <>
                                     <Icon systemName="file-plus-blue" />
@@ -103,7 +107,7 @@ export const EquipmentCreate = observer(() => {
                                         className="border-[1.5px] px-3 py-3 rounded-lg"
                                         type="text"
                                         placeholder="Поставщик"
-                                        value={model.supplier}
+                                        value={model.supplierName}
                                         onChange={setSupplier}
                                     />
                                 }
@@ -148,11 +152,12 @@ export const EquipmentCreate = observer(() => {
                                         className="border-[1.5px] px-3 py-3 rounded-lg"
                                         type="text"
                                         placeholder="Расположение"
-                                        value={model.opcName}
+                                        value={model.opcDescription}
                                         onChange={setOpcName}
                                     />
                                 }
                             />
+
                             <InputContainer
                                 headerText="Выбрать ПЛК (Шкаф)"
                                 classNames={{
@@ -164,6 +169,7 @@ export const EquipmentCreate = observer(() => {
                                         classWripper="!w-full"
                                         title="ПЛК"
                                         onSelect={(item) => setIdBlockController(Number(item.value))}
+                                        defaultValue={model.idBlockController}
                                         items={[
                                             {
                                                 value: 5,

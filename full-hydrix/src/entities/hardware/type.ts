@@ -1,5 +1,6 @@
 export interface EquipmentCreateInterface {
     id?: number,
+    fileId?: number,
     name: string,
     img: string,
     category: string,
@@ -9,9 +10,13 @@ export interface EquipmentCreateInterface {
     position: string,
     opcName?: string,
     idBlockController?: number,
+
+    opcDescription?: string,
+    supplierName?: string,
 }
 
 export interface CreateHardwareInterface {
+    id?: number,
     name: string,
     category: string,
     developerName: string,

@@ -5,27 +5,26 @@ import { useEffect, useState } from 'react';
 import { SchemeViewer } from "./tabs/scheme/ViewScheme.js";
 
 // data
-import { InformationsComponents, points } from "./data/data.js";
-import { HardWareStatus, InformationsComponentsType } from "./types/type.js";
-import { TableScheme } from "./tabs/table/index.js";
+import { points } from "./data/data.js";
+import { HardWareStatus } from "./types/type.js";
 import { HardwareCard } from "../../components/info-hardware/index.js";
 import { schemeModel } from "./model/scheme-model.js";
 import { observer } from "mobx-react-lite";
+import { FormSchemaObject } from "./components/form-schema-object.js";
 
 
 
 
 export const Scheme = observer(() => {
 
-    const { init, list } = schemeModel
+    const { init, list, focusHardware, setFocusHardware, focusSchemeObject } = schemeModel
 
     useEffect(() => {
         init(4)
     }, [])
 
     const [fade, setFade] = useState(false);
-    const [focusHardware, setFocusHardware] = useState<number>(0);
-    const [panelInfoComponent, setPanelInfoComponent] = useState<InformationsComponentsType>({ title: '', img: '', items: [] });
+
 
     const handleChangeImage = (id: number) => {
         setFade(true);
@@ -34,25 +33,16 @@ export const Scheme = observer(() => {
         } else {
             setFocusHardware(id)
         }
-        setPanelInfoComponent(id == 0 ? { title: '', img: '', items: [] } : InformationsComponents[id - 1]);
         setFade(false);
-
-        // setTimeout(() => {
-        //     setFocusHardware(0)
-        //     setPanelInfoComponent(id == 0 ? { title: '', img: '', items: [] } : InformationsComponents[id - 1]);
-        //     setFade(false);
-        // }, 300);
     };
 
     const [nubmerTab, setNumberTab] = useState<number>(0);
-
 
     const getRandomStatus = (): HardWareStatus => {
         const statuses = [HardWareStatus.OK, HardWareStatus.WORK, HardWareStatus.ERROR];
         const randomIndex = Math.floor(Math.random() * statuses.length);
         return statuses[randomIndex];
     };
-
 
     setInterval(() => {
         points[points.length - 1].status = getRandomStatus()
@@ -80,10 +70,9 @@ export const Scheme = observer(() => {
                 </div>
 
                 <div className="grid grid-cols-[1fr_auto] gap-[20px] h-full pb-[80px]">
-
-                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={list} />}
-
-                    {focusHardware != 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
+                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={points} />}
+                    {focusHardware != 0 && focusSchemeObject == 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
+                    {focusSchemeObject != 0 && <FormSchemaObject className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} onClick={handleChangeImage} />}
                 </div>
             </div >
         </>

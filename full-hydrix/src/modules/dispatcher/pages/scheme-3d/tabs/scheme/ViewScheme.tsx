@@ -12,12 +12,14 @@ import block from './icons/block.svg';
 import manualControl from './icons/manual-control.svg';
 import { hardwareModel } from "@/entities/hardware/model";
 import { observer } from "mobx-react-lite";
+import { schemeModel } from "../../model/scheme-model";
 
 
 export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => {
 
 
     // Счётчики
+    const { setFocusSchemeObject } = schemeModel
 
     const [counters, setCounters] = useState<CountersType[]>(CountersData);
 
@@ -200,6 +202,7 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
 
                 {points.map((p, i) => (
                     <div
+                        onDoubleClickCapture={() => setFocusSchemeObject(p.id)}
                         onClick={() => setInfo(p.hardwareId)}
                         key={i}
                         className="absolute cursor-pointer z-10"

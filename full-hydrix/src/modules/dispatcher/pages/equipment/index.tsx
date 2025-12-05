@@ -16,16 +16,6 @@ import { ModalServiceCreate } from "./components/modal-service-create";
 
 const columns: TableColumn<HardwareInterface>[] = [
     {
-        header: "id",
-        key: 'id',
-        width: '0.2fr',
-        cell: ({ id }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">[{id}]</span>
-            )
-        },
-    },
-    {
         header: "Наименование",
         key: 'companyName',
         cell: ({ name }) => {
@@ -90,6 +80,22 @@ const columns: TableColumn<HardwareInterface>[] = [
         header: " ",
         key: '',
         width: '0.5fr',
+        cell: ({ id }) => {
+            return (
+                <span className="text-[14px] text-[#222B45] font-semibold w-full">
+                    <div className="table__column" >
+                        <Button class=" hover:opacity-50 w-full text-center bg-[var(--clr-border-gray)]" onClick={() => hardwareListModel.setModalService(true, id)}>
+                            <span className="w-full text-white">+ сервис</span>
+                        </Button>
+                    </div>
+                </span>
+            )
+        },
+    },
+    {
+        header: " ",
+        key: '',
+        width: '0.5fr',
         cell: ({ id, activatedAt }) => {
             return activatedAt == "0001-01-01T00:00:00" && (
                 <div className="table__column" >
@@ -101,16 +107,17 @@ const columns: TableColumn<HardwareInterface>[] = [
     {
         header: " ",
         key: '',
-        width: '0.2fr',
+        width: '70px',
         cell: ({ id }) => {
+
+            const navigate = useNavigate();
+
             return (
-                <span className="text-[14px] text-[#222B45] font-semibold w-full">
-                    <div className="table__column" >
-                        <Button onClick={() => hardwareListModel.setModalService(true, id)}>
-                            <Icon systemName="edit" />
-                        </Button>
-                    </div>
-                </span>
+                <div className="table__column">
+                    <Button onClick={() => navigate('/dispatcher/equipment/update/' + id)}>
+                        <Icon systemName="edit" />
+                    </Button>
+                </div>
             )
         },
     },
@@ -227,6 +234,7 @@ export const EquipmentRegistry = observer(() => {
 
 
             <Table
+                countActive
                 columns={columns}
                 data={results.length > 0 ? results : []}
                 onRowClick={(row) => navigate(`/dispatcher/equipment-about/passport/${row.id}`)}

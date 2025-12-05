@@ -1,43 +1,43 @@
+import { Icon } from "@/shared/ui/icon"
+import { useEffect, useState } from 'react';
+import accident from "@/app/static/img/accident.svg"
+import { hardwareModel } from "@/entities/hardware/model";
 import { observer } from "mobx-react-lite";
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
+import { schemeObjectModel } from "../model/scheme-object-model";
 import { InputContainer } from "@/shared/ui/Inputs/input-container";
 import { Selector } from "@/shared/ui/Selector/selector";
-import { useService } from "../components/service/hook";
-import { ChangeEvent, useState } from "react";
-import { equipmentCreateModel } from "../model/equipment-create-model";
-
-export const Scheme = observer(() => {
+import { Button } from "@/shared/ui/button";
+import { schemeModel } from "../model/scheme-model";
 
 
-    const { createScheme, top, left, hieght, width, preview, saveIMageScheme, setHardwareSchemaId, setTop, setLeft, setHieght, setWidth, setSaveIMage, } = equipmentCreateModel
+
+export const FormSchemaObject = observer(({ className, onClick }: { className: string, onClick: (id: number) => void }) => {
+
+
+    const { init, top, left, height, width, preview, hardwareSchemaId, saveIMageScheme, setTop, setLeft, setHardwareSchemaId, setHeight, setWidth, setSaveIMage } = schemeObjectModel
+
+    useEffect(() => {
+        schemeModel.focusSchemeObjectData && init(schemeModel.focusSchemeObjectData)
+    }, [])
 
     const handleSubmit = () => {
-        if (saveIMageScheme) {
-            createScheme({
-                top: Number(top),
-                left: Number(left),
-                hieght: Number(hieght),
-                width: Number(width),
-                saveIMage: saveIMageScheme,
-            })
-        }
     }
 
+
     return (
-        <>
-            <div className="font-semibold text-[28px] mb-[12px]">
-                Данные для схемы
-            </div>
+        <div className={`info-comp ${className}`}>
+            <div className="info-comp__body">
+                <button className="info-comp__close" onClick={() => onClick(0)}>
+                    <Icon systemName="arrow-back-blue" />
+                    <span>назад</span>
+                </button>
 
-            <div className="my-10 flex flex-col gap-5">
-                <div className="flex gap-3 items-center animate-fade-in">
-
-                    <label className="w-[460px] h-[460px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
+                <div className="my-10 flex flex-col gap-5">
+                    <label className="w-full h-[460px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                         <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
                         {
                             preview ?
-                                <img src={preview} className="w-full h-full object-container" />
+                                <img src={preview ? preview : "https://triapi.ru/research/api/FileStorage/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="w-full h-full object-container" />
                                 :
                                 <>
                                     <Icon systemName="file-plus-blue" />
@@ -81,8 +81,8 @@ export const Scheme = observer(() => {
                                     className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                     type="number"
                                     placeholder="top"
-                                    value={hieght}
-                                    onChange={(e) => setHieght(e.target.value)}
+                                    value={height}
+                                    onChange={(e) => setHeight(e.target.value)}
                                 />
                             }
                         />
@@ -118,11 +118,9 @@ export const Scheme = observer(() => {
                             }
                         />
                     </div>
-
                 </div>
+                <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
             </div>
-
-            <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
-        </>
+        </div>
     )
-});
+})

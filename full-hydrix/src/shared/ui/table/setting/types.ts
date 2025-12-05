@@ -48,6 +48,7 @@ export interface TableProps<T> {
     }
     columns: TableColumn<T>[];
     data: T[];
+    countActive?: boolean,
     options?: {
         pageSize: number[],
     };

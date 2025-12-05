@@ -193,8 +193,6 @@ export const Schema = {
   getCoordinates: "/schemas/schemas/coordinates",
 }
 
-
-
 export const Characteristics = {
   createOnde: "/Characteristics/createOne",
   createMany: "/Characteristics/createMany",

@@ -70,16 +70,11 @@ export const EquipmentPassport = observer(() => {
 
                     <div className="info-comp__content">
                         <div className="info-comp__section">
-                            <div className="info-comp__subtitle font-bold">Характеристики</div>
+                            <div className="info-comp__subtitle font-bold">Общая информация</div>
 
                             <div className="grid grid-cols-[250px_1fr] ">
                                 <div className="info-comp__title font-bold">Модель</div>
                                 <div className="info-comp__description">{model.position}</div>
-                            </div>
-
-                            <div className="grid grid-cols-[250px_1fr] ">
-                                <div className="info-comp__title font-bold">Производительность</div>
-                                <div className="info-comp__description">{model.developerName}</div>
                             </div>
 
                             <div className="grid grid-cols-[250px_1fr] ">
@@ -91,6 +86,7 @@ export const EquipmentPassport = observer(() => {
                                 <div className="info-comp__description">{model.developerName}</div>
                             </div>
 
+                            <div className="info-comp__subtitle font-bold mt-8">Характеристики</div>
                             {сharacteristic.map((item, key) => {
                                 return (
                                     <div className="grid grid-cols-[250px_1fr]" key={key}>

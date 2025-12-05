@@ -245,6 +245,15 @@ export const AppRouter = createBrowserRouter([
                 },
             },
             {
+                path: "equipment/update/:id",
+                async lazy() {
+                    const { EquipmentUpdate } = await import("@/modules/dispatcher/pages/equipment-update")
+                    return {
+                        Component: EquipmentUpdate
+                    }
+                },
+            },
+            {
                 path: "equipment-about",
                 async lazy() {
                     const { EquipmentAbout } = await import("@/modules/dispatcher/pages/equipment-about")
