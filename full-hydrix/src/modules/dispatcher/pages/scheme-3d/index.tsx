@@ -70,7 +70,7 @@ export const Scheme = observer(() => {
                 </div>
 
                 <div className="grid grid-cols-[1fr_auto] gap-[20px] h-full pb-[80px]">
-                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={points} />}
+                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={list} />}
                     {focusHardware != 0 && focusSchemeObject == 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
                     {focusSchemeObject != 0 && <FormSchemaObject className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} onClick={handleChangeImage} />}
                 </div>
