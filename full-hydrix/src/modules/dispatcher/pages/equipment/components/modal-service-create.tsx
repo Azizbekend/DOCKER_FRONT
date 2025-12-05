@@ -66,58 +66,60 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
                 footer: "bg-[#F6F6F6] p-[20px_24px_16px_24px]"
             }}
 
+            children={
+                <div className="max-w-[613px]">
+                    <div className="flex gap-3 items-end animate-fade-in">
+                        <InputContainer
+                            headerText="Описание заявки"
+                            classNames={{
+                                wrapper: "w-[500px]"
+                            }}
+                            children={
+                                <input
+                                    className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
+                                    type="text"
+                                    placeholder="Название характеристики"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                />
+                            }
+                        />
+
+                        <InputContainer
+                            headerText="Период"
+                            classNames={{
+                                wrapper: "w-[300px]"
+                            }}
+                            children={
+                                <div className="flex items-center gap-3 w-full">
+                                    <input
+                                        className="w-[120px] border-[1.5px] px-3 py-3 rounded-lg outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
+                                        type="number"
+                                        placeholder="Период"
+                                        value={date}
+                                        onChange={(e) => setDate(e.target.value)}
+                                    />
+
+                                    <Selector
+                                        titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
+                                        classWripper="!w-full"
+                                        title="Период"
+                                        onSelect={handleSelect}
+                                        items={selectItems}
+                                    />
+                                </div>
+                            }
+                        />
+                    </div>
+                </div>
+            }
+
             footerSlot={
-                <>
+                <div className='flex justify-end gap-4'>
                     <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
                     <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={() => setShow(false)}>Отмена</Button>
-                </>
-            }
-        >
-            <div className="max-w-[613px]">
-                <div className="flex gap-3 items-end animate-fade-in">
-                    <InputContainer
-                        headerText="Описание заявки"
-                        classNames={{
-                            wrapper: "w-[500px]"
-                        }}
-                        children={
-                            <input
-                                className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
-                                type="text"
-                                placeholder="Название характеристики"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
-                            />
-                        }
-                    />
-
-                    <InputContainer
-                        headerText="Период"
-                        classNames={{
-                            wrapper: "w-[300px]"
-                        }}
-                        children={
-                            <div className="flex items-center gap-3 w-full">
-                                <input
-                                    className="w-[120px] border-[1.5px] px-3 py-3 rounded-lg outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
-                                    type="number"
-                                    placeholder="Период"
-                                    value={date}
-                                    onChange={(e) => setDate(e.target.value)}
-                                />
-
-                                <Selector
-                                    titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
-                                    classWripper="!w-full"
-                                    title="Месяц"
-                                    onSelect={handleSelect}
-                                    items={selectItems}
-                                />
-                            </div>
-                        }
-                    />
                 </div>
-            </div>
-        </Modal >
+            }
+        />
     )
 });

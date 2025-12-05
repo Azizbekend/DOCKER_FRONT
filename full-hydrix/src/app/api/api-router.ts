@@ -185,6 +185,12 @@ export const Hardware = {
   active: "/Hardware/Activate",
 }
 
+export const Schema = {
+  CoordinatesCreate: "/schema/coordinates/create",
+}
+
+
+
 export const Characteristics = {
   createOnde: "/Characteristics/createOne",
   createMany: "/Characteristics/createMany",

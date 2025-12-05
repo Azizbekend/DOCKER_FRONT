@@ -1,7 +1,7 @@
 export interface EquipmentCreateInterface {
     id?: number,
     name: string,
-    img: number,
+    img: string,
     category: string,
     model: string,
     supplier: string,
@@ -15,6 +15,7 @@ export interface CreateHardwareInterface {
     developerName: string,
     supplierName: string,
     photoName: string,
+    fileId: string,
     position: string,
     opcDescription: string,
     model: string,
@@ -66,14 +67,15 @@ export interface ModelHardwareOneInterface {
     position: string,
     opcDescription?: string,
     controlBlockId: number
+    fileId?: number
 }
 
-
-
-
-
-
-
-
-
-
+export interface SchemaCreateType {
+    top: number,
+    left: number,
+    hieght: number,
+    width: number,
+    hardwareSchemaId: number,
+    fileId: number,
+    hardwareId: number,
+}

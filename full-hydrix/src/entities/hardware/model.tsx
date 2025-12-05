@@ -8,6 +8,7 @@ class HardwareModel {
 
     model: ModelHardwareOneInterface = {
         id: 0,
+        fileId: 0,
         name: "",
         model: "",
         category: "",

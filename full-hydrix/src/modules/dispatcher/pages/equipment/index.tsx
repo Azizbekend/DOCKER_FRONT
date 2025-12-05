@@ -16,6 +16,16 @@ import { ModalServiceCreate } from "./components/modal-service-create";
 
 const columns: TableColumn<HardwareInterface>[] = [
     {
+        header: "id",
+        key: 'id',
+        width: '0.2fr',
+        cell: ({ id }) => {
+            return (
+                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">[{id}]</span>
+            )
+        },
+    },
+    {
         header: "Наименование",
         key: 'companyName',
         cell: ({ name }) => {
@@ -158,7 +168,6 @@ export const EquipmentRegistry = observer(() => {
 
     return (
         <>
-
             <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
 
             <div className="table__top flex items-center gap-5 mb-5">

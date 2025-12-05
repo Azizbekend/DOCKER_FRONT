@@ -1,6 +1,6 @@
-import { Characteristics, Control, Hardware, Service } from "@/app/api/api-router"
+import { Characteristics, Control, Hardware, Schema, Service } from "@/app/api/api-router"
 import instance, { reserchInstance } from "@/app/api/instances"
-import { CharacteristicsCreateManyInterface, CreateHardwareInterface } from "./type"
+import { CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCreateType } from "./type"
 import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-create/components/control/type"
 
 
@@ -65,4 +65,13 @@ export const createOndeCommand = (params: ControlTypeCreate) => {
 
 export const getCommandAll = (params: { id: number }) => {
     return reserchInstance.get(Control.all, { params })
+}
+
+
+
+
+
+// Схема
+export const schemaCreate = (params: SchemaCreateType) => {
+    return reserchInstance.post(Schema.CoordinatesCreate, params)
 }

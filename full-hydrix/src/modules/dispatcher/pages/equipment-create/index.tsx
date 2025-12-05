@@ -8,16 +8,15 @@ import { Button } from "@/shared/ui/button"
 import { useState } from "react"
 import { Review } from "./components/tabs/review"
 import { Control } from "./components/tabs/control"
-import { Service } from "./components/tabs/service"
+import { Scheme } from "./components/tabs/scheme"
 
 
 
 export const EquipmentCreate = observer(() => {
 
     const navigate = useNavigate();
-    const { model, imgPreview, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create } = equipmentCreateModel
-
-    const [tab, setTab] = useState<"review" | "control" | "service">("review")
+    const { model, imgPreview, setId, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create } = equipmentCreateModel
+    const [tab, setTab] = useState<"review" | "control" | "scheme">("scheme")
 
     return (
         <div className="bg-white rounded-[20px] p-[45px_30px_50px_40px] mb-5 relative">
@@ -138,9 +137,27 @@ export const EquipmentCreate = observer(() => {
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-4 mt-5 justify-end">
-                    <Button class="rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={create}>Сохранить</Button>
-                    <Button class="rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/equipment")}>Отменить</Button>
+                <div className="flex gap-4 mt-5 justify-between items-end">
+                    <InputContainer
+                        headerText="ID"
+                        classNames={{
+                            wrapper: "w-[250px]"
+                        }}
+                        children={
+                            <Input
+                                className="border-[1.5px] px-3 py-3 rounded-lg"
+                                type="text"
+                                placeholder="ID"
+                                value={model.id}
+                                onChange={setId}
+                            />
+                        }
+                    />
+
+                    <div className="flex gap-4">
+                        <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={create}>Сохранить</Button>
+                        <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/equipment")}>Отменить</Button>
+                    </div>
                 </div>
 
                 {model.id != null && <>
@@ -152,15 +169,15 @@ export const EquipmentCreate = observer(() => {
                         <div onClick={() => setTab("control")} className={`cursor-pointer !rounded-none w-[50%] rounded pb-2 border-b text-center ${tab == "control" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
                             Управления
                         </div>
-                        {/* <div onClick={() => setTab("service")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "service" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
-                            Сервис
-                        </div> */}
+                        <div onClick={() => setTab("scheme")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "scheme" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
+                            Схеама
+                        </div>
                     </div>
 
                     <div className="mt-10">
                         {tab == "review" && <Review />}
                         {tab == "control" && <Control />}
-                        {/* {tab == "service" && <Service />} */}
+                        {tab == "scheme" && <Scheme />}
                     </div>
                 </>}
             </div>

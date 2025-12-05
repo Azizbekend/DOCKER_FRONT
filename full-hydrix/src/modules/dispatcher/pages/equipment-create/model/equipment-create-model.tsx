@@ -2,7 +2,7 @@ import { CharacteristicsCreateInterface, EquipmentCreateInterface } from "@/enti
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createHardware, createManyCommand, createManyInfo, createOndeInfo, getAllHardware, manyCharacteristic } from "@/entities/hardware/api";
+import { createHardware, createManyCommand, createManyInfo, createOndeInfo, getAllHardware, manyCharacteristic, schemaCreate } from "@/entities/hardware/api";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, ServiceTypeCreate } from "../components/control/type";
 import { isValid } from "date-fns";
@@ -22,8 +22,45 @@ class EquipmentCreateModel {
         position: "",
     }
 
+
+    top: string = ""
+    left: string = ""
+    hieght: string = ""
+    width: string = ""
+    preview: string = ""
+    saveIMageScheme: File | null = null
+
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
+    }
+
+    setTop(value: string) {
+        this.top = value
+    }
+
+    setLeft(value: string) {
+        this.left = value
+    }
+
+    setHieght(value: string) {
+        this.hieght = value
+    }
+
+    setWidth(value: string) {
+        this.width = value
+    }
+
+    setSaveIMage(e: ChangeEvent<HTMLInputElement>) {
+        this.saveIMageScheme = e.target.files && e.target?.files[0]
+        if (this.saveIMageScheme) this.preview = URL.createObjectURL(this.saveIMageScheme);
+    }
+
+    setId(value: number | string) {
+        if (value == "") {
+            this.model.id = undefined;
+        } else {
+            this.model.id = Number(value);
+        }
     }
 
     setName(value: string) {
@@ -70,23 +107,23 @@ class EquipmentCreateModel {
         formData.append("File", this.saveIMage);
 
         // const response = await fetch("http://hydrig.gsurso.ru/image/upload", {
-        // const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
-        //     method: "POST",
-        //     body: formData
-        // });
+        const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
+            method: "POST",
+            body: formData
+        });
 
-        // const result = await response.json();
+        const result = await response.json();
 
-        // console.log(result)
-        // this.model.img = result.url;
-        this.model.img = "result.url";
+        console.log(result.id)
+        this.model.img = result.id;
 
         await createHardware({
             name: this.model.name,
             category: this.model.category,
             developerName: this.model.manufacturer,
             supplierName: this.model.supplier,
-            photoName: this.model.img,
+            photoName: "ni",
+            fileId: this.model.img,
             position: this.model.position,
             opcDescription: this.model.model,
             model: this.model.model,
@@ -171,6 +208,43 @@ class EquipmentCreateModel {
             }).then((resa) => {
                 console.log(resa.data)
                 toast.success("Управления добавлены команды", { progressStyle: { background: "green" } })
+            })
+        }
+    }
+
+    async createScheme(data: {
+        top: number,
+        left: number,
+        hieght: number,
+        width: number,
+        saveIMage: File,
+    }) {
+        const formData = new FormData();
+        formData.append("File", data.saveIMage);
+
+        const response = await fetch("https://triapi.ru/research/api/schema/coordinates/create", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        console.log(result.id)
+        const schemaImageId = result.id;
+
+        if (this.model.id) {
+            await schemaCreate({
+                top: data.top,
+                left: data.left,
+                hieght: data.hieght,
+                width: data.width,
+                hardwareSchemaId: 0,
+                fileId: schemaImageId,
+                hardwareId: this.model?.id
+            }).then((res) => {
+                if (res.data) {
+                    toast.success("Схема создана", { progressStyle: { background: "green" } })
+                }
             })
         }
     }
