@@ -2,7 +2,7 @@ import { CharacteristicsCreateInterface, EquipmentCreateInterface } from "@/enti
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createHardware, createManyCommand, createManyInfo, createOndeInfo, getAllHardware, manyCharacteristic, schemaCreate } from "@/entities/hardware/api";
+import { createHardware, createManyCommand, createManyInfo, createOndeInfo, getAllHardware, manyCharacteristic, schemaCoordinatesCreate, schemaCreate } from "@/entities/hardware/api";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, ServiceTypeCreate } from "../components/control/type";
 import { isValid } from "date-fns";
@@ -20,6 +20,7 @@ class EquipmentCreateModel {
         supplier: "",
         manufacturer: "",
         position: "",
+
     }
 
 
@@ -28,6 +29,7 @@ class EquipmentCreateModel {
     hieght: string = ""
     width: string = ""
     preview: string = ""
+    hardwareSchemaId: number = 0
     saveIMageScheme: File | null = null
 
     constructor() {
@@ -40,6 +42,10 @@ class EquipmentCreateModel {
 
     setLeft(value: string) {
         this.left = value
+    }
+
+    setHardwareSchemaId(value: number) {
+        this.hardwareSchemaId = value
     }
 
     setHieght(value: string) {
@@ -88,6 +94,13 @@ class EquipmentCreateModel {
         this.model.position = value;
     }
 
+    setOpcName(value: string) {
+        this.model.opcName = value;
+    }
+    setIdBlockController(value: number) {
+        this.model.idBlockController = value;
+    }
+
     clear() {
         this.model = {
             name: "",
@@ -125,9 +138,10 @@ class EquipmentCreateModel {
             photoName: "ni",
             fileId: this.model.img,
             position: this.model.position,
-            opcDescription: this.model.model,
+            opcDescription: this.model.opcName,
             model: this.model.model,
-            controlBlockId: 1
+            controlBlockId: this.model.idBlockController,
+
         }).then((res) => {
             this.model.id = res.data
             toast.success("Оборудование создано", { progressStyle: { background: "green" } })
@@ -222,7 +236,7 @@ class EquipmentCreateModel {
         const formData = new FormData();
         formData.append("File", data.saveIMage);
 
-        const response = await fetch("https://triapi.ru/research/api/schema/coordinates/create", {
+        const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
             method: "POST",
             body: formData
         });
@@ -233,12 +247,12 @@ class EquipmentCreateModel {
         const schemaImageId = result.id;
 
         if (this.model.id) {
-            await schemaCreate({
-                top: data.top,
-                left: data.left,
-                hieght: data.hieght,
-                width: data.width,
-                hardwareSchemaId: 0,
+            await schemaCoordinatesCreate({
+                top: data.top.toString(),
+                left: data.left.toString(),
+                height: data.hieght.toString(),
+                width: data.width.toString(),
+                hardwareSchemaId: this.hardwareSchemaId,
                 fileId: schemaImageId,
                 hardwareId: this.model?.id
             }).then((res) => {

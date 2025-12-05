@@ -29,7 +29,7 @@ class HardwareListModel {
 
     async init() {
         await getAllHardware().then((res) => {
-            console.log(res.data)
+            console.log(res.data.reverse())
             this.model = res.data.reverse()
         })
     }

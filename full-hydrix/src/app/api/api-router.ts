@@ -176,6 +176,7 @@ export const ClientCompanyRoutes = {
 
 export const ControlBlock = {
   all: "/ControlBlock/all",
+  create: "/ControlBlock/create",
 }
 export const Hardware = {
   all: "/Hardware/all",
@@ -186,7 +187,10 @@ export const Hardware = {
 }
 
 export const Schema = {
-  CoordinatesCreate: "/schema/coordinates/create",
+  create: "/schemas/schema/create",
+  all: "/schemas/schemas",
+  CoordinatesCreate: "/schemas/schema/coordinates/create",
+  getCoordinates: "/schemas/schemas/coordinates",
 }
 
 
@@ -211,4 +215,9 @@ export const Service = {
   create: "/MaintenanseSheduler/create",
   next_week: "/MaintenanseSheduler/next_week",
   completeRequest: "/MaintenanseSheduler/completeRequest",
+}
+
+
+export const PassportObject = {
+  create: "/Passport/create",
 }

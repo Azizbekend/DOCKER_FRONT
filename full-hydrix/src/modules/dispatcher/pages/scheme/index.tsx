@@ -8,7 +8,7 @@ import SchemeViewer from "./tabs/scheme/ViewScheme.js";
 import { InformationsComponents, points } from "./data/data.js";
 import { HardWareStatus, InformationsComponentsType } from "./types/type.js";
 import { TableScheme } from "./tabs/table/index.js";
-import HardwareCard from "../../components/info-hardware/index.js";
+import { HardwareCard } from "../../components/info-hardware/index.js";
 
 
 

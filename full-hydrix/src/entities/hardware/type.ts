@@ -7,6 +7,8 @@ export interface EquipmentCreateInterface {
     supplier: string,
     manufacturer: string,
     position: string,
+    opcName?: string,
+    idBlockController?: number,
 }
 
 export interface CreateHardwareInterface {
@@ -17,9 +19,9 @@ export interface CreateHardwareInterface {
     photoName: string,
     fileId: string,
     position: string,
-    opcDescription: string,
+    opcDescription?: string,
     model: string,
-    controlBlockId: number,
+    controlBlockId?: number,
 }
 
 export interface CharacteristicsCreateManyInterface {
@@ -43,9 +45,11 @@ export interface HardwareInterface {
     photoName: string,
     position: string,
     supplierName: string,
-    isActive?: boolean,
     activatedAt?: string,
-    controlBlock: ControlBlockInterface
+    model: string,
+    createdAt?: string,
+    fileId?: number,
+    fileModel?: string,
 }
 
 
@@ -71,11 +75,42 @@ export interface ModelHardwareOneInterface {
 }
 
 export interface SchemaCreateType {
-    top: number,
-    left: number,
-    hieght: number,
-    width: number,
+    name: string,
+    schemaImage: string,
+    staticObjectInfoId: number
+    fileId: number,
+}
+
+export interface SchemaObjectType {
+    id: number,
+    top: string,
+    left: string,
+    height: string,
+    width: string,
+    hardwareSchemaId: number,
+    hardwareSchema: any,
+    fileId: number,
+    file: any,
+    hardwareId: number
+}
+
+export interface SchemaCoordinatesCreateType {
+    top: string,
+    left: string,
+    height: string,
+    width: string,
     hardwareSchemaId: number,
     fileId: number,
     hardwareId: number,
 }
+
+
+// dto: {
+//     left: leftValue.toString(),      // ← .toString()
+//     top: topValue.toString(),        // ← .toString()
+//     right: rightValue.toString(),    // ← .toString()
+//     bottom: bottomValue.toString(),  // ← .toString()
+//     // другие поля, все как строки
+// }
+
+

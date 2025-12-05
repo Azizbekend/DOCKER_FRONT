@@ -6,10 +6,11 @@ import { InfoCompType } from "../../pages/scheme/types/type";
 import accident from "@/app/static/img/accident.svg"
 import { HardwareServes } from "./tabs/hardware-serves";
 import { hardwareModel } from "@/entities/hardware/model";
+import { observer } from "mobx-react-lite";
 
 
 
-export default function HardwareCard({ className, id, onClick }: InfoCompType) {
+export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
     const [mode, setMode] = useState<number>(0);
 
     const { init, model, initCharacteristic, isLoading, initControl, initService } = hardwareModel
@@ -20,7 +21,6 @@ export default function HardwareCard({ className, id, onClick }: InfoCompType) {
         initControl(id)
         initService(1)
     }, [])
-
 
 
     return (
@@ -38,7 +38,7 @@ export default function HardwareCard({ className, id, onClick }: InfoCompType) {
                     </div>
 
                     <div className="info-comp__image">
-                        <img src={'/hardware/' + model.photoName} alt="Info" />
+                        <img src={'https://triapi.ru/research/api/FileStorage/download?id=' + model.fileId} alt="Info" />
                     </div>
 
                     <div className="flex items-center gap-2 ml-5 mb-5">
@@ -93,4 +93,4 @@ export default function HardwareCard({ className, id, onClick }: InfoCompType) {
 
         </>
     )
-}
+})

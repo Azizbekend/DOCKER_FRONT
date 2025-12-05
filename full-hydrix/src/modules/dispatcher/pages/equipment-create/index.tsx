@@ -6,16 +6,20 @@ import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
 import { Button } from "@/shared/ui/button"
 import { useState } from "react"
-import { Review } from "./components/tabs/review"
-import { Control } from "./components/tabs/control"
-import { Scheme } from "./components/tabs/scheme"
+import { Review } from "./tabs/review"
+import { Control } from "./tabs/control"
+import { Scheme } from "./tabs/scheme"
+import { reserchInstance } from "@/app/api/instances"
+import { controlBlockCreate, passportObject } from "@/entities/hardware/api"
+import { Selector } from "@/shared/ui/Selector/selector"
 
 
 
 export const EquipmentCreate = observer(() => {
 
     const navigate = useNavigate();
-    const { model, imgPreview, setId, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create } = equipmentCreateModel
+    const { model, imgPreview, setId, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController,
+    } = equipmentCreateModel
     const [tab, setTab] = useState<"review" | "control" | "scheme">("scheme")
 
     return (
@@ -134,6 +138,45 @@ export const EquipmentCreate = observer(() => {
                                     />
                                 }
                             />
+                            <InputContainer
+                                headerText="Намименование OPC"
+                                classNames={{
+                                    wrapper: "w-[calc(50%_-_20px)]"
+                                }}
+                                children={
+                                    <Input
+                                        className="border-[1.5px] px-3 py-3 rounded-lg"
+                                        type="text"
+                                        placeholder="Расположение"
+                                        value={model.opcName}
+                                        onChange={setOpcName}
+                                    />
+                                }
+                            />
+                            <InputContainer
+                                headerText="Выбрать ПЛК (Шкаф)"
+                                classNames={{
+                                    wrapper: "w-[calc(50%_-_20px)]"
+                                }}
+                                children={
+                                    <Selector
+                                        titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
+                                        classWripper="!w-full"
+                                        title="ПЛК"
+                                        onSelect={(item) => setIdBlockController(Number(item.value))}
+                                        items={[
+                                            {
+                                                value: 5,
+                                                title: "Наш ПЛК"
+                                            },
+                                            {
+                                                value: 6,
+                                                title: "Наш Технологики"
+                                            },
+                                        ]}
+                                    />
+                                }
+                            />
                         </div>
                     </div>
                 </div>
@@ -170,11 +213,11 @@ export const EquipmentCreate = observer(() => {
                             Управления
                         </div>
                         <div onClick={() => setTab("scheme")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "scheme" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
-                            Схеама
+                            Схема
                         </div>
                     </div>
 
-                    <div className="mt-10">
+                    <div className="mt-10 pb-[100px] min-h-[50vh]">
                         {tab == "review" && <Review />}
                         {tab == "control" && <Control />}
                         {tab == "scheme" && <Scheme />}

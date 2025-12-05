@@ -1,3 +1,5 @@
+import { SchemaObjectType } from "@/entities/hardware/type"
+
 export type InformationsComponentsType = {
     title: string,
     img: string,
@@ -13,7 +15,7 @@ export type InformationsType = {
 
 export type SchemeViewerType = {
     setInfo: (id: number) => void,
-    points: SchemeViewerPointType[]
+    points: SchemaObjectType[]
 }
 
 export type SchemeViewerPointType = {

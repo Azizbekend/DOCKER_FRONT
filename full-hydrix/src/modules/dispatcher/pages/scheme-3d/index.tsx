@@ -1,19 +1,27 @@
 import "./index.scss";
 // import leftScheme from '@assets/imgs/scheme-left.jpg'
 // import rightScheme from '@assets/imgs/scheme-right.jpg'
-import { useState } from 'react';
-import SchemeViewer from "./tabs/scheme/ViewScheme.js";
+import { useEffect, useState } from 'react';
+import { SchemeViewer } from "./tabs/scheme/ViewScheme.js";
 
 // data
 import { InformationsComponents, points } from "./data/data.js";
 import { HardWareStatus, InformationsComponentsType } from "./types/type.js";
 import { TableScheme } from "./tabs/table/index.js";
-import HardwareCard from "../../components/info-hardware/index.js";
+import { HardwareCard } from "../../components/info-hardware/index.js";
+import { schemeModel } from "./model/scheme-model.js";
+import { observer } from "mobx-react-lite";
 
 
 
 
-export const Scheme = () => {
+export const Scheme = observer(() => {
+
+    const { init, list } = schemeModel
+
+    useEffect(() => {
+        init(4)
+    }, [])
 
     const [fade, setFade] = useState(false);
     const [focusHardware, setFocusHardware] = useState<number>(0);
@@ -73,11 +81,11 @@ export const Scheme = () => {
 
                 <div className="grid grid-cols-[1fr_auto] gap-[20px] h-full pb-[80px]">
 
-                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={points} />}
+                    {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={list} />}
 
                     {focusHardware != 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
                 </div>
             </div >
         </>
     )
-}
+})

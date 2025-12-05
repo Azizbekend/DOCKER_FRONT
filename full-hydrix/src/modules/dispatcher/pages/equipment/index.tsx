@@ -44,11 +44,11 @@ const columns: TableColumn<HardwareInterface>[] = [
         },
     },
     {
-        header: "Марка",
+        header: "Модель",
         key: 'companyName',
-        cell: ({ opcDescription }) => {
+        cell: ({ model }) => {
             return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{opcDescription}</span>
+                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{model}</span>
             )
         },
     },

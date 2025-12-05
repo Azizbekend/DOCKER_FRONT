@@ -11,9 +11,10 @@ import autoControl from './icons/auto-control.svg';
 import block from './icons/block.svg';
 import manualControl from './icons/manual-control.svg';
 import { hardwareModel } from "@/entities/hardware/model";
+import { observer } from "mobx-react-lite";
 
 
-export default function SchemeViewer({ setInfo, points }: SchemeViewerType) {
+export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => {
 
 
     // Счётчики
@@ -199,7 +200,7 @@ export default function SchemeViewer({ setInfo, points }: SchemeViewerType) {
 
                 {points.map((p, i) => (
                     <div
-                        onClick={() => setInfo(12)}
+                        onClick={() => setInfo(p.hardwareId)}
                         key={i}
                         className="absolute cursor-pointer z-10"
                         style={{
@@ -212,13 +213,13 @@ export default function SchemeViewer({ setInfo, points }: SchemeViewerType) {
 
                             top: p.top,
                             left: p.left,
-                            width: p.size[1],
-                            height: p.size[0],
+                            width: p.width,
+                            height: p.height,
                         }}
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
-                                <img className="not-hover-img h-full w-full object-cover" src={getPhoto(p?.image)} />
+                                <img className="not-hover-img h-full w-full object-cover" src={`https://triapi.ru/research/api/FileStorage/download?id=${p.fileId}`} />
                             </div>
                         </div>
                     </div>
@@ -236,33 +237,34 @@ export default function SchemeViewer({ setInfo, points }: SchemeViewerType) {
                 />
 
 
-<div
-  className="relative"
-  style={{ top: "42%", left: "16%", position: "absolute" }}
->
-  <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
-    <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
-    <div className="flex items-baseline gap-1">
-      <span className="text-emerald-400 font-semibold text-base">20.2</span>
-      <span className="text-gray-400">бар</span>
-    </div>
-  </div>
-</div>
+                <div
+                    className="relative"
+                    style={{ top: "42%", left: "16%", position: "absolute" }}
+                >
+                    <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                        <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-emerald-400 font-semibold text-base">20.2</span>
+                            <span className="text-gray-400">бар</span>
+                        </div>
+                    </div>
+                </div>
 
-<div
-  className="relative"
-  style={{ top: "20%", left: "20%", position: "absolute" }}
->
-  <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
-    <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
-    <div className="flex items-baseline gap-1">
-      <span className="text-emerald-400 font-semibold text-base">20.2</span>
-      <span className="text-gray-400">бар</span>
-    </div>
-  </div>
-</div>
+                <div
+                    className="relative"
+                    style={{ top: "20%", left: "20%", position: "absolute" }}
+                >
+                    <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                        <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-emerald-400 font-semibold text-base">20.2</span>
+                            <span className="text-gray-400">бар</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div >
     );
 }
+)

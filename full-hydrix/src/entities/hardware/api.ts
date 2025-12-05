@@ -1,6 +1,6 @@
-import { Characteristics, Control, Hardware, Schema, Service } from "@/app/api/api-router"
+import { Characteristics, Control, ControlBlock, Hardware, PassportObject, Schema, Service } from "@/app/api/api-router"
 import instance, { reserchInstance } from "@/app/api/instances"
-import { CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCreateType } from "./type"
+import { CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
 import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-create/components/control/type"
 
 
@@ -72,6 +72,28 @@ export const getCommandAll = (params: { id: number }) => {
 
 
 // Схема
+
 export const schemaCreate = (params: SchemaCreateType) => {
+    return reserchInstance.post(Schema.create, params)
+}
+
+export const schemaAll = () => {
+    return reserchInstance.post(Schema.all)
+}
+
+export const getSchemaObjects = (params: { id: number }) => {
+    return reserchInstance.get(Schema.getCoordinates, { params })
+}
+
+export const schemaCoordinatesCreate = (params: SchemaCoordinatesCreateType) => {
     return reserchInstance.post(Schema.CoordinatesCreate, params)
+}
+
+
+export const passportObject = (params: { adress: string, operatingOrganization: string, customerName: string, generalContractorName: string, projectEfficiency: string, photoName: string, }) => {
+    return reserchInstance.post(PassportObject.create, params)
+}
+
+export const controlBlockCreate = (params: { name: string, plcIpAdress: string, staticObjectInfoId: number, }) => {
+    return reserchInstance.post(ControlBlock.create, params)
 }
