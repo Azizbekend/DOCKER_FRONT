@@ -1,4 +1,4 @@
-import { getSchemaObjects } from "@/entities/hardware/api";
+import { getSchemaObjects, schemaAll } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
 

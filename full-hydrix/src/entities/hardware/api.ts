@@ -78,7 +78,7 @@ export const schemaCreate = (params: SchemaCreateType) => {
 }
 
 export const schemaAll = () => {
-    return reserchInstance.post(Schema.all)
+    return reserchInstance.get(Schema.all)
 }
 
 export const getSchemaObjects = (params: { id: number }) => {

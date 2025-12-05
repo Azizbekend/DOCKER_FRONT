@@ -214,10 +214,10 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
                             // backgroundColor: "#ff4d4f",
                             // border: "2px solid white",
 
-                            top: p.top,
-                            left: p.left,
-                            width: p.width,
-                            height: p.height,
+                            top: p.top + "%",
+                            left: p.left + "%",
+                            width: p.width + "px",
+                            height: p.height + "px",
                         }}
                     >
                         <div className="relative w-full h-full">
