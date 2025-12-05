@@ -20,7 +20,7 @@ export const Scheme = observer(() => {
     const { init, list, focusHardware, setFocusHardware, focusSchemeObject } = schemeModel
 
     useEffect(() => {
-        init(4)
+        init(6)
     }, [])
 
     const [fade, setFade] = useState(false);
