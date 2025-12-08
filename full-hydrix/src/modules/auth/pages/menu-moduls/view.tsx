@@ -5,31 +5,49 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 export const MenuModulsView = observer(() => {
-
     const { init, itemsInformations } = authModulsModel;
+
     useEffect(() => {
         init(cartLinks);
-    }, [])
-
-
+    }, []);
 
     return (
-        <div className="rounded-[10px] w-[664px] bg-white shadow-[0px_0px_8px_rgba(0,_0,_0,_0.25)] shadow-black-200 py-[52px] px-[32px]">
-            <div className="text-3xl uppercase font-regular mb-[12px]">Приветствуем в <br /></div>
-            <div className="text-3xl uppercase font-extrabold mb-[32px]">ИАС «ЦИФРОВОЙ ВОДОКАНАЛ»</div>
-            <div className="flex gap-y-[20px] gap-x-[30px] flex-wrap">
-                {itemsInformations.map((item) => {
-                    return (
-                        <Link to={item.link} className="rounded-md text-white text-[25px] font-bold flex items-center justify-center min-h-[98px] text-center tracking-[-0.5s] w-[calc(50%-30px)] duration-[0.3s] hover:opacity-[0.5]"
-                            style={{
-                                backgroundColor: item.userIds.length ? "var(--clr-accent)" : "var(--clr-gray-dark)",
-                            }}>
-                            <span>{item.name}</span>
-                        </Link>
-                    )
-                })}
-
+        <div
+            className="rounded-2xl w-full max-w-[664px] bg-white shadow-xl border border-gray-100 py-12 px-8"
+            style={{ fontFamily: "'Open Sans', sans-serif" }}
+        >
+            <div className="text-center mb-8">
+                <div className="text-2xl md:text-3xl uppercase font-normal text-gray-700 mb-2">
+                    Приветствуем в
+                </div>
+                <div className="text-3xl md:text-3xl uppercase font-bold text-[#4A85F6]">
+                    ИАС «ЦИФРОВОЙ ВОДОКАНАЛ»
+                </div>
             </div>
-        </div>
-    )
-})
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {itemsInformations.map((item, index) => {
+                    const hasAccess = item.userIds.length > 0;
+                    return hasAccess ?
+                        <Link
+                            key={index}
+                            to={item.link}
+                            className={`rounded-xl text-white text-lg md:text-xl font-bold flex items-center justify-center min-h-[100px] text-center px-4 py-6 shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl bg-[#4A85F6] hover:from-[#3a6bc9] hover:to-[#2a52a0]`}
+                        >
+                            <span className="tracking-wide">{item.name}</span>
+                        </Link>
+
+                        :
+
+                        <div
+                            key={index}
+                            className={`rounded-xl text-white text-lg md:text-xl font-bold flex items-center justify-center min-h-[100px] text-center px-4 py-6 shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl bg-gray-500 opacity-70`}
+                        >
+                            <span className="tracking-wide">{item.name}</span>
+                        </div>
+
+                })}
+            </div>
+        </div >
+    );
+});

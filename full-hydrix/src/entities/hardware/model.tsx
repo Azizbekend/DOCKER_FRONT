@@ -31,46 +31,58 @@ class HardwareModel {
     }
 
 
-    async init(id: number) {
+    async init(id: number, serviceTody: boolean = false) {
 
         this.isLoading = true
+
+        try {
+            const [info, commands, characteristics, services] = await Promise.all([
+                getInfoHardware({ id }),
+                getCommandAll({ id }),
+                getCharacteristicAll({ id }),
+                getServiceApi({ id: id })
+            ]);
+
+            this.model = info.data;
+            this.commands = commands.data;
+            this.сharacteristic = characteristics.data;
+
+            if (serviceTody) {
+                const today = new Date();
+                const todayStr = today.toISOString().split('T')[0];
+
+                this.services = services.data.filter(item => {
+                    const date = item.nextMaintenanceDate?.split('T')[0];
+                    return date === todayStr;
+                });
+            } else {
+                this.services = services.data;
+            }
+
+            console.log(services.data)
+
+        } catch (error) {
+            console.error('Ошибка при загрузке данных', error);
+        } finally {
+            this.isLoading = false;
+        }
+
 
         await getInfoHardware({ id: id })
             .then((res) => {
                 console.log(res.data)
                 this.model = res.data
             })
+
             .finally(() => {
                 this.isLoading = false
             })
 
     }
 
-    async initCharacteristic(id: number) {
-        await getCharacteristicAll({ id: id }).then((res) => {
-            this.сharacteristic = res.data
-            console.log(res.data)
-        })
-    }
-
-    async initControl(id: number) {
-        await getCommandAll({ id: id }).then((res) => {
-            this.commands = res.data
-            console.log(res.data)
-        })
-    }
-
-    async initService(id: number) {
-        await getServiceApi({ id: id }).then((res) => {
-            this.services = res.data
-            console.log(res.data)
-        })
-    }
-
     async checkedService(id: number) {
         await checkedServiceApi({ id: id })
     }
-
 }
 
 export const hardwareModel = new HardwareModel()

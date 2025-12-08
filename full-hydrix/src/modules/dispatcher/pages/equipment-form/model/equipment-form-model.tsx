@@ -22,7 +22,6 @@ class EquipmentCreateModel {
         supplierName: "",
         developerName: "",
         position: "",
-
     }
 
     schemaModel: SchemaModelInterface = {
@@ -112,6 +111,7 @@ class EquipmentCreateModel {
 
     clear() {
         this.model = {
+            id: undefined,
             name: "",
             fileId: "",
             category: "",
@@ -119,6 +119,8 @@ class EquipmentCreateModel {
             supplierName: "",
             developerName: "",
             position: "",
+            opcDescription: "",
+            controlBlockId: 5,
         };
         this.saveIMage = null;
         this.imgPreview = "";
@@ -136,7 +138,6 @@ class EquipmentCreateModel {
             this.model = info.data;
             this.listController = commands.data;
             this.listCharacters = characteristics.data;
-
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
@@ -340,12 +341,10 @@ class EquipmentCreateModel {
                 category: this.model.category,
                 developerName: this.model.developerName,
                 supplierName: this.model.supplierName,
-                photoName: "ni",
                 fileId: this.model.fileId,
                 position: this.model.position,
                 opcDescription: this.model.opcDescription,
                 model: this.model.model,
-                controlBlockId: this.model.controlBlockId,
             }).then((res) => {
                 toast.success("Оборудование обновлено", { progressStyle: { background: "green" } })
             })

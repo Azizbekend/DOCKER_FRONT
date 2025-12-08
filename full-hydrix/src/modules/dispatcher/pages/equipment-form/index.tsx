@@ -23,7 +23,7 @@ export const EquipmentCreate = observer(() => {
 
     useEffect(() => {
         clear();
-        if (id != null) {
+        if (id != null || id != undefined) {
             init(Number(id));
         }
     }, [])
@@ -36,6 +36,7 @@ export const EquipmentCreate = observer(() => {
     }
 
     const handleSubmit = () => {
+        console.log('asd')
         if (id) {
             updateInfo();
         } else {
@@ -214,7 +215,7 @@ export const EquipmentCreate = observer(() => {
                         </div>
 
                         <div className="flex gap-4">
-                            <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
+                            <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>{id ? "Обновить" : "Сохранить"}</Button>
                             <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/equipment")}>Отменить</Button>
                         </div>
                     </div>

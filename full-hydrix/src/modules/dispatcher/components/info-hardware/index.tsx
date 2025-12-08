@@ -14,13 +14,10 @@ import Loader from "@/shared/ui/loader/loader";
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
     const [mode, setMode] = useState<number>(0);
 
-    const { init, model, initCharacteristic, isLoading, initControl, initService } = hardwareModel
+    const { init, model, isLoading } = hardwareModel
 
     useEffect(() => {
-        init(id)
-        initCharacteristic(id)
-        initControl(id)
-        initService(1)
+        init(id, true)
     }, [])
 
 
@@ -62,10 +59,13 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                     </>
                 }
 
-                <div className="border-2 border-[#D31313] bg-[#FF4F4F20] rounded-[8px] mb-5 flex items-center justify-center gap-[22px] py-[16px] pl-[16px] pr-[34px]">
-                    <img src={accident} alt="" width={32} height={29} />
-                    <div className="text-regular text-[#D31313]">Сработал автомат защиты двигателя!</div>
-                </div>
+                {model.id == 28 &&
+                    <div className="border-2 border-[#D31313] bg-[#FF4F4F20] rounded-[8px] mb-5 flex items-center justify-center gap-[22px] py-[16px] pl-[16px] pr-[34px]">
+                        <img src={accident} alt="" width={32} height={29} />
+                        <div className="text-regular text-[#D31313]">Сработал автомат защиты двигателя!</div>
+                    </div>
+                }
+
 
                 <div className="flex gap-4 mb-5 bg-[#E6E9EF] py-2 px-3 rounded-lg">
                     <div onClick={() => setMode(0)} className={`w-full text-center rounded-lg cursor-pointer py-2 ${mode === 0 && "bg-[var(--clr-accent)] text-white"}`}>Обзор</div>

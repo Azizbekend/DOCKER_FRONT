@@ -110,7 +110,7 @@ export const Scheme = observer(() => {
                                     onSelect={(item) => setHardwareSchemaId(Number(item.value))}
                                     items={[
                                         {
-                                            value: 4,
+                                            value: 6,
                                             title: "Технологическое оборудование"
                                         },
                                     ]}

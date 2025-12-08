@@ -7,19 +7,19 @@ export const cartLinks: MenuItemType[] = [
         link: "/domain/list",
         userIds: [Role.Client, Role.Ministry]
     },
+    // {
+    //     name: "Trieco",
+    //     link: "/trieco",
+    //     userIds: [Role.Client, Role.Ministry]
+    // },
+    // {
+    //     name: "Gis",
+    //     link: "/gis/companies",
+    //     userIds: [Role.Client, Role.Ministry]
+    // },
     {
-        name: "Trieco",
-        link: "/trieco",
-        userIds: [Role.Client, Role.Ministry]
-    },
-    {
-        name: "Gis",
+        name: "Управление ЖБО",
         link: "/gis/companies",
-        userIds: [Role.Client, Role.Ministry]
-    },
-    {
-        name: "управление ЖБО",
-        link: "",
         userIds: [Role.Client, Role.Ministry]
     },
     {

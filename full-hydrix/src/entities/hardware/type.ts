@@ -24,7 +24,7 @@ export interface CreateHardwareInterface {
     category: string,
     developerName: string,
     supplierName: string,
-    photoName: string,
+    photoName?: string,
     fileId: string,
     position: string,
     opcDescription?: string,
@@ -103,6 +103,7 @@ export interface SchemaObjectType {
 }
 
 export interface SchemaCoordinatesCreateType {
+    id?: number,
     top: string,
     left: string,
     height: string,

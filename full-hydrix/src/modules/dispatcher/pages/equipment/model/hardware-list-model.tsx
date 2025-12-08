@@ -29,8 +29,7 @@ class HardwareListModel {
 
     async init() {
         await getAllHardware().then((res) => {
-            console.log(res.data.reverse())
-            this.model = res.data.reverse()
+            this.model = res.data
         })
     }
 
@@ -50,10 +49,7 @@ class HardwareListModel {
         }
     }
 
-
-
     async createService({ description, date }: { description: string, date: number }) {
-
         if (this.inService == null) return
         await createServiceApi({
             HardwareId: this.inService,

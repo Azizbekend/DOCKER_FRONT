@@ -3,7 +3,7 @@ import { InputContainer } from '@/shared/ui/Inputs/input-container';
 import { Modal } from '@/shared/ui/modal/modal';
 import { Selector } from '@/shared/ui/Selector/selector';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { hardwareListModel } from '../model/hardware-list-model';
 
 type Props = {
@@ -39,12 +39,17 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
 
     const [description, setDescription] = useState<string>('');
     const [date, setDate] = useState<string>('');
+    const [typeDate, setTypeDate] = useState<string | number>('');
     const [myTime, setMyTime] = useState<number>(0);
 
 
     const handleSelect = (item: { value: string | number; title: string; }) => {
-        setMyTime(Number(date) * Number(item.value))
+        setTypeDate(item.value)
     }
+
+    useEffect(() => {
+        setMyTime(Number(date) * Number(typeDate))
+    }, [date, typeDate])
 
     const handleSubmit = () => {
         createService({

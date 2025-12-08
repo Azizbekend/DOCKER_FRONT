@@ -45,47 +45,50 @@ export const HardwareServes = observer(() => {
                         )
                     })
                 } />
-            <BlockSelect
-                title="Периодическое (плановое) обслуживание"
-                className='flex flex-col gap-2'
-                children={
-                    everyPlanerServerDate.map((item, key) => {
-                        return (
-                            <InfoObject key={key}
-                                className='w-full'
-                                info={item.info}
-                                children={
-                                    <div className='flex items-end ap-2 justify-between'>
-                                        <div className='flex flex-col'>
-                                            <span className='mt-1 text-[12px]'>{item.date}</span>
-                                            <span>{item.title}</span>
+
+            {false && <>
+                <BlockSelect
+                    title="Периодическое (плановое) обслуживание"
+                    className='flex flex-col gap-2'
+                    children={
+                        everyPlanerServerDate.map((item, key) => {
+                            return (
+                                <InfoObject key={key}
+                                    className='w-full'
+                                    info={item.info}
+                                    children={
+                                        <div className='flex items-end ap-2 justify-between'>
+                                            <div className='flex flex-col'>
+                                                <span className='mt-1 text-[12px]'>{item.date}</span>
+                                                <span>{item.title}</span>
+                                            </div>
+                                            <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
+                                                <Icon systemName='plus-circle-white' />
+                                            </Link>
                                         </div>
-                                        <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
-                                            <Icon systemName='plus-circle-white' />
-                                        </Link>
+                                    }
+                                />
+                            )
+                        })
+                    } />
+                <BlockSelect title="Капитальное обслуживание" children={
+                    everyKapitalServerDate.map((item, key) => {
+                        return (
+                            <>
+                                <div className='flex items-end ap-2 justify-between'>
+                                    <div className='flex flex-col'>
+                                        <span className='mt-1 text-[12px]'>{item.date}</span>
+                                        <span>{item.title}</span>
                                     </div>
-                                }
-                            />
+                                    <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
+                                        <Icon systemName='plus-circle-white' />
+                                    </Link>
+                                </div>
+                            </>
                         )
                     })
                 } />
-            <BlockSelect title="Капитальное обслуживание" children={
-                everyKapitalServerDate.map((item, key) => {
-                    return (
-                        <>
-                            <div className='flex items-end ap-2 justify-between'>
-                                <div className='flex flex-col'>
-                                    <span className='mt-1 text-[12px]'>{item.date}</span>
-                                    <span>{item.title}</span>
-                                </div>
-                                <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
-                                    <Icon systemName='plus-circle-white' />
-                                </Link>
-                            </div>
-                        </>
-                    )
-                })
-            } />
+            </>}
 
         </div>
     );

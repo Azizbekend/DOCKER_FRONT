@@ -33,18 +33,29 @@ export const LoginView = observer(() => {
     return (
         <>
             <Registration show={isregister} onClose={() => setIsRegister(false)} />
-            <div className="flex bg-white flex-col max-w-[500px] px-14 py-16 rounded-xl w-full gap-4 shadow-[0px_0px_8px_0px_rgba(0,0,0,0.25)]">
-                <span className="text-black text-center text-[23px] leading-[46px] font-bold">Авторизация</span>
+            <div className="flex bg-white flex-col max-w-[500px] px-12 py-14 rounded-2xl w-full gap-6 shadow-[0px_8px_32px_0px_rgba(0,0,0,0.12)] border border-gray-100">
+                <div className="text-center">
+                    <h1 className="text-gray-900 text-2xl font-bold mb-2" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+                        Авторизация
+                    </h1>
+                    <p className="text-gray-600 text-sm" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+                        Войдите в систему для продолжения работы
+                    </p>
+                </div>
 
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    <InputContainer classNames={{ wrapper: "w-full", header: " flex flex-row-reverse justify-end" }}
-                        headerText="Логин"
+                <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+                    <InputContainer 
+                        classNames={{ 
+                            wrapper: "w-full", 
+                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2" 
+                        }}
+                        headerText="E-mail"
                         isRequired
                         validText={validError.username}
                     >
                         <Input
-                            placeholder="Логин"
-                            className="border-[1.5px] px-3 py-3 rounded-lg"
+                            placeholder="Введите E-mail"
+                            className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-all duration-200"
                             value={model.username}
                             onChange={loginModel.setEmail}
                             disabled={isLoading}
@@ -53,17 +64,21 @@ export const LoginView = observer(() => {
                         />
                     </InputContainer>
 
-                    <InputContainer classNames={{ wrapper: "w-full", header: " flex flex-row-reverse justify-end" }}
+                    <InputContainer 
+                        classNames={{ 
+                            wrapper: "w-full", 
+                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2" 
+                        }}
                         headerText="Пароль"
                         isRequired
                         validText={validError.password}
                     >
                         <Password
-                            placeholder="Пароль"
+                            placeholder="Введите пароль"
                             classNames={{
-                                container: "border-[1.5px] rounded-lg overflow-hidden",
-                                input: "px-3 py-3",
-                                icon: "mx-3",
+                                container: "border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#4A85F6] transition-all duration-200",
+                                input: "px-4 py-3 text-gray-900 w-full focus:outline-none",
+                                icon: "mx-3 text-gray-500 cursor-pointer",
                             }}
                             value={model.password}
                             onChange={loginModel.setPassword}
@@ -72,40 +87,35 @@ export const LoginView = observer(() => {
                         />
                     </InputContainer>
 
-
-                    {/* {captchaMessage && (
-                        <div className="flex flex-row justify-between items-center">
-                            <span className="text-[#C30707] text-[13px]">{captchaMessage}</span>
-                        </div>
-                    )} */}
-
                     <Button
                         type="submit"
                         disabled={!canSubmit}
-                        class="bg-[#4A85F6] text-center justify-center py-3 shadow-[0px_6px_75px_0px_rgba(100,87,87,0.05)]"
+                        class="bg-[#4A85F6] text-center justify-center py-3.5 text-white font-semibold rounded-lg shadow-[0px_4px_20px_0px_rgba(74,133,246,0.25)] hover:shadow-[0px_6px_25px_0px_rgba(74,133,246,0.35)] transition-all duration-200"
                     >
                         <span className="font-bold text-[16px] text-white">
                             {isLoading ? "Загрузка..." : "Вход"}
                         </span>
                     </Button>
 
-                    <Link to={"/menu-moduls"}>В меню</Link>
+                    <div className="text-center">
+                        <Link 
+                            to={"/menu-moduls"} 
+                            className="text-[#000000] font-medium hover:text-[#3a6bc9] transition-colors duration-200 block"
+                            style={{ fontFamily: "'Open Sans', sans-serif" }}
+                        >
+                            В меню
+                        </Link>
+                    </div>
 
-                    <div className="cursor-pointer font-semibold text-[var(--clr-accent)] hover:opacity-50 w-fit duration-300" onClick={() => setIsRegister(true)}>Заявка на регистрацию в системе</div>
+                    <div 
+                        className="cursor-pointer font-semibold text-[#4A85F6] hover:text-[#3a6bc9] text-center w-full duration-300"
+                        onClick={() => setIsRegister(true)}
+                        style={{ fontFamily: "'Open Sans', sans-serif" }}
+                    >
+                        Заявка на регистрацию в системе
+                    </div>
                 </form>
-
-                {/* <div className="flex flex-col gap-1 text-[14px] mt-2">
-                    <a className="text-center w-full text-[#4A85F6] duration-300 hover:opacity-50" href="docs/functionSpecifications.pdf" download>
-                        Функциональные характеристики ПО
-                    </a>
-
-                    <a className='text-center w-full text-[#4A85F6] cursor-pointer' onClick={infoLink}>Информация, необходимая для установки программного обеспечения</a>
-
-                    <a className="text-center w-full text-[#4A85F6] duration-300 hover:opacity-50" href="docs/functionGuide.pdf" download>
-                        Информация, необходимая для эксплуатации программного обеспечения
-                    </a>
-                </div> */}
-            </div >
+            </div>
         </>
     );
 });

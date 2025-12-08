@@ -7,12 +7,10 @@ import Loader from "@/shared/ui/loader/loader";
 export const EquipmentAbout = observer(() => {
     const { id } = useParams();
 
-    const { init, isLoading, initControl, initCharacteristic } = hardwareModel
+    const { init, isLoading } = hardwareModel
 
     useEffect(() => {
         init(Number(id))
-        initControl(Number(id))
-        initCharacteristic(Number(id))
     }, [])
 
     return isLoading ?

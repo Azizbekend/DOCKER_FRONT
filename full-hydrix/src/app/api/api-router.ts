@@ -196,8 +196,8 @@ export const Schema = {
 }
 
 export const SchemaCooradinate = {
-  update: "/schemas/schema/coordinates/update",
-  delete: "/scheme/coordinates",
+  update: "/schemas/schemas/coordinates/update",
+  delete: "/schemas/scheme/coordinates",
 }
 
 export const Characteristics = {

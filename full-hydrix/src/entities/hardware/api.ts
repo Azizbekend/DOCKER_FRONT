@@ -13,7 +13,7 @@ export const getInfoHardware = (params: { id: number }) => {
 }
 
 export const updateInfoHardware = (params: CreateHardwareInterface) => {
-    return reserchInstance.put(Hardware.update, { params })
+    return reserchInstance.put(Hardware.update, params)
 }
 
 export const deleteInfoHardware = (params: { id: number }) => {
@@ -117,7 +117,6 @@ export const updateSchemaCoordinatesCreate = (params: SchemaCoordinatesCreateTyp
 export const deleteSchemaCoordinates = (params: { id: number }) => {
     return reserchInstance.delete(SchemaCooradinate.delete, { params })
 }
-
 
 export const passportObject = (params: { adress: string, operatingOrganization: string, customerName: string, generalContractorName: string, projectEfficiency: string, photoName: string, }) => {
     return reserchInstance.post(PassportObject.create, params)

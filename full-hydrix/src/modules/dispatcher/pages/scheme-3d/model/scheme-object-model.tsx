@@ -12,11 +12,8 @@ class SchemeObjectModel {
     isLoading: boolean = true
     index: number = 0
 
-    top: string = ""
-    left: string = ""
-    height: string = ""
-    width: string = ""
     preview: string = ""
+    fileId: string = ""
     hardwareSchemaId: number = 0
     saveIMageScheme: File | null = null
 
@@ -26,21 +23,17 @@ class SchemeObjectModel {
 
     setTop(value: string) {
         schemeModel.model[this.index].top = value
-        this.top = value
     }
 
     setLeft(value: string) {
         schemeModel.model[this.index].left = value
-        this.left = value
     }
     setHeight(value: string) {
         schemeModel.model[this.index].height = value
-        this.height = value
     }
 
     setWidth(value: string) {
         schemeModel.model[this.index].width = value
-        this.width = value
     }
 
     setHardwareSchemaId(value: number) {
@@ -53,24 +46,20 @@ class SchemeObjectModel {
         if (this.saveIMageScheme) this.preview = URL.createObjectURL(this.saveIMageScheme);
     }
 
-    async updateScheme(data: {
-        top: number,
-        left: number,
-        hieght: number,
-        width: number,
-        saveIMage: File,
-    }) {
+    async updateScheme() {
 
         const apiData: SchemaCoordinatesCreateType = {
-            top: data.top.toString(),
-            left: data.left.toString(),
-            height: data.hieght.toString(),
-            width: data.width.toString(),
+            id: schemeModel.model[this.index].id,
+            top: schemeModel.model[this.index].top,
+            left: schemeModel.model[this.index].left,
+            height: schemeModel.model[this.index].height,
+            width: schemeModel.model[this.index].width,
+            hardwareSchemaId: schemeModel.model[this.index].hardwareSchemaId,
         }
 
-        if (data.saveIMage) {
+        if (this.saveIMageScheme) {
             const formData = new FormData();
-            formData.append("File", data.saveIMage);
+            formData.append("File", this.saveIMageScheme);
 
             const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
                 method: "POST",
@@ -79,16 +68,11 @@ class SchemeObjectModel {
 
             const result = await response.json();
 
-            console.log(result.id)
             const schemaImageId = result.id;
             apiData.fileId = schemaImageId
+        } else {
+            apiData.fileId = schemeModel.model[this.index].fileId
         }
-
-        schemeModel.model[this.index].top = this.top
-        schemeModel.model[this.index].left = this.left
-        schemeModel.model[this.index].height = this.height
-        schemeModel.model[this.index].width = this.width
-        if (apiData.fileId) schemeModel.model[this.index].fileId = apiData.fileId
 
         await updateSchemaCoordinatesCreate(apiData).then((res) => {
             if (res.data) {
@@ -98,25 +82,16 @@ class SchemeObjectModel {
     }
 
     async deleteSchemeObject() {
-        toast.success("Компонент удалён", { progressStyle: { background: "green" } })
-        schemeModel.model.splice(this.index, 1)
-        schemeModel.setFocusSchemeObject(0)
-
-        // await deleteSchemaCoordinates({ id: schemeModel.focusSchemeObject }).then((res) => {
-        //  })
+        await deleteSchemaCoordinates({ id: schemeModel.focusSchemeObject }).then((res) => {
+            toast.success("Компонент удалён", { progressStyle: { background: "green" } })
+            schemeModel.model.splice(this.index, 1)
+            schemeModel.setFocusSchemeObject(0)
+        })
     }
 
     init(focusSchemeObjectData: SchemaObjectType) {
-        this.index = schemeModel.model.findIndex(item => item.id === schemeModel.focusSchemeObjectData?.id)
-
         this.isLoading = true
-
-        this.top = focusSchemeObjectData.top
-        this.left = focusSchemeObjectData.left
-        this.height = focusSchemeObjectData.height
-        this.width = focusSchemeObjectData.width
-        this.hardwareSchemaId = focusSchemeObjectData.hardwareSchemaId
-
+        this.index = schemeModel.model.findIndex(item => item.id === schemeModel.focusSchemeObjectData?.id)
         this.isLoading = false
     }
 }

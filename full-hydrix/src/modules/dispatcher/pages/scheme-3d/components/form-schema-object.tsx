@@ -13,14 +13,14 @@ import Loader from "@/shared/ui/loader/loader";
 
 
 export const FormSchemaObject = observer(({ className, onClick }: { className: string, onClick: (id: number) => void }) => {
-    const { init, top, left, height, width, preview, deleteSchemeObject, hardwareSchemaId, saveIMageScheme, setTop, setLeft, setHardwareSchemaId, setHeight, setWidth, setSaveIMage, isLoading } = schemeObjectModel
+    const { init, updateScheme, index, preview, deleteSchemeObject, hardwareSchemaId, saveIMageScheme, setTop, setLeft, setHardwareSchemaId, setHeight, setWidth, setSaveIMage, isLoading } = schemeObjectModel
 
     useEffect(() => {
         schemeModel.focusSchemeObjectData && init(schemeModel.focusSchemeObjectData)
     }, [])
 
     const handleSubmit = () => {
-
+        updateScheme()
     }
 
 
@@ -53,7 +53,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                         type="number"
                                         placeholder="top"
-                                        value={top}
+                                        value={schemeModel.model[index].top}
                                         onChange={(e) => setTop(e.target.value)}
                                     />
                                 }
@@ -66,7 +66,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                         type="number"
                                         placeholder="left"
-                                        value={left}
+                                        value={schemeModel.model[index].left}
                                         onChange={(e) => setLeft(e.target.value)}
                                     />
                                 }
@@ -79,7 +79,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                         type="number"
                                         placeholder="top"
-                                        value={height}
+                                        value={schemeModel.model[index].height}
                                         onChange={(e) => setHeight(e.target.value)}
                                     />
                                 }
@@ -92,7 +92,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                         type="number"
                                         placeholder="top"
-                                        value={width}
+                                        value={schemeModel.model[index].width}
                                         onChange={(e) => setWidth(e.target.value)}
                                     />
                                 }
@@ -105,11 +105,11 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
                                         classWripper="!w-full"
                                         title="ПЛК"
-                                        defaultValue={hardwareSchemaId}
+                                        defaultValue={schemeModel.model[index].hardwareSchemaId}
                                         onSelect={(item) => setHardwareSchemaId(Number(item.value))}
                                         items={[
                                             {
-                                                value: 4,
+                                                value: 6,
                                                 title: "Технологическое оборудование"
                                             },
                                         ]}
@@ -121,7 +121,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                     <div className="flex items-center justify-between">
                         <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
                         <Button class="mt-10 rounded-lg px-10 bg-red-500 text-white hover:opacity-50" onClick={deleteSchemeObject}>Удалиь</Button>
-                </div>
+                    </div>
                 </div>
             }
         </div >
