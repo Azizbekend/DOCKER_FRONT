@@ -37,7 +37,7 @@ export const Scheme = observer(() => {
                         <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
                         {
                             preview ?
-                                <img src={preview} className="w-full h-full object-container" />
+                                <img src={preview} className="max-w-full max-h-full object-container" />
                                 :
                                 <>
                                     <Icon systemName="file-plus-blue" />
