@@ -151,7 +151,7 @@ class EquipmentCreateModel {
 
 
         // const response = await fetch("http://hydrig.gsurso.ru/image/upload", {
-        const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
+        const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
             method: "POST",
             body: formData
         });
@@ -306,7 +306,7 @@ class EquipmentCreateModel {
         const formData = new FormData();
         formData.append("File", data.saveIMage);
 
-        const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
+        const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
             method: "POST",
             body: formData
         });
@@ -335,6 +335,23 @@ class EquipmentCreateModel {
 
     async updateInfo() {
         if (this.model.id) {
+
+            if (this.saveIMageScheme) {
+                const formData = new FormData();
+                formData.append("File", this.saveIMageScheme);
+
+                const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                console.log(result.id)
+                this.model.fileId = result.id;
+            }
+
+
             await updateInfoHardware({
                 id: this.model.id,
                 name: this.model.name,

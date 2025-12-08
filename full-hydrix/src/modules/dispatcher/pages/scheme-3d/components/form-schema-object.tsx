@@ -41,7 +41,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                     <div className="my-10 flex flex-col gap-5">
                         <label className="w-full h-[300px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                             <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
-                            <img src={preview ? preview : "https://triapi.ru/research/api/FileStorage/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[250px] object-container" />
+                            <img src={preview ? preview : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[250px] object-container" />
                         </label>
 
                         <div className="flex gap-[20px] max-w-[450px] flex-wrap ">

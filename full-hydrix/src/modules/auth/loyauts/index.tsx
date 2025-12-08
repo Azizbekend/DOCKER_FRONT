@@ -1,7 +1,38 @@
 import { Outlet } from 'react-router-dom';
 import logo from './static/img/logo-3.png'
+import { useEffect } from 'react';
 
 export const Layout = () => {
+
+
+  useEffect(() => {
+    const createDroplet = (x, y) => {
+      const droplet = document.createElement('div')
+      droplet.className =
+        "pointer-events-none fixed w-4 h-4 bg-white/40 rounded-full blur-[2px] " +
+        "animate-droplet z-[9999]"
+
+      droplet.style.left = x + "px"
+      droplet.style.top = y + "px"
+
+      document.body.appendChild(droplet)
+
+      setTimeout(() => {
+        droplet.remove()
+      }, 600) // время жизни капли
+    }
+
+    const handler = (e) => {
+      createDroplet(e.clientX, e.clientY)
+    }
+
+    window.addEventListener('mousemove', handler)
+    return () => window.removeEventListener('mousemove', handler)
+  }, [])
+
+
+
+
   return (
     <>
       {/* Solid background with water elements - matching left panel gradient */}

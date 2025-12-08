@@ -38,7 +38,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                 </div>
 
                 <div className="info-comp__image">
-                    <img src={'https://triapi.ru/research/api/FileStorage/download?id=' + model.fileId} alt="Info" />
+                    <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=' + model.fileId} alt="Info" />
                 </div>
 
                 {model.id == 28 ?

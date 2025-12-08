@@ -61,7 +61,7 @@ class SchemeObjectModel {
             const formData = new FormData();
             formData.append("File", this.saveIMageScheme);
 
-            const response = await fetch("https://triapi.ru/research/api/FileStorage/upload", {
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
                 method: "POST",
                 body: formData
             });

@@ -32,7 +32,12 @@ export function Table<T>(props: TableProps<T>) {
                         const rowIndex = info.row.index;
                         const pageIndex = info.table.getState().pagination.pageIndex;
                         const pageSize = info.table.getState().pagination.pageSize;
-                        return pageIndex * pageSize + rowIndex + 1;
+
+                        if (pageSize == 10) {
+                            return pageIndex * pageSize + rowIndex + 1;
+                        } else {
+                            return pageIndex + rowIndex;
+                        }
                     }
                 },
                 ...baseCols

@@ -222,7 +222,7 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
-                                <img className="not-hover-img h-full w-full object-cover" src={`https://triapi.ru/research/api/FileStorage/download?id=${p.fileId}`} />
+                                <img className="not-hover-img h-full w-full object-cover" src={`https://triapi.ru/research/api/FileStorage/images/download?id=${p.fileId}`} />
                             </div>
                         </div>
                     </div>
