@@ -336,9 +336,9 @@ class EquipmentCreateModel {
     async updateInfo() {
         if (this.model.id) {
 
-            if (this.saveIMageScheme) {
+            if (this.saveIMage) {
                 const formData = new FormData();
-                formData.append("File", this.saveIMageScheme);
+                formData.append("File", this.saveIMage);
 
                 const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
                     method: "POST",
@@ -365,6 +365,8 @@ class EquipmentCreateModel {
             }).then((res) => {
                 toast.success("Оборудование обновлено", { progressStyle: { background: "green" } })
             })
+
+
         }
     }
 
