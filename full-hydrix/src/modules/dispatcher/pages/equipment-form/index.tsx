@@ -233,11 +233,9 @@ export const EquipmentCreate = observer(() => {
                                 Документы
                             </div>
 
-                            {!id &&
-                                <div onClick={() => setTab("scheme")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "scheme" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
-                                    Схема
-                                </div>
-                            }
+                            <div onClick={() => setTab("scheme")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "scheme" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
+                                Схема
+                            </div>
 
                         </div>
 
