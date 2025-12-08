@@ -120,7 +120,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                     </div>
                     <div className="flex items-center justify-between">
                         <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
-                        <Button class="mt-10 rounded-lg px-10 bg-red-500 text-white hover:opacity-50" onClick={deleteSchemeObject}>Удалиь</Button>
+                        <Button class="mt-10 rounded-lg px-10 bg-red-500 text-white hover:opacity-50" onClick={deleteSchemeObject}>Удалить</Button>
                     </div>
                 </div>
             }
