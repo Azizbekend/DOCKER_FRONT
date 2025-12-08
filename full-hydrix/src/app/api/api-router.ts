@@ -197,7 +197,7 @@ export const Schema = {
 
 export const SchemaCooradinate = {
   update: "/schemas/schemas/coordinates/update",
-  delete: "/schemas/scheme/coordinates",
+  delete: "/schemas/schema/coordinates",
 }
 
 export const Characteristics = {
@@ -227,4 +227,5 @@ export const Service = {
 
 export const PassportObject = {
   create: "/Passport/create",
+  all: "/Passport/all",
 }

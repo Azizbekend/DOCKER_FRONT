@@ -112,3 +112,18 @@ export interface SchemaCoordinatesCreateType {
     fileId?: number,
     hardwareId?: number,
 }
+
+
+
+export interface ObjectInfoInterface {
+    name?: string,
+    adress?: string,
+    operatingOrganization?: string,
+    customerName?: string,
+    generalContractorName?: string,
+    projectEfficiency?: number,
+    latitude?: string,
+    longitude?: string,
+    photoName?: string,
+    fileId?: number,
+}

@@ -10,7 +10,7 @@ export const Layout = () => {
                 <Header />
 
                 <div className='flex items-center  gap-[28px] my-[30px] pl-[40px] pr-[40px]'>
-                    <Link to={"/menu-moduls"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
+                    <Link to={"/domain/list"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
                         <Icon systemName="arrow-left" />
                     </Link>
                     <span className='font-bold text-[#222B45] text-[34px]'>Диспетчеризация ЖКХ</span>

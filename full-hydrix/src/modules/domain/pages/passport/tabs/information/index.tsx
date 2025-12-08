@@ -4,6 +4,7 @@ import imagePassport from "../../assets/passport.jpg"
 import arrowBlue from "../../assets/arrow-blue.svg"
 import copyIcon from "../../assets/copy.svg"
 import { Link } from 'react-router-dom';
+import { passportObject } from '@/entities/hardware/api';
 
 export const PassportInformation = observer(() => {
 
@@ -24,7 +25,7 @@ export const PassportInformation = observer(() => {
         },
         {
             name: "Закачик",
-            Value: 'ГБУ "СЭТИК"',
+            Value: 'ГКУ "ГУИС"',
         },
     ];
 
@@ -89,10 +90,6 @@ export const PassportInformation = observer(() => {
             console.error('Ошибка при копировании: ', err);
         }
     };
-
-
-
-
 
     return (
         <>

@@ -21,7 +21,6 @@ export const RegistryObjectsLayout = observer(() => {
     const [isMap, setIsMap] = useState<boolean>(page === "list" ? false : true);
 
     useEffect(() => {
-
         init()
     }, [])
 

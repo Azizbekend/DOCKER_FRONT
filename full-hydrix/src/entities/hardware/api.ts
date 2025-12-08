@@ -1,6 +1,6 @@
 import { Characteristics, Control, ControlBlock, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
 import instance, { reserchInstance } from "@/app/api/instances"
-import { CharacteristicsCreateInterface, CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
+import { CharacteristicsCreateInterface, CharacteristicsCreateManyInterface, CreateHardwareInterface, ObjectInfoInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
 import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-form/components/control/type"
 
 
@@ -118,7 +118,7 @@ export const deleteSchemaCoordinates = (params: { id: number }) => {
     return reserchInstance.delete(SchemaCooradinate.delete, { params })
 }
 
-export const passportObject = (params: { adress: string, operatingOrganization: string, customerName: string, generalContractorName: string, projectEfficiency: string, photoName: string, }) => {
+export const passportObject = (params: ObjectInfoInterface) => {
     return reserchInstance.post(PassportObject.create, params)
 }
 

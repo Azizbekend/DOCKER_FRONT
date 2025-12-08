@@ -54,8 +54,7 @@ body {
 }
 
 .input {
-    &__container {
-    }
+    &__container {}
 
     &__name {
         line-height: prc(16, 15);
@@ -79,20 +78,15 @@ body {
 
     display: none;
 
-    &__title {
-    }
+    &__title {}
 
-    &__error {
-    }
+    &__error {}
 
-    &__inputs {
-    }
+    &__inputs {}
 
-    &__input {
-    }
+    &__input {}
 
-    &__infromation {
-    }
+    &__infromation {}
 }
 
 .accout {
@@ -196,7 +190,8 @@ body {
                 color: white;
             }
 
-            & > .panel-accout__link-icon {
+            &>.panel-accout__link-icon {
+
                 & .icon-calendar,
                 & .icon-home {
                     & path {
@@ -246,8 +241,7 @@ body {
             transition: 0.2s;
         }
 
-        &-icon {
-        }
+        &-icon {}
 
         &:hover {
             color: var(--clr-accent);
@@ -672,8 +666,7 @@ body {
     }
 }
 
-.small-scheme {
-}
+.small-scheme {}
 
 .info-comp {
     width: 490px;
@@ -706,7 +699,7 @@ body {
         justify-content: center;
         align-items: center;
         width: 100%;
-        // height: 200px;
+        height: 200px;
 
         & img {
             height: 100%;
@@ -750,8 +743,7 @@ body {
         }
     }
 
-    &__content {
-    }
+    &__content {}
 
     &__section {
         margin-bottom: 16px;
@@ -833,8 +825,7 @@ body {
             margin-bottom: 0;
         }
 
-        &-date {
-        }
+        &-date {}
 
         &-status {
             &._red {
@@ -852,8 +843,7 @@ body {
     }
 }
 
-.informations-dispatch__requestregistry {
-}
+.informations-dispatch__requestregistry {}
 
 .requestregistry-dispatch {
     padding: 45px 30px 50px 40px;
@@ -886,8 +876,7 @@ body {
         gap: 32px;
     }
 
-    &__item {
-    }
+    &__item {}
 }
 
 .statistics-requestregistry {
@@ -1004,8 +993,7 @@ body {
         }
     }
 
-    &__right {
-    }
+    &__right {}
 
     &__top {
         display: flex;
@@ -1087,8 +1075,7 @@ body {
     }
 }
 
-.informations-dispatch__passport {
-}
+.informations-dispatch__passport {}
 
 .passport-dispatch {
     margin-bottom: 40px;
@@ -1101,14 +1088,14 @@ body {
 
     &__left {
         padding: 45px 30px 50px 40px;
-        width: prc(800, 1313);
+        width: prc(900, 1313);
         background-color: white;
     }
 
     &__right {
         padding: 32px 32px 48px 32px;
         background-color: white;
-        width: prc(501, 1313);
+        width: prc(400, 1313);
     }
 
     &__information {
@@ -1157,7 +1144,9 @@ body {
         margin: 15px 0;
     }
 
-    @media (max-width: 1600px) {
+    @media (max-width: 1200px) {}
+
+    @media (max-width: 1000px) {
         &__container {
             flex-direction: column;
         }
@@ -1239,19 +1228,19 @@ body {
     }
 
     &__subtitle {
-        font-size: 18px;
+        font-size: 16 px;
         font-family: var(--txt-semiBold);
         margin-bottom: 20px;
     }
 
     &__name {
-        font-size: 18px;
+        font-size: 16px;
         font-family: var(--txt-regular);
         margin-bottom: 12px;
     }
 
     &__email {
-        font-size: 18px;
+        font-size: 16px;
         font-family: var(--txt-regular);
         margin-bottom: 12px;
         color: var(--clr-accent);
@@ -1263,7 +1252,7 @@ body {
     }
 
     &__tell {
-        font-size: 18px;
+        font-size: 16px;
         font-family: var(--txt-regular);
         color: var(--clr-accent);
         transition: 0.3s;
@@ -1311,8 +1300,7 @@ body {
         font-family: var(--txt-semiBold);
     }
 
-    &__icon {
-    }
+    &__icon {}
 
     &__infromation {
         font-size: 16px;

@@ -1,5 +1,6 @@
 import { DespetcherTest } from "@/entities/despetcher-test/type";
 import { makeAutoObservable } from "mobx";
+import { passportObject } from "../service/api";
 
 
 
@@ -15,23 +16,19 @@ class RegistryModel {
         return this.model
     }
 
-    init() {
-        for (let i = 0; i < 20; i++) {
-            this.model[i] = {
-                img: "stations.jpg",
-                nameMinin: "Очистные сооружения в с. Шапши" + i,
-                company: "АО “ВКС”",
-                statusСonnection: i % 2 == 0 ,
-                statusJob: i % 3 == 0,
-                volumeProjec: 9.0,
-                volumeAverage: 10.5,
-                volumeReale: 9.2,
-                dispetcher: i % 2 == 0
-
-            }
+    async init() {
+        this.model[0] = {
+            img: "stations.jpg",
+            nameMinin: "Очистные сооружения в с. Шапши",
+            company: "АО “ВКС”",
+            statusСonnection: true,
+            statusJob: true,
+            volumeProjec: 250,
+            volumeAverage: 10.5,
+            volumeReale: 9.2,
+            dispetcher: true
         }
     }
-
 }
 
 export const registryModel = new RegistryModel()

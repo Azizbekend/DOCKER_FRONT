@@ -41,10 +41,18 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                     <img src={'https://triapi.ru/research/api/FileStorage/download?id=' + model.fileId} alt="Info" />
                 </div>
 
-                <div className="flex items-center gap-2 ml-5 mb-5">
-                    <div className="block w-3 h-3 rounded-[20px] bg-[#34C759]"></div>
-                    <div>Работает</div>
-                </div>
+                {model.id == 28 ?
+                    <div className="flex items-center gap-2 ml-5 mb-5">
+                        <div className="block w-3 h-3 rounded-[20px] bg-red-500"></div>
+                        <div>Работает</div>
+                    </div>
+                    :
+                    <div className="flex items-center gap-2 ml-5 mb-5">
+                        <div className="block w-3 h-3 rounded-[20px] bg-[#34C759]"></div>
+                        <div>Работает</div>
+                    </div>
+                }
+
 
                 {false &&
                     <>

@@ -19,7 +19,7 @@ export const EquipmentCreate = observer(() => {
     const { id } = useParams();
 
     const { init, clear, model, updateInfo, imgPreview, isLoading, deleteHardware, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController } = equipmentCreateModel
-    const [tab, setTab] = useState<"review" | "control" | "scheme">("review")
+    const [tab, setTab] = useState<"review" | "control" | "scheme" | "docs">("review")
 
     useEffect(() => {
         clear();
@@ -229,6 +229,9 @@ export const EquipmentCreate = observer(() => {
                             <div onClick={() => setTab("control")} className={`cursor-pointer !rounded-none w-[50%] rounded pb-2 border-b text-center ${tab == "control" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
                                 Управления
                             </div>
+                            <div onClick={() => setTab("docs")} className={`cursor-pointer !rounded-none w-[50%] rounded pb-2 border-b text-center ${tab == "docs" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
+                                Документы
+                            </div>
 
                             {!id &&
                                 <div onClick={() => setTab("scheme")} className={`cursor-pointer !rounded-none w-[33%] rounded pb-2 border-b text-center ${tab == "scheme" ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[#757575] text-[#757575]"}`}>
@@ -240,6 +243,7 @@ export const EquipmentCreate = observer(() => {
 
                         <div className="mt-10 pb-[100px] min-h-[50vh]">
                             {tab == "review" && <Review />}
+                            {tab == "docs" && <Review />}
                             {tab == "control" && <Control />}
                             {tab == "scheme" && <Scheme />}
                         </div>
