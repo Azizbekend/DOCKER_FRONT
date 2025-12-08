@@ -3,21 +3,38 @@ import image from "../../assets/info-com-1.jpg";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/entities/hardware/model";
+import { Button } from "@/shared/ui/button";
+import { hardwareListModel } from "../../../equipment/model/hardware-list-model";
+import { ModalServiceCreate } from "../../../equipment/components/modal-service-create";
 
 
 export const EquipmentPassport = observer(() => {
     const { model, сharacteristic } = hardwareModel
+    const { modalService, closeModal } = hardwareListModel
 
     return (
         <div className="bg-white rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px] p-[45px_30px_50px_40px]">
-            <Link to={"/dispatcher/orders/create"} className="flex items-center gap-2 py-2 px-3 bg-[var(--clr-accent)] text-white w-fit rounded-lg hover:opacity-50 duration-300 absolute top-5 right-5">
-                <Icon systemName="file-plus" />
-                <span>Создать заявку</span>
-            </Link>
+
+            <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
 
 
-            <div className="requestregistry-dispatch__title font-semibold">
-                Паспорт Оборудования
+            <div className="absolute top-5 right-5 flex gap-3">
+                <Link to={"/dispatcher/orders/create"} className="flex items-center gap-2 py-2 px-3 bg-[var(--clr-accent)] text-white min-w-max rounded-lg hover:opacity-50 duration-300">
+                    <Icon systemName="file-plus" />
+                    <span>Создать заявку</span>
+                </Link>
+
+                <Button class=" hover:opacity-50 w-full px-5 text-center bg-[var(--clr-border-gray)]" onClick={() => hardwareListModel.setModalService(true, model.id)}>
+                    <span className="w-full text-white">+ сервис</span>
+                </Button>
+            </div>
+
+
+            <div className="mb-[32px] flex items-center gap-[28px]">
+                <Link to={"/dispatcher/equipment"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
+                    <Icon systemName="arrow-left" />
+                </Link>
+                <span className="font-bold text-[34px] mb-2">Паспорт Оборудования</span>
             </div>
 
             <div className="flex gap-5">

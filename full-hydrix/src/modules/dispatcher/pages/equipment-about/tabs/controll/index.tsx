@@ -20,8 +20,11 @@ export const EquipmentControll = () => {
                 </Link>
 
 
-                <div className="text-[34px] mb-3 font-semibold">
-                    Управление
+                <div className="mb-[32px] flex items-center gap-[28px]">
+                    <Link to={"/dispatcher/equipment"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
+                        <Icon systemName="arrow-left" />
+                    </Link>
+                    <span className="font-bold text-[34px] mb-2">Управление</span>
                 </div>
 
                 <div className="text-[24px] mb-4 font-semibold">{model.name}</div>

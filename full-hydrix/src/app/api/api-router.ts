@@ -181,6 +181,8 @@ export const ControlBlock = {
 export const Hardware = {
   all: "/Hardware/all",
   one: "/Hardware/infoSingle",
+  update: "/Hardware/info/update",
+  delete: "/Hardware/info/delete",
   info: "/Hardware/info",
   create: "/Hardware/create",
   active: "/Hardware/Activate",
@@ -193,10 +195,16 @@ export const Schema = {
   getCoordinates: "/schemas/schemas/coordinates",
 }
 
+export const SchemaCooradinate = {
+  update: "/schemas/schema/coordinates/update",
+  delete: "/scheme/coordinates",
+}
+
 export const Characteristics = {
   createOnde: "/Characteristics/createOne",
   createMany: "/Characteristics/createMany",
   all: "/Characteristics/characteristics",
+  delete: "/Characteristics/characteristic/delete",
 }
 
 export const Control = {
@@ -205,6 +213,7 @@ export const Control = {
   createOndeCommand: "/NodeInfo/createCommand",
   createManyCommand: "/NodeInfo/createMassCommand",
   all: "/NodeInfo/commands",
+  delete: "/NodeInfo/info/delete",
 }
 
 

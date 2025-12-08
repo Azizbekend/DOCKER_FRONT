@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/entities/hardware/model";
+import Loader from "@/shared/ui/loader/loader";
 
 export const EquipmentAbout = observer(() => {
     const { id } = useParams();
@@ -14,8 +15,9 @@ export const EquipmentAbout = observer(() => {
         initCharacteristic(Number(id))
     }, [])
 
-    return (
-        isLoading &&
+    return isLoading ?
+        <Loader />
+        :
         <div className="informations-dispatch__requestregistry relative mt-10" >
             <div className="absolute  top-[-38px] left-[30px] flex gap-3">
                 <NavLink
@@ -34,5 +36,5 @@ export const EquipmentAbout = observer(() => {
 
             <Outlet />
         </div>
-    );
+
 })

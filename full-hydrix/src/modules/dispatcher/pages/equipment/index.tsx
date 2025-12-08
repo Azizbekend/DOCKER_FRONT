@@ -11,7 +11,6 @@ import { hardwareListModel } from "./model/hardware-list-model";
 import { HardwareInterface } from "@/entities/hardware/type";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { ModalServiceCreate } from "./components/modal-service-create";
 
 
 const columns: TableColumn<HardwareInterface>[] = [
@@ -64,43 +63,21 @@ const columns: TableColumn<HardwareInterface>[] = [
         header: "Статус",
         key: 'companyName',
         width: '0.5fr',
-        cell: () => {
+        cell: ({ id, activatedAt }) => {
+
+
             return (
-                <span className="text-[14px] text-[#222B45] font-semibold w-full">
-                    <div className="table__column" >
+                <div className="table__column" >
+                    {activatedAt == "0001-01-01T00:00:00"
+                        ?
+                        <Button class="text-[14px] px-3 py-2 text-white hover:opacity-50 bg-[var(--clr-accent)]" onClick={() => hardwareListModel.active(id)}>Активировать</Button>
+                        :
                         <span className={`table-equipmentregistry__column-status ${StatusClass(1)}`} >
                             {StatusText(1)}
                         </span>
-                    </div>
-                </span>
-            )
-        },
-    },
-    {
-        header: " ",
-        key: '',
-        width: '0.5fr',
-        cell: ({ id }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold w-full">
-                    <div className="table__column" >
-                        <Button class=" hover:opacity-50 w-full text-center bg-[var(--clr-border-gray)]" onClick={() => hardwareListModel.setModalService(true, id)}>
-                            <span className="w-full text-white">+ сервис</span>
-                        </Button>
-                    </div>
-                </span>
-            )
-        },
-    },
-    {
-        header: " ",
-        key: '',
-        width: '0.5fr',
-        cell: ({ id, activatedAt }) => {
-            return activatedAt == "0001-01-01T00:00:00" && (
-                <div className="table__column" >
-                    <Button class="px-3 py-2 text-white hover:opacity-50 bg-[var(--clr-accent)]" onClick={() => hardwareListModel.active(id)}>Активировать</Button>
-                </div>
+                    }
+                </div >
+
             )
         },
     },
@@ -114,7 +91,7 @@ const columns: TableColumn<HardwareInterface>[] = [
 
             return (
                 <div className="table__column">
-                    <Button onClick={() => navigate('/dispatcher/equipment/update/' + id)}>
+                    <Button onClick={() => navigate('/dispatcher/equipment/form/' + id)}>
                         <Icon systemName="edit" />
                     </Button>
                 </div>
@@ -141,7 +118,7 @@ const columns: TableColumn<HardwareInterface>[] = [
 
 export const EquipmentRegistry = observer(() => {
 
-    const { list, init, modalService, closeModal } = hardwareListModel
+    const { list, init } = hardwareListModel
 
     useEffect(() => {
         init()
@@ -175,10 +152,8 @@ export const EquipmentRegistry = observer(() => {
 
     return (
         <>
-            <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
-
             <div className="table__top flex items-center gap-5 mb-5">
-                <Link to="/dispatcher/equipment/create" className="rounded-lg flex items-center gap-1 duration-300 text-white bg-[var(--clr-accent)] pl-3 px-4 py-2 hover:opacity-50">
+                <Link to="/dispatcher/equipment/form" className="rounded-lg flex items-center gap-1 duration-300 text-white bg-[var(--clr-accent)] pl-3 px-4 py-2 hover:opacity-50">
                     <Icon systemName="plus-white" />
                     <span>Добавить оборудование</span>
                 </Link>

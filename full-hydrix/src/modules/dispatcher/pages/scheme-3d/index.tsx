@@ -13,12 +13,9 @@ import { observer } from "mobx-react-lite";
 import { FormSchemaObject } from "./components/form-schema-object.js";
 
 
-
-
 export const Scheme = observer(() => {
 
     const { init, list, focusHardware, setFocusHardware, focusSchemeObject } = schemeModel
-
     useEffect(() => {
         init(6)
     }, [])
@@ -71,8 +68,8 @@ export const Scheme = observer(() => {
 
                 <div className="grid grid-cols-[1fr_auto] gap-[20px] h-full pb-[80px]">
                     {nubmerTab != 5 && <SchemeViewer setInfo={handleChangeImage} points={list} />}
-                    {focusHardware != 0 && focusSchemeObject == 0 && <HardwareCard className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
-                    {focusSchemeObject != 0 && <FormSchemaObject className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} onClick={handleChangeImage} />}
+                    {focusHardware != 0 && focusSchemeObject == 0 && <HardwareCard key={focusHardware} className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} id={focusHardware} onClick={handleChangeImage} />}
+                    {focusSchemeObject != 0 && <FormSchemaObject key={focusSchemeObject} className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} onClick={handleChangeImage} />}
                 </div>
             </div >
         </>

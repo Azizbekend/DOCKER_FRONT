@@ -1,7 +1,7 @@
-import { Characteristics, Control, ControlBlock, Hardware, PassportObject, Schema, Service } from "@/app/api/api-router"
+import { Characteristics, Control, ControlBlock, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
 import instance, { reserchInstance } from "@/app/api/instances"
-import { CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
-import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-create/components/control/type"
+import { CharacteristicsCreateInterface, CharacteristicsCreateManyInterface, CreateHardwareInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
+import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-form/components/control/type"
 
 
 export const getAllHardware = () => {
@@ -10,6 +10,14 @@ export const getAllHardware = () => {
 
 export const getInfoHardware = (params: { id: number }) => {
     return reserchInstance.get(Hardware.one, { params })
+}
+
+export const updateInfoHardware = (params: CreateHardwareInterface) => {
+    return reserchInstance.put(Hardware.update, { params })
+}
+
+export const deleteInfoHardware = (params: { id: number }) => {
+    return reserchInstance.delete(Hardware.delete, { params })
 }
 
 export const createHardware = (params: CreateHardwareInterface) => {
@@ -34,8 +42,8 @@ export const checkedServiceApi = (params: { id: number }) => {
 }
 
 // Характеристика
-export const createCharacteristic = () => {
-    return reserchInstance.post(Characteristics.createOnde)
+export const createCharacteristic = (params: CharacteristicsCreateInterface) => {
+    return reserchInstance.post(Characteristics.createOnde, params)
 }
 export const manyCharacteristic = (params: CharacteristicsCreateManyInterface) => {
     return reserchInstance.post(Characteristics.createMany, params)
@@ -43,6 +51,12 @@ export const manyCharacteristic = (params: CharacteristicsCreateManyInterface) =
 export const getCharacteristicAll = (params: { id: number }) => {
     return reserchInstance.get(Characteristics.all, { params })
 }
+
+
+export const deleteCharacteristiс = (params: { id: number }) => {
+    return reserchInstance.delete(Characteristics.delete, { params })
+}
+
 
 export const manyServiceCreate = (params: CharacteristicsCreateManyInterface) => {
     return reserchInstance.post(Characteristics.createMany, params)
@@ -56,15 +70,22 @@ export const createManyInfo = (params: ControlTypeCreateMany) => {
 export const createOndeInfo = (params: ControlTypeCreate) => {
     return reserchInstance.post(Control.createOndeInfo, params);
 }
+
+
+
 export const createManyCommand = (params: ControlTypeCreateMany) => {
     return reserchInstance.post(Control.createManyCommand, params);
 }
 export const createOndeCommand = (params: ControlTypeCreate) => {
     return reserchInstance.post(Control.createOndeCommand, params);
 }
-
 export const getCommandAll = (params: { id: number }) => {
     return reserchInstance.get(Control.all, { params })
+}
+
+//! В методе написано info/delete,а есть command/delete ????
+export const deleteCommandApi = (params: { id: number }) => {
+    return reserchInstance.delete(Control.delete, { params })
 }
 
 
@@ -87,6 +108,14 @@ export const getSchemaObjects = (params: { id: number }) => {
 
 export const schemaCoordinatesCreate = (params: SchemaCoordinatesCreateType) => {
     return reserchInstance.post(Schema.CoordinatesCreate, params)
+}
+
+export const updateSchemaCoordinatesCreate = (params: SchemaCoordinatesCreateType) => {
+    return reserchInstance.put(SchemaCooradinate.update, params)
+}
+
+export const deleteSchemaCoordinates = (params: { id: number }) => {
+    return reserchInstance.delete(SchemaCooradinate.delete, { params })
 }
 
 

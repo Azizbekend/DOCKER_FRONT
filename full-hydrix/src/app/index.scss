@@ -22,8 +22,6 @@ body {
     @return $result;
 }
 
-
-
 .scroll {
     &::-webkit-scrollbar {
         width: 0px;
@@ -56,7 +54,8 @@ body {
 }
 
 .input {
-    &__container {}
+    &__container {
+    }
 
     &__name {
         line-height: prc(16, 15);
@@ -80,15 +79,20 @@ body {
 
     display: none;
 
-    &__title {}
+    &__title {
+    }
 
-    &__error {}
+    &__error {
+    }
 
-    &__inputs {}
+    &__inputs {
+    }
 
-    &__input {}
+    &__input {
+    }
 
-    &__infromation {}
+    &__infromation {
+    }
 }
 
 .accout {
@@ -192,8 +196,7 @@ body {
                 color: white;
             }
 
-            &>.panel-accout__link-icon {
-
+            & > .panel-accout__link-icon {
                 & .icon-calendar,
                 & .icon-home {
                     & path {
@@ -243,7 +246,8 @@ body {
             transition: 0.2s;
         }
 
-        &-icon {}
+        &-icon {
+        }
 
         &:hover {
             color: var(--clr-accent);
@@ -668,7 +672,8 @@ body {
     }
 }
 
-.small-scheme {}
+.small-scheme {
+}
 
 .info-comp {
     width: 490px;
@@ -701,7 +706,7 @@ body {
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 200px;
+        // height: 200px;
 
         & img {
             height: 100%;
@@ -745,7 +750,8 @@ body {
         }
     }
 
-    &__content {}
+    &__content {
+    }
 
     &__section {
         margin-bottom: 16px;
@@ -827,7 +833,8 @@ body {
             margin-bottom: 0;
         }
 
-        &-date {}
+        &-date {
+        }
 
         &-status {
             &._red {
@@ -845,7 +852,8 @@ body {
     }
 }
 
-.informations-dispatch__requestregistry {}
+.informations-dispatch__requestregistry {
+}
 
 .requestregistry-dispatch {
     padding: 45px 30px 50px 40px;
@@ -878,7 +886,8 @@ body {
         gap: 32px;
     }
 
-    &__item {}
+    &__item {
+    }
 }
 
 .statistics-requestregistry {
@@ -995,7 +1004,8 @@ body {
         }
     }
 
-    &__right {}
+    &__right {
+    }
 
     &__top {
         display: flex;
@@ -1077,7 +1087,8 @@ body {
     }
 }
 
-.informations-dispatch__passport {}
+.informations-dispatch__passport {
+}
 
 .passport-dispatch {
     margin-bottom: 40px;
@@ -1300,7 +1311,8 @@ body {
         font-family: var(--txt-semiBold);
     }
 
-    &__icon {}
+    &__icon {
+    }
 
     &__infromation {
         font-size: 16px;

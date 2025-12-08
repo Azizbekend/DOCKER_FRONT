@@ -7,5 +7,3 @@ const root = ReactDOM.createRoot(
 root.render(
   <Index />
 )
-
-// asdasd

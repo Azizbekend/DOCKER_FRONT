@@ -1,6 +1,6 @@
 import { activeHardware, createServiceApi, getAllHardware } from "@/entities/hardware/api";
 import { HardwareInterface } from "@/entities/hardware/type";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 
 class HardwareListModel {
@@ -35,19 +35,22 @@ class HardwareListModel {
     }
 
     async active(id: number) {
-        await activeHardware({ id: id }).then((res) => {
+        try {
+            await activeHardware({ id: id });
 
-            const itemIndex = this.model.findIndex(item => item.id === id);
-            if (itemIndex !== -1) {
-                console.log(this.model[itemIndex])
-                this.model[itemIndex].activatedAt = "true";
-            }
+            // Создаем новый массив с обновленным элементом
+            this.model = this.model.map(item =>
+                item.id === id
+                    ? { ...item, activatedAt: new Date().toISOString() }
+                    : item
+            );
 
-        }).catch(error => {
+        } catch (error) {
             console.error('Error activating hardware:', error);
-            // Можно добавить обработку ошибки
-        });
+        }
     }
+
+
 
     async createService({ description, date }: { description: string, date: number }) {
 
