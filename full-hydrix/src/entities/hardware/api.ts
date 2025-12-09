@@ -29,7 +29,7 @@ export const activeHardware = (params: { id: number }) => {
     return reserchInstance.post(Hardware.active, params)
 }
 
-export const createServiceApi = (params: { HardwareId: number, Discription: string, Period: number }) => {
+export const createServiceApi = (params: { Title: string, HardwareId: number, Discription: string, Period: number }) => {
     return reserchInstance.post(Service.create, params)
 }
 

@@ -49,10 +49,11 @@ class HardwareListModel {
         }
     }
 
-    async createService({ description, date }: { description: string, date: number }) {
+    async createService({ description, date, title }: { title: string, description: string, date: number }) {
         if (this.inService == null) return
         await createServiceApi({
             HardwareId: this.inService,
+            Title: title,
             Discription: description,
             Period: date
         }).then((res) => {

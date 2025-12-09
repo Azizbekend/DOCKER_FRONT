@@ -54,6 +54,7 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
 
     const handleSubmit = () => {
         createService({
+            title: title,
             description: description,
             date: myTime,
         })
@@ -85,8 +86,8 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
                                     className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                     type="text"
                                     placeholder="Название"
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
                                 />
                             }
                         />
