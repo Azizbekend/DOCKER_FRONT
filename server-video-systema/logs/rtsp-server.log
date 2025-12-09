@@ -1,0 +1,111 @@
+2025-11-21 08:18:35.248 [info] RTSP client starting...
+2025-11-21 08:18:35.250 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0
+2025-11-21 08:18:35.254 [info] ffmpeg PID=18932 запущен.
+2025-11-21 08:18:37.972 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-21 08:18:37.972 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0':
+2025-11-21 08:18:37.973 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-21 08:18:37.973 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-21 08:18:37.973 [info] [ffmpeg] Stream mapping:
+2025-11-21 08:18:37.974 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-21 08:18:37.974 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-21 08:18:50.932 [info] Получен SIGINT
+2025-11-21 08:18:50.932 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:18:50.936 [warn] ffmpeg PID=18932 остановлен. code=null signal=SIGINT
+2025-11-21 08:18:50.936 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:18:51.644 [info] Получен SIGINT
+2025-11-21 08:18:52.237 [info] RTSP client starting...
+2025-11-21 08:18:52.239 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:5542
+2025-11-21 08:18:52.244 [info] ffmpeg PID=7824 запущен.
+2025-11-21 08:19:02.252 [error] Таймаут подключения к RTSP-потоку
+2025-11-21 08:19:28.517 [info] Получен SIGINT
+2025-11-21 08:19:28.517 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:19:28.519 [warn] ffmpeg PID=7824 остановлен. code=null signal=SIGKILL
+2025-11-21 08:19:28.519 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:19:29.092 [info] Получен SIGINT
+2025-11-21 08:20:50.861 [info] RTSP client starting...
+2025-11-21 08:20:50.863 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:5542
+2025-11-21 08:20:50.867 [info] ffmpeg PID=8588 запущен.
+2025-11-21 08:21:00.880 [error] Таймаут подключения к RTSP-потоку
+2025-11-21 08:21:00.883 [warn] ffmpeg PID=8588 остановлен. code=null signal=SIGKILL
+2025-11-21 08:21:00.883 [info] Переподключение через 2143 ms (attempt 2)
+2025-11-21 08:21:03.035 [info] Попытка подключения #2 к rtsp://admin:Shapshi@16@85.141.81.53:5542
+2025-11-21 08:21:03.039 [info] ffmpeg PID=9988 запущен.
+2025-11-21 08:21:13.049 [error] Таймаут подключения к RTSP-потоку
+2025-11-21 08:21:13.052 [warn] ffmpeg PID=9988 остановлен. code=null signal=SIGKILL
+2025-11-21 08:21:13.052 [info] Переподключение через 4446 ms (attempt 3)
+2025-11-21 08:21:16.645 [info] Получен SIGINT
+2025-11-21 08:21:30.577 [info] RTSP client starting...
+2025-11-21 08:21:30.579 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554
+2025-11-21 08:21:30.584 [info] ffmpeg PID=12700 запущен.
+2025-11-21 08:21:34.231 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-21 08:21:34.232 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554':
+2025-11-21 08:21:34.232 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-21 08:21:34.233 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-21 08:21:34.233 [info] [ffmpeg] Stream mapping:
+2025-11-21 08:21:34.233 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-21 08:21:34.234 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-21 08:21:53.435 [info] Получен SIGINT
+2025-11-21 08:21:53.435 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:21:53.439 [warn] ffmpeg PID=12700 остановлен. code=null signal=SIGINT
+2025-11-21 08:21:53.439 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:21:54.207 [info] Получен SIGINT
+2025-11-21 08:21:55.049 [info] RTSP client starting...
+2025-11-21 08:21:55.051 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554
+2025-11-21 08:21:55.055 [info] ffmpeg PID=6272 запущен.
+2025-11-21 08:21:58.587 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-21 08:21:58.588 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554':
+2025-11-21 08:21:58.588 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-21 08:21:58.589 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-21 08:21:58.589 [info] [ffmpeg] Stream mapping:
+2025-11-21 08:21:58.589 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-21 08:21:58.590 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-21 08:23:12.147 [info] Получен SIGINT
+2025-11-21 08:23:12.148 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:23:12.151 [warn] ffmpeg PID=6272 остановлен. code=null signal=SIGINT
+2025-11-21 08:23:12.152 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:23:12.883 [info] Получен SIGINT
+2025-11-21 08:23:13.927 [info] RTSP client starting...
+2025-11-21 08:23:13.928 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=4&subtype=0
+2025-11-21 08:23:13.933 [info] ffmpeg PID=3080 запущен.
+2025-11-21 08:23:16.779 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-21 08:23:16.780 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=4&subtype=0':
+2025-11-21 08:23:16.780 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-21 08:23:16.780 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-21 08:23:16.781 [info] [ffmpeg] Stream mapping:
+2025-11-21 08:23:16.781 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-21 08:23:16.781 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-21 08:27:19.704 [info] Получен SIGINT
+2025-11-21 08:27:19.705 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:27:19.710 [warn] ffmpeg PID=3080 остановлен. code=null signal=SIGINT
+2025-11-21 08:27:19.710 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:27:20.792 [info] Получен SIGINT
+2025-11-21 08:27:21.774 [info] RTSP client starting...
+2025-11-21 08:27:21.776 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0
+2025-11-21 08:27:21.780 [info] ffmpeg PID=16008 запущен.
+2025-11-21 08:27:24.510 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-21 08:27:24.511 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0':
+2025-11-21 08:27:24.512 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-21 08:27:24.512 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-21 08:27:24.513 [info] [ffmpeg] Stream mapping:
+2025-11-21 08:27:24.514 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-21 08:27:24.514 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-21 08:27:43.143 [info] Получен SIGINT
+2025-11-21 08:27:43.144 [info] Stopping ffmpeg and exiting...
+2025-11-21 08:27:43.147 [warn] ffmpeg PID=16008 остановлен. code=null signal=SIGINT
+2025-11-21 08:27:43.148 [info] Сервер корректно останавливается (shutting down).
+2025-11-21 08:27:43.801 [info] Получен SIGINT
+2025-11-28 16:45:53.814 [info] RTSP client starting...
+2025-11-28 16:45:53.815 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0
+2025-11-28 16:45:54.186 [info] ffmpeg PID=17472 запущен.
+2025-11-28 16:45:57.283 [info] FFmpeg успешно подключился к RTSP-потоку
+2025-11-28 16:45:57.283 [info] [ffmpeg] Input #0, rtsp, from 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0':
+2025-11-28 16:45:57.283 [info] [ffmpeg] УСПЕШНО:   Duration: N/A, start: 0.040000, bitrate: N/A
+2025-11-28 16:45:57.284 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, 25 fps, 25 tbr, 90k tbn, start 0.040000
+2025-11-28 16:45:57.284 [info] [ffmpeg] Stream mapping:
+2025-11-28 16:45:57.284 [info] [ffmpeg]   Stream #0:0 -> #0:0 (copy)
+2025-11-28 16:45:57.284 [info] [ffmpeg]   Stream #0:0: Video: h264 (Main), yuvj420p(pc, bt709, progressive), 1920x1080, q=2-31, 25 fps, 25 tbr, 90k tbn
+2025-11-28 16:46:43.420 [info] Получен SIGINT
+2025-11-28 16:46:43.420 [info] Stopping ffmpeg and exiting...
+2025-11-28 16:46:43.425 [warn] ffmpeg PID=17472 остановлен. code=null signal=SIGINT
+2025-11-28 16:46:43.426 [info] Сервер корректно останавливается (shutting down).
+2025-11-28 16:46:44.402 [info] Получен SIGINT
