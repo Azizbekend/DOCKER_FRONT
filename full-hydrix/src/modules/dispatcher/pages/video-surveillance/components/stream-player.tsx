@@ -12,9 +12,9 @@ export const StreamPlayer = observer(() => {
     useEffect(() => {
         if (!bigViewSrc) return;
 
-        fetch(`http://localhost:5012/${bigViewSrc}/connect`)
+        fetch(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/connect`)
             .then(r => r.json())
-            .then(d => setStreamSrc(`http://localhost:5012/${d.stream_url}`)); // без повтора /
+            .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera/${d.stream_url}`)); // без повтора /camera/
     }, [bigViewSrc]);
 
     // Инициализация HLS
@@ -39,7 +39,7 @@ export const StreamPlayer = observer(() => {
     useEffect(() => {
         return () => {
             if (bigViewSrc)
-                navigator.sendBeacon(`http://localhost:5012/${bigViewSrc}/disconnect`);
+                navigator.sendBeacon(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/disconnect`);
         };
     }, []);
 
