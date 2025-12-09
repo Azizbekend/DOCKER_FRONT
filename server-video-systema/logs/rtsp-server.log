@@ -109,3 +109,11 @@
 2025-11-28 16:46:43.425 [warn] ffmpeg PID=17472 остановлен. code=null signal=SIGINT
 2025-11-28 16:46:43.426 [info] Сервер корректно останавливается (shutting down).
 2025-11-28 16:46:44.402 [info] Получен SIGINT
+2025-12-09 19:31:54.996 [info] RTSP client starting...
+2025-12-09 19:31:54.998 [info] Попытка подключения #1 к rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0
+2025-12-09 19:31:55.003 [info] ffmpeg PID=25252 запущен.
+2025-12-09 19:31:57.908 [info] Получен SIGINT
+2025-12-09 19:31:57.909 [info] Stopping ffmpeg and exiting...
+2025-12-09 19:31:57.913 [warn] ffmpeg PID=25252 остановлен. code=null signal=SIGINT
+2025-12-09 19:31:57.913 [info] Сервер корректно останавливается (shutting down).
+2025-12-09 19:31:58.909 [info] Получен SIGINT
