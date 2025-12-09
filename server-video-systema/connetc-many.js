@@ -60,7 +60,7 @@ function startStream(id, rtsp) {
 // Вызов пользователем
 const viewers = {}; // id камеры: кол-во активных клиентов
 
-app.get('/camera/:id/connect', (req, res) => {
+app.get('/:id/connect', (req, res) => {
     const id = Number(req.params.id);
     const cam = CAMERAS.find(c => c.id === id);
     if (!cam) return res.status(404).send('Камера не найдена');
@@ -71,7 +71,7 @@ app.get('/camera/:id/connect', (req, res) => {
     return res.json({ stream_url: `/stream_${id}/index.m3u8` });
 });
 
-app.get('/camera/:id/disconnect', (req, res) => {
+app.get('/:id/disconnect', (req, res) => {
     const id = Number(req.params.id);
 
     viewers[id] = Math.max((viewers[id] || 1) - 1, 0);
