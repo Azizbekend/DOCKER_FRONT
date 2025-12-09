@@ -141,8 +141,8 @@ export const EquipmentPassport = observer(() => {
                                     </a>
                                 ))}
                             </div>
-                    }
                         </div>
+                    }
 
                     {/* Enhanced Event Log — как в "Управление" */}
                     <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
