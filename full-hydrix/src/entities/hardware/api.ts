@@ -156,6 +156,7 @@ export interface Documents {
     hardwareId?: number,
     file?: File | null,
     id?: number | string,
+    downloadUrl?: string,
 }
 
 

@@ -1,4 +1,4 @@
-import { checkedServiceApi, getCharacteristicAll, getCommandAll, getHistoryRecordsServiceApi, getInfoHardware, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -24,9 +24,11 @@ class HardwareModel {
 
     сharacteristic: Characteristic[] = []
     commands: ControlType[] = []
+    commandsInfo: ControlType[] = []
     services: ServiceModelType[] | any = []
     servicesToday: ServiceModelType[] | any = []
     servicesHistory: ServiceModelType[] | any = []
+    documents: Documents[] | any = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -39,20 +41,26 @@ class HardwareModel {
 
         try {
 
-            const [info, commands, characteristics, servicesToday, week] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, documents] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
+                getCommandAllInfo({ id }),
                 getCharacteristicAll({ id }),
                 getTodayServiceApi({ id: id }),
-                getServiceApi({ id: id })
+                getServiceApi({ id: id }),
+                getDocuments({ id: id })
             ]);
 
             this.model = info.data;
             this.commands = commands.data;
+            this.commandsInfo = commandsInfo.data;
             this.сharacteristic = characteristics.data;
 
             this.servicesToday = servicesToday.data;
             this.servicesHistory = week.data;
+
+
+            this.documents = documents.data;
 
 
         } catch (error) {

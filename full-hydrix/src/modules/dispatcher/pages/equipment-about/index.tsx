@@ -17,7 +17,7 @@ export const EquipmentAbout = observer(() => {
         <Loader />
         :
         <div className="informations-dispatch__requestregistry relative mt-10" >
-            <div className="absolute  top-[-38px] left-[30px] flex gap-3">
+            <div className="absolute  top-[-36px] left-[30px] flex gap-3">
                 <NavLink
                     to={`/dispatcher/equipment-about/passport/${id}`}
                     className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
