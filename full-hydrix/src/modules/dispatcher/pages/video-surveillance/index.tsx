@@ -1,11 +1,7 @@
 import { VideoSlider } from "./components/video-slider"
 import { StreamPlayer } from "./components/stream-player"
-import { useState } from "react"
-import { videoSurveillanceModel } from "./model/video-surveillance-model"
-import { observer } from "mobx-react-lite"
 
 export const VideoSurveillance = () => {
-
 
     return (
         <>

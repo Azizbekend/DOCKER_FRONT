@@ -162,6 +162,6 @@ export interface Documents {
 export const createDocuments = (params: Documents) => {
     return reserchInstance.post(Documents.upload, { params })
 }
-export const getDocuments = (params: number) => {
+export const getDocuments = (params: { id: number }) => {
     return reserchInstance.get(Documents.hardware, { params })
 }

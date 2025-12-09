@@ -140,19 +140,19 @@ class EquipmentCreateModel {
     async init(id: number) {
         this.isLoading = true;
         try {
-            const [info, commands, commandsInfo, characteristics] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, docs] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
                 getCharacteristicAll({ id }),
-                // getDocuments(id)
+                getDocuments({ id })
             ]);
 
             this.model = info.data;
             this.listController = commands.data;
             this.listController = [... this.listController, commandsInfo.data];
             this.listCharacters = characteristics.data;
-            // this.listDocuments = docs.data;
+            this.listDocuments = docs.data;
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
@@ -350,6 +350,11 @@ class EquipmentCreateModel {
 
     async createDocument(data: Documents) {
         try {
+
+
+
+            console.log(data.title, data.file, this.model.id)
+
 
             const formData = new FormData();
             formData.append("Title", data.title);

@@ -5,76 +5,170 @@ import { SwitchButton } from "@/shared/ui/switch-button";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 export const EquipmentControll = () => {
-    const { model, commands } = hardwareModel
-    const [value, setValue] = useState("");
+  const { model, commands } = hardwareModel;
+  const [value, setValue] = useState("");
 
-    return (
-        <div>
+  // Расширенные данные для журнала событий (можно заменить на реальные)
+  const eventLog = [
+    {
+      timestamp: "08.12.2025 12:34",
+      action: "Отключение",
+      initiator: "Система защиты",
+      status: "warning",
+      description: "Аварийное отключение из-за превышения давления"
+    },
+    {
+      timestamp: "05.12.2025 12:36",
+      action: "Запуск",
+      initiator: "Оператор Иванов И.И.",
+      status: "success",
+      description: "Ручной запуск после устранения неисправности"
+    },
+    {
+      timestamp: "05.12.2025 12:10",
+      action: "ТО1",
+      initiator: "Служба техобслуживания",
+      status: "info",
+      description: "Плановое техническое обслуживание (уровень 1)"
+    },
+    {
+      timestamp: "01.12.2025 09:22",
+      action: "Изменение параметра",
+      initiator: "Диспетчер Сидоров А.В.",
+      status: "neutral",
+      description: "Установлен расход 150 м³/ч"
+    }
+  ];
 
-            <div className="bg-white rounded-[20px] p-[45px_30px_50px_40px] mb-5 relative">
-                <Link to={"/dispatcher/orders/create"} className="flex items-center gap-2 py-2 px-3 bg-[var(--clr-accent)] text-white w-fit rounded-lg hover:opacity-50 duration-300 absolute top-5 right-5">
-                    <Icon systemName="file-plus" />
-                    <span>Создать заявку</span>
-                </Link>
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'warning': return 'text-red-700 bg-red-100';
+      case 'success': return 'text-green-700 bg-green-100';
+      case 'info': return 'text-blue-700 bg-blue-100';
+      default: return 'text-gray-700 bg-gray-100';
+    }
+  };
 
-
-                <div className="mb-[32px] flex items-center gap-[28px]">
-                    <Link to={"/dispatcher/equipment"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
-                        <Icon systemName="arrow-left" />
-                    </Link>
-                    <span className="font-bold text-[34px] mb-2">Управление</span>
-                </div>
-
-                <div className="text-[24px] mb-4 font-semibold">{model.name}</div>
+  return (
+    <div className="space-y-6" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+      {/* Единый блок управления */}
+      <div className="bg-gradient-to-b from-white to-gray-50 rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+        {/* Шапка */}
+        <div className="bg-[#4A85F6] text-white p-6 relative">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <Link
+                to="/dispatcher/equipment"
+                className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-lg hover:bg-white/30 transition-colors"
+              >
+                <Icon systemName="arrow-left" className="text-white" />
+              </Link>
+              <div>
+                <h1 className="text-xl md:text-2xl font-bold">Управление</h1>
+                <p className="text-white/90 text-sm mt-1">{model.name || '—'}</p>
+              </div>
             </div>
-            <div className="flex items-top gap-5">
-                <div className="w-full bg-white rounded-[20px] p-[45px_30px_50px_40px]">
 
-
-                    {commands.map((item, key) => {
-                        return item.isValue == true
-                            ?
-                            <div className="flex justify-between mb-5 border-b pb-5" key={key}>
-                                <span className="font-bold">{item.name}</span>
-
-                                <div className="flex items-center gap-2">
-                                    <Input type="number" value={value} onChange={setValue}
-                                        className="border rounded-lg max-w-[80px] py-1 px-2" />
-                                    m3
-                                </div>
-                            </div>
-                            :
-                            <div className="flex justify-between mb-5 border-b pb-5" key={key}>
-                                <span className="font-bold">{item.name}</span>
-                                <SwitchButton
-                                    onChange={() => { console.log() }}
-                                    classNames={{
-                                        container: "ml-7 gap-3",
-                                        button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                                        circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                                    }}
-                                />
-                            </div>
-                    })}
-                </div>
-                <div className="w-full bg-white rounded-[20px] p-[45px_30px_50px_40px]">
-                    <div className="info-comp__section">
-                        <div className="info-comp__subtitle font-bold">Журнал событий</div>
-
-                        <div className="info-comp__act">
-                            <span className='info-comp__act-date'>18.10.2025 12.34 - </span> <span className='info-comp__act-status _red'>отключение</span>
-                        </div>
-                        <div className="info-comp__act">
-                            <span className='info-comp__act-date'>18.10.2025 12.36 - </span> <span className='info-comp__act-status _green'>запуск</span>
-                        </div>
-                        <div className="info-comp__act">
-                            <span className='info-comp__act-date'>20.12.2025 12.10 - </span> <span className='info-comp__act-status _orange'>ТО1</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Link
+              to="/dispatcher/orders/create"
+              className="flex items-center gap-2 px-4 py-2 bg-white text-[#4A85F6] rounded-lg font-semibold hover:bg-white/90 transition-colors shadow-sm"
+            >
+              <Icon systemName="plus" className="text-[#4A85F6]" />
+              Создать заявку
+            </Link>
+          </div>
         </div>
-    );
-}
+
+        {/* Основное содержимое */}
+        <div className="p-7">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Команды управления */}
+            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+              <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
+                <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
+                Команды управления
+              </h3>
+
+              <div className="space-y-4">
+                {commands.map((item, key) => (
+                  <div
+                    key={key}
+                    className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0 group"
+                  >
+                    <span className="font-medium text-gray-800 group-hover:text-[#4A85F6] transition-colors">
+                      {item.name}
+                    </span>
+
+                    {item.isValue ? (
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="number"
+                          value={value}
+                          onChange={setValue}
+                          className="border border-gray-300 rounded-lg w-24 px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                          placeholder="0"
+                        />
+                        <span className="text-gray-600 text-sm">м³</span>
+                      </div>
+                    ) : (
+                      <SwitchButton
+                        onChange={() => { console.log() }}
+                        classNames={{
+                          container: "ml-7 gap-3",
+                          button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                          circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Расширенный журнал событий */}
+            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+              <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
+                <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
+                Журнал событий
+              </h3>
+
+              <div className="flex flex-col gap-5 max-h-[600px] overflow-y-auto pr-2">
+                {eventLog.length > 0 ? (
+                  eventLog.map((event, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-lg border-l-4 border-white shadow-md transition-shadow"
+                      style={{
+                        borderLeftColor: event.status === 'warning' ? '#f87171' :
+                          event.status === 'success' ? '#4ade80' :
+                            event.status === 'info' ? '#60a5fa' : '#9ca3af'
+                      }}
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${event.status === 'warning' ? 'bg-red-100 text-red-800' :
+                          event.status === 'success' ? 'bg-green-100 text-green-800' :
+                            event.status === 'info' ? 'bg-blue-100 text-blue-800' :
+                              'bg-gray-100 text-gray-800'
+                          }`}>
+                          {event.action}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 leading-relaxed">{event.description}</p>
+                      <p className="text-xs text-gray-500 mt-2">Инициатор: {event.initiator}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-gray-500">
+                    Нет записей в журнале
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
