@@ -1,6 +1,6 @@
 import { Icon } from "@/shared/ui/icon";
 import image from "../../assets/info-com-1.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/entities/hardware/model";
 import { Button } from "@/shared/ui/button";
@@ -11,6 +11,7 @@ import { ModalServiceCreate } from "../../../equipment/components/modal-service-
 export const EquipmentPassport = observer(() => {
     const { model, сharacteristic } = hardwareModel
     const { modalService, closeModal } = hardwareListModel
+    const navigate = useNavigate();
 
     return (
         <div className="bg-white rounded-tr-[20px] rounded-bl-[20px] rounded-br-[20px] p-[45px_30px_50px_40px]">
@@ -26,6 +27,10 @@ export const EquipmentPassport = observer(() => {
 
                 <Button class=" hover:opacity-50 w-full px-5 text-center bg-[var(--clr-border-gray)]" onClick={() => hardwareListModel.setModalService(true, model.id)}>
                     <span className="w-full text-white">+ сервис</span>
+                </Button>
+
+                <Button class="py-1 pl-3 pr-2 rounded-lg bg-green-500 hover:opacity-50" onClick={() => navigate('/dispatcher/equipment/form/' + model.id)}>
+                    <Icon width={20} height={20} systemName="edit-white" />
                 </Button>
             </div>
 

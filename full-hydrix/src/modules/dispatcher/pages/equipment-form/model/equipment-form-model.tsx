@@ -122,6 +122,15 @@ class EquipmentCreateModel {
             opcDescription: "",
             controlBlockId: 5,
         };
+
+        this.schemaModel = {
+            top: "",
+            left: "",
+            hieght: "",
+            width: "",
+            hardwareSchemaId: 0,
+        }
+
         this.saveIMage = null;
         this.imgPreview = "";
     }
