@@ -12,9 +12,9 @@ export const StreamPlayer = observer(() => {
     useEffect(() => {
         if (!bigViewSrc) return;
 
-        fetch(`http://servercamera:5012/${bigViewSrc}/connect`)
+        fetch(`http://localhost:5012/${bigViewSrc}/connect`)
             .then(r => r.json())
-            .then(d => setStreamSrc(`http://servercamera:5012/${d.stream_url}`)); // без повтора /camera/
+            .then(d => setStreamSrc(`http://localhost:5012/${d.stream_url}`)); // без повтора /camera/
         // .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera${d.stream_url}`)); // без повтора /camera/
     }, [bigViewSrc]);
 
@@ -40,7 +40,7 @@ export const StreamPlayer = observer(() => {
     useEffect(() => {
         return () => {
             if (bigViewSrc)
-                navigator.sendBeacon(`http://servercamera:5012/${bigViewSrc}/disconnect`);
+                navigator.sendBeacon(`http://localhost:5012/${bigViewSrc}/disconnect`);
         };
     }, []);
 
