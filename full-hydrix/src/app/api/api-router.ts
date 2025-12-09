@@ -220,6 +220,8 @@ export const Control = {
 export const Service = {
   create: "/MaintenanseSheduler/create",
   next_week: "/MaintenanseSheduler/next_week",
+  today: "/MaintenanseSheduler/today",
+  historyRecords: "/MaintenanseSheduler/history/records",
   completeRequest: "/MaintenanseSheduler/completeRequest",
 }
 

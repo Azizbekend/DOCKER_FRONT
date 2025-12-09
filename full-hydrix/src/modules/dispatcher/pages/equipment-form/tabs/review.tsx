@@ -158,8 +158,6 @@ export const Review = observer(() => {
                         </div>
                     ))
                 }
-
-
             </div>
 
             {/* <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button> */}

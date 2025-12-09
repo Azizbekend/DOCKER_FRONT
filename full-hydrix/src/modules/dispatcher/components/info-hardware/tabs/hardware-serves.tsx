@@ -10,7 +10,7 @@ import { hardwareModel } from '@/entities/hardware/model';
 
 export const HardwareServes = observer(() => {
 
-    const { services, servicesWeek, checkedService } = hardwareModel
+    const { services, servicesToday, servicesHistory, checkedService } = hardwareModel
     const handleHeaderClick = (id: number) => {
         checkedService(id)
     }
@@ -27,22 +27,22 @@ export const HardwareServes = observer(() => {
                 </div>
             }
 
-            {services.length > 0 &&
+            {servicesToday.length > 0 &&
 
                 <BlockSelect title="Ежедневное обслуживание"
 
                     className="flex flex-col gap-3"
                     children={
-                        services.map((item, key) => {
+                        servicesToday.map((item, key) => {
                             return (
                                 <InfoObject key={key}
                                     className='w-full'
-                                    // info={item.discription}
+                                    info={item.discription}
 
                                     children={
                                         <div className='flex items-center justify-between' onClick={() => handleHeaderClick(item.id)}>
                                             <InputCheckbox
-                                                label={item.discription}
+                                                label={item.title}
                                             />
                                             <Icon systemName='info-blue' />
                                         </div>
@@ -53,21 +53,21 @@ export const HardwareServes = observer(() => {
                     } />
             }
 
-            {servicesWeek.length > 0 &&
+            {servicesHistory.length > 0 &&
                 <BlockSelect
                     title="Периодическое (плановое) обслуживание"
                     className='flex flex-col gap-2'
                     children={
-                        servicesWeek.map((item, key) => {
+                        servicesHistory.map((item, key) => {
                             return (
                                 <InfoObject key={key}
                                     className='w-full'
-                                    info={item.info}
+                                    info={item.discription}
                                     children={
                                         <div className='flex items-end ap-2 justify-between'>
                                             <div className='flex flex-col'>
                                                 {/* <span className='mt-1 text-[12px]'>{item.date}</span> */}
-                                                <span>{item.discription}</span>
+                                                <span>{item.title}</span>
                                             </div>
                                             <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
                                                 <Icon systemName='plus-circle-white' />

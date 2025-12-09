@@ -37,6 +37,7 @@ const selectItems: { value: string | number; title: string; }[] = [
 export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
     const { createService } = hardwareListModel
 
+    const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [date, setDate] = useState<string>('');
     const [typeDate, setTypeDate] = useState<string | number>('');
@@ -75,7 +76,7 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
                 <div className="max-w-[613px]">
                     <div className="flex gap-3 items-end animate-fade-in">
                         <InputContainer
-                            headerText="Описание заявки"
+                            headerText="Название"
                             classNames={{
                                 wrapper: "w-[500px]"
                             }}
@@ -83,7 +84,22 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
                                 <input
                                     className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
                                     type="text"
-                                    placeholder="Название характеристики"
+                                    placeholder="Название"
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                />
+                            }
+                        />
+                        <InputContainer
+                            headerText="Описание"
+                            classNames={{
+                                wrapper: "w-[500px]"
+                            }}
+                            children={
+                                <input
+                                    className="border-[1.5px] px-3 py-3 rounded-lg w-full outline-none focus:border-[var(--clr-accent)] transition-colors duration-200"
+                                    type="text"
+                                    placeholder="Описание"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />

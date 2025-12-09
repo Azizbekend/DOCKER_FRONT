@@ -37,6 +37,14 @@ export const getServiceApi = (params: { id: number }) => {
     return reserchInstance.get(Service.next_week, { params })
 }
 
+export const getTodayServiceApi = (params: { id: number }) => {
+    return reserchInstance.get(Service.today, { params })
+}
+
+export const getHistoryRecordsServiceApi = (params: { id: number }) => {
+    return reserchInstance.get(Service.historyRecords, { params })
+}
+
 export const checkedServiceApi = (params: { id: number }) => {
     return reserchInstance.put(Service.completeRequest, params)
 }

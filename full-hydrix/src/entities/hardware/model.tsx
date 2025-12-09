@@ -1,4 +1,4 @@
-import { checkedServiceApi, getCharacteristicAll, getCommandAll, getInfoHardware, getServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, getCharacteristicAll, getCommandAll, getHistoryRecordsServiceApi, getInfoHardware, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -25,7 +25,8 @@ class HardwareModel {
     сharacteristic: Characteristic[] = []
     commands: ControlType[] = []
     services: ServiceModelType[] | any = []
-    servicesWeek: ServiceModelType[] | any = []
+    servicesToday: ServiceModelType[] | any = []
+    servicesHistory: ServiceModelType[] | any = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -37,37 +38,24 @@ class HardwareModel {
         this.isLoading = true
 
         try {
-            const [info, commands, characteristics, services] = await Promise.all([
+
+
+
+            const [info, commands, characteristics, servicesToday,] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCharacteristicAll({ id }),
-                getServiceApi({ id: id })
+                getTodayServiceApi({ id: id }),
+                // getHistoryRecordsServiceApi({ id: 17 })
             ]);
 
             this.model = info.data;
             this.commands = commands.data;
             this.сharacteristic = characteristics.data;
 
-            if (serviceTody) {
-                const today = new Date();
-                const todayStr = today.toISOString().split('T')[0];
+            this.servicesToday = servicesToday.data;
+            // this.servicesHistory = servicesHistory.data;
 
-                // this.services = services.data
-
-                this.services = services.data.filter(item => {
-                    const date = item.nextMaintenanceDate?.split('T')[0];
-                    return date === todayStr;
-                });
-
-                this.servicesWeek = services.data.filter(item => {
-                    const date = item.nextMaintenanceDate?.split('T')[0];
-                    return date !== todayStr;
-                })
-            } else {
-                this.services = services.data;
-            }
-
-            console.log(services.data)
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
