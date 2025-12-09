@@ -39,8 +39,6 @@ class HardwareModel {
 
         try {
 
-
-
             const [info, commands, characteristics, servicesToday,] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
@@ -74,6 +72,10 @@ class HardwareModel {
                 this.isLoading = false
             })
 
+    }
+
+    changeCommands(value: string, id: string) {
+        this.commands[this.commands.findIndex(item => item.id === id)].value = value
     }
 
     async checkedService(id: number) {

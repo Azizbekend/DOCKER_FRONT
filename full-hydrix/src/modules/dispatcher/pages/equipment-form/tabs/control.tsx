@@ -247,7 +247,7 @@ export const Control = observer(() => {
                                 }}
                                 children={
                                     <InputCheckbox
-                                        checked={item.isCommand}
+                                        checked={!item.isCommand}
                                         label="Информационный"
                                         onChange={(e) => handleIsInfo(item.id, e.target.checked)}
                                     />

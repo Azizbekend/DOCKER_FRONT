@@ -77,4 +77,4 @@ export const Scheme = observer(() => {
             </div>
         </div >
     )
-})
+})  

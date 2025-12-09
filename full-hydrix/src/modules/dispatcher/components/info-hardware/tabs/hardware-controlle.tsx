@@ -11,7 +11,7 @@ import { hardwareModel } from '@/entities/hardware/model';
 
 export const HardwareControlle = observer(() => {
 
-    const { commands } = hardwareModel
+    const { commands, changeCommands } = hardwareModel
 
     const [btnCount, setBtnCount] = useState<number>(0);
     const [show, setShow] = useState<boolean>(false);
@@ -59,8 +59,7 @@ export const HardwareControlle = observer(() => {
                             <div className='flex items-center gap-4'>
                                 {item.isValue ?
                                     <>
-                                        <div>42</div>
-                                        <Input type="number" value={value} onChange={setValue}
+                                        <Input type="number" value={item.value} onChange={(e) => { changeCommands(e.target.value, item.id) }}
                                             className="border rounded-lg max-w-[80px] py-1 px-2"
                                             lengthOptions={{
                                                 maxLength: 5,
