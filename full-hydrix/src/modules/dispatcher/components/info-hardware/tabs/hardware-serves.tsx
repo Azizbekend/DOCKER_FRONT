@@ -25,7 +25,10 @@ export const HardwareServes = observer(() => {
                 </div>
             }
 
-            {servicesToday.length == 0 ? <div className='border-y border-gray-300 py-4'>Сервис пустой</div> :
+            {servicesToday.length == 0 && <div className='border-y border-gray-300 py-4'>На сегодня задач нет</div>}
+
+
+            {servicesToday.length > 0 &&
                 <BlockSelect title="Ежедневное обслуживание"
                     className="flex flex-col gap-3"
                     isOpen={true}
@@ -52,7 +55,7 @@ export const HardwareServes = observer(() => {
 
             {servicesHistory.length > 0 &&
                 <BlockSelect
-                    title="Обслуживание на ближайщую "
+                    title="Обслуживание на ближайшую неделю"
                     className='flex flex-col gap-2'
                     children={
                         servicesHistory.map((item, key) => {
