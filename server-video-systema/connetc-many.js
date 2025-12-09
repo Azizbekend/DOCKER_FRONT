@@ -78,7 +78,7 @@ app.get('/:id/connect', (req, res) => {
     if (!activeStreams[id]) startStream(cam);
 
     return res.json({
-        stream_url: `/stream_${id}/index.m3u8`
+        stream_url: `/public/stream_${id}/index.m3u8`
     });
 });
 
