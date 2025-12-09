@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import image from '../../assets/scheme.png'
-import image2 from '../../assets/scheme2.png'
+import image2 from '../../assets/scheme2-need.png'
 import image3 from '../../assets/sssss.png'
 
 
