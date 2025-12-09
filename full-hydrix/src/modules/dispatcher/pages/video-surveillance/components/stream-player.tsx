@@ -14,7 +14,7 @@ export const StreamPlayer = observer(() => {
 
         fetch(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/connect`)
             .then(r => r.json())
-            .then(d => setStreamSrc(`${d.stream_url}`)); // без повтора /camera/
+            .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera/app${d.stream_url}`)); // без повтора /camera/
         // .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera${d.stream_url}`)); // без повтора /camera/
     }, [bigViewSrc]);
 
