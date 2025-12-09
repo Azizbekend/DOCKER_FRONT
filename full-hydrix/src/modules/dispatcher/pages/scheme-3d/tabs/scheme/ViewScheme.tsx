@@ -226,7 +226,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
-                                <img className="not-hover-img h-full w-full object-cover" src={`https://triapi.ru/research/api/FileStorage/images/download?id=${p.fileId}`} />
+                                <img className="not-hover h-full w-full object-cover" src={`https://triapi.ru/research/api/FileStorage/images/download?id=${p.fileId}`} />
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                             className="relative"
                             style={{ top: "42%", left: "16%", position: "absolute" }}
                         >
-                            <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                            <div className="not-hover bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
                                 <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
                                 <div className="flex items-baseline gap-1">
                                     <span className="text-emerald-400 font-semibold text-base">20.2</span>
@@ -263,7 +263,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                             className="relative"
                             style={{ top: "20%", left: "20%", position: "absolute" }}
                         >
-                            <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                            <div className="not-hover bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
                                 <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
                                 <div className="flex items-baseline gap-1">
                                     <span className="text-emerald-400 font-semibold text-base">20.2</span>

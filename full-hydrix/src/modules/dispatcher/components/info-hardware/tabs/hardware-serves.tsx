@@ -17,8 +17,6 @@ export const HardwareServes = observer(() => {
 
     return (
         <div className="w-full mt-10 p-[0_0_50px_0]">
-
-
             {
                 false &&
                 <div className="border-2 border-[#4A85F6] bg-[#4A85F620] rounded-[8px] mb-5 flex items-center justify-center gap-[16px] py-[16px] pl-[16px] pr-[34px]">
@@ -27,9 +25,10 @@ export const HardwareServes = observer(() => {
                 </div>
             }
 
-            {servicesToday.length > 0 &&
+            {servicesToday.length == 0 ? <div className='border-y border-gray-300 py-4'>Сервис пустой</div> :
                 <BlockSelect title="Ежедневное обслуживание"
                     className="flex flex-col gap-3"
+                    isOpen={true}
                     children={
                         servicesToday.map((item, key) => {
                             return (
@@ -38,11 +37,11 @@ export const HardwareServes = observer(() => {
                                     info={item.discription}
 
                                     children={
-                                        <div className='flex items-center justify-between' onClick={() => handleHeaderClick(item.id)}>
+                                        <div className='flex items-center gap-4 justify-between' onClick={() => handleHeaderClick(item.id)}>
                                             <InputCheckbox
                                                 label={item.title}
                                             />
-                                            <Icon systemName='info-blue' />
+                                            <Icon systemName='info-blue' className='min-w-[30px] min-h-[30px] w-[30px] h-[30px]' />
                                         </div>
                                     }
                                 />
@@ -53,7 +52,7 @@ export const HardwareServes = observer(() => {
 
             {servicesHistory.length > 0 &&
                 <BlockSelect
-                    title="Периодическое (плановое) обслуживание"
+                    title="Обслуживание на ближайщую "
                     className='flex flex-col gap-2'
                     children={
                         servicesHistory.map((item, key) => {
@@ -62,14 +61,20 @@ export const HardwareServes = observer(() => {
                                     className='w-full'
                                     info={item.discription}
                                     children={
-                                        <div className='flex items-end ap-2 justify-between'>
-                                            <div className='flex flex-col'>
-                                                {/* <span className='mt-1 text-[12px]'>{item.date}</span> */}
+                                        <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2'>
+                                            <div className='flex flex-col flex-1'>
+                                                <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
+                                                    {new Date(item.nextMaintenanceDate).toLocaleDateString('ru-RU', {
+                                                        day: '2-digit',
+                                                        month: '2-digit',
+                                                        year: 'numeric'
+                                                    }).replace(/\//g, '.')}
+                                                </span>
                                                 <span>{item.title}</span>
                                             </div>
-                                            <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] rounded-lg p-2'>
+                                            {/* <Link to="/dispatcher/orders/create/form" className='bg-[var(--clr-accent)] min-w-[37px] min-h-[35px] rounded-lg p-2'>
                                                 <Icon systemName='plus-circle-white' />
-                                            </Link>
+                                            </Link> */}
                                         </div>
                                     }
                                 />

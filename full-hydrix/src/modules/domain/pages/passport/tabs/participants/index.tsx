@@ -8,6 +8,15 @@ import { CreateCompanyModal } from './components/create-company-modal';
 export const PassportParticipants = observer(() => {
     const participantsData = [
         {
+            organization: "ГБУ \"СЭТИК\"",
+            role: "Заказчик",
+            name: "Сидоров Андрей",
+            email: "fondgaz@yandex.ru",
+            phone: "+7 (843) 221-51-89",
+            status: "Действующая",
+            color: "#FF9500"
+        },
+        {
             organization: "АО \"ВКС\"",
             role: "Эксплуатирующая организация",
             name: "Иванов Иван",
@@ -25,15 +34,6 @@ export const PassportParticipants = observer(() => {
             status: "Действующая",
             color: "#34C759"
         },
-        {
-            organization: "ГКУ \"ГУИС\"",
-            role: "Заказчик",
-            name: "Сидоров Андрей",
-            email: "fondgaz@yandex.ru",
-            phone: "+7 (843) 221-51-89",
-            status: "Действующая",
-            color: "#FF9500"
-        }
     ];
 
     const [showAddEmployeeModal, setShowAddEmployeeModal] = useState<boolean>(false);
@@ -45,23 +45,23 @@ export const PassportParticipants = observer(() => {
             <CreateCompanyModal show={showCreateCompanyModal} setShow={setShowCreateCompanyModal} />
 
             <div className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Участники</h1>
-                    <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-2"></div>
-                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Участники</h1>
+                <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-2"></div>
+            </div>
 
-            <Button 
+            <Button
                 class='bg-[#4A85F6] py-3 px-6 rounded-xl text-white font-semibold hover:bg-[#3a6bc9] transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 mb-12'
                 onClick={() => setShowCreateCompanyModal(true)}
             >
-                 <Icon systemName='plus-white' />
-                
+                <Icon systemName='plus-white' />
+
                 Добавить организацию
             </Button>
 
             <div className="space-y-8">
                 {participantsData.map((participant, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         className='border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-white to-gray-50'
                     >
                         {/* Status badge - left aligned, elegant */}
@@ -74,14 +74,14 @@ export const PassportParticipants = observer(() => {
 
                         {/* Role - larger, bold, with accent color */}
                         <div className='font-bold text-gray-900 text-xl mb-2'>{participant.role}</div>
-                        
+
                         {/* Organization Name - smaller, subtle */}
                         <div className='text-gray-600 text-lg mb-5 font-medium'>{participant.organization}</div>
 
                         {/* Contact Info */}
                         <div className='flex items-start gap-4'>
                             {/* Avatar with unique color and subtle shadow */}
-                            <div 
+                            <div
                                 className='font-bold h-12 w-12 rounded-full flex items-center justify-center text-white text-base shadow-md'
                                 style={{ backgroundColor: participant.color }}
                             >
@@ -91,7 +91,7 @@ export const PassportParticipants = observer(() => {
                             {/* Details */}
                             <div className='flex-1'>
                                 <div className='font-bold text-gray-900 mb-2 text-lg'>{participant.name}</div>
-                                
+
                                 {/* Email */}
                                 <div className='flex items-center gap-2 mb-2'>
                                     <div className='w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center'>
@@ -128,7 +128,7 @@ export const PassportParticipants = observer(() => {
 
                         {/* Add Employee Button */}
                         <div className='mt-6 pt-4 border-t border-gray-200'>
-                            <div 
+                            <div
                                 className='flex items-center gap-3 text-[#4A85F6] hover:text-[#3a6bc9] font-semibold text-base transition-colors duration-200 cursor-pointer w-fit group'
                                 onClick={() => setShowAddEmployeeModal(true)}
                             >

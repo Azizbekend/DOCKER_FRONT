@@ -7,10 +7,11 @@ interface BlockProps {
     title: string,
     children: ReactNode,
     className?: string,
+    isOpen?: boolean,
 }
 
-export const BlockSelect = observer(({ title, children, className }: BlockProps) => {
-    const [open, setOpen] = useState<boolean>(false);
+export const BlockSelect = observer(({ title, children, className, isOpen = false }: BlockProps) => {
+    const [open, setOpen] = useState<boolean>(isOpen);
 
     return (
         <div className=''>

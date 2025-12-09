@@ -11,19 +11,19 @@ class ParticipantsModel {
     allUserList: userListType[] = [
         {
             id: 1,
-            name: "John Doe",
+            name: "Димтрий Андреевич",
         },
         {
             id: 2,
-            name: "Jane Doe",
+            name: "Александ Дмитреевич",
         },
         {
             id: 3,
-            name: "Jim Doe",
+            name: "Евгений Ивнович",
         },
         {
             id: 4,
-            name: "Jane Doe",
+            name: "Тарасов Барис",
         }
     ];
 

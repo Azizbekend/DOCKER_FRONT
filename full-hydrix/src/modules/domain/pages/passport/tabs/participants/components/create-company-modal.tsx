@@ -45,14 +45,14 @@ export const CreateCompanyModal = observer(({ show, setShow }: {
                 type="center"
                 show={show}
                 setShow={setShow}
-                title={<div>Добавление сотрудников на роль<br /> «Руководителя проекта»</div>}
+                title={<div>Добавление Организации</div>}
                 classNames={{
                     panel: "max-w-[640px] w-full",
                     footer: "bg-[#F6F6F6] p-[20px_24px_16px_24px]"
                 }}
 
                 children={
-                    <div className="py-10 px-6 w-full min-h-[80vh]">
+                    <div className="py-10 px-6 w-full min-h-[70vh]">
                         {stageModal == 0
                             &&
                             <>

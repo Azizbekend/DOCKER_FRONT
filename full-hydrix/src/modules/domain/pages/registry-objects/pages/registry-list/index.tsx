@@ -81,7 +81,7 @@ const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Проектная произ., м³",
+        header: "Проектная произ., м³/сут",
         key: 'volumeProjec',
         cell: ({ volumeProjec }) => {
             return (
@@ -90,7 +90,7 @@ const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Средне суточная произ., м³",
+        header: "Производительность., м³/сут",
         key: 'volumeAverage',
         cell: ({ volumeAverage }) => {
             return (
@@ -99,7 +99,7 @@ const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Реальная произ., м³",
+        header: "Реальная почасовая производительность, м³/ч",
         key: 'volumeReale',
         cell: ({ volumeReale }) => {
             return (

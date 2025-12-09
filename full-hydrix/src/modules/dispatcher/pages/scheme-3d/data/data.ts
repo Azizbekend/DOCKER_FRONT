@@ -213,7 +213,7 @@ export const points: SchemeViewerPointType[] = [
     { top: "25.6%", left: "52.5%", size: [180, 20], label: "Насос дозатор", id: 1, accident: true, image:"Насос дозатор (в ожидании).png",},
     { top: "27%", left: "50.9%", size: [180, 20], label: "Насос дозатор", id: 1, accident: true, image:"Насос дозатор (в работе).png",},
 
-    { top: "19%", left: "36%", size: [180, 19], label: "Насос дозатор", id: 1, accident: true, image:"Насос в КНС2 (в ожидании).png",},
+    { top: "19%", left: "36%", size: [180, 19], label: "КНС осадка", id: 1, accident: true, image:"Насос в КНС2 (в ожидании).png",},
     { top: "21%", left: "34%", size: [180, 19], label: "Насос дозатор", id: 1, accident: true, image:"Насос в КНС2 (в ожидании).png",},
 
     { top: "11%", left: "33%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},
@@ -221,7 +221,7 @@ export const points: SchemeViewerPointType[] = [
     { top: "18%", left: "33%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
     { top: "21%", left: "33%", size: [180, 15], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (верх).png",},
 
-    { top: "89%", left: "36%", size: [180, 21], label: "Насос дозатор", id: 1, accident: true, image:"Насос КНС 1 (в ожидании).png",},
+    { top: "89%", left: "36%", size: [180, 21], label: "КНС основная", id: 1, accident: true, image:"Насос КНС 1 (в ожидании).png",},
     { top: "91%", left: "38%", size: [180, 21], label: "Насос дозатор", id: 1, accident: true, image:"Насос КНС 1 (в ожидании).png",},
 
     { top: "85%", left: "34.5%", size: [180, 10], label: "Насос дозатор", id: 1, accident: true, image:"Поплавок (низ).png",},

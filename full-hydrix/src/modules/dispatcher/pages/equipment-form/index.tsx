@@ -11,6 +11,7 @@ import { Control } from "./tabs/control"
 import { Scheme } from "./tabs/scheme"
 import { Selector } from "@/shared/ui/Selector/selector"
 import Loader from "@/shared/ui/loader/loader"
+import { Documents } from "./tabs/documents"
 
 
 export const EquipmentCreate = observer(() => {
@@ -241,7 +242,7 @@ export const EquipmentCreate = observer(() => {
 
                         <div className="mt-10 pb-[100px] min-h-[50vh]">
                             {tab == "review" && <Review />}
-                            {tab == "docs" && <Review />}
+                            {tab == "docs" && <Documents />}
                             {tab == "control" && <Control />}
                             {tab == "scheme" && <Scheme />}
                         </div>

@@ -12,16 +12,16 @@ export const PassportInformation = observer(() => {
             coord: true,
         },
         {
+            name: "Заказчик",
+            value: 'ГБУ "СЭТИК"',
+        },
+        {
             name: "Эксплуатирующая организация",
             value: 'АО "ВКС"',
         },
         {
             name: "Ген.подрядчик",
             value: 'АО "УКС"',
-        },
-        {
-            name: "Заказчик",
-            value: 'ГКУ "ГУИС"',
         },
     ];
 
@@ -50,6 +50,12 @@ export const PassportInformation = observer(() => {
 
     const infoContacts = [
         {
+            type: 'Заказчик ГБУ "СЭТИК"',
+            name: "Сидоров Андрей",
+            email: "fondgaz@yandex.ru",
+            phone: "+7 (843) 221-51-89",
+        },
+        {
             type: 'Эксплуатирующая организация АО "ВКС"',
             name: "Иванов Иван",
             email: "mppjkx1@mail.ru",
@@ -60,12 +66,6 @@ export const PassportInformation = observer(() => {
             name: "Петров Иван",
             email: "uksr.kzn@tatar.ru",
             phone: "+7 (843) 223-19-19",
-        },
-        {
-            type: 'Заказчик ГБУ "СЭТИК"',
-            name: "Сидоров Андрей",
-            email: "fondgaz@yandex.ru",
-            phone: "+7 (843) 221-51-89",
         },
     ];
 
@@ -96,14 +96,14 @@ export const PassportInformation = observer(() => {
                     <div className="lg:col-span-2 space-y-8">
                         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Общая информация</h2>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {/* Image */}
                                 <div className="flex justify-center">
                                     <div className="relative w-full ">
-                                        <img 
-                                            src={imagePassport} 
-                                            alt="Объект" 
+                                        <img
+                                            src={imagePassport}
+                                            alt="Объект"
                                             className="w-full h-70 object-cover rounded-xl shadow-md border border-gray-200"
                                         />
                                         <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center">
@@ -120,7 +120,7 @@ export const PassportInformation = observer(() => {
                                             Очистные сооружения в с. Шапши, Высокогорского муниципального района
                                         </h3>
                                     </div>
-                                    
+
                                     {itemsInfo1.map((item, index) => (
                                         <div key={index} className="space-y-1">
                                             <div className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
@@ -138,11 +138,11 @@ export const PassportInformation = observer(() => {
                                                             className="ml-2 p-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
                                                             title="Копировать координаты"
                                                         >
-                                                            <svg 
-                                                                xmlns="http://www.w3.org/2000/svg" 
-                                                                className="h-4 w-4 text-gray-600" 
-                                                                fill="none" 
-                                                                viewBox="0 0 24 24" 
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                className="h-4 w-4 text-gray-600"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
                                                                 stroke="currentColor"
                                                             >
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -160,7 +160,7 @@ export const PassportInformation = observer(() => {
                         {/* Technical Specifications */}
                         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Технические характеристики</h2>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {itemsInfo2.map((item, index) => (
                                     <div key={index} className="bg-blue-50 rounded-xl p-4 border border-blue-100">
@@ -177,8 +177,8 @@ export const PassportInformation = observer(() => {
 
                         {/* Navigation Links */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-end">
-                            <Link 
-                                to="/gis" 
+                            <Link
+                                to="/gis"
                                 className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                             >
                                 <span>Перейти в Управление ЖБО</span>
@@ -186,8 +186,8 @@ export const PassportInformation = observer(() => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </Link>
-                            <Link 
-                                to="/dispatcher" 
+                            <Link
+                                to="/dispatcher"
                                 className="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm"
                             >
                                 <span>Перейти в Диспетчерскую</span>
@@ -202,7 +202,7 @@ export const PassportInformation = observer(() => {
                     <div className="space-y-6">
                         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Контактные данные</h2>
-                            
+
                             <div className="space-y-6">
                                 {infoContacts.map((contact, index) => (
                                     <div key={index} className="space-y-3 pb-6 border-b border-gray-100 last:border-b-0">
@@ -213,7 +213,7 @@ export const PassportInformation = observer(() => {
                                         </div>
                                         <div className="space-y-2">
                                             <div className="font-semibold text-gray-800">{contact.name}</div>
-                                            <a 
+                                            <a
                                                 href={`mailto:${contact.email}`}
                                                 className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
                                             >
@@ -222,7 +222,7 @@ export const PassportInformation = observer(() => {
                                                 </svg>
                                                 {contact.email}
                                             </a>
-                                            <a 
+                                            <a
                                                 href={`tel:${contact.phone.replace(/\s+/g, '')}`}
                                                 className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors duration-200"
                                             >

@@ -24,7 +24,7 @@ class RegistryModel {
             statusСonnection: true,
             statusJob: true,
             volumeProjec: 250,
-            volumeAverage: 10.5,
+            volumeAverage: 110,
             volumeReale: 9.2,
             dispetcher: true
         }
