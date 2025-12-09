@@ -66,7 +66,7 @@ app.get('/:id/connect', (req, res) => {
     if (!activeStreams[id]) startStream(id, cam.rtsp);
 
     viewers[id] = (viewers[id] || 0) + 1;
-    return res.json({ stream_url: `${__dirname}/public/stream_${id}/index.m3u8` });
+    return res.json({ stream_url: `public/stream_${id}/index.m3u8` });
 });
 
 app.get('/:id/disconnect', (req, res) => {
