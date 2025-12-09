@@ -8,6 +8,8 @@ import { HardwareServes } from "./tabs/hardware-serves";
 import { hardwareModel } from "@/entities/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/shared/ui/button";
 
 
 
@@ -19,7 +21,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
     useEffect(() => {
         init(id, true)
     }, [])
-
+    const navigate = useNavigate();
 
     return <div className={`info-comp ${className}`}>
         {isLoading ?
@@ -28,10 +30,19 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
             :
             <div className="info-comp__body">
-                <button className="info-comp__close" onClick={() => onClick(0)}>
-                    <Icon systemName="arrow-back-blue" />
-                    <span>назад</span>
-                </button>
+                <div className="flex items-center justify-between">
+                    <button className="info-comp__close" onClick={() => onClick(0)}>
+                        <div className="rotate-180">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </div>
+                        <span className="font-semibold">назад</span>
+                    </button>
+                    <Button class="py-1 pl-3 pr-2 rounded-lg bg-green-500 hover:opacity-50" onClick={() => navigate('/dispatcher/equipment/form/' + model.id)}>
+                        <Icon width={20} height={20} systemName="edit-white" />
+                    </Button>
+                </div>
 
                 <div className="info-comp__name">
                     {model.name}
