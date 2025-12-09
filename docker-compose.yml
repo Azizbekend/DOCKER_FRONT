@@ -3,11 +3,8 @@ services:
     build:
       context: ./full-hydrix
     ports:
-      - "5010:5010"
+      - 5010:5010
     command: npm run preview -- --host 0.0.0.0 --port 5010
-    networks:
-      - cam_net
-
 
   # serverimage:
   #   build:
@@ -17,16 +14,10 @@ services:
   #   command: node index.js
   #   working_dir: /app
 
-  servercamera:
-    build:
-      context: ./server-video-systema
-    ports:
-      - "5012:5012"
-    command: node connetc-many.js
-    working_dir: /app
-    networks:
-      - cam_net
-
-networks:
-  cam_net:
-    driver: bridge
+  # servercamera:
+  #   build:
+  #     context: ./server-video-systema
+  #   ports:
+  #     - 5012:5012
+  #   command: node connetc-many.js
+  #   working_dir: /app 
