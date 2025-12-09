@@ -36,8 +36,7 @@ export const CameraItem = ({ src, setSrc, active, onClick, count }: CameraItemPr
 
     return (
         <div
-            className={`flex-shrink-0 transition-all duration-300 transform cursor-pointer ${active ? "ring-2 ring-blue-500" : ""
-                }`}
+            className={`flex-shrink-0 transition-all duration-300 transform cursor-pointer`}
             style={{ width: `calc(${100 / 4}% - 16px)` }}
             onClick={handleClick}
         >
