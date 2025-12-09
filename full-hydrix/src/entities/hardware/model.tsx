@@ -39,12 +39,12 @@ class HardwareModel {
 
         try {
 
-            const [info, commands, characteristics, servicesToday,] = await Promise.all([
+            const [info, commands, characteristics, servicesToday, week] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCharacteristicAll({ id }),
                 getTodayServiceApi({ id: id }),
-                // getHistoryRecordsServiceApi({ id: 17 })
+                getServiceApi({ id: id })
             ]);
 
             this.model = info.data;
@@ -52,7 +52,7 @@ class HardwareModel {
             this.сharacteristic = characteristics.data;
 
             this.servicesToday = servicesToday.data;
-            // this.servicesHistory = servicesHistory.data;
+            this.servicesHistory = week.data;
 
 
         } catch (error) {

@@ -16,7 +16,6 @@ export const HardwareControlle = observer(() => {
     const [btnCount, setBtnCount] = useState<number>(0);
     const [show, setShow] = useState<boolean>(false);
 
-    const [value, setValue] = useState<string>("");
 
     return (
         <>
@@ -53,7 +52,7 @@ export const HardwareControlle = observer(() => {
 
 
                 {commands.map((item, key) => {
-                    return (
+                    return item.name !== "Стоп" && item.name !== "Пуск" && item.name !== "Cброс аварии" && (
                         <div key={key} className="flex justify-between gap-3 items-center mb-5 border-b pb-5">
                             <span className="font-semibold text-[14px]">{item.name}</span>
                             <div className='flex items-center gap-4'>

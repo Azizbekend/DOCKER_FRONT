@@ -28,9 +28,7 @@ export const HardwareServes = observer(() => {
             }
 
             {servicesToday.length > 0 &&
-
                 <BlockSelect title="Ежедневное обслуживание"
-
                     className="flex flex-col gap-3"
                     children={
                         servicesToday.map((item, key) => {

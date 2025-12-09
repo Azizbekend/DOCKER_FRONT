@@ -55,7 +55,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                 {model.id == 28 ?
                     <div className="flex items-center gap-2 ml-5 mb-5">
                         <div className="block w-3 h-3 rounded-[20px] bg-red-500"></div>
-                        <div>Работает</div>
+                        <div>Не работает</div>
                     </div>
                     :
                     <div className="flex items-center gap-2 ml-5 mb-5">

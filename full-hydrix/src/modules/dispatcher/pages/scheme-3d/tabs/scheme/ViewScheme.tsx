@@ -70,7 +70,6 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
     };
 
 
-
     const updateBounds = () => {
         if (!containerRef.current || !imgRef.current) return;
         const container = containerRef.current;
@@ -120,7 +119,6 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
 
     const handleMouseDown = (e: React.MouseEvent) => {
         setDragging(true);
-
         setStart({
             x: e.clientX - offset.x,
             y: e.clientY - offset.y,
@@ -129,6 +127,8 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!dragging) return;
+
+
         const newX = e.clientX - start.x;
         const newY = e.clientY - start.y;
 
