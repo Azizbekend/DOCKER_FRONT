@@ -69,17 +69,17 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
             setShow={setShow}
             classNames={{
                 panel: "max-w-[640px] w-full",
-                body: "p-10 h-[300px]",
+                body: "p-10 h-[400px]",
                 footer: "bg-[#F6F6F6] p-[20px_24px_16px_24px]"
             }}
 
             children={
                 <div className="max-w-[613px]">
-                    <div className="flex gap-3 items-end animate-fade-in">
+                    <div className="gap-3 items-end animate-fade-in">
                         <InputContainer
                             headerText="Название"
                             classNames={{
-                                wrapper: "w-[500px]"
+                                wrapper: "w-[500px] mb-6"
                             }}
                             children={
                                 <input
@@ -94,7 +94,7 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
                         <InputContainer
                             headerText="Описание"
                             classNames={{
-                                wrapper: "w-[500px]"
+                                wrapper: "w-[500px] mb-6"
                             }}
                             children={
                                 <input

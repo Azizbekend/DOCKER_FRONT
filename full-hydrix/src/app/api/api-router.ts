@@ -215,6 +215,10 @@ export const Control = {
   delete: "/NodeInfo/info/delete",
 }
 
+export const Documents = {
+  upload: "documents/upload",
+  hardware: "documents/hardware",
+}
 
 
 export const Service = {

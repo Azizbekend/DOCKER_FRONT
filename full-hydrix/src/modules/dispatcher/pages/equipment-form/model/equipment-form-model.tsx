@@ -2,7 +2,7 @@ import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaModelIn
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteInfoHardware, getAllHardware, getCharacteristicAll, getCommandAll, getInfoHardware, getServiceApi, manyCharacteristic, schemaCoordinatesCreate, schemaCreate, updateInfoHardware } from "@/entities/hardware/api";
+import { createCharacteristic, createDocuments, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteDocuments, deleteInfoHardware, Documents, getAllHardware, getCharacteristicAll, getCommandAll, getInfoHardware, getServiceApi, manyCharacteristic, schemaCoordinatesCreate, schemaCreate, updateInfoHardware } from "@/entities/hardware/api";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, ServiceTypeCreate } from "../components/control/type";
 import { isValid } from "date-fns";
@@ -34,6 +34,8 @@ class EquipmentCreateModel {
 
     listController: ControlType[] = [];
     listCharacters: Characteristic[] = [];
+
+    listDocuments: Documents[] = [];
 
     isLoading = false;
     preview: string = "";
@@ -341,6 +343,23 @@ class EquipmentCreateModel {
             })
         }
     }
+
+    async createDocument(data: Documents) {
+
+        if (this.model.id === undefined) return
+
+        await createDocuments({
+            title: data.title,
+            hardwareId: this.model.id,
+            file: data.file,
+        }).then(() => {
+
+            this.listDocuments = this.listDocuments.filter(item => item.id !== Number(id))
+            toast.success("Документ добавлен", { progressStyle: { background: "green" } })
+
+        })
+    }
+
 
     async updateInfo() {
         if (this.model.id) {
