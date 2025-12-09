@@ -12,6 +12,7 @@ app.listen(5012, () => {
     console.log('Server started on http://localhost:5012');
 });
 
+
 const CAMERAS = [
     { id: 1, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=1&subtype=0' },
     { id: 2, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=2&subtype=0' },
@@ -22,7 +23,10 @@ const CAMERAS = [
     { id: 7, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=7&subtype=0' },
 ];
 
-function startHlsCamera({ id, rtsp }) {
+
+const activeStreams = {};
+
+function startStream({ id, rtsp }) {
     const outDir = path.join(__dirname, `public/stream_${id}`);
 
     if (!fs.existsSync(outDir)) {
@@ -44,11 +48,41 @@ function startHlsCamera({ id, rtsp }) {
     const ffmpeg = spawn('ffmpeg', args);
 
     ffmpeg.stderr.on('data', (d) => console.log(`CAM ${id}:`, d.toString()));
-
     ffmpeg.on('exit', () => {
         console.log(`CAM ${id} упала — перезапускаю через 2 сек`);
-        setTimeout(() => startHlsCamera({ id, rtsp }), 2000);
+        delete activeStreams[id];
     });
+
+    activeStreams[id] = ffmpeg;
 }
 
-CAMERAS.forEach(startHlsCamera);
+
+const viewers = {};
+app.get('/:id/connect', (req, res) => {
+    const id = Number(req.params.id);
+
+    const cam = CAMERAS.find(c => c.id === id);
+
+
+    if (!cam) return res.status(404).send('Камера не найдена');
+
+    if (!activeStreams[id]) startStream(cam);
+
+    viewers[id] = (viewers[id] || 0) + 1;
+    return res.json({ stream_url: `./server-video-systema/public/stream_${id}/index.m3u8` });
+    // return res.json({ stream_url: __dirname + `/public/stream_${id}/index.m3u8` });
+});
+
+app.get('/:id/disconnect', (req, res) => {
+    const id = Number(req.params.id);
+
+    viewers[id] = Math.max((viewers[id] || 1) - 1, 0);
+
+    if (viewers[id] === 0 && activeStreams[id]) {
+        activeStreams[id].kill('SIGKILL');
+        delete activeStreams[id];
+        console.log(`Камера ${id} остановлена (нет зрителей)`);
+    }
+
+    return res.send('Отключено');
+});
