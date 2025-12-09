@@ -24,47 +24,44 @@ export const useDocuments = () => {
     // Удаление характеристики
     const removeDocumnts = (id: string) => {
         if (documents.length <= 1) {
-            // Не даем удалить последнюю характеристику
             return;
         }
         setDocuments(prev => prev.filter(item => item.id !== id));
     };
 
     // Обновление названия характеристики
-    const updateDocumntsName = (id: string, name: string) => {
+    const updateDocumntsTitle = (id: string, title: string) => {
         setDocuments(prev =>
             prev.map(item =>
-                item.id === id ? { ...item, name } : item
+                item.id === id ? { ...item, title } : item
             )
         );
     };
 
     // Обновление значения характеристики
-    const updateDocumntsValue = (id: string, value: string) => {
+    const updateDocumntsFile = (id: string, file: File) => {
         setDocuments(prev =>
-            prev.map(item =>
-                item.id === id ? { ...item, value } : item
-            )
+            prev.map(item => item.id === id ? { ...item, file } : item)
         );
     };
 
     // Получение всех характеристик
-    const getDocumntss = () => {
-        return documents.filter(char => char.name.trim() !== '' && char.value.trim() !== '');
+    const getDocumnts = () => {
+        return documents.filter(char => char.title.trim() !== '' && char.file == null);
     };
 
     // Сброс всех характеристик
     const resetDocumnts = () => {
-        setDocuments([{ id: '1', name: '', value: '' }]);
+        setDocuments([{ id: '1', title: '', file: null }]);
     };
 
     return {
         documents,
-        addCharacteristic,
-        removeCharacteristic,
-        updateCharacteristicName,
-        updateCharacteristicValue,
-        getCharacteristics,
-        resetCharacteristics
+        addDocuments,
+        removeDocumnts,
+        getDocumnts,
+        resetDocumnts,
+        updateDocumntsTitle,
+        updateDocumntsFile
     };
 };

@@ -61,6 +61,7 @@ export const getCharacteristicAll = (params: { id: number }) => {
 }
 
 
+
 export const deleteCharacteristiс = (params: { id: number }) => {
     return reserchInstance.delete(Characteristics.delete, { params })
 }
@@ -89,6 +90,9 @@ export const createOndeCommand = (params: ControlTypeCreate) => {
 }
 export const getCommandAll = (params: { id: number }) => {
     return reserchInstance.get(Control.all, { params })
+}
+export const getCommandAllInfo = (params: { id: number }) => {
+    return reserchInstance.get(Control.allInfo, { params })
 }
 
 //! В методе написано info/delete,а есть command/delete ????
@@ -157,4 +161,7 @@ export interface Documents {
 
 export const createDocuments = (params: Documents) => {
     return reserchInstance.post(Documents.upload, { params })
+}
+export const getDocuments = (params: number) => {
+    return reserchInstance.get(Documents.hardware, { params })
 }

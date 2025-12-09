@@ -212,12 +212,13 @@ export const Control = {
   createOndeCommand: "/NodeInfo/createCommand",
   createManyCommand: "/NodeInfo/createMassCommand",
   all: "/NodeInfo/commands",
+  allInfo: "/NodeInfo/infos",
   delete: "/NodeInfo/info/delete",
 }
 
 export const Documents = {
-  upload: "documents/upload",
-  hardware: "documents/hardware",
+  upload: "/FileStorage/documents/upload",
+  hardware: "/FileStorage/documents/hardware",
 }
 
 

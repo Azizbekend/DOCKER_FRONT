@@ -2,10 +2,10 @@ import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaModelIn
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createDocuments, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteDocuments, deleteInfoHardware, Documents, getAllHardware, getCharacteristicAll, getCommandAll, getInfoHardware, getServiceApi, manyCharacteristic, schemaCoordinatesCreate, schemaCreate, updateInfoHardware } from "@/entities/hardware/api";
+import { createCharacteristic, createDocuments, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteDocuments, deleteInfoHardware, Documents, getAllHardware, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getInfoHardware, getServiceApi, manyCharacteristic, schemaCoordinatesCreate, schemaCreate, updateInfoHardware } from "@/entities/hardware/api";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, ServiceTypeCreate } from "../components/control/type";
-import { isValid } from "date-fns";
+import { constructNow, isValid } from "date-fns";
 import { ServiceType } from "../components/service/type";
 import { StreamControllerConfig } from "hls.js";
 
@@ -140,15 +140,19 @@ class EquipmentCreateModel {
     async init(id: number) {
         this.isLoading = true;
         try {
-            const [info, commands, characteristics] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
-                getCharacteristicAll({ id })
+                getCommandAllInfo({ id }),
+                getCharacteristicAll({ id }),
+                // getDocuments(id)
             ]);
 
             this.model = info.data;
             this.listController = commands.data;
+            this.listController = [... this.listController, commandsInfo.data];
             this.listCharacters = characteristics.data;
+            // this.listDocuments = docs.data;
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
@@ -345,19 +349,24 @@ class EquipmentCreateModel {
     }
 
     async createDocument(data: Documents) {
+        try {
 
-        if (this.model.id === undefined) return
+            const formData = new FormData();
+            formData.append("Title", data.title);
+            formData.append("File", data.file);
+            formData.append("HardwareId", this.model.id);
 
-        await createDocuments({
-            title: data.title,
-            hardwareId: this.model.id,
-            file: data.file,
-        }).then(() => {
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/documents/upload", {
+                method: "POST",
+                body: formData
+            });
 
             this.listDocuments = this.listDocuments.filter(item => item.id !== Number(id))
             toast.success("Документ добавлен", { progressStyle: { background: "green" } })
 
-        })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

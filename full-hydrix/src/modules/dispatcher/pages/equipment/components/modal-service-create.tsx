@@ -69,8 +69,8 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
             setShow={setShow}
             classNames={{
                 panel: "max-w-[640px] w-full",
-                body: "p-10 h-[400px]",
-                footer: "bg-[#F6F6F6] p-[20px_24px_16px_24px]"
+                body: "p-10 h-[500px]",
+                footer: "bg-[#F6F6F6] p-[14px_24px_16px_24px]"
             }}
 
             children={
@@ -138,8 +138,8 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
 
             footerSlot={
                 <div className='flex justify-end gap-4'>
-                    <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
-                    <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={() => setShow(false)}>Отмена</Button>
+                    <Button class="rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
+                    <Button class="rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={() => setShow(false)}>Отмена</Button>
                 </div>
             }
         />
