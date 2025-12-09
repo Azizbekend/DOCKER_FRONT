@@ -178,7 +178,7 @@ export const PassportInformation = observer(() => {
                         {/* Navigation Links */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-end">
                             <Link
-                                to="/gis"
+                                to="/gis/company/56"
                                 className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                             >
                                 <span>Перейти в Управление ЖБО</span>

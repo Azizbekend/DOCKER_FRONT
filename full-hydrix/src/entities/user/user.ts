@@ -36,9 +36,15 @@ export class UserModel {
 
     private initFromStorage() {
         const storedUser = localStorage.getItem("user");
+        const storedWaterCompany = localStorage.getItem("waterCompany");
+
         if (storedUser) {
             try {
                 this._user = JSON.parse(storedUser);
+
+                if (storedWaterCompany) {
+                    this._waterCompany = JSON.parse(storedWaterCompany);
+                }
             } catch {
                 this.clearStorage();
             }
@@ -49,6 +55,7 @@ export class UserModel {
         this._user = user;
         this._error = null;
         localStorage.setItem("user", JSON.stringify(user));
+        console.log(user)
     }
 
     updateUser(updates: Partial<User>) {
@@ -83,6 +90,7 @@ export class UserModel {
 
     initCompany(data: WaterCompany) {
         this._waterCompany = data;
+        localStorage.setItem("waterCompany", JSON.stringify(data));
     }
 
     logout() {
@@ -102,6 +110,7 @@ export class UserModel {
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("user_id");
         localStorage.removeItem("user");
+        localStorage.removeItem("waterCompanyuser");
     }
 
     getToken(): string | null {

@@ -14,7 +14,7 @@ type Props = {
 
 export const Card = ({ link, title, description, disabledDescription, icon, disabledIcon, onClick, disabled }: Props) => {
     const disabledStyles = disabled ? "bg-[#CDCDCD]" : "bg-[#4A85F6] cursor-pointer hover:opacity-50 duration-200";
-    const cardStyles = disabledStyles + " rounded-[20px] py-6 px-4 md:py-10 md:px-7 flex flex-col sm:flex-row gap-4 w-full w-[46%] justify-between items-center"
+    const cardStyles = disabledStyles + " rounded-[20px] py-6 px-4 md:py-10 md:px-7 flex flex-col sm:flex-row gap-4 w-full w-[46%] h-[150px] justify-between items-center"
     const textStyles = disabled ? "text-[#000000]" : "text-white";
 
     const currentIcon = disabled ? disabledIcon : icon;
@@ -55,14 +55,14 @@ export const Card = ({ link, title, description, disabledDescription, icon, disa
             </div>
             :
 
-            <Link
-                to={link || ""}
-                target={"_blank"}
+            <div onClick={onClick}
+                // to={link || ""}
+                // target={"_blank"}
                 className={cardStyles}
             // onClick={handleClick}
             >
                 {getChildren()}
-            </Link>
+            </div>
     )
 
 

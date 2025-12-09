@@ -17,20 +17,23 @@ import { Table } from "@/shared/ui/table/index";
 import { ModalDelete } from "@/shared/ui/modal/modal-delete";
 import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
+import { useAuth } from "@/entities/user/context";
+import { format, parseISO } from "date-fns";
+import { ru } from "date-fns/locale";
 
 const columns: TableColumn<Order>[] = [
-    {
-        header: "",
-        key: "selfCreated",
-        width: "0.5fr",
-        cell: ({ selfCreated }) => {
-            return (
-                <div className="flex justify-center items-center" style={{ minWidth: 50 }}>
-                    {selfCreated ? <Icon width={30} systemName="ambulance" className="cursor-pointer" /> : <div style={{ width: 30, height: 30 }}></div>}
-                </div>
-            );
-        },
-    },
+    // {
+    //     header: "",
+    //     key: "selfCreated",
+    //     width: "80px",
+    //     cell: ({ selfCreated }) => {
+    //         return (
+    //             <div className="flex justify-center items-center" style={{ minWidth: 50 }}>
+    //                 {selfCreated ? <Icon width={30} systemName="ambulance" className="cursor-pointer" /> : <div style={{ width: 30, height: 30 }}></div>}
+    //             </div>
+    //         );
+    //     },
+    // },
     {
         header: "ФИО Заказчика",
         key: 'name',
@@ -64,13 +67,13 @@ const columns: TableColumn<Order>[] = [
         header: 'Дата и время',
         key: 'arrivalStartDate',
         cell: ({ arrivalStartDate, arrivalEndDate }) => {
-            // const arrivalStartDateISO = parseISO(arrivalStartDate || "")
-            // const arrivalEndDateISO = parseISO(arrivalEndDate || "")
-            const arrivalStartDateISO = arrivalStartDate || "";
-            const arrivalEndDateISO = arrivalEndDate || "";
+            const arrivalStartDateISO = parseISO(arrivalStartDate || "")
+            const arrivalEndDateISO = parseISO(arrivalEndDate || "")
+            // const arrivalStartDateISO = arrivalStartDate || "";
+            // const arrivalEndDateISO = arrivalEndDate || "";
             return (
-                <span className="text-[12px]">{arrivalStartDateISO.toString()} {arrivalStartDateISO.toString()}-{arrivalEndDateISO.toString()}</span>
-                // <span className="text-[12px]">{format(arrivalStartDateISO, 'dd.MM.yyyy')} {format(arrivalStartDateISO, 'HH:mm')}-{format(arrivalEndDateISO, 'HH:mm')}</span>
+                // <span className="text-[12px]">{arrivalStartDateISO.toString()} {arrivalStartDateISO.toString()}-{arrivalEndDateISO.toString()}</span>
+                <span className="text-[12px]">{format(arrivalStartDateISO, 'dd.MM.yyyy')} {format(arrivalStartDateISO, 'HH:mm')}-{format(arrivalEndDateISO, 'HH:mm')}</span>
             )
         },
     },
@@ -80,8 +83,8 @@ const columns: TableColumn<Order>[] = [
         cell: ({ timeOfPublication }) => {
             const date = new Date(timeOfPublication)
             return (
-                <div>{date.toString()}</div>
-                // <div className="text-[12px] text-center">{format(date, 'd MMMM yyyy HH:mm', { locale: ru })}</div>
+                // <div>{date.toString()}</div>
+                <div className="text-[12px] text-center">{format(date, 'd MMMM yyyy HH:mm', { locale: ru })}</div>
             )
         },
 
@@ -135,8 +138,10 @@ export const OderListView = observer(() => {
         setShowInfo(true);
     };
 
+    const { waterCompany } = useAuth();
+
     useEffect(() => {
-        init();
+        init(waterCompany?.id);
     }, [])
 
     return (
@@ -204,6 +209,7 @@ export const OderListView = observer(() => {
                 columns={columns}
                 data={results.length > 0 ? results : []}
                 onRowClick={handleRowClick}
+                countActive
                 classNames={{
                     body: "mt-4",
                 }}

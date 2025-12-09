@@ -1,4 +1,3 @@
-
 export const getExportSummaryStats = (params: GetStatRequest) => {
     return instance.get(StatsRoutes.ExportSummary, { params, responseType: 'blob' })
 }
@@ -12,21 +11,21 @@ export const getExportUtilizationStats = (params: GetStatRequest) => {
 import instance from "@/app/api/instances"
 import { StatsRoutes } from "@/app/cores/core-gis/network/api-routes"
 
-// export const getSummaryRecycleByCompanyStat = (params: GetStatRequest) => {
-//     return instance.get(StatsRoutes.SummaryCompanyRecycle, { params })
-// }
+export const getSummaryRecycleByCompanyStat = (params: GetStatRequest) => {
+    return instance.get(StatsRoutes.SummaryCompanyRecycle, { params })
+}
 
-// export const getSummaryPlantTariffStat = (params: GetStatRequest) => {
-//     return instance.get(StatsRoutes.SummaryPlantTariff, { params })
-// }
+export const getSummaryPlantTariffStat = (params: GetStatRequest) => {
+    return instance.get(StatsRoutes.SummaryPlantTariff, { params })
+}
 
-// export const getSummaryOrdersSewersStat = (params: GetStatRequest) => {
-//     return instance.get(StatsRoutes.SummaryOrdersSewers, { params })
-// }
+export const getSummaryOrdersSewersStat = (params: GetStatRequest) => {
+    return instance.get(StatsRoutes.SummaryOrdersSewers, { params })
+}
 
-// export const getSummaryOrdersPlantStat = (params: GetStatRequest) => {
-//     return instance.get(StatsRoutes.SummaryOrdersPlant, { params })
-// }
+export const getSummaryOrdersPlantStat = (params: GetStatRequest) => {
+    return instance.get(StatsRoutes.SummaryOrdersPlant, { params })
+}
 
 export const getRecycleAllStat = (params: GetStatRequest) => {
     return instance.get(StatsRoutes.RecycleAll, { params })
@@ -53,5 +52,5 @@ export const getTariffChanges = (params: GetStatRequest) => {
 // }
 
 export type GetStatRequest = {
-    WaterCompanyId: number;
+    WaterCompanyId?: number;
 }

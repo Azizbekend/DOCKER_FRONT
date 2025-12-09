@@ -105,15 +105,15 @@ export const AppRouter = createBrowserRouter([
                     }
                 },
             },
-            // {
-            //     path: 'company/:companyId/stats/all',
-            //     async lazy() {
-            //         const { AllStats } = await import("@/modules/gis/pages/stats-all")
-            //         return {
-            //             Component: AllStats
-            //         }
-            //     },
-            // },
+            {
+                path: 'company/:companyId/stats/all',
+                async lazy() {
+                    const { AllStats } = await import("@/modules/gis/pages/stats-all")
+                    return {
+                        Component: AllStats
+                    }
+                },
+            },
             // {
             //     path: 'company/:companyId/stats/transportation',
             //     async lazy() {
@@ -563,5 +563,4 @@ export const AppRouter = createBrowserRouter([
             // }
         ]
     }
-
 ]);

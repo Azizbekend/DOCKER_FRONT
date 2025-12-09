@@ -42,7 +42,7 @@ interface Props {
 }
 
 const StatBar: React.FC<Props> = observer(({ dailyData, weeklyData, monthlyData, yearlyData, title }) => {
-    const [view, setView] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>('daily');
+    const [view, setView] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>('yearly');
 
     const getData: any = (view: 'daily' | 'weekly' | 'monthly' | 'yearly') => {
         switch (view) {

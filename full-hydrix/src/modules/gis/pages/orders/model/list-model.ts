@@ -1,3 +1,4 @@
+import { getAllMunicipalities } from "@/entities/municipality/api";
 import { Municipality } from "@/entities/municipality/type";
 import { getAllOrders, getOrdersByIdWaterCompany } from "@/entities/order/api";
 import { Order } from "@/entities/order/type";
@@ -71,9 +72,8 @@ export class OrderListModel {
 
   async init(companyId: number | null = null) {
     try {
-      const ordersPromise = companyId
-        ? getOrdersByIdWaterCompany({ WaterCompanyId: companyId })
-        : getAllOrders();
+      const ordersPromise = companyId ? getOrdersByIdWaterCompany({ WaterCompanyId: companyId }) : getAllOrders();
+
       const municipalitiesPromise = getAllMunicipalities();
 
       const [orders, municipalities] = await Promise.all([
@@ -115,7 +115,7 @@ export class OrderListModel {
     }
   }
 
-  filterByMunicipalityModel                                                                                                                                                                               () {
+  filterByMunicipalityModel() {
     if (this.tanks.length === 0) {
       return this.filterByMunicipalityModel;
     }

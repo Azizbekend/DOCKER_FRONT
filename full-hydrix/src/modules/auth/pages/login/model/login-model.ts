@@ -77,36 +77,32 @@ class LoginModel {
         await authAdmin(this.model)
             .then(response => {
 
-
                 window.localStorage.setItem("access_token", response.data['jwtToken'])
                 window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                 window.localStorage.setItem("user_id", response.data['id'])
-                initUser()
 
+                initUser(response.data)
                 switch (response.data.roleId) {
                     case Role.Client:
-                        alert("Client")
                         break;
                     case Role.CompanyOperator:
-                        alert("CompanyOperator")
                         break;
                     case Role.WaterCompany:
-                        alert("WaterCompany")
                         getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
                             initCompany(x.data)
-                            window.location.href = `/gis/company/${x.data.id}`
+                            setTimeout(() => {
+                                window.location.href = `/gis/company/${x.data.id}`
+                            }, 1000)
                         })
-
                         break;
                     case Role.Ministry:
-                        alert("Ministry")
-                        window.location.href = '/menu-moduls'
+                        setTimeout(() => {
+                            window.location.href = '/menu-moduls'
+                        }, 1000)
                         break;
                     case Role.Admin:
-                        alert("Admin")
                         break;
                 }
-
             })
     }
 

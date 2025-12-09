@@ -3,8 +3,9 @@ import { Order } from "@/entities/order/type";
 import useOrderStatus from "@/entities/order/useOrderStatus";
 import { Icon } from "@/shared/ui/icon";
 import { Modal } from "@/shared/ui/modal/modal";
-// import { format } from "date-fns";
+import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
 
 
 type Props = {
@@ -17,6 +18,22 @@ export const OrderModal = observer(({ show, setShow, info }: Props) => {
 
     let el = Number(info?.orderStatusId) as OrderStatus
     const bgColor = `${useOrderStatus().StatusText(el)}`
+    const [arrivalStartDate, setArrivalStartDate] = useState<Date | null>(null);
+    const [arrivalEndDate, setArrivalEndDate] = useState<Date | null>(null);
+    useEffect(() => {
+        if (info) {
+            const date = new Date(info.timeOfPublication)
+        }
+
+        if (info != null && info.arrivalStartDate) {
+            const data = new Date(info.arrivalStartDate)
+            setArrivalStartDate(data)
+        }
+        if (info != null && info.arrivalEndDate) {
+            const data = new Date(info.timeOfPublication)
+            setArrivalEndDate(data)
+        }
+    }, [info])
 
     return (
         <Modal
@@ -71,13 +88,17 @@ export const OrderModal = observer(({ show, setShow, info }: Props) => {
                         </div>
                         <div className="flex gap-[48px]">
                             <p className="text-[#4e4e4e] w-[165px]">Дата</p>
-                            <p className="text-[#353535] font-[600]">{info?.arrivalStartDate}</p>
-                            {/* <p className="text-[#353535] font-[600]">{format(info?.arrivalStartDate || "", 'dd.MM.yyyy')}</p> */}
+                            {/* <p className="text-[#353535] font-[600]">{info?.arrivalStartDate}</p> */}
+                            {arrivalStartDate &&
+                                <p className="text-[#353535] font-[600]">{format(arrivalStartDate, 'dd.MM.yyyy')}</p>
+                            }
                         </div>
                         <div className="flex gap-[48px]">
                             <p className="text-[#4e4e4e] w-[165px]">Время вывоза</p>
-                            <p className="text-[#353535] font-[600]"> {info?.arrivalStartDate}-{info?.arrivalEndDate}</p>
-                            {/* <p className="text-[#353535] font-[600]"> {format(info?.arrivalStartDate || "", 'HH:mm')}-{format(info?.arrivalEndDate || "", 'HH:mm')}</p> */}
+                            {/* <p className="text-[#353535] font-[600]"> {info?.arrivalStartDate}-{info?.arrivalEndDate}</p> */}
+                            {arrivalStartDate && arrivalEndDate && (
+                                <p className="text-[#353535] font-[600]"> {format(arrivalStartDate, 'HH:mm')}-{format(arrivalEndDate, 'HH:mm')}</p>
+                            )}
                         </div>
                     </div>
                 </>
