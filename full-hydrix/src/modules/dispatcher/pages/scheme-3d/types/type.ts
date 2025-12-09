@@ -15,6 +15,7 @@ export type InformationsType = {
 
 export type SchemeViewerType = {
     setInfo: (id: number) => void,
+    tabScheme: number,
     points: SchemaObjectType[]
 }
 

@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
+
 import image from '../../assets/scheme.png'
-import image2 from '../../assets/sssss.png'
+import image2 from '../../assets/scheme2.png'
+import image3 from '../../assets/sssss.png'
+
+
 import "./ViewScheme.scss";
 import { CountersType, HardWareStatus, SchemeViewerType } from "../../types/type";
 import { CountersData } from "../../data/data";
@@ -15,7 +19,7 @@ import { observer } from "mobx-react-lite";
 import { schemeModel } from "../../model/scheme-model";
 
 
-export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => {
+export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeViewerType) => {
 
 
     // Счётчики
@@ -200,11 +204,11 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
                     </div>
                 </div> */}
 
-                {points.map((p, i) => (
+                {points.map((p, i) => p.hardwareSchemaId == tabScheme && (
                     <div
-                        onDoubleClickCapture={() => setFocusSchemeObject(p.id)}
+                        key={p.id}
+                        onDoubleClickCapture={() => setFocusSchemeObject(p.id, tabScheme)}
                         onClick={() => setInfo(p.hardwareId)}
-                        key={i}
                         className="absolute cursor-pointer z-10"
                         style={{
                             // top: "73.5%",
@@ -229,7 +233,7 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
                 ))}
                 <img
                     ref={imgRef}
-                    src={image}
+                    src={tabScheme == 6 ? image : image2}
                     alt="scheme"
                     className="scheme-view__image"
                     onLoad={updateBounds}
@@ -240,32 +244,35 @@ export const SchemeViewer = observer(({ setInfo, points }: SchemeViewerType) => 
                 />
 
 
-                <div
-                    className="relative"
-                    style={{ top: "42%", left: "16%", position: "absolute" }}
-                >
-                    <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
-                        <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-emerald-400 font-semibold text-base">20.2</span>
-                            <span className="text-gray-400">бар</span>
+                {
+                    tabScheme == 6 && <>
+                        <div
+                            className="relative"
+                            style={{ top: "42%", left: "16%", position: "absolute" }}
+                        >
+                            <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                                <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-emerald-400 font-semibold text-base">20.2</span>
+                                    <span className="text-gray-400">бар</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div
-                    className="relative"
-                    style={{ top: "20%", left: "20%", position: "absolute" }}
-                >
-                    <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
-                        <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-emerald-400 font-semibold text-base">20.2</span>
-                            <span className="text-gray-400">бар</span>
+                        <div
+                            className="relative"
+                            style={{ top: "20%", left: "20%", position: "absolute" }}
+                        >
+                            <div className="bg-gray-900/90 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-10 rounded-lg px-3 py-1.5 shadow-sm">
+                                <div className="text-[12px] uppercase tracking-wide text-gray-100 mb-0.5">ДАВЛЕНИЕ</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className="text-emerald-400 font-semibold text-base">20.2</span>
+                                    <span className="text-gray-400">бар</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
+                    </>
+                }
             </div>
         </div >
     );

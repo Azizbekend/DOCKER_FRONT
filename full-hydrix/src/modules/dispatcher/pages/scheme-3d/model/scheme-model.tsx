@@ -1,4 +1,4 @@
-import { getSchemaObjects, schemaAll } from "@/entities/hardware/api";
+import { getSchemaObjects } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
 
@@ -26,7 +26,8 @@ class SchemeModel {
         this.focusHardware = id
     }
 
-    setFocusSchemeObject(id: number) {
+    setFocusSchemeObject(id: number, tabScheme: number) {
+
         if (this.focusSchemeObject == id) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
@@ -39,7 +40,10 @@ class SchemeModel {
     async init(id: number) {
         await getSchemaObjects({ id: id }).then((res) => {
             this.model = res.data
-            console.log(res.data)
+        })
+
+        await getSchemaObjects({ id: 7 }).then((res) => {
+            this.model.push(...res.data)
         })
     }
 }

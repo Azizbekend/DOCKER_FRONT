@@ -111,7 +111,11 @@ export const Scheme = observer(() => {
                                     items={[
                                         {
                                             value: 6,
-                                            title: "Технологическое оборудование"
+                                            title: "Механическая очистка"
+                                        },
+                                        {
+                                            value: 7,
+                                            title: "Биологическая очистка"
                                         },
                                     ]}
                                 />

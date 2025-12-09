@@ -52,16 +52,17 @@ class HardwareModel {
                 const today = new Date();
                 const todayStr = today.toISOString().split('T')[0];
 
-                this.services = services.data
-                // this.services = services.data.filter(item => {
-                //     const date = item.nextMaintenanceDate?.split('T')[0];
-                //     return date === todayStr;
-                // });
+                // this.services = services.data
 
-                // this.servicesWeek = services.data.filter(item => {
-                //     const date = item.nextMaintenanceDate?.split('T')[0];
-                //     return date !== todayStr;
-                // })
+                this.services = services.data.filter(item => {
+                    const date = item.nextMaintenanceDate?.split('T')[0];
+                    return date === todayStr;
+                });
+
+                this.servicesWeek = services.data.filter(item => {
+                    const date = item.nextMaintenanceDate?.split('T')[0];
+                    return date !== todayStr;
+                })
             } else {
                 this.services = services.data;
             }

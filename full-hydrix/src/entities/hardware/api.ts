@@ -98,8 +98,8 @@ export const schemaCreate = (params: SchemaCreateType) => {
     return reserchInstance.post(Schema.create, params)
 }
 
-export const schemaAll = () => {
-    return reserchInstance.get(Schema.all)
+export const schemaAll = (params: { id: number }) => {
+    return reserchInstance.get(Schema.all, { params })
 }
 
 export const getSchemaObjects = (params: { id: number }) => {
@@ -120,6 +120,10 @@ export const deleteSchemaCoordinates = (params: { id: number }) => {
 
 export const passportObject = (params: ObjectInfoInterface) => {
     return reserchInstance.post(PassportObject.create, params)
+}
+
+export const passportObjectAll = () => {
+    return reserchInstance.get(PassportObject.all)
 }
 
 export const controlBlockCreate = (params: { name: string, plcIpAdress: string, staticObjectInfoId: number, }) => {

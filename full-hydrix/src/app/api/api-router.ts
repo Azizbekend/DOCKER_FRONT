@@ -187,7 +187,6 @@ export const Hardware = {
   create: "/Hardware/create",
   active: "/Hardware/Activate",
 }
-
 export const Schema = {
   create: "/schemas/schema/create",
   all: "/schemas/schemas",
