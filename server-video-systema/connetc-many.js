@@ -60,10 +60,13 @@ function startStream({ id, rtsp }) {
 const viewers = {};
 app.get('/:id/connect', (req, res) => {
     const id = Number(req.params.id);
+
     const cam = CAMERAS.find(c => c.id === id);
+
+
     if (!cam) return res.status(404).send('Камера не найдена');
 
-    if (!activeStreams[id]) startStream(id, cam.rtsp);
+    if (!activeStreams[id]) startStream(cam);
 
     viewers[id] = (viewers[id] || 0) + 1;
     return res.json({ stream_url: `public/stream_${id}/index.m3u8` });
