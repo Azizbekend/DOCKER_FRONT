@@ -1,55 +1,36 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 import { videoSurveillanceModel } from '../model/video-surveillance-model';
 import { observer } from 'mobx-react-lite';
 
 export const StreamPlayer = observer(() => {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
-    const { bigViewSrc } = videoSurveillanceModel;
-    const [streamSrc, setStreamSrc] = useState<string | null>(null);
+    const videoRef = useRef(null);
+    const { bigViewSrc } = videoSurveillanceModel
 
-    // Подключение к камере
     useEffect(() => {
-        if (!bigViewSrc) return;
-
-        fetch(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/connect`)
-            .then(r => r.json())
-            .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera/stream_${bigViewSrc}/index.m3u8`)); // без повтора /camera/
-        // .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera${d.stream_url}`)); // без повтора /camera/
-    }, [bigViewSrc]);
-
-    // Инициализация HLS
-    useEffect(() => {
-        if (!streamSrc || !videoRef.current) return; // правильная проверка
-
         const video = videoRef.current;
-        let hls: Hls | null = null;
+        // const streamUrl = "rtsp://admin:Shapshi@16@85.141.81.53:8443/cam/realmonitor";
+        // const streamUrl = "https://85.141.81.53:8443/";
+        const streamUrl = bigViewSrc;
 
         if (Hls.isSupported()) {
-            hls = new Hls();
-            hls.loadSource(streamSrc);
-            hls.attachMedia(video);
+            const hls = new Hls();
+            hls.loadSource(streamUrl);
+            video && hls.attachMedia(video);
         } else {
-            video.src = streamSrc;
+            // Safari: поддерживает HLS нативно
+            video.src = streamUrl;
         }
-
-        return () => hls?.destroy();
-    }, [streamSrc]); // реагируем на готовый поток, не на bigViewSrc
-
-    // Отключение камеры при уходе
-    useEffect(() => {
-        return () => {
-            if (bigViewSrc)
-                navigator.sendBeacon(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/disconnect`);
-        };
-    }, []);
+    }, [bigViewSrc]);
 
     return (
-        <video
-            ref={videoRef}
-            autoPlay
-            muted
-            className="w-[90%] mx-auto rounded-lg"
-        />
+        <>
+            <video
+                ref={videoRef}
+                autoPlay
+                muted
+                className='w-[90%] mx-auto rounded-lg'
+            />
+        </>
     );
-});
+})

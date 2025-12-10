@@ -8,14 +8,18 @@ export const StreamPlayer = observer(() => {
     const { bigViewSrc } = videoSurveillanceModel;
     const [streamSrc, setStreamSrc] = useState<string | null>(null);
 
+    // Подключение к камере
     useEffect(() => {
         if (!bigViewSrc) return;
 
-        fetch(`http://localhost:5012/${bigViewSrc}/connect`)
+        fetch(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/connect`)
             .then(r => r.json())
-            .then(d => setStreamSrc(d.stream_url));
-        // .then(d => setStreamSrc(`http://localhost:5012/${d.stream_url}`));
+            .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera/stream_${bigViewSrc}/index.m3u8`)); // без повтора /camera/
+        // .then(d => setStreamSrc(`http://hydrig.gsurso.ru/camera${d.stream_url}`)); // без повтора /camera/
+    }, [bigViewSrc]);
 
+    // Инициализация HLS
+    useEffect(() => {
         if (!streamSrc || !videoRef.current) return; // правильная проверка
 
         const video = videoRef.current;
@@ -28,21 +32,24 @@ export const StreamPlayer = observer(() => {
         } else {
             video.src = streamSrc;
         }
+
         return () => hls?.destroy();
+    }, [streamSrc]); // реагируем на готовый поток, не на bigViewSrc
 
-
-    }, [bigViewSrc]);
-
+    // Отключение камеры при уходе
+    useEffect(() => {
+        return () => {
+            if (bigViewSrc)
+                navigator.sendBeacon(`http://hydrig.gsurso.ru/camera/${bigViewSrc}/disconnect`);
+        };
+    }, []);
 
     return (
-
-        <>
-            <video
-                ref={videoRef}
-                autoPlay
-                muted
-                className="w-[90%] mx-auto rounded-lg"
-            />
-        </>
+        <video
+            ref={videoRef}
+            autoPlay
+            muted
+            className="w-[90%] mx-auto rounded-lg"
+        />
     );
 });

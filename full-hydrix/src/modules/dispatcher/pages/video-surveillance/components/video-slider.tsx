@@ -14,8 +14,6 @@ export const VideoSlider = () => {
     const { cameraSources, setBigViewSrc } = videoSurveillanceModel
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [active, setActive] = useState(0);
-
     const itemsToShow = 4;
 
     const nextSlide = () => {
@@ -49,7 +47,7 @@ export const VideoSlider = () => {
                         }}
                     >
                         {cameraSources.map((src, index) => (
-                            <CameraItem setSrc={setBigViewSrc} onClick={() => setActive(index)} active={active == index} count={index} key={index} src={src} />
+                            <CameraItem setSrc={setBigViewSrc} key={index} src={src} />
                         ))}
                     </div>
                 </div>
