@@ -96,7 +96,7 @@ export const LoginView = observer(() => {
                             {isLoading ? "Загрузка..." : "Вход"}
                         </span>
                     </Button>
-
+{/* 
                     <div className="text-center">
                         <Link
                             to={"/menu-moduls"}
@@ -105,7 +105,7 @@ export const LoginView = observer(() => {
                         >
                             В меню
                         </Link>
-                    </div>
+                    </div> */}
 
                     <div
                         className="cursor-pointer font-semibold text-[#4A85F6] hover:text-[#3a6bc9] text-center w-full duration-300"

@@ -66,9 +66,8 @@ export const Sidebar = observer(() => {
                     <SidebarItem link='/gis/enterprises' icon='clipboard' title='Предприятия' isActive={location.pathname === '/gis/enterprises'} />
                 </div>
                 <div>
-
-                    {false && location.pathname.includes("gis") && <SidebarItem link='/gis/sewers' icon='cog' title='Настройки' isActive={location.pathname === '/gis/settings'} />}
-                    {false && location.pathname.includes("gis") && <SidebarItem link='/gis/sewers' icon='help-circle' title='Помощь' isActive={location.pathname === '/gis/help'} />}
+                    {location.pathname.includes("gis") && <SidebarItem link='/gis/sewers' icon='cog' title='Настройки' isActive={location.pathname === '/gis/settings'} />}
+                    {location.pathname.includes("gis") && <SidebarItem link='/gis/sewers' icon='help-circle' title='Помощь' isActive={location.pathname === '/gis/help'} />}
                     {location.pathname.includes("gis") && <SidebarItem link='/exit' icon='exit-client' title='Выйти' onClick={logout} />}
                 </div>
             </div>
