@@ -89,12 +89,9 @@ export const WaterCompanyView = observer(() => {
         <div className="flex flex-wrap lg:flex-row items-stretch lg:items-start gap-6 px-4 lg:px-12 py-8 justify-between">
             <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-4">
-                    {
-                        user?.roleId === Role.Ministry &&
-                        <div className="bg-[#4A85F6] rounded-md w-10 h-10 flex items-center justify-center cursor-pointer" onClick={() => navigate("/admin/companies")}>
-                            <Icon systemName="arrow-left" />
-                        </div>
-                    }
+                    <div className="bg-[#4A85F6] rounded-md w-10 h-10 flex items-center justify-center cursor-pointer" onClick={() => navigate("/menu-moduls")}>
+                        <Icon systemName="arrow-left" />
+                    </div>
                     <span className="text-[#222B45] font-bold text-xl lg:text-3xl">{company.name}</span>
                 </div>
                 <div className="mt-6 grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
