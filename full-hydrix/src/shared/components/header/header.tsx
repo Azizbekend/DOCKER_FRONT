@@ -15,7 +15,7 @@ export const Header = observer(() => {
 
     return (
         <div className="flex relative max-w-full bg-white py-6 pr-14 pl-10 items-center border-solid border-[#D6D6D6] border-b-[0.5px]">
-            <div className='flex items-center gap-[22px] h-fit min-w-fit' onClick={() => navigate("/menu-moduls")}>
+            <div className='flex items-center gap-[22px] h-fit min-w-fit cursor-pointer' onClick={() => navigate("/menu-moduls")}>
                 <img src={logo} alt="" />
                 <span className='text-[20px] font-bold flex'>ИАС “Цифровой Водоканал”</span>
             </div>
