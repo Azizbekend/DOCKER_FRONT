@@ -30,14 +30,7 @@ export function Table<T>(props: TableProps<T>) {
                     header: "№",
                     cell: (info: any) => {
                         const rowIndex = info.row.index;
-                        const pageIndex = info.table.getState().pagination.pageIndex;
-                        const pageSize = info.table.getState().pagination.pageSize;
-
-                        if (pageSize == 10) {
-                            return pageIndex * pageSize + rowIndex + 1;
-                        } else {
-                            return pageIndex + rowIndex;
-                        }
+                        return rowIndex + 1;
                     }
                 },
                 ...baseCols
@@ -79,9 +72,12 @@ export function Table<T>(props: TableProps<T>) {
 
     return (
         <div>
-            <div className={`overflow-auto ${props.classNames?.body}`}>
-                <table className={`min-w-[1100px] w-full border border-[#EFF4FA] ${props?.classNames?.table}`}>
-                    <thead className={`bg-[#EFF4FA] ${props?.classNames?.thead}`}>
+            <div className={`overflow-auto overflow-y-auto h-[80vh] ${props.classNames?.body}`}>
+                <table className={`min-w-[1100px] w-full border border-[#EFF4FA] ${props?.classNames?.table}`}
+                    style={{
+                        height: "",
+                    }}>
+                    <thead className={`bg-[#EFF4FA] sticky top-[-1px]  ${props?.classNames?.thead}`}>
                         {table.getHeaderGroups().map((headerGroup, i) => (
                             <tr key={i}
                                 className="grid items-center"

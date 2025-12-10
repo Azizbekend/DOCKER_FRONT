@@ -8,7 +8,7 @@ import { HardwareServes } from "./tabs/hardware-serves";
 import { hardwareModel } from "@/entities/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
 
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
@@ -33,32 +33,32 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
 
   // Журнал событий — в едином стиле с "Управление" и "Паспортом"
   const eventLog = [
-    
+
     {
       timestamp: "08.12.2025 12:34",
       action: "Отключение",
-      
+
       status: "warning",
       description: "Аварийное отключение из-за превышения давления"
     },
     {
       timestamp: "05.12.2025 12:36",
       action: "Запуск",
-      
+
       status: "success",
       description: "Ручной запуск после устранения неисправности"
     },
     {
       timestamp: "05.12.2025 12:10",
       action: "ТО1",
-      
+
       status: "info",
       description: "Плановое техническое обслуживание (уровень 1)"
     },
     {
       timestamp: "01.12.2025 09:22",
       action: "Изменение параметра",
-      
+
       status: "neutral",
       description: "Установлен расход 150 м³/ч"
     }
@@ -83,7 +83,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
         <div >
           {/* Header */}
           <div className="flex items-center justify-between mb-5">
-            <button 
+            <button
               className="flex items-center gap-2 text-gray-700 hover:text-[#4A85F6] font-medium transition-colors"
               onClick={() => onClick(0)}
             >
@@ -94,8 +94,8 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               </div>
               <span>назад</span>
             </button>
-            
-            <Button 
+
+            <Button
               class="p-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
               onClick={() => navigate(`/dispatcher/equipment/form/${model.id}`)}
             >
@@ -104,12 +104,12 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
           </div>
 
           {/* Equipment Name */}
-          <h2 className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</h2>
+          <Link to={`/dispatcher/equipment-about/passport/${model.id}`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
 
           {/* Image */}
           <div className="info-comp__image">
-                    <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
-                </div>
+            <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
+          </div>
 
           {/* Status */}
           <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
@@ -133,11 +133,10 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               <button
                 key={index}
                 onClick={() => setMode(index)}
-                className={`flex-1 py-2 px-3 text-center rounded-md font-medium transition-colors ${
-                  mode === index
-                    ? 'bg-[#4A85F6] text-white shadow-sm'
-                    : 'text-gray-700 hover:text-[#4A85F6] hover:bg-white'
-                }`}
+                className={`flex-1 py-2 px-3 text-center rounded-md font-medium transition-colors ${mode === index
+                  ? 'bg-[#4A85F6] text-white shadow-sm'
+                  : 'text-gray-700 hover:text-[#4A85F6] hover:bg-white'
+                  }`}
               >
                 {tab}
               </button>
@@ -161,8 +160,8 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               {eventLog.map((event, idx) => {
                 const { badge, border } = getStatusClass(event.status);
                 return (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="p-2.5 rounded-lg bg-white border border-gray-100"
                     style={{ borderLeft: `3px solid ${border}` }}
                   >
