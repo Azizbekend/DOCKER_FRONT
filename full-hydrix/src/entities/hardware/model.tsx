@@ -3,6 +3,7 @@ import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
 import { makeAutoObservable } from "mobx";
+import { toast } from "react-toastify";
 
 class HardwareModel {
 
@@ -32,6 +33,11 @@ class HardwareModel {
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
+    }
+
+
+    get getCommands() {
+        return this.servicesToday
     }
 
 
@@ -86,8 +92,11 @@ class HardwareModel {
         this.commands[this.commands.findIndex(item => item.id === id)].value = value
     }
 
-    async checkedService(id: number) {
-        await checkedServiceApi({ id: id })
+    async checkedService(id: string) {
+        await checkedServiceApi({ id: id }).then((res) => {
+            this.servicesToday = this.servicesToday.filter(item => item.id !== Number(id));
+            toast("Задача выполнена", { progressStyle: { background: "green" }, });
+        })
     }
 }
 

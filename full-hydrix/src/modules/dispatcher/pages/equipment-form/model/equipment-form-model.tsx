@@ -350,12 +350,6 @@ class EquipmentCreateModel {
 
     async createDocument(data: Documents) {
         try {
-
-
-
-            console.log(data.title, data.file, this.model.id)
-
-
             const formData = new FormData();
             formData.append("Title", data.title);
             formData.append("File", data.file);
@@ -364,13 +358,13 @@ class EquipmentCreateModel {
             const response = await fetch("https://triapi.ru/research/api/FileStorage/documents/upload", {
                 method: "POST",
                 body: formData
-            });
+            })
 
             this.listDocuments = this.listDocuments.filter(item => item.id !== Number(id))
             toast.success("Документ добавлен", { progressStyle: { background: "green" } })
 
         } catch (error) {
-            console.log(error)
+            toast.success("Ошибка при добавлении документа", { progressStyle: { background: "red" } })
         }
     }
 

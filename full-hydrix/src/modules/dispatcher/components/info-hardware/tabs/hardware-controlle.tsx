@@ -26,7 +26,7 @@ export const HardwareControlle = observer(() => {
                 show={show}
                 setShow={setShow}
                 children={
-                    <div className='py-3 px-6 h-[150px] flex items-center text-[24px] font-medium'>
+                    <div className='py-3 px-6 h-[150px] flex items-center text-[18px] font-medium'>
                         Вы подтверждаете изменение значения
                     </div>
                 }

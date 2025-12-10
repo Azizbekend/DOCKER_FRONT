@@ -7,16 +7,58 @@ import Tooltip from '@/shared/ui/tooltip';
 import InputCheckbox from '@/shared/ui/Inputs/input-checkbox';
 import { Link } from 'react-router-dom';
 import { hardwareModel } from '@/entities/hardware/model';
+import { Modal } from '@/shared/ui/modal/modal';
+import { Button } from '@/shared/ui/button';
+import { useState } from 'react';
 
 export const HardwareServes = observer(() => {
 
-    const { services, servicesToday, servicesHistory, checkedService } = hardwareModel
-    const handleHeaderClick = (id: number) => {
-        checkedService(id)
+    const { services, servicesToday, getCommands, servicesHistory, checkedService } = hardwareModel
+
+    const [btnCount, setBtnCount] = useState<string>("");
+    const [show, setShow] = useState<boolean>(false);
+
+
+    const handleService = () => {
+        checkedService(btnCount)
+        setShow(false)
     }
+
+    const handleServiceOpen = (id: number) => {
+        setBtnCount(id.toString())
+        setShow(true)
+    }
+
+
 
     return (
         <div className="w-full mt-10 p-[0_0_50px_0]">
+
+
+
+            <Modal
+                title="Подтвердить значение"
+                wrapperId="wardhare"
+                type="center"
+                show={show}
+                setShow={setShow}
+                children={
+                    <div className='py-3 px-6 h-[150px] flex items-center text-[18px] font-medium'>
+                        Вы подтверждаете выполнение задачи?
+                    </div>
+                }
+                footerSlot={
+                    <div className='flex justify-end gap-3 py-3 px-6'>
+                        <Button class='px-3 py-2 bg-[var(--clr-accent)] text-white hover:opacity-50' onClick={handleService}>Подтвердить</Button>
+                        <Button class='px-3 py-2 bg-[var(--clr-gray-dark)] text-white hover:opacity-50' onClick={() => setShow(false)}>Отмена</Button>
+                    </div>
+                }
+                classNames={{
+                    panel: "max-w-[800px]"
+                }}
+            />
+
+
             {
                 false &&
                 <div className="border-2 border-[#4A85F6] bg-[#4A85F620] rounded-[8px] mb-5 flex items-center justify-center gap-[16px] py-[16px] pl-[16px] pr-[34px]">
@@ -25,23 +67,24 @@ export const HardwareServes = observer(() => {
                 </div>
             }
 
-            {servicesToday.length == 0 && <div className='border-y border-gray-300 py-4'>На сегодня задач нет</div>}
+            {getCommands.length == 0 && <div className='border-y border-gray-300 py-4'>На сегодня задач нет</div>}
 
 
-            {servicesToday.length > 0 &&
+            {getCommands.length > 0 &&
                 <BlockSelect title="Ежедневное обслуживание"
                     className="flex flex-col gap-3"
                     isOpen={true}
                     children={
-                        servicesToday.map((item, key) => {
+                        getCommands.map((item, key) => {
                             return (
                                 <InfoObject key={key}
                                     className='w-full'
                                     info={item.discription}
 
                                     children={
-                                        <div className='flex items-center gap-4 justify-between' onClick={() => handleHeaderClick(item.id)}>
+                                        <div className='flex items-center gap-4 justify-between' onClick={() => handleServiceOpen(item.id)}>
                                             <InputCheckbox
+                                                disabled
                                                 label={item.title}
                                             />
                                             <Icon systemName='info-blue' className='min-w-[30px] min-h-[30px] w-[30px] h-[30px]' />

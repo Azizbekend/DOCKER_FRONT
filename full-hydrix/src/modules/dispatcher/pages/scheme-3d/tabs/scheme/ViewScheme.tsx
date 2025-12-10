@@ -231,6 +231,8 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                         </div>
                     </div>
                 ))}
+
+
                 <img
                     ref={imgRef}
                     src={tabScheme == 6 ? image : image2}
@@ -268,6 +270,140 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                                 <div className="flex items-baseline gap-1">
                                     <span className="text-emerald-400 font-semibold text-base">20.2</span>
                                     <span className="text-gray-400">бар</span>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                }
+
+                {tabScheme != 6 &&
+                    <>
+                        <div className="relative" style={{ top: "38%", left: "32%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">5.2</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div className="relative" style={{ top: "43%", left: "36%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">КИСЛОРОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">7.5</span>
+                                    <span className="text-[10px] text-gray-400">мг/л</span>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div className="relative" style={{ top: "46%", left: "42%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">5.8</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "57%", left: "54%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">15.2</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "37%", left: "42%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">5.6</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "51%", left: "53%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">7.2</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "58%", left: "60%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">15.8</span>
+                                    <span className="text-[10px] text-gray-400">м3/7</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "45%", left: "48%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">КИСЛОРОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">8</span>
+                                    <span className="text-[10px] text-gray-400">мг/л</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "66%", left: "65%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">УРОВЕНЬ</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">3</span>
+                                    <span className="text-[10px] text-gray-400">м</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "90%", left: "52%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">УРОВЕНЬ</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">2.5</span>
+                                    <span className="text-[10px] text-gray-400">м</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "86%", left: "60%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">Давление</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">0.02</span>
+                                    <span className="text-[10px] text-gray-400">бар</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "40%", left: "81%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">Давление</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">0.015</span>
+                                    <span className="text-[10px] text-gray-400">бар</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative" style={{ top: "76%", left: "86%", position: "absolute", zIndex: 5 }}>
+                            <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">РАСХОД</div>
+                                <div className="flex items-baseline gap-1">
+                                    <span className=" text-emerald-400 font-semibold ">12.2</span>
+                                    <span className="text-[10px] text-gray-400">м3/ч</span>
                                 </div>
                             </div>
                         </div>

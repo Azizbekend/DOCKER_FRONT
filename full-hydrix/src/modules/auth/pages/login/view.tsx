@@ -96,7 +96,7 @@ export const LoginView = observer(() => {
                             {isLoading ? "Загрузка..." : "Вход"}
                         </span>
                     </Button>
-{/* 
+                    {/* 
                     <div className="text-center">
                         <Link
                             to={"/menu-moduls"}

@@ -8,6 +8,7 @@ export const useDocuments = () => {
             id: '',
             title: "",
             file: null,
+            fileName: null,
         }
     ]);
 
@@ -16,7 +17,8 @@ export const useDocuments = () => {
         const newDocuments: Documents = {
             id: Date.now().toString(),
             title: '',
-            file: null
+            file: null,
+            fileName: null
         };
         setDocuments(prev => [...prev, newDocuments]);
     };
@@ -40,9 +42,8 @@ export const useDocuments = () => {
 
     // Обновление значения характеристики
     const updateDocumntsFile = (id: string, file: File) => {
-        setDocuments(prev =>
-            prev.map(item => item.id === id ? { ...item, file } : item)
-        );
+        console.log(file[0])
+        setDocuments(prev => prev.map(item => item.id === id ? { id: item.id, title: item.title, file: file, fileName: file.name } : item))
     };
 
     // Получение всех характеристик
@@ -52,7 +53,7 @@ export const useDocuments = () => {
 
     // Сброс всех характеристик
     const resetDocumnts = () => {
-        setDocuments([{ id: '1', title: '', file: null }]);
+        setDocuments([{ id: '1', title: '', file: null, fileName: null }]);
     };
 
     return {

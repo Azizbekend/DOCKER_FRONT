@@ -84,7 +84,7 @@ export const Documents = observer(() => {
 
 
                                 <span className="truncate text-[var(--clr-text)]">
-                                    {document.value?.name || "Загрузите файл"}
+                                    {document?.fileName || "Загрузите файл"}
                                 </span>
 
                                 {/* Icon */}
@@ -158,7 +158,7 @@ export const Documents = observer(() => {
 
 
                                     <span className="truncate text-[var(--clr-text)]">
-                                        {document.value?.name || "Загрузите файл"}
+                                        {document?.fileName || "Загрузите файл"}
                                     </span>
 
                                     {/* Icon */}

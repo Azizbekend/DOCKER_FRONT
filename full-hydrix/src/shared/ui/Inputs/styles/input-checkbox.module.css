@@ -138,12 +138,12 @@
 /* Состояния */
 .disabled {
     opacity: 0.6;
-    cursor: not-allowed;
+    /* cursor: not-allowed; */
 }
 
-.disabled .label {
+/* .disabled .label {
     cursor: not-allowed;
-}
+} */
 
 .error .checkbox {
     border-color: #ef4444;
