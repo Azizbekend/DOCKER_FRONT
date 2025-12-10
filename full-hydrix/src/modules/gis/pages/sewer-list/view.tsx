@@ -163,6 +163,7 @@ export const SewerListView = observer(() => {
             </div>
 
             <Table
+                countActive
                 columns={columns}
                 data={results.length > 0 ? results : []}
                 onRowClick={handleRowClick}

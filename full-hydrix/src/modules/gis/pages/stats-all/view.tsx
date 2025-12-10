@@ -2,7 +2,6 @@ import { Icon } from "@/app/cores/core-trieco/UIKit/icon"
 import { useNavigate, useParams } from "react-router-dom"
 import StatBar from "../company/components/graphs/bar"
 import { Button } from "@/app/cores/core-trieco/UIKit"
-import statsModel from "../../kernel/model/stats-model"
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import summaryStatsModel from "./summary-stats-model"
@@ -12,6 +11,7 @@ import { getData } from "../stats-recycling/helper/getData"
 export const AllStatsView = observer(() => {
     const { companyId } = useParams()
     const navigate = useNavigate();
+
     useEffect(() => {
         summaryStatsModel.getStats(Number(companyId));
     }, [])
@@ -42,11 +42,13 @@ export const AllStatsView = observer(() => {
         <div className="flex flex-row ml-16 justify-between h-full mb-10">
             <div>
                 <div className="flex flex-row gap-[28px] items-center  mt-8">
-                    <div className="bg-[#4A85F6] rounded-md w-[42px] h-[30px] flex items-center justify-center cursor-pointer" onClick={() => navigate(`/admin/company/${Number(companyId)}`)}>
+                    <div className="bg-[#4A85F6] rounded-md rotate-180 w-[42px] h-[30px] flex items-center justify-center cursor-pointer" onClick={() => navigate(`/gis/company/${Number(companyId)}`)}>
                         <Icon systemName="arrow-left" />
                     </div>
+
                     <span className="text-[#222B45] font-bold text-[34px]">Сводная статистика</span>
-                    <Button children="Скачать" class="bg-[#4A85F6] p-5 flex flex-row rounded-lg text-white py-2" onClick={() => statsModel.getExportSummaryStats(Number(companyId))} />
+                    {/* getExportSummaryStats({ WaterCompanyId: Number(companyId) }) */}
+                    <Button children="Скачать" class="bg-[#4A85F6] p-5 flex flex-row rounded-lg text-white py-2" onClick={() => console.log()} />
                 </div>
                 <div className="flex mt-7 flex-col gap-5">
                     <div className="flex flex-row gap-5">
@@ -63,6 +65,5 @@ export const AllStatsView = observer(() => {
                 </div>
             </div>
         </div>
-
     )
 })

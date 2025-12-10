@@ -49,8 +49,8 @@ export class SewerListModel {
     });
   }
 
-  async init(companyId: number) {
-    companyId ? await this.loadSewersByCompany(companyId) : await this.loadAllSewers();
+  init(companyId: number) {
+    companyId ? this.loadSewersByCompany(companyId) : this.loadAllSewers();
   }
 }
 

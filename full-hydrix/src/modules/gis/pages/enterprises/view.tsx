@@ -119,6 +119,7 @@ export const EnterprisesView = observer(() => {
                                 <Table
                                     columns={columns}
                                     data={results.length > 0 ? results : []}
+                                    countActive
                                     classNames={{
                                         body: "mt-4",
                                     }}

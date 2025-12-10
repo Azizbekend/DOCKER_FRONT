@@ -13,8 +13,8 @@ import { useAuth } from "@/entities/user/context";
 import { Link } from "react-router-dom";
 
 export const LoginView = observer(() => {
-    const { initUser, initCompany } = useAuth();
 
+    const { initUser, initCompany } = useAuth();
     const [isregister, setIsRegister] = useState<boolean>(false)
     const { model, validError, isLoading, canSubmit, isErrorStart, login, } = loginModel;
 
@@ -44,10 +44,10 @@ export const LoginView = observer(() => {
                 </div>
 
                 <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-                    <InputContainer 
-                        classNames={{ 
-                            wrapper: "w-full", 
-                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2" 
+                    <InputContainer
+                        classNames={{
+                            wrapper: "w-full",
+                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2"
                         }}
                         headerText="E-mail"
                         isRequired
@@ -64,10 +64,10 @@ export const LoginView = observer(() => {
                         />
                     </InputContainer>
 
-                    <InputContainer 
-                        classNames={{ 
-                            wrapper: "w-full", 
-                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2" 
+                    <InputContainer
+                        classNames={{
+                            wrapper: "w-full",
+                            header: "flex flex-row-reverse justify-end text-sm font-medium text-gray-700 mb-2"
                         }}
                         headerText="Пароль"
                         isRequired
@@ -98,8 +98,8 @@ export const LoginView = observer(() => {
                     </Button>
 
                     <div className="text-center">
-                        <Link 
-                            to={"/menu-moduls"} 
+                        <Link
+                            to={"/menu-moduls"}
                             className="text-[#000000] font-medium hover:text-[#3a6bc9] transition-colors duration-200 block"
                             style={{ fontFamily: "'Open Sans', sans-serif" }}
                         >
@@ -107,7 +107,7 @@ export const LoginView = observer(() => {
                         </Link>
                     </div>
 
-                    <div 
+                    <div
                         className="cursor-pointer font-semibold text-[#4A85F6] hover:text-[#3a6bc9] text-center w-full duration-300"
                         onClick={() => setIsRegister(true)}
                         style={{ fontFamily: "'Open Sans', sans-serif" }}

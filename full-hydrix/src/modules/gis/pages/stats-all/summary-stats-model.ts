@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { getSummaryOrdersPlantStat, getSummaryOrdersSewersStat, getSummaryPlantTariffStat, getSummaryRecycleByCompanyStat } from "../../loyauts/api/stats-service";
+import { getSummaryOrdersPlantStat, getSummaryOrdersSewersStat, getSummaryPlantTariffStat, getSummaryRecycleByCompanyStat } from "../../api/stats-service";
 
 export class SummaryStatsModel {
     constructor() {

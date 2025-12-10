@@ -14,18 +14,9 @@ import { ModalDelete } from "@/shared/ui/modal/modal-delete"
 import { CreateCompanyModal } from "./components/add-company-modal"
 import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search"
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox"
+import { useNavigate } from "react-router-dom"
 
 const columns: TableColumn<WaterCompany>[] = [
-    {
-        header: "№",
-        key: 'id',
-        width: "0.5fr",
-        cell: ({ id }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold">{id}</span>
-            )
-        },
-    },
     {
         header: "Наименование",
         key: 'waterCompanyName',
@@ -55,10 +46,10 @@ const columns: TableColumn<WaterCompany>[] = [
     },
     {
         header: 'Контакты администратора системы',
-        key: 'operator',
-        cell: ({ phoneNumber }) => {
+        key: 'phoneNumber',
+        cell: ({ operator }) => {
             return (
-                <span className="text-[14px]">{phoneNumber}</span>
+                <span className="text-[14px]">{operator.phoneNumber}</span>
             )
         },
     },
@@ -66,9 +57,9 @@ const columns: TableColumn<WaterCompany>[] = [
         header: 'Email',
         key: 'operator',
         width: "0.7fr",
-        cell: ({ email }) => {
+        cell: ({ operator }) => {
             return (
-                <span className="text-[14px]">{email}</span>
+                <span className="text-[14px]">{operator.email}</span>
             )
         },
     },
@@ -115,6 +106,8 @@ export const CompanyListView = observer(() => {
     const { search, setSearch, results } = useSearch<WaterCompany>({ data: list, searchFields: ['waterCompanyName', 'address'] })
     useEffect(() => { init() }, []);
 
+    const navigate = useNavigate();
+
     return (
         <>
             <ModalDelete wrapperId="delete" show={showDeleteModal} setShow={setShowDeleteModal} onClickDelete={() => deleteCompany}
@@ -152,6 +145,8 @@ export const CompanyListView = observer(() => {
 
 
             <Table
+                onRowClick={() => navigate('/gis/company/56')}
+                countActive
                 columns={columns}
                 data={results.length > 0 ? results : []}
                 classNames={{

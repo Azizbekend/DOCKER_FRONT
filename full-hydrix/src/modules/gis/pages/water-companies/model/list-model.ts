@@ -71,8 +71,6 @@ export class ListModel {
 
       runInAction(() => {
         this.model = response.data;
-        // this.model = response.data.filter((x: any) => x.isDeleted == false);
-        // this.model.sort((a, b) => a.id - b.id);
 
         this.municipalities = getMunicipalities.data.map((municipality: Municipality) => ({
           id: municipality.id,

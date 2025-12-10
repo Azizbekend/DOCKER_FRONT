@@ -16,14 +16,14 @@ configure({ enforceActions: 'never', });
 export function Index() {
   return (
     <>
-      <AuthProvider>
 
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+        <AuthProvider>
           <ToastContainer position='bottom-right' />
           <RouterProvider router={AppRouter} />
-        </LocalizationProvider>
+        </AuthProvider>
+      </LocalizationProvider>
 
-      </AuthProvider>
     </>
   );
 }
