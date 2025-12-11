@@ -40,7 +40,7 @@ export const Layout = () => {
       style.remove();
     };
   }, []);
-  
+
   return (
     <>
       {/* Water-themed background */}
@@ -66,7 +66,7 @@ export const Layout = () => {
         style={{ fontFamily: "'Open Sans', sans-serif" }}
       >
 
-        
+
         {/* Left engaging section */}
         <div className="w-[48%] min-h-screen bg-gradient-to-b from-[#4A85F6] via-[#3a6bc9] to-[#2a52a0] relative overflow-hidden flex flex-col">
           {/* Decorative background elements */}
@@ -98,42 +98,42 @@ export const Layout = () => {
 
             {/* Регистрация в Реестре ПО — красиво и официально */}
             <div className="relative z-10 p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 max-w-lg">
-  <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3">
 
-    {/* Текст */}
-    <div>
-      <p className="text-white/90 text-sm leading-relaxed mb-2">
-        Программное обеспечение зарегистрировано в Реестре российского ПО&nbsp;
-        
-        <a 
-          href="https://reestr.digital.gov.ru/reestr/4154545/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="font-bold hover:underline"
-        >
-          №2024686777
-        </a>
-        &nbsp;от 12.11.2024
-        
-      </p>
-      
-      <div className="space-y-1.5">
-        
-        
-        <p className="text-white/80 text-xs">
-          <a 
-            href="https://reestr.digital.gov.ru/request/4048188/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="hover:underline"
-          >
-            Запись от 01.10.2025 №342655
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                {/* Текст */}
+                <div>
+                  <p className="text-white/90 text-sm leading-relaxed mb-2">
+                    Программное обеспечение зарегистрировано в Реестре российского ПО&nbsp;
+
+                    <a
+                      href="https://reestr.digital.gov.ru/reestr/4154545/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold hover:underline"
+                    >
+                      №30603
+                    </a>
+                    &nbsp;от 06.11.2025
+
+                  </p>
+
+                  <div className="space-y-1.5">
+
+
+                    <p className="text-white/80 text-xs">
+                      <a
+                        href="https://reestr.digital.gov.ru/request/4048188/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        Запись от 01.10.2025 №342655
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -149,9 +149,9 @@ export const Layout = () => {
       <footer className="fixed bottom-0 left-0 right-0 z-20 bg-white/10 backdrop-blur-sm border-t border-white/20 text-white/80 text-sm">
         <div className="flex items-center justify-between w-full px-6 py-3">
           <div className="text-left">
-            <a 
-              href="https://elseti-rt.ru/" 
-              target="_blank" 
+            <a
+              href="https://elseti-rt.ru/"
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white hover:underline transition-colors duration-200"
             >
@@ -159,9 +159,9 @@ export const Layout = () => {
             </a>
           </div>
           <div className="text-center font-medium">
-            <a 
-              href="https://smkhydrig.ru/" 
-              target="_blank" 
+            <a
+              href="https://smkhydrig.ru/"
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white hover:underline transition-colors duration-200"
             >
@@ -169,8 +169,8 @@ export const Layout = () => {
             </a>
           </div>
           <div className="text-right">
-            <a 
-              href="/privacy-policy" 
+            <a
+              href="/privacy-policy"
               className="hover:text-white hover:underline transition-colors duration-200"
             >
               Политика обработки персональных данных
