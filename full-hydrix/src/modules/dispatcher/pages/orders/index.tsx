@@ -4,23 +4,40 @@ import { TtemsRequestRegistryType } from "./type/type"
 
 export const RequestRegistry = () => {
 
-    let location = useLocation();
+  let location = useLocation();
 
 
-    return (
-        <>
-            <div className="informations-dispatch__requestregistry relative mt-10">
-                <div className="absolute  top-[-38px] left-[30px] flex gap-3">
-                    <Link to="/dispatcher/orders" className={`hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold  ${location.pathname == "/dispatcher/orders" ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}>
-                        Заявки
-                    </Link>
-                    <Link to="/dispatcher/orders/create/form" className={`hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold  ${location.pathname.includes("/dispatcher/orders/create/") ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}>
-                        Создание заявки
-                    </Link>
-                </div>
+  return (
+    <>
+      <div
+        className="informations-dispatch__requestregistry relative mt-8"
+        style={{ fontFamily: "'Open Sans', sans-serif" }}
+      >
+        <div className="absolute top-[-42px] left-[30px] flex gap-2">
+          <Link
+            to="/dispatcher/orders"
+            className={`px-5 py-2.5 rounded-t-lg font-semibold text-sm transition-all duration-200 ${location.pathname === '/dispatcher/orders'
+                ? 'bg-[#4A85F6] text-white shadow-md'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+          >
+            Заявки
+          </Link>
+          <Link
+            to="/dispatcher/orders/create/form"
+            className={`px-5 py-2.5 rounded-t-lg font-semibold text-sm transition-all duration-200 ${location.pathname.includes('/dispatcher/orders/create/')
+                ? 'bg-[#4A85F6] text-white shadow-md'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+          >
+            Создание заявки
+          </Link>
+        </div>
 
-                <Outlet />
-            </div>
-        </>
-    )
+        <Outlet />
+      </div>
+
+
+    </>
+  )
 }

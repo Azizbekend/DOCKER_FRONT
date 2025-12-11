@@ -137,7 +137,7 @@ export const Table = observer((props: Props) => {
                         </tr>
                     ))}
                 </tbody>
-                <div className="w-full pb-5 mt-5">
+                <div className="not-hover w-full pb-5 mt-5">
                     <div className="flex flex-row items-center gap-5 justify-center">
 
                         <span className="text-[#717171] text-[14px] flex items-center">

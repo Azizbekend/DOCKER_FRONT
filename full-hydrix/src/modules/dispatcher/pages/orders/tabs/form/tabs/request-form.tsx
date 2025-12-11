@@ -11,31 +11,22 @@ export const RequestForm = observer(() => {
     return (
         <div className="grid grid-cols-[60%_35%] justify-between pr-6">
             <div>
-                <div className="text-[28px] mb-3 font-semibold">Создана</div>
+                
                 <InputContainer
                     classNames={{
                         wrapper: "w-[260px] mb-5",
-                        children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                        children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                     }}
                     headerText="Типовая заявка"
                 >
 
                     <SelectorSearch
-                        placeholder="Типовая заявка"
+                        placeholder="Выберите типовую заявку"
                         items={[
-                            {
-                                value: 1,
-                                title: "Типовая заявка 1",
-                            },
-                            {
-                                value: 2,
-                                title: "Типовая заявка 2",
-                            },
-                            {
-                                value: 3,
-                                title: "Типовая заявка 3",
-                            },
-                        ]}
+                { value: 1, title: "Замена подшипников" },
+                { value: 2, title: "Калибровка датчика" },
+                { value: 3, title: "ТО насосного оборудования" },
+              ]}
                         onSelect={setType}
                         icon="arrow-down"
                     />
@@ -44,7 +35,7 @@ export const RequestForm = observer(() => {
                 <InputContainer
                     headerText="Описание"
                     classNames={{
-                        children: "border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                        children: "border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC] w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                     }}>
                     <textarea
                         className="h-[116px]"
@@ -59,65 +50,29 @@ export const RequestForm = observer(() => {
                     <InputContainer
                         classNames={{
                             wrapper: "w-full",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
                         headerText="Организация-Заказчик:"
                         isRequired
                     >
                         <SelectorSearch
                             classWripper="w-full"
-                            placeholder="Типовая заявка"
+                            placeholder="Организация"
                             items={[
-                                {
-                                    value: 1,
-                                    title: "Типовая заявка 1",
-                                },
-                                {
-                                    value: 2,
-                                    title: "Типовая заявка 2",
-                                },
-                                {
-                                    value: 3,
-                                    title: "Типовая заявка 3",
-                                },
-                            ]}
+                  { value: 1, title: "АО «ВКС»" },
+                  { value: 2, title: "АО «УКС»" },
+                  { value: 3, title: "ГБУ «СЭТИК»" },
+                ]}
                             onSelect={setType}
                             icon="arrow-down"
                         />
                     </InputContainer>
 
+                    
                     <InputContainer
                         classNames={{
                             wrapper: "w-full",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
-                        }}
-                        headerText="Создана"
-                    >
-                        <SelectorSearch
-                            classWripper="w-full"
-                            placeholder="Типовая заявка"
-                            items={[
-                                {
-                                    value: 1,
-                                    title: "Типовая заявка 1",
-                                },
-                                {
-                                    value: 2,
-                                    title: "Типовая заявка 2",
-                                },
-                                {
-                                    value: 3,
-                                    title: "Типовая заявка 3",
-                                },
-                            ]}
-                            onSelect={setType}
-                            icon="arrow-down"
-                        />
-                    </InputContainer>
-                    <InputContainer
-                        classNames={{
-                            wrapper: "w-full",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
                         headerText="ФИО:"
                     >
@@ -135,8 +90,8 @@ export const RequestForm = observer(() => {
                 <div className="text-[28px] mb-3 font-semibold">Заявитель</div>
                 <InputContainer
                     classNames={{
-                        wrapper: "w-[350px] mb-5",
-                        children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                        wrapper: "w-[100%] mb-5",
+                        children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                     }}
                     headerText="Организация-заявитель:"
                 >
@@ -145,19 +100,10 @@ export const RequestForm = observer(() => {
                         classWripper="w-full"
                         placeholder="Организация-заявитель:"
                         items={[
-                            {
-                                value: 1,
-                                title: "Типовая заявка 1",
-                            },
-                            {
-                                value: 2,
-                                title: "Типовая заявка 2",
-                            },
-                            {
-                                value: 3,
-                                title: "Типовая заявка 3",
-                            },
-                        ]}
+                { value: 1, title: "АО «ВКС»" },
+                { value: 2, title: "АО «УКС»" },
+                { value: 3, title: "ГБУ «СЭТИК»" },
+              ]}
                         onSelect={setType}
                         icon="arrow-down"
                     />
@@ -167,7 +113,7 @@ export const RequestForm = observer(() => {
                     <InputContainer
                         classNames={{
                             wrapper: "w-[48%]",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
                         headerText="Сотрудник-заявитель:"
                     >
@@ -178,15 +124,15 @@ export const RequestForm = observer(() => {
                             items={[
                                 {
                                     value: 1,
-                                    title: "Типовая заявка 1",
+                                    title: "Иванов И.И.",
                                 },
                                 {
                                     value: 2,
-                                    title: "Типовая заявка 2",
+                                    title: "Петров П.П.",
                                 },
                                 {
                                     value: 3,
-                                    title: "Типовая заявка 3",
+                                    title: "Сидоров С.С.",
                                 },
                             ]}
                             onSelect={setType}
@@ -197,9 +143,9 @@ export const RequestForm = observer(() => {
                     <InputContainer
                         classNames={{
                             wrapper: "w-[48%]",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
-                        headerText="Сотрудник-заявитель:"
+                        headerText="Дата"
                     >
                         <Input
                             type="date"
@@ -215,7 +161,7 @@ export const RequestForm = observer(() => {
                         headerText="Контактный телефон"
                         classNames={{
                             wrapper: "w-[48%]",
-                            children: "flex-row border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
 
                         iconName="phone"
@@ -228,10 +174,10 @@ export const RequestForm = observer(() => {
                         />
                     </InputContainer>
                     <InputContainer
-                        headerText="Контактный телефон"
+                        headerText="Электронная почта"
                         classNames={{
                             wrapper: "w-[48%]",
-                            children: "flex-row-reverse border-[1.5px] px-3 py-3 rounded-lg border-[#BCBCBC]"
+                            children: "w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         }}
 
                         iconName="mail"
@@ -240,15 +186,21 @@ export const RequestForm = observer(() => {
                             type="email"
                             value={model.email}
                             onChange={setEmail}
+                            
                         />
                     </InputContainer>
                 </div>
+
+                <div className="mt-8 flex justify-end">
+        <Button
+          class="px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors shadow-md hover:shadow-lg"
+        >
+          Создать заявку
+        </Button>
+      </div>
             </div>
 
-            <Button
-                class="rounded py-2 px-10 bg-[var(--clr-accent)] text-white hover:opacity-50 w-fit mt-10">
-                Создать
-            </Button>
+            
         </div>
     );
 });

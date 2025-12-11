@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import { Sidebar } from "./components/Sidebar";
+import { Sidebar } from "./Sidebar";
 import { Header } from "@/shared/components/header/header";
 import { Icon } from '@/shared/ui/icon';
 
@@ -10,10 +10,16 @@ export const Layout = () => {
                 <Header />
 
                 <div className='flex items-center  gap-[28px] my-[30px] pl-[40px] pr-[40px]'>
-                    <Link to={"/domain/list"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
-                        <Icon systemName="arrow-left" />
-                    </Link>
-                    <span className='font-bold text-[#222B45] text-[34px]'>Диспетчеризация ЖКХ</span>
+                    <Link
+                    to="/domain/list"
+                    className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
+                >
+                    <Icon systemName="arrow-left" className="text-white" />
+                </Link>
+                    <div>
+          <h1 className="font-bold text-gray-800 text-4xl">Диспетчеризация ЖКХ</h1>
+          <div className="w-28 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
+        </div>
                 </div>
 
                 <div className="w-full flex flex-row h-full flex-grow">

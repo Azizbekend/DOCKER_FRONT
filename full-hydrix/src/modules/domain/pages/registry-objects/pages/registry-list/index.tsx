@@ -154,9 +154,8 @@ export const RegistryObjects = observer(({ list }: { list: DespetcherTest[] }) =
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-            <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">Единый реестр объектов</h2>
+        
+                
 
                 <Table
                     classNames={{
@@ -166,7 +165,6 @@ export const RegistryObjects = observer(({ list }: { list: DespetcherTest[] }) =
                     data={list}
                     onRowClick={handleRowClick}
                 />
-            </div>
-        </div>
+            
     );
 });

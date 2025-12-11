@@ -4,6 +4,7 @@ export interface ControlType {
   value?: string;
   mesurement: string;
   plcNodeid: string;
+  plcNodeId: string;
   isValue: boolean;
   isInfo: boolean;
   isCommand?: boolean,

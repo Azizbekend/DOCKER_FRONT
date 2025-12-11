@@ -64,7 +64,7 @@ export const Selector = observer(({
             </div>
 
             <div className={`absolute left-0 top-[110%] flex flex-col gap-2 bg-white border w-[350px] 
-                ${isOpen ? "min-w-full w-max max-h-[150px] overflow-y-scroll z-[1]" : "hidden max-h-0"}`}>
+                ${isOpen ? "min-w-full w-max max-h-[150px] overflow-y-scroll z-[10]" : "hidden max-h-0"}`}>
 
                 {items.map(item => (
                     <div

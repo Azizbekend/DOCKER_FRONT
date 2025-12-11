@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { AddEmployeeModal } from './components/add-employee';
 import { useState } from 'react';
 import { CreateCompanyModal } from './components/create-company-modal';
+import { Link } from 'react-router-dom';
 
 export const PassportParticipants = observer(() => {
     const participantsData = [
@@ -44,10 +45,14 @@ export const PassportParticipants = observer(() => {
             <AddEmployeeModal show={showAddEmployeeModal} setShow={setShowAddEmployeeModal} />
             <CreateCompanyModal show={showCreateCompanyModal} setShow={setShowCreateCompanyModal} />
 
-            <div className="mb-8">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Участники</h1>
-                <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-2"></div>
-            </div>
+            <div className="mb-8 flex items-center gap-4">
+                            
+                            <div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Участники</h1>
+                            <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
+                            </div>
+                            
+                        </div>
 
             <Button
                 class='bg-[#4A85F6] py-3 px-6 rounded-xl text-white font-semibold hover:bg-[#3a6bc9] transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 mb-12'

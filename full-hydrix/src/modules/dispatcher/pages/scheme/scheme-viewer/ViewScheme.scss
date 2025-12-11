@@ -1,0 +1,60 @@
+.scheme-view__container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 8px;
+    background: white;
+
+    cursor: grab;
+}
+
+.scheme-view__wrapper {
+    position: relative;
+    transition: transform 0.1s linear;
+
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 1300px;
+
+    & img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}
+
+.scheme-view__image {
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    /* чтобы не мешало drag'у */
+}
+
+.scheme-counter {
+    padding: 3px 3px 3px 3px;
+    border-radius: 2px;
+    font-size: 4px;
+    background-color: rgb(187, 189, 255);
+    border: 0.1px solid darkblue;
+    min-width: 43px;
+    width: max-content;
+
+    &__name {
+        margin-bottom: 3px;
+        text-align: center;
+    }
+
+    &__value {
+        text-align: center;
+
+        & span {
+            display: inline-block;
+            width: 15px;
+            text-align: center;
+        }
+    }
+}

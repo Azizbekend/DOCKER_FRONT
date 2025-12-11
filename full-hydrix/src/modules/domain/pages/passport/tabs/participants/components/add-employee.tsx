@@ -154,9 +154,9 @@ export const AddEmployeeModal = observer(({ show, setShow }) => {
                     </Button>
                     <Button
                         onClick={() => setShow(false)}
-                        class="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
+                        class="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                     >
-                        <Icon systemName="check" width={18} />
+                        
                         Добавить
                     </Button>
                 </div>

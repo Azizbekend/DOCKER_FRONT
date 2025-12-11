@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import imagePassport from "../../assets/passport.jpg";
 import { Link } from 'react-router-dom';
 import { passportObject } from '@/entities/hardware/api';
+import { Icon } from '@/shared/ui/icon';
 
 export const PassportInformation = observer(() => {
     const itemsInfo1 = [
@@ -20,7 +21,7 @@ export const PassportInformation = observer(() => {
             value: 'АО "ВКС"',
         },
         {
-            name: "Ген.подрядчик",
+            name: "Генеральныйподрядчик",
             value: 'АО "УКС"',
         },
     ];
@@ -62,7 +63,7 @@ export const PassportInformation = observer(() => {
             phone: "+7 (843) 653-28-72",
         },
         {
-            type: 'Ген.подрядчик АО "УКС"',
+            type: 'Генеральный подрядчик АО "УКС"',
             name: "Петров Иван",
             email: "uksr.kzn@tatar.ru",
             phone: "+7 (843) 223-19-19",
@@ -83,12 +84,47 @@ export const PassportInformation = observer(() => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+        <div className="w-full bg-white rounded-2xl min-h-[50vh] p-8 shadow-xl border border-gray-100" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+
             <div className="max-w-8xl mx-auto">
                 {/* Header */}
+            <div className=" flex items-center gap-4">
+                <Link
+                    to="/domain/list"
+                    className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
+                >
+                    <Icon systemName="arrow-left" className="text-white" />
+                </Link>
+                <div className="">
+<h1 className="text-3xl md:text-4xl font-bold text-gray-800">Паспорт объекта</h1>
+                <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
+                </div>
+                
+            </div>
+                    
+
                 <div className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800">Паспорт объекта</h1>
-                    <div className="w-24 h-1 bg-[#4A85F6] rounded-full mt-2"></div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 justify-end">
+                            <Link
+                                to="/gis/company/56"
+                                className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
+                            >
+                                <span>Перейти в Управление ЖБО</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </Link>
+                            <Link
+                                to="/dispatcher"
+                                className="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm"
+                            >
+                                <span>Перейти в Диспетчерскую</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </Link>
+                        </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -157,6 +193,8 @@ export const PassportInformation = observer(() => {
                             </div>
                         </div>
 
+
+
                         {/* Technical Specifications */}
                         <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6">Технические характеристики</h2>
@@ -175,27 +213,7 @@ export const PassportInformation = observer(() => {
                             </div>
                         </div>
 
-                        {/* Navigation Links */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-end">
-                            <Link
-                                to="/gis/company/56"
-                                className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
-                            >
-                                <span>Перейти в Управление ЖБО</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </Link>
-                            <Link
-                                to="/dispatcher"
-                                className="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm"
-                            >
-                                <span>Перейти в Диспетчерскую</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </Link>
-                        </div>
+                     
                     </div>
 
                     {/* Right Section - Contact Information */}

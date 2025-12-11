@@ -13,100 +13,106 @@ import { DespetcherTest } from '@/entities/despetcher-test/type';
 import { registryModel } from './pages/model/registry-model';
 
 export const RegistryObjectsLayout = observer(() => {
+  const { list, init } = registryModel;
+  const { search, setSearch, results } = useSearch<DespetcherTest>({
+    data: list,
+    searchFields: ["nameMinin", "company"]
+  });
+  const { page } = useParams();
+  const [isMap, setIsMap] = useState(page !== "list");
 
-    const { list, init } = registryModel
-    const { search, setSearch, results } = useSearch<DespetcherTest>({ data: list, searchFields: ["nameMinin", 'company'] })
-    const { page } = useParams()
+  useEffect(() => {
+    init();
+  }, []);
 
-    const [isMap, setIsMap] = useState<boolean>(page === "list" ? false : true);
+  const toggleView = () => setIsMap(!isMap);
 
-    useEffect(() => {
-        init()
-    }, [])
+  return (
+    <div className="h-full flex flex-col" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+      {/* Заголовок */}
+      <div className="flex items-center gap-4 mb-14">
+        <Link
+          to="/menu-moduls"
+          className="flex items-center justify-center w-11 h-11  transition-colors"
+        >
+          <Icon systemName="home-active" className="text-white" />
+        </Link>
 
-
-    const changSubPage = () => {
-        setIsMap(!isMap)
-    }
-
-    return (
-        <div className='h-full flex flex-col'>
-            {/* <Breadcrumbs
-                routes={[
-                    {
-                        name: 'Registry Objects',
-                        path: '/domain'
-                    }
-                ]}
-            /> */}
-
-
-            <div className='flex items-center gap-[28px] mb-[38px]'>
-                <Link to={"/menu-moduls"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
-                    <Icon systemName="arrow-left" />
-                </Link>
-                <span className='font-bold text-[#222B45] text-[34px]'>Единый реестр объектов</span>
-            </div>
-
-            <div className='mb-10 bg-white py-[5px] pl-[40px] pr-[40px] flex items-center justify-between'
-                style={{
-                    width: "calc(100% + 80px)",
-                    marginLeft: "-40px",
-                }}>
-
-                <div className='flex items-center'>
-                    <Search
-                        placeholder="Поиск..."
-                        value={search}
-                        onChange={setSearch}
-                        classNames={{
-                            container: "w-min !bg-[#EEF2FA] rounded-lg h-[38px]",
-                            input: "!w-[400px] bg-[#EEF2FA]",
-                        }}
-                    />
-
-                    <FilterObjects />
-
-                    <SwitchButton
-                        label="Диспетчерская"
-                        onChange={() => { console.log() }}
-                        classNames={{
-                            container: "ml-7 gap-3",
-                            button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                            circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                        }}
-                    />
-
-                    <SwitchButton
-                        label="Управление ЖБО"
-                        onChange={() => { console.log() }}
-                        classNames={{
-                            container: "ml-7 gap-3",
-                            button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                            circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                        }}
-                    />
-                </div>
-
-                <div onClick={changSubPage} className='flex items-center gap-3 text-[#757575] cursor-pointer hover:opacity-50 duration-300'>
-                    {isMap
-                        ?
-                        <>
-                            <Icon systemName='list' />
-                            <span>Объекты в виде списка</span>
-                        </>
-                        :
-                        <>
-                            <Icon systemName='map' />
-                            <span>Объекты на карте</span>
-                        </>
-                    }
-                </div>
-            </div>
-
-            <div className='flex-1'>
-                {isMap ? <MapObjects /> : <RegistryObjects list={results.length > 0 ? results : []} />}
-            </div>
+        <div>
+          <h1 className="font-bold text-gray-800 text-4xl">Единый реестр объектов</h1>
+          <div className="w-28 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
         </div>
-    );
+      </div>
+
+      {/* Панель управления */}
+      <div className="mb-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          {/* Левая часть: поиск и фильтры */}
+          <div className="flex flex-cols items-center gap-4">
+            <Search
+              placeholder="Поиск по названию или организации..."
+              value={search}
+              onChange={setSearch}
+              classNames={{
+                container: "!w-[420px] bg-gray-50 rounded-lg h-11",
+                input: "bg-gray-50 px-4 text-gray-800",
+              }}
+            />
+
+            <FilterObjects />
+
+            {/* Переключатели с метками */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+
+                <SwitchButton
+                  label=""
+                  onChange={() => { console.log() }}
+                  classNames={{
+                    container: "ml-7 gap-3",
+                    button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                    circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                  }}
+                />
+                <span className="text-sm text-gray-700 font-medium">Диспетчерская</span>
+                <SwitchButton
+                  label=""
+                  onChange={() => { console.log() }}
+                  classNames={{
+                    container: "ml-7 gap-3",
+                    button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                    circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                  }}
+                />
+                <span className="text-sm text-gray-700 font-medium">Управление ЖБО</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Правая часть: переключение вида */}
+          <button
+            onClick={toggleView}
+            className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
+          >
+            {isMap ? (
+              <>
+                <Icon systemName="list" className="text-gray-600" />
+                <span>Объекты в виде списка</span>
+              </>
+            ) : (
+              <>
+                <Icon systemName="map" className="text-gray-600" />
+                <span>Объекты на карте</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Основной контент */}
+      <div className="flex-1 min-h-0">
+        {isMap ? <MapObjects /> : <RegistryObjects list={results.length > 0 ? results : []} />}
+      </div>
+    </div>
+  );
 });

@@ -193,7 +193,7 @@ export const AppRouter = createBrowserRouter([
             {
                 index: true,
                 async lazy() {
-                    const { Scheme } = await import("@/modules/dispatcher/pages/scheme-3d")
+                    const { Scheme } = await import("@/modules/dispatcher/pages/scheme")
                     return {
                         Component: Scheme
                     }

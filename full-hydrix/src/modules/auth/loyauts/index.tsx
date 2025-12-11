@@ -40,7 +40,7 @@ export const Layout = () => {
       style.remove();
     };
   }, []);
-
+  
   return (
     <>
       {/* Water-themed background */}
@@ -65,6 +65,8 @@ export const Layout = () => {
         className="flex w-full min-h-screen z-10 relative"
         style={{ fontFamily: "'Open Sans', sans-serif" }}
       >
+
+        
         {/* Left engaging section */}
         <div className="w-[48%] min-h-screen bg-gradient-to-b from-[#4A85F6] via-[#3a6bc9] to-[#2a52a0] relative overflow-hidden flex flex-col">
           {/* Decorative background elements */}

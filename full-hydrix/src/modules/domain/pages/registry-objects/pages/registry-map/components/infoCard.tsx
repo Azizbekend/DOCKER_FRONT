@@ -26,7 +26,7 @@ export default function InfoCart({ className, onClick }) {
                         </button>
 
 
-                        <span className="font-bold text-[25px] leading-[27px]">Очистные сооружения <br /> БОС Кайбицы</span>
+                        <span className="font-bold text-[25px] leading-[27px]">Очистные сооружения <br /> с. Шапши</span>
                     </div>
 
 

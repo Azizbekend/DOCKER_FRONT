@@ -14,6 +14,8 @@ export const VideoSlider = () => {
     const { cameraSources, setBigViewSrc } = videoSurveillanceModel
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [active, setActive] = useState(0);
+
     const itemsToShow = 4;
 
     const nextSlide = () => {
@@ -34,7 +36,7 @@ export const VideoSlider = () => {
 
                 <Button
                     onClick={prevSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md hover:shadow-lg transition-shadow hover:bg-gray-50"
                 >
                     <Icon systemName="arrow-left-blue" />
                 </Button>
@@ -47,14 +49,14 @@ export const VideoSlider = () => {
                         }}
                     >
                         {cameraSources.map((src, index) => (
-                            <CameraItem setSrc={setBigViewSrc} key={index} src={src} />
+                            <CameraItem setSrc={setBigViewSrc} onClick={() => setActive(index)} active={active == index} count={index} key={index} src={src} />
                         ))}
                     </div>
                 </div>
 
                 <Button
                     onClick={nextSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0 rotate-180"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md hover:shadow-lg transition-shadow hover:bg-gray-50 rotate-180"
                 >
                     <Icon systemName="arrow-left-blue" />
                 </Button>

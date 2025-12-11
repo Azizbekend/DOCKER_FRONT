@@ -14,10 +14,10 @@ export function TableFooter<T>({ table, pageSizeOptions }: TableFooterProps<T>) 
     const end = start + table.getRowModel().rows.length;
 
     return (
-        <div className="w-full pb-10 mt-5">
+        <div className="not-hover w-full pb-10 mt-5">
             <div className="flex flex-row items-center gap-5 justify-center">
 
-                <span className="text-[#717171] text-[14px] flex items-center">
+                <span className="not-hover text-[#717171] text-[14px] flex items-center">
                     Количество элементов на странице
                 </span>
 

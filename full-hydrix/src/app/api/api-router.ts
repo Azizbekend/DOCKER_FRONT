@@ -212,7 +212,11 @@ export const Control = {
   createOndeCommand: "/NodeInfo/createCommand",
   createManyCommand: "/NodeInfo/createMassCommand",
   all: "/NodeInfo/commands",
+  
+  
   allInfo: "/NodeInfo/infos",
+
+
   delete: "/NodeInfo/info/delete",
 }
 

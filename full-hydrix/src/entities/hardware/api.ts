@@ -142,12 +142,6 @@ export const controlBlockCreate = (params: { name: string, plcIpAdress: string, 
     return reserchInstance.post(ControlBlock.create, params)
 }
 
-
-
-
-
-
-
 // Documents
 
 
@@ -166,4 +160,13 @@ export const createDocuments = (params: Documents) => {
 }
 export const getDocuments = (params: { id: number }) => {
     return reserchInstance.get(Documents.hardware, { params })
+}
+
+
+export const getInfoNodeInfos = (params: any) => {
+    return reserchInstance.post("/NodeIndicates/actual/group", params)
+}
+
+export const getInfoNodeInfoOne = (params: { id: string }) => {
+    return reserchInstance.get("/NodeIndicates/actual/plcNodeOd", { params })
 }

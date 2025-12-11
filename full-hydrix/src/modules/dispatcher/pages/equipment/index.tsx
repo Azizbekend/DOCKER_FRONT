@@ -1,5 +1,4 @@
 import { TableColumn } from "@/shared/ui/table/setting/types";
-import { StatusClass, StatusText } from "./type/type";
 import { Table } from "@/shared/ui/table/index";
 import { Link, useNavigate } from "react-router-dom";
 import { Search } from "@/shared/ui/Inputs/input-search";
@@ -12,208 +11,185 @@ import { HardwareInterface } from "@/entities/hardware/type";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 
+// Статусы с цветами и иконками
+const getStatusBadge = (activatedAt: string) => {
+  if (activatedAt === "0001-01-01T00:00:00") {
+    return (
+      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        <div className="w-1.5 h-1.5 bg-gray-500 rounded-full"></div>
+        Не активировано
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+      Активировано
+    </span>
+  );
+};
+
+// Кнопка активации
+const ActivateButton = ({ id }: { id: number }) => (
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      hardwareListModel.active(id);
+    }}
+    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#4A85F6] text-white hover:bg-[#3a6bc9] transition-colors"
+  >
+    Активировать
+  </button>
+);
+
+// Кнопка редактирования
+const EditButton = ({ id }: { id: number }) => {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        navigate(`/dispatcher/equipment/form/${id}`);
+      }}
+      className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
+      title="Редактировать"
+    >
+      <Icon systemName="edit" className="w-4 h-4" />
+    </button>
+  );
+};
+
+// Кнопка экспорта
+const ExportButton = () => (
+  <button className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors font-medium">
+    <Icon systemName="download" className="" />
+    Экспортировать
+  </button>
+);
 
 const columns: TableColumn<HardwareInterface>[] = [
-    {
-        header: "Наименование",
-        key: 'companyName',
-        cell: ({ name }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{name}</span>
-            )
-        },
-    },
-    {
-        header: "Расположение",
-        key: 'companyName',
-        cell: ({ position }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{position}</span>
-            )
-        },
-    },
-    {
-        header: "Модель",
-        key: 'companyName',
-        cell: ({ model }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{model}</span>
-            )
-        },
-    },
-    {
-        header: "Изготовитель",
-        key: 'companyName',
-        cell: ({ developerName }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold  text-center w-full">{developerName}</span>
-            )
-        },
-    },
-    {
-        header: "Поставщик",
-        key: 'companyName',
-        cell: ({ supplierName }) => {
-            return (
-                <span className="text-[14px] text-[#222B45] font-semibold text-center w-full">{supplierName}</span>
-            )
-        },
-    },
-    {
-        header: "Статус",
-        key: 'companyName',
-        width: '0.5fr',
-        cell: ({ id, activatedAt }) => {
-
-
-            return (
-                <div className="table__column" >
-                    {activatedAt == "0001-01-01T00:00:00"
-                        ?
-                        <Button class="text-[14px] px-3 py-2 text-white hover:opacity-50 bg-[var(--clr-accent)]" onClick={() => hardwareListModel.active(id)}>Активировать</Button>
-                        :
-                        <span className={`table-equipmentregistry__column-status ${StatusClass(1)}`} >
-                            {StatusText(1)}
-                        </span>
-                    }
-                </div >
-
-            )
-        },
-    },
-    {
-        header: " ",
-        key: '',
-        width: '70px',
-        cell: ({ id }) => {
-
-            const navigate = useNavigate();
-
-            return (
-                <div className="table__column">
-                    <Button onClick={() => navigate('/dispatcher/equipment/form/' + id)}>
-                        <Icon systemName="edit" />
-                    </Button>
-                </div>
-            )
-        },
-    },
-    // {
-    //     header: " ",
-    //     key: '',
-    //     width: '0.2fr',
-    //     cell: ({ id }) => {
-    //         return (
-    //             <span className="text-[14px] text-[#222B45] font-semibold w-full">
-    //                 <div className="table__column" >
-    //                     <Link to={"id"} >
-    //                         <Icon systemName="edit" />
-    //                     </Link>
-    //                 </div>
-    //             </span>
-    //         )
-    //     },
-    // },
-]
+  {
+    header: "Наименование",
+    key: 'name',
+    cell: ({ name }) => (
+      <span className="text-sm text-gray-800 font-medium line-clamp-2 h-10 overflow-hidden">{name}</span>
+    ),
+  },
+  {
+    header: "Расположение",
+    key: 'position',
+    cell: ({ position }) => (
+      <span className="text-sm text-gray-800">{position}</span>
+    ),
+  },
+  {
+    header: "Модель",
+    key: 'model',
+    cell: ({ model }) => (
+      <span className="text-sm text-gray-800">{model}</span>
+    ),
+  },
+  {
+    header: "Изготовитель",
+    key: 'developerName',
+    cell: ({ developerName }) => (
+      <span className="text-sm text-gray-800">{developerName}</span>
+    ),
+  },
+  {
+    header: "Поставщик",
+    key: 'supplierName',
+    cell: ({ supplierName }) => (
+      <span className="text-sm text-gray-800">{supplierName}</span>
+    ),
+  },
+  {
+    header: "Статус",
+    key: 'activatedAt',
+    width: '180px',
+    cell: ({ id, activatedAt }) => (
+      <div className="flex items-center justify-center">
+        {activatedAt === "0001-01-01T00:00:00"
+          ? <ActivateButton id={id} />
+          : getStatusBadge(activatedAt)}
+      </div>
+    ),
+  },
+  {
+    header: "",
+    key: 'actions',
+    width: '80px',
+    cell: ({ id }) => <EditButton id={id} />,
+  },
+];
 
 export const EquipmentRegistry = observer(() => {
+  const { list, init } = hardwareListModel;
+  const navigate = useNavigate();
+  const { search, setSearch, results } = useSearch<HardwareInterface>({
+    data: list,
+    searchFields: ['name', 'opcDescription']
+  });
 
-    const { list, init } = hardwareListModel
+  useEffect(() => {
+    init();
+  }, []);
 
-    useEffect(() => {
-        init()
-    }, [])
+  return (
+    <>
+      {/* Панель управления */}
+      <div className="flex items-center gap-4 mb-8 p-2 bg-white rounded-xl shadow-sm border border-gray-200">
+        <Link
+          to="/dispatcher/equipment/form"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
+        >
+          <Icon systemName="plus-white" className="w-4 h-4" />
+          Добавить оборудование
+        </Link>
 
-    const getStatus = (status: number) => {
-        switch (status) {
-            case 1:
-                return <div className="table__column">
-                    <span className="table-equipmentregistry__column-status _green">
-                        В работе
-                    </span>
-                </div>;
-            case 2:
-                return <div className="table__column">
-                    <span className="table-equipmentregistry__column-status _gray">
-                        В ожидании
-                    </span>
-                </div>;
-            case 3:
-                return <div className="table__column">
-                    <span className="table-equipmentregistry__column-status _red">
-                        Авария
-                    </span>
-                </div>;
-        }
-    }
+        <Search
+          value={search}
+          onChange={setSearch}
+          placeholder="Поиск по названию или описанию..."
+          classNames={{
+            container: "!w-[420px] bg-gray-50 rounded-lg h-11",
+            input: "bg-gray-50 px-4 text-gray-800",
+          }}
+        />
 
-    const navigate = useNavigate();
-    const { search, setSearch, results } = useSearch<HardwareInterface>({ data: list, searchFields: ['name', 'opcDescription'] });
+        <ButtonCheckList
+          name="Доступ"
+          classNames={{ button: "text-sm" }}
+          children={["Все", "Онлайн", "Оффлайн"].map((value, key) => (
+            <label key={key} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
+              <input type="checkbox" className="rounded text-[#4A85F6]" />
+              <span className="text-sm">{value}</span>
+            </label>
+          ))}
+        />
 
-    return (
-        <>
-            <div className="table__top flex items-center gap-5 mb-5">
-                <Link to="/dispatcher/equipment/form" className="rounded-lg flex items-center gap-1 duration-300 text-white bg-[var(--clr-accent)] pl-3 px-4 py-2 hover:opacity-50">
-                    <Icon systemName="plus-white" />
-                    <span>Добавить оборудование</span>
-                </Link>
-                <Search value={search} onChange={setSearch} placeholder="Поиск..."
-                    classNames={{
-                        container: "max-w-[450px] py-2 rounded-lg"
-                    }}
-                />
+        <ButtonCheckList
+          name="Состояние"
+          classNames={{ button: "text-sm" }}
+          children={["Функционирует", "Авария", "Плановое обслуживание"].map((value, key) => (
+            <label key={key} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
+              <input type="checkbox" className="rounded text-[#4A85F6]" />
+              <span className="text-sm">{value}</span>
+            </label>
+          ))}
+        />
 
-                <ButtonCheckList
-                    name="Фильтр по доступу"
-                    classNames={{
-                        button: "w-max"
-                    }}
-                    children={
-                        ["Все", "Онлайн", "Оффлайн"].map((value, key) => (
-                            <label key={key} className="flex items-center gap-3 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    name="tankValue"
-                                    onChange={(e) => console.log("asd")}
-                                    // checked={tanks.includes(value)}
-                                    value={value}
-                                />
-                                <span>{value}</span>
-                            </label>
-                        ))
-                    }
-                />
-                <ButtonCheckList
-                    name="Фильтр по работе"
-                    classNames={{
-                        button: "w-max"
-                    }}
-                    children={
-                        ["Функционирует", "Авария", "Плановое обслуживание"].map((value, key) => (
-                            <label key={key} className="flex items-center gap-3 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    name="tankValue"
-                                    onChange={(e) => console.log("asd")}
-                                    // checked={tanks.includes(value)}
-                                    value={value}
-                                />
-                                <span>{value}</span>
-                            </label>
-                        ))
-                    }
-                />
+        <ExportButton />
+      </div>
 
-                <Button class="table__export export-button ml-auto">Экспортировать</Button>
-            </div>
-
-
-            <Table
-                countActive
-                columns={columns}
-                data={results.length > 0 ? results : []}
-                onRowClick={(row) => navigate(`/dispatcher/equipment-about/passport/${row.id}`)}
-            />
-        </>
-    )
-})
+      {/* Таблица */}
+      <Table
+        countActive
+        columns={columns}
+        data={results.length > 0 ? results : []}
+        onRowClick={(row) => navigate(`/dispatcher/equipment-about/passport/${row.id}`)}
+      />
+    </>
+  );
+});

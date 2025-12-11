@@ -1,8 +1,9 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
 import { makeAutoObservable } from "mobx";
+import { json } from "react-router-dom";
 import { toast } from "react-toastify";
 
 class HardwareModel {
@@ -31,6 +32,9 @@ class HardwareModel {
     servicesHistory: ServiceModelType[] | any = []
     documents: Documents[] | any = []
 
+
+    commandInfoIds: string[] = []
+
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }
@@ -50,7 +54,9 @@ class HardwareModel {
             const [info, commands, commandsInfo, characteristics, servicesToday, week, documents] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
+
                 getCommandAllInfo({ id }),
+
                 getCharacteristicAll({ id }),
                 getTodayServiceApi({ id: id }),
                 getServiceApi({ id: id }),
@@ -68,17 +74,14 @@ class HardwareModel {
 
             this.documents = documents.data;
 
-
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
             this.isLoading = false;
         }
 
-
         await getInfoHardware({ id: id })
             .then((res) => {
-                console.log(res.data)
                 this.model = res.data
             })
 
@@ -98,6 +101,35 @@ class HardwareModel {
             toast("Задача выполнена", { progressStyle: { background: "green" }, });
         })
     }
+
+
+
+    async getInfoNodeInfoAll() {
+        let ids: (string | undefined)[] = []
+
+        for (let i = 0; i < this.commandsInfo.length; i++) {
+            ids.push(this.commandsInfo[i].id)
+        }
+
+        try {
+            await getInfoNodeInfos(JSON.stringify({ listId: ids }))
+                .then(res => {
+                    for (const key in res.data.indecatesGroup) {
+                        this.commandsInfo = this.commandsInfo.map(item => {
+
+                            if (item.id == key) {
+                                return { ...item, value: res.data.indecatesGroup[key] };
+                            }
+
+                            return item;
+                        });
+                    }
+                })
+        } catch (error) {
+            console.error(`Ошибка при получении данных для plcNodeid :`, error);
+        }
+    }
+
 }
 
 export const hardwareModel = new HardwareModel()
