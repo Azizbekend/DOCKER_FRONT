@@ -31,7 +31,7 @@ export const VideoSlider = () => {
 
     return (
         <div className="w-full mx-auto">
-            <div className="flex gap-4 items-center justify-between mt-6">
+            <div className="flex gap-4 items-center justify-between mb-6">
 
                 <Button
                     onClick={prevSlide}

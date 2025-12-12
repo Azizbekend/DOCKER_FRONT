@@ -24,13 +24,11 @@ export const StreamPlayer = observer(() => {
     }, [bigViewSrc]);
 
     return (
-        <div className='h-[600px] w-min mx-auto bg-gradient-to-r bg-gray-600 rounded-lg'>
-            <video
-                ref={videoRef}
-                autoPlay
-                muted
-                className='w-[100%] h-full bg-red mx-auto rounded-lg'
-            />
-        </div>
+        <video
+            ref={videoRef}
+            autoPlay
+            muted
+            className='h-[600px] w-[100%] mx-auto'
+        />
     );
 })
