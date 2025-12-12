@@ -118,8 +118,6 @@ export const Layout = () => {
                   </p>
 
                   <div className="space-y-1.5">
-
-
                     <p className="text-white/80 text-xs">
                       <a
                         href="https://reestr.digital.gov.ru/request/4048188/"

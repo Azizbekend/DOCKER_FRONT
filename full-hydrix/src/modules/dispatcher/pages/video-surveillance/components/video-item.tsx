@@ -1,19 +1,49 @@
-import { ValueSetter } from "node_modules/date-fns/parse/_lib/Setter";
-import { useState } from "react";
 
-export interface CameraItemProps {
+import { useEffect, useRef } from "react";
+import Hls from "hls.js";
+
+interface CameraItemProps {
     src: string,
     setSrc: (value: string) => void,
-    active: boolean,
+
     onClick: () => void,
+    active: boolean,
     count: number
 }
 
-export const CameraItem = ({ src, setSrc, active, onClick, count }: CameraItemProps) => {
+export const CameraItem = ({ active, src, setSrc, onClick, count }: CameraItemProps) => {
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
     const handleClick = () => {
         setSrc(src);
         onClick()
     };
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        let hls: Hls | null = null;
+
+        // Chrome/Firefox
+        if (Hls.isSupported()) {
+            hls = new Hls({ enableWorker: true });
+            hls.loadSource(src);
+            hls.attachMedia(video);
+
+            hls.on(Hls.Events.ERROR, (event, data) => {
+                console.warn("HLS error:", data);
+            });
+        } else {
+            // Safari
+            video.src = src;
+        }
+
+        return () => {
+            if (hls) hls.destroy();
+        };
+    }, [src]);
+
 
     const CameraIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -33,6 +63,8 @@ export const CameraItem = ({ src, setSrc, active, onClick, count }: CameraItemPr
             <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
         </svg>
     );
+
+
 
     return (
         <div

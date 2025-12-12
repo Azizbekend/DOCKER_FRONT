@@ -22,7 +22,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
 
     return (
         <div
-            className="scheme-view__container p-10 overflow-hidden"
+            className="scheme-view__container p-10 overflow-hidden h-full"
             ref={containerRef}
 
             onWheel={(e) => onWheel(e)}

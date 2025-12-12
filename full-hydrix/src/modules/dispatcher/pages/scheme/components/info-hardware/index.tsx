@@ -74,7 +74,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
   };
 
   return (
-    <div className={`info-comp ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
+    <div className={`info-comp h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
       {isLoading ? (
         <div className="h-full flex items-center justify-center">
           <Loader />

@@ -36,7 +36,7 @@ export const VideoSlider = () => {
 
                 <Button
                     onClick={prevSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md hover:shadow-lg transition-shadow hover:bg-gray-50"
                 >
                     <Icon systemName="arrow-left-blue" />
                 </Button>
@@ -56,7 +56,7 @@ export const VideoSlider = () => {
 
                 <Button
                     onClick={nextSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0 rotate-180"
+                    class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-md hover:shadow-lg transition-shadow hover:bg-gray-50 rotate-180"
                 >
                     <Icon systemName="arrow-left-blue" />
                 </Button>
