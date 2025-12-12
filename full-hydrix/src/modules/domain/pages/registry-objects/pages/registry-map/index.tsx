@@ -127,7 +127,7 @@ export const MapObjects = observer(() => {
       <div className="absolute right-6 top-6 bottom-6 w-[420px] z-10 flex flex-col gap-5">
 
         {/* Список объектов */}
-        <div className="bg-white/90 backdrop-blur-lg rounded-xl shadow-xl border border-gray-200 p-5">
+        <div className="bg-white/90 backdrop-blur-lg rounded-xl shadow-xl border border-gray-200 p-5"> 
           <h3 className="font-bold text-gray-800 mb-3">Список объектов</h3>
 
           <div className="space-y-2 max-h-70 overflow-y-auto pr-1">
