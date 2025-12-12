@@ -24,12 +24,12 @@ export const StreamPlayer = observer(() => {
     }, [bigViewSrc]);
 
     return (
-        <div className='h-[600px] bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900 rounded-lg'>
+        <div className='h-[600px] w-min mx-auto bg-gradient-to-r bg-gray-600 rounded-lg'>
             <video
                 ref={videoRef}
                 autoPlay
                 muted
-                className='w-[90%] h-full bg-red mx-auto rounded-lg'
+                className='w-[100%] h-full bg-red mx-auto rounded-lg'
             />
         </div>
     );

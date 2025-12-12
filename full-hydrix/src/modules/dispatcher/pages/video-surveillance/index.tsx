@@ -13,10 +13,9 @@ export const VideoSurveillance = () => {
                             <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
                         </div>
                     </div>
+                    <StreamPlayer />
 
                     <VideoSlider />
-
-                    <StreamPlayer />
                 </div>
             </div>
         </>
