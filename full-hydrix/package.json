@@ -41,6 +41,7 @@
     "react-router-dom": "^6.24.1",
     "react-tabs": "^6.1.0",
     "react-toastify": "^10.0.5",
+    "recharts": "^3.6.0",
     "tailwind": "^2.3.1",
     "universal-cookie": "^8.0.1",
     "websocket-as-promised": "^2.1.0"
