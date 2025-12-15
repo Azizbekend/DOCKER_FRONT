@@ -245,7 +245,7 @@ export const AppRouter = createBrowserRouter([
                 },
             },
             {
-                path: "equipment-about",
+                path: "equipment-about/:id",
                 async lazy() {
                     const { EquipmentAbout } = await import("@/modules/dispatcher/pages/equipment-about")
                     return {
@@ -254,7 +254,7 @@ export const AppRouter = createBrowserRouter([
                 },
                 children: [
                     {
-                        path: "passport/:id",
+                        path: "passport",
                         async lazy() {
                             const { EquipmentPassport } = await import("@/modules/dispatcher/pages/equipment-about/tabs/passport")
                             return {
@@ -263,11 +263,20 @@ export const AppRouter = createBrowserRouter([
                         }
                     },
                     {
-                        path: "controll/:id",
+                        path: "controll",
                         async lazy() {
                             const { EquipmentControll } = await import("@/modules/dispatcher/pages/equipment-about/tabs/controll")
                             return {
                                 Component: EquipmentControll
+                            }
+                        }
+                    },
+                    {
+                        path: "service",
+                        async lazy() {
+                            const { EquipmentService } = await import("@/modules/dispatcher/pages/equipment-about/tabs/service")
+                            return {
+                                Component: EquipmentService
                             }
                         }
                     }

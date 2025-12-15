@@ -34,7 +34,7 @@ export const RequestRegistryList = () => {
       progress: 100,
     },
 
-
+    
     // ... остальные элементы аналогично
   ];
 
@@ -50,7 +50,7 @@ export const RequestRegistryList = () => {
 
 
   return (
-    <div
+    <div 
       className="informations-dispatch__requestregistry requestregistry-dispatch bg-white rounded-2xl p-7 mb-8"
       style={{ fontFamily: "'Open Sans', sans-serif" }}
     >
@@ -63,8 +63,8 @@ export const RequestRegistryList = () => {
       {/* Статистика */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {statistics.map((item, index) => (
-          <div
-            key={index}
+          <div 
+            key={index} 
             className={`${item.color} statistic-item rounded-xl p-5`}
           >
             <div className="text-sm mb-1">{item.name}</div>
@@ -79,8 +79,8 @@ export const RequestRegistryList = () => {
 
         <div className="space-y-5">
           {itemsRequestRegistry.map((item, index) => (
-            <div
-              key={index}
+            <div 
+              key={index} 
               className="border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors"
             >
               <div className="flex justify-between">
@@ -90,7 +90,7 @@ export const RequestRegistryList = () => {
                       <h3 className="font-bold text-gray-800 text-lg">{item.name}</h3>
                       <div className="text-sm text-gray-600 mt-1 font-mono">{item.id}</div>
                     </div>
-                    <button
+                    <button 
                       className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-[#4A85F6] transition-colors"
                       aria-label="Редактировать заявку"
                     >
@@ -104,7 +104,7 @@ export const RequestRegistryList = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div>         
 
               {/* Нижняя панель: статусы и прогресс */}
               <div className="mt-5 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
@@ -122,8 +122,8 @@ export const RequestRegistryList = () => {
                 <div className="text-right">
                   <div className="text-sm text-gray-600">{item.time}</div>
                   <div className="w-32 h-1.5 bg-gray-200 rounded-full mt-1 overflow-hidden">
-                    <div
-                      className="h-full bg-[#4A85F6] rounded-full"
+                    <div 
+                      className="h-full bg-[#4A85F6] rounded-full" 
                       style={{ width: `${item.progress}%` }}
                     ></div>
                   </div>

@@ -3,14 +3,14 @@ import { Icon } from '@/shared/ui/icon';
 import { useSearch } from '@/shared/ui/Inputs/hooks/hook-search';
 import { Search } from '@/shared/ui/Inputs/input-search';
 import { observer } from 'mobx-react-lite';
-import { Link, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/shared/ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect, useState } from 'react';
-import { MapObjects } from './pages/registry-map';
-import { RegistryObjects } from './pages/registry-list';
+import { MapObjects } from '../registry-map';
+import { RegistryObjects } from '../registry-list';
 import { DespetcherTest } from '@/entities/despetcher-test/type';
-import { registryModel } from './pages/model/registry-model';
+import { registryModel } from './model/registry-model';
 
 export const RegistryObjectsLayout = observer(() => {
   const { list, init } = registryModel;
@@ -19,13 +19,10 @@ export const RegistryObjectsLayout = observer(() => {
     searchFields: ["nameMinin", "company"]
   });
   const { page } = useParams();
-  const [isMap, setIsMap] = useState(page !== "list");
 
   useEffect(() => {
     init();
   }, []);
-
-  const toggleView = () => setIsMap(!isMap);
 
   return (
     <div className="h-full flex flex-col" style={{ fontFamily: "'Open Sans', sans-serif" }}>
@@ -90,28 +87,28 @@ export const RegistryObjectsLayout = observer(() => {
           </div>
 
           {/* Правая часть: переключение вида */}
-          <button
-            onClick={toggleView}
+          <NavLink to={page == "list" ? "/domain/map" : "/domain/list"}
             className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
           >
-            {isMap ? (
-              <>
-                <Icon systemName="list" className="text-gray-600" />
-                <span>Объекты в виде списка</span>
-              </>
-            ) : (
+            {page == "list" ? (
               <>
                 <Icon systemName="map" className="text-gray-600" />
                 <span>Объекты на карте</span>
               </>
+
+            ) : (
+              <>
+                <Icon systemName="list" className="text-gray-600" />
+                <span>Объекты в виде списка</span>
+              </>
             )}
-          </button>
+          </NavLink>
         </div>
       </div>
 
       {/* Основной контент */}
       <div className="flex-1 min-h-0">
-        {isMap ? <MapObjects /> : <RegistryObjects list={results.length > 0 ? results : []} />}
+        {page == "list" ? <RegistryObjects list={results.length > 0 ? results : []} /> : <MapObjects />}
       </div>
     </div>
   );

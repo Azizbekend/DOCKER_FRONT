@@ -170,3 +170,11 @@ export const getInfoNodeInfos = (params: any) => {
 export const getInfoNodeInfoOne = (params: { id: string }) => {
     return reserchInstance.get("/NodeIndicates/actual/plcNodeOd", { params })
 }
+
+
+export const getNodeInfoIncidentTotal = (params: { id: number }) => {
+    return reserchInstance.get("/NodeInfo/nodes/incident/total", { params })
+}
+export const getNodeInfoIncidentAll = (params: { id: number }) => {
+    return reserchInstance.get("/NodeInfo/nodes/incident/all", { params })
+}

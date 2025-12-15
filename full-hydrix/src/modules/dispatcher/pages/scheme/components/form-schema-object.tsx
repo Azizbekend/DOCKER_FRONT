@@ -23,7 +23,6 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
         updateScheme()
     }
 
-
     return (
         <div className={`info-comp ${className}`}>
 

@@ -36,26 +36,41 @@ export const HardwareServes = observer(() => {
 
 
             <Modal
-                title="Подтвердить значение"
-                wrapperId="wardhare"
-                type="center"
-                show={show}
-                setShow={setShow}
-                children={
-                    <div className='py-3 px-6 h-[150px] flex items-center text-[18px] font-medium'>
-                        Вы подтверждаете выполнение задачи?
-                    </div>
-                }
-                footerSlot={
-                    <div className='flex justify-end gap-3 py-3 px-6'>
-                        <Button class='px-3 py-2 bg-[var(--clr-accent)] text-white hover:opacity-50' onClick={handleService}>Подтвердить</Button>
-                        <Button class='px-3 py-2 bg-[var(--clr-gray-dark)] text-white hover:opacity-50' onClick={() => setShow(false)}>Отмена</Button>
-                    </div>
-                }
-                classNames={{
-                    panel: "max-w-[800px]"
-                }}
-            />
+  title="Подтвердить выполнение задачи"
+  wrapperId="wardhare"
+  type="center"
+  show={show}
+  setShow={setShow}
+  children={
+    <div 
+      className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
+      style={{ fontFamily: "'Open Sans', sans-serif" }}
+    >
+      Вы подтверждаете выполнение задачи?
+    </div>
+  }
+  footerSlot={
+    <div className="flex justify-end gap-3 p-6">
+      <Button
+        class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-500 hover:bg-gray-700 transition-colors"
+        onClick={() => setShow(false)}
+      >
+        Отмена
+      </Button>
+      <Button
+        class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
+        onClick={handleService}
+      >
+        Подтвердить
+      </Button>
+    </div>
+  }
+  classNames={{
+    panel: "max-w-md w-full rounded-2xl border border-gray-200 shadow-xl",
+    header: "border-b border-gray-100",
+    title: "text-xl font-bold text-gray-800"
+  }}
+/>
 
 
             {
@@ -66,22 +81,22 @@ export const HardwareServes = observer(() => {
                 </div>
             }
 
-            {getCommands.length == 0 && <div className='border-y border-gray-300 py-4'>На сегодня задач нет</div>}
+            {getCommands.length == 0 && <div className='border-y border-gray-500 py-4'>На сегодня задач нет</div>}
 
 
             {getCommands.length > 0 &&
                 <BlockSelect title="Ежедневное обслуживание"
-                    className="flex flex-col gap-3"
+                    className="flex flex-col gap-3 text-gray"
                     isOpen={true}
                     children={
                         getCommands.map((item, key) => {
                             return (
                                 <InfoObject key={key}
-                                    className='w-full'
+                                    className='w-full '
                                     info={item.discription}
 
                                     children={
-                                        <div className='flex items-center gap-4 justify-between' onClick={() => handleServiceOpen(item.id)}>
+                                        <div className='flex items-center gap-4 justify-between ' onClick={() => handleServiceOpen(item.id)}>
                                             <InputCheckbox
                                                 disabled
                                                 label={item.title}

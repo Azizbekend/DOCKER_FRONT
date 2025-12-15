@@ -1,4 +1,4 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -106,6 +106,13 @@ class HardwareModel {
 
     async getInfoNodeInfoAll() {
         let ids: (string | undefined)[] = []
+
+
+
+        await getNodeInfoIncidentTotal({ id: this.model.id }).then((res) => { console.log(res.data) })
+        await getNodeInfoIncidentAll({ id: this.model.id }).then((res) => { console.log(res.data) })
+
+
 
         for (let i = 0; i < this.commandsInfo.length; i++) {
             ids.push(this.commandsInfo[i].id)

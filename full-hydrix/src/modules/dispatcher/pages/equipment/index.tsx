@@ -188,7 +188,7 @@ export const EquipmentRegistry = observer(() => {
         countActive
         columns={columns}
         data={results.length > 0 ? results : []}
-        onRowClick={(row) => navigate(`/dispatcher/equipment-about/passport/${row.id}`)}
+        onRowClick={(row) => navigate(`/dispatcher/equipment-about/${row.id}/passport/`)}
       />
     </>
   );

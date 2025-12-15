@@ -20,14 +20,14 @@ export const HardwareControlle = observer(() => {
     return (
         <>
             <Modal
-                title="Подтвердить значение"
+                title="Подтвердить выполнение задачи"
                 wrapperId="wardhare"
                 type="center"
                 show={show}
                 setShow={setShow}
                 children={
-                    <div className='py-3 px-6 h-[150px] flex items-center text-[18px] font-medium'>
-                        Вы подтверждаете изменение значения
+                    <div className='py-3 px-6 h-[200px] flex items-center text-[18px] font-medium'>
+                        Вы подтверждаете изменение значения?
                     </div>
                 }
                 footerSlot={
