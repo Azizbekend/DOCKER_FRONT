@@ -8,7 +8,7 @@ export function useScheme(initialScale: number = 1.6) {
     const { getPhoto, addStatusClass } = useHardwarePhoto();
 
     const { containerRef, imgRef, scale, bounds, offset, setScale, setOffset, onWheel } = useSchemeZoom(initialScale);
-    const { onMouseDown, onMouseMove, onMouseUp } = useSchemeDrag({ offset, setOffset, bounds });
+    const { onMouseDown, onMouseMove, onMouseUp, onTouchStart, onTouchMove, onTouchEnd, } = useSchemeDrag({ offset, setOffset, bounds });
 
     return {
         containerRef,
@@ -30,5 +30,6 @@ export function useScheme(initialScale: number = 1.6) {
         unlockScroll,
         getPhoto,
         addStatusClass,
+        onTouchStart, onTouchMove, onTouchEnd
     };
 }

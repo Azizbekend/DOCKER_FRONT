@@ -14,7 +14,7 @@ import { useScheme } from './hooks/useScheme';
 export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeViewerType) => {
     const { setFocusSchemeObject } = schemeModel
 
-    const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto } = useScheme(1);
+    const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
 
 
     // useEffect(() => {
@@ -40,6 +40,12 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
+
+
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+
         >
             <div className="scheme-view__wrapper"
                 style={{
