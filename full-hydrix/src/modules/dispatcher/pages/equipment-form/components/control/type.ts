@@ -49,3 +49,28 @@ export interface ServiceTypeCreate {
   time: number;
   hardwareId: number;
 }
+
+export interface ServiceHistoryType {
+  title: string,
+  sheduleMaintenanceDate: string,
+  completedMaintenanceDate: string,
+}
+
+export interface ServiceHistoryDataApiType {
+  title: string,
+  recordsList: ServiceRecordsListType[]
+}
+export interface ServiceRecordsListType {
+  id: number,
+  maintenanceRequestId: number,
+  completedMaintenanceDate: string,
+  sheduleMaintenanceDate: string,
+
+}
+
+
+
+export interface ServiceStatisticType {
+  name: string,
+  progress: number
+}

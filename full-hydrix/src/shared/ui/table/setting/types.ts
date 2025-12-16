@@ -7,6 +7,7 @@
 // }
 
 import { Table } from "@tanstack/react-table";
+import { ReactNode } from "react";
 
 // export type TableContainerType = {
 //     className?: string,

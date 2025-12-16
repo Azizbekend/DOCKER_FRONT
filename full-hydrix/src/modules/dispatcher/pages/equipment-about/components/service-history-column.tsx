@@ -1,0 +1,59 @@
+import { TableColumn } from "@/shared/ui/table/setting/types";
+import { ServiceHistoryType } from "../../equipment-form/components/control/type";
+
+export const columns: TableColumn<ServiceHistoryType>[] = [
+    {
+        header: 'Наименование',
+        key: 'name',
+        width: "1fr",
+        cell: ({ title }) => (
+            <span className="text-sm text-gray-800 font-medium line-clamp-2 h-10 overflow-hidden">{title}</span>
+        ),
+    },
+    {
+        header: "Плановая дата",
+        key: 'position',
+        width: "1fr",
+        cell: ({ sheduleMaintenanceDate }) => {
+
+            const date = new Date(sheduleMaintenanceDate).toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            }).replace(/\//g, '.')
+
+            return (
+                <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
+                    {date}
+                </span>
+            )
+        },
+    },
+    {
+        header: "Фактическая дата",
+        key: 'completedMaintenanceDate',
+        cell: (row) => {
+            const scheduleDate = new Date(row.sheduleMaintenanceDate);
+            const actualDate = new Date(row.completedMaintenanceDate);
+            const isOnTime = actualDate < scheduleDate;
+
+
+            const formattedDate = actualDate.toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            }).replace(/\//g, '.');
+
+            return (
+                <span
+                    className={`font-bold text-[12px] ${isOnTime
+                        ? "text-[var(--clr-accent)]"
+                        : "text-red-500"
+                        }`}
+                >
+                    {formattedDate}
+                </span>
+            );
+        },
+    },
+];

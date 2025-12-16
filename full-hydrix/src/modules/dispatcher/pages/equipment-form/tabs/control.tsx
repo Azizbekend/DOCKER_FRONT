@@ -8,7 +8,7 @@ import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
 import { SwitchButton } from "@/shared/ui/switch-button";
 
 export const Control = observer(() => {
-    const { createControl, listController, createControlOne, deleteCommand, updateControlOne } = equipmentCreateModel
+    const { createControl, listController, createControlOne, deleteCommand } = equipmentCreateModel
 
     const {
         control,

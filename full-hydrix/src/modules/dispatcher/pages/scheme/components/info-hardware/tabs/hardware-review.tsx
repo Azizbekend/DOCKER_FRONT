@@ -18,21 +18,21 @@ export const HardwareReview = observer(() => {
         <>
             <div className="info-comp__content">
                 <div className="info-comp__section">
-                    <div className="info-comp__item border-b border-gray-300 pb-4 mt-8">
+                    <div className="info-comp__item gap-3 border-b border-gray-300 pb-4 mt-8">
                         <div className="info-comp__title">Модель</div>
-                        <div className="info-comp__description">{model.model}</div>
+                        <div className="info-comp__description text-right">{model.model}</div>
                     </div>
-                    <div className="info-comp__item border-b border-gray-300 pb-4">
+                    <div className="info-comp__item gap-3 border-b border-gray-300 pb-4">
                         <div className="info-comp__title">Расположение</div>
-                        <div className="info-comp__description">{model.position}</div>
+                        <div className="info-comp__description text-right">{model.position}</div>
                     </div>
-                    <div className="info-comp__item border-b border-gray-300 pb-4">
+                    <div className="info-comp__item gap-3 border-b border-gray-300 pb-4">
                         <div className="info-comp__title">Поставщик</div>
-                        <div className="info-comp__description">{model.supplierName}</div>
+                        <div className="info-comp__description text-right">{model.supplierName}</div>
                     </div>
-                    <div className="info-comp__item border-b border-gray-300 pb-4">
+                    <div className="info-comp__item gap-3 border-b border-gray-300 pb-4">
                         <div className="info-comp__title">Производитель</div>
-                        <div className="info-comp__description">{model.developerName}</div>
+                        <div className="info-comp__description text-right">{model.developerName}</div>
                     </div>
                 </div>
                 <div className="info-comp__section">
@@ -43,7 +43,7 @@ export const HardwareReview = observer(() => {
                             return (
                                 <div className={`info-comp__item ${(сharacteristic.length > 1 || commandsInfo.length > 1) && "border-b border-gray-300 pb-4"} `} key={key}>
                                     <div className="info-comp__title">{item.name}</div>
-                                    <div className="info-comp__description">{item.value}</div>
+                                    <div className="info-comp__description text-right">{item.value}</div>
                                 </div>
                             )
                         })}
@@ -55,9 +55,9 @@ export const HardwareReview = observer(() => {
 
                                     <div className='flex'>
                                         {item.isCommand ?
-                                            <div className="info-comp__description">{item.value || "_"}</div>
+                                            <div className="info-comp__description text-right">{item.value || "_"}</div>
                                             :
-                                            <div className="info-comp__description">{item.value || "_"}</div>
+                                            <div className="info-comp__description text-right">{item.value || "_"}</div>
                                         }
                                         <div className='w-3'></div>
                                         <span>

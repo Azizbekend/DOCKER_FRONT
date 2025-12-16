@@ -5,7 +5,7 @@ import mapPl from './assets/map-pl.png';
 import { Icon } from "@/shared/ui/icon";
 import mmrgl from 'mmr-gl';
 import 'mmr-gl/dist/mmr-gl.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import { incidents, objects } from './data/data';
 import { Table } from '@/shared/ui/table/index';
 import { columns } from './components/table-columns';
@@ -14,11 +14,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 
 export const MapObjects = observer(() => {
-  const [selectedObjectId, setSelectedObjectId] = useState(null);
-
-  const handleMarkerClick = (id) => {
-    setSelectedObjectId(id);
-  };
 
   const getImage = document.createElement('img');
   getImage.src = mapPl;
@@ -47,28 +42,32 @@ export const MapObjects = observer(() => {
   }, [])
 
   const chartData = [
-    { name: 'Критичные', value: 7, color: '#EF4444' },
-    { name: 'Важные', value: 7, color: '#F59E0B' },
-    { name: 'Плановые', value: 7, color: '#10B981' },
+    { name: 'Критичные', value: 0, color: '#EF4444' },
+    { name: 'Важные', value: 0, color: '#F59E0B' },
+    { name: 'Плановые', value: 0, color: '#10B981' },
   ];
 
   const chartDataInic = [
-    { name: 'Инцидентов', value: 210, color: 'red' },
-    { name: 'На исправлении', value: 201, color: 'blue' },
+    { name: 'Инцидентов', value: 1, color: 'red' },
+    { name: 'На исправлении', value: 0, color: 'blue' },
   ];
 
 
+  const navigate = useNavigate();
+
+  const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
-
-
+  const handleRow = () => {
+    navigate("/domain/passport")
+  }
 
   return (
     <div
       className="w-full gap-6 relative"
       style={{ fontFamily: "'Open Sans', sans-serif" }}
     >
-      <div className='h-[50vh] flex gap-5 mb-10'>
+      <div className='min-h-[50vh] flex gap-5 mb-10'>
         <div className="w-[75%] col-start-1 col-end-4">
           <div id="map" className="w-full h-full rounded-xl shadow-sm" />
         </div>
@@ -77,13 +76,13 @@ export const MapObjects = observer(() => {
 
           <div className="text-gray-900 text-sm font-semibold border-b-2 border-gray-200 mb-6 pb-3 flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            Объектов онлайн <span className="text-gray-600 font-normal">99 из 100</span>
+            Объектов онлайн <span className="text-gray-600 font-normal">1 из 1</span>
           </div>
 
           {chartDataInic.map((item, index) => (
             <div className={`${item.color == "red" ? "bg-red-50" : "bg-blue-50"} p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
-              <div className="mb-1"></div>
-              <div className='text-red-600'></div>
+              <div className="mb-1">{item.name}</div>
+              <div className={`font-semibold ${item.color == "red" ? 'text-red-600' : 'text-blue-600'}`}>{item.value}</div>
             </div>
           ))}
 
@@ -97,7 +96,7 @@ export const MapObjects = observer(() => {
               <span>{item.name}</span>
               <div className='flex flex-col'>
                 <span className='font-bold text-sm'>{item.value + "%"}</span>
-                <span className='font-medium text-sm'>5 объектов</span>
+                <span className='font-medium text-sm'>1 объект</span>
               </div>
             </div>
           ))}
@@ -130,11 +129,11 @@ export const MapObjects = observer(() => {
 
       <div>
 
-        <div className='flex gap-3'>
-          <button className='py-3 px-4 bg-gray-200 text-gray-600'>Все</button>
-          <button className='py-3 px-4 bg-gray-200 text-gray-600'>Критичные</button>
-          <button className='py-3 px-4 bg-gray-200 text-gray-600'>Важные</button>
-          <button className='py-3 px-4 bg-gray-200 text-gray-600'>Плановые</button>
+        <div className='ml-4 flex gap-3'>
+          <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />
+          <FilterButton name='Критичные' isActive={filterBtn == "critical"} onClick={() => setFilterBtn("critical")} />
+          <FilterButton name='Важные' isActive={filterBtn == "important"} onClick={() => setFilterBtn("important")} />
+          <FilterButton name='Плановые' isActive={filterBtn == "planned"} onClick={() => setFilterBtn("planned")} />
         </div>
 
         <Table
@@ -142,6 +141,7 @@ export const MapObjects = observer(() => {
             body: "",
             thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200",
           }}
+          onRowClick={handleRow}
           columns={columns}
           countActive
           data={incidents}
@@ -150,3 +150,8 @@ export const MapObjects = observer(() => {
     </div>
   );
 });
+
+
+const FilterButton = ({ name, isActive, onClick }: { name: string, isActive: boolean, onClick: () => void }) => {
+  return <button onClick={onClick} className={`py-1 px-4 rounded-tl-lg rounded-tr-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
+}

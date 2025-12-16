@@ -1,20 +1,22 @@
 import { hardwareModel } from "@/entities/hardware/model";
 import { Icon } from "@/shared/ui/icon";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { SwitchButton } from "@/shared/ui/switch-button";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { BlockSelect } from "../../scheme/components/info-hardware/components/block-select";
 import { InfoObject } from "../../scheme/components/info-hardware/components/info-object";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
 import { Modal } from "@/shared/ui/modal/modal";
 import { Button } from "@/shared/ui/button";
+import { BlockContainer, BlockListContainer, BlockTitle } from "../components/tab-service-components";
+import { useEffect, useState } from "react";
+import { columns } from "../components/service-history-column";
+import { Table } from "@/shared/ui/table/index";
+import { ServiceFilterBtn } from "../components/service-filter-btn";
+import { ServiceStatisticItem } from "../components/service-statistic-item";
 
 export const EquipmentService = () => {
-  const { getCommands, servicesHistory, checkedService } = hardwareModel;
+  const { getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic } = hardwareModel;
   const [show, setShow] = useState<boolean>(false);
 
   const [btnCount, setBtnCount] = useState<string>("");
+  const [filterPeriod, setFilterPeriod] = useState<"day" | "week" | "month">("day");
 
   const handleServiceOpen = (id: number) => {
     setBtnCount(id.toString())
@@ -27,55 +29,56 @@ export const EquipmentService = () => {
     setShow(false)
   }
 
+
+  useEffect(() => {
+    console.log(serviceStatistic)
+  }, [])
+
   return (
     <div>
       <Modal
-  title="Подтвердить значение"
-  wrapperId="wardhare"
-  type="center"
-  show={show}
-  setShow={setShow}
-  children={
-    <div 
-      className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
-      style={{ fontFamily: "'Open Sans', sans-serif" }}
-    >
-      Вы подтверждаете выполнение задачи?
-    </div>
-  }
-  footerSlot={
-    <div className="flex justify-end gap-3 p-6">
-      <Button
-        class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors"
-        onClick={() => setShow(false)}
-      >
-        Отмена
-      </Button>
-      <Button
-        class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
-        onClick={handleService}
-      >
-        Подтвердить
-      </Button>
-    </div>
-  }
-  classNames={{
-    panel: "max-w-md w-full rounded-2xl border border-gray-200 shadow-xl",
-    header: "border-b border-gray-100",
-    title: "text-xl font-bold text-gray-800"
-  }}
-/>
+        title="Подтвердить значение"
+        wrapperId="wardhare"
+        type="center"
+        show={show}
+        setShow={setShow}
+        children={
+          <div
+            className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
+            style={{ fontFamily: "'Open Sans', sans-serif" }}
+          >
+            Вы подтверждаете выполнение задачи?
+          </div>
+        }
+        footerSlot={
+          <div className="flex justify-end gap-3 p-6">
+            <Button
+              class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors"
+              onClick={() => setShow(false)}
+            >
+              Отмена
+            </Button>
+            <Button
+              class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
+              onClick={handleService}
+            >
+              Подтвердить
+            </Button>
+          </div>
+        }
+        classNames={{
+          panel: "max-w-md w-full rounded-2xl border border-gray-200 shadow-xl",
+          header: "border-b border-gray-100",
+          title: "text-xl font-bold text-gray-800"
+        }}
+      />
 
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Команды управления */}
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-          <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
-            <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
-            Ежедневное обслуживание
-          </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <BlockContainer>
+          <BlockTitle title="Ежедневное обслуживание" />
 
-          <div className="flex flex-col gap-5">
+          <BlockListContainer>
             {getCommands.length == 0 && <div className='border-y border-gray-300 py-4'>На сегодня задач нет</div>}
 
             {getCommands.length > 0 && getCommands.map((item, key) => {
@@ -97,19 +100,18 @@ export const EquipmentService = () => {
                 />
               )
             })}
-          </div>
-        </div>
 
-        {/* Расширенный журнал событий */}
-        <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-          <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
-            <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
-            Обслуживание на ближайшую неделю
-          </h3>
-          <div className="flex flex-col gap-5">
-            {servicesHistory.length == 0 && <div className='border-y border-gray-300 py-4'>В ближайщие дни задач нету</div>}
+          </BlockListContainer>
+        </BlockContainer>
 
-            {servicesHistory.length > 0 && servicesHistory.map((item, key) => {
+
+        <BlockContainer>
+          <BlockTitle title="Обслуживание на ближайшую неделю" />
+
+          <BlockListContainer>
+            {servicesWeek.length == 0 && <div className='border-y border-gray-300 py-4'>В ближайщие дни задач нету</div>}
+
+            {servicesWeek.length > 0 && servicesWeek.map((item, key) => {
               return (
                 <InfoObject key={key}
                   className='w-full'
@@ -131,8 +133,37 @@ export const EquipmentService = () => {
                 />
               )
             })}
+
+          </BlockListContainer>
+        </BlockContainer>
+
+
+        <BlockContainer>
+          <BlockTitle title="История выполнения" />
+          <div>
+            <Table
+              columns={columns}
+              data={servicesHistory}
+              classNames={{
+                table: "!min-w-[100px]",
+              }}
+            />
           </div>
-        </div>
+        </BlockContainer>
+
+        <BlockContainer>
+          <div className="flex flex-wrap items-center gap-2 mb-6">
+            <span className="text-gray-700 font-medium">Период:</span>
+            <ServiceFilterBtn name="За день" onClick={() => setFilterPeriod("day")} isActive={filterPeriod == "day"} />
+            <ServiceFilterBtn name="За неделю" onClick={() => setFilterPeriod("week")} isActive={filterPeriod == "week"} />
+            <ServiceFilterBtn name="За месяц" onClick={() => setFilterPeriod("month")} isActive={filterPeriod == "month"} />
+          </div>
+
+          <div className="">
+            {serviceStatistic.map((item, key) => { return <ServiceStatisticItem key={key} name={item.name} progress={item.progress} /> })}
+          </div>
+        </BlockContainer>
+
       </div>
     </div>
   );

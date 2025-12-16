@@ -1,11 +1,11 @@
 .informations-dispatch {
     height: 100%;
+
     &__scheme {
         height: 100%;
     }
 
-    &__timModel {
-    }
+    &__timModel {}
 }
 
 .scheme-dispatch {
@@ -75,15 +75,5 @@
         border-radius: 20px;
         padding: 30px;
         height: 100%;
-        transition: 0.3s;
     }
-}
-.fade-in {
-    opacity: 1;
-    transition: 0.3s;
-}
-
-.fade-out {
-    opacity: 0;
-    transition: 0.3s;
 }

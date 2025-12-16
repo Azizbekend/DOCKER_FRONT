@@ -58,9 +58,9 @@ export function Table<T>(props: TableProps<T>) {
   });
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-10">
+    <div className={"bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-10" + props.classNames?.body}>
       <div className="overflow-x-auto max-h-[80vh]">
-        <table className="min-w-[1100px] w-full">
+        <table className={"min-w-[1100px] w-full " + props.classNames?.table} >
           <thead className="bg-blue-50 sticky top-0">
             {table.getHeaderGroups().map((headerGroup, i) => (
               <tr key={i} className="grid items-center" style={{ gridTemplateColumns: gridTemplate }}>

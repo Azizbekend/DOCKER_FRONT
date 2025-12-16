@@ -1,13 +1,14 @@
 import image from '../assets/scheme.png'
 import image2 from '../assets/scheme2-need.png'
 
+import accident from '../assets/icons/accident.svg'
+
 import "./ViewScheme.scss";
 import { SchemeViewerType } from "../types/type";
 import { observer } from "mobx-react-lite";
 import { schemeModel } from "../model/scheme-model";
 import { scheme1DataPoints, scheme2DataPoints } from './data/data';
 import { useScheme } from './hooks/useScheme';
-import { useEffect, useState } from 'react';
 
 
 export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeViewerType) => {
@@ -15,10 +16,18 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
 
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto } = useScheme(1);
 
-    // const [photoId, setPhotoId] = useState<number>(0);
-    // setTimeout(() => {
-    //     setPhotoId(photoId + 1)
-    // }, 1000)
+
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         console.log('hi')
+    //     }, 1000);
+
+    //     return () => {
+    //         clearInterval(intervalId);
+    //     };
+    // }, []);
+
+
 
     return (
         <div
@@ -28,7 +37,6 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
             onWheel={(e) => onWheel(e)}
             onMouseLeave={unlockScroll}
             onMouseOver={lockScroll}
-
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
@@ -57,6 +65,13 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
                                 <img className="not-hover h-full w-full object-cover" src={getPhoto(p.fileId)} />
                             </div>
+
+
+                            {p.id === 14 &&
+                                <div className='absolute top-[20%] left-[-30%] w-[30%]'>
+                                    <img src={accident} alt="" />
+                                </div>
+                            }
                         </div>
                     </div>
                 ))}

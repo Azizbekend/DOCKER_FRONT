@@ -22,7 +22,7 @@ export const EquipmentControll = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {/* Команды управления */}
       <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
         <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">

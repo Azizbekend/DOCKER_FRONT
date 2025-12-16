@@ -45,31 +45,25 @@ export const Scheme = observer(() => {
       className="informations-dispatch__scheme scheme-dispatch relative mt-8"
       style={{ fontFamily: "'Open Sans', sans-serif" }}
     >
-      {/* Красивые табы */}
-      <div className="absolute top-[-40px] left-[30px] flex gap-2">
+      <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabClick(tab)}
-            className={`px-5 py-2.5 rounded-t-lg font-semibold text-sm transition-all duration-200 ${activeTab === tab.id
-              ? 'bg-[#4A85F6] text-white shadow-md'
-              : 'bg-gray-100 text-gray-700 bg-gray-200'
-              }`}
+            className={`lg:px-5 lg:py-2.5 rounded-t-lg font-semibold min-w-max lg:text-sm px-3 py-3 text-[12px] transition-all duration-200 ${activeTab === tab.id ? 'bg-[#4A85F6] text-white shadow-md' : 'bg-gray-100 text-gray-700 bg-gray-200'}`}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Основной контент */}
-      <div className="grid grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh]">
+      <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh] lg:mb-0 mb-10">
         <SchemeViewer
           setInfo={handleChangeImage}
           points={list}
           tabScheme={tabScheme}
         />
 
-        {/* Панели информации */}
         {focusHardware !== 0 && focusSchemeObject === 0 && (
           <HardwareCard
             key={focusHardware}

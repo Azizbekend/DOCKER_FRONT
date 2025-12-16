@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom'
 
 
 export const Sidebar = observer(() => {
+
+
     const location = useLocation();
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isSticky, setIsSticky] = useState(false);
@@ -32,7 +34,7 @@ export const Sidebar = observer(() => {
 
     return (
         <div ref={sidebarRef}
-            className="pt-5 pl-8 pr-6 bg-white min-h-full w-[300px] 2xl:w-[300px] flex-shrink-0 gap-10 flex flex-col rounded-r-lg"
+            className={"pt-5 pl-8 pr-6 bg-white min-h-full w-[300px] 2xl:w-[300px] flex-shrink-0 gap-10 flex flex-col rounded-r-lg hidden lg:block"}
         >
             <div className={`flex flex-col justify-between transition-all duration-300 sticky top-10 ${isSticky ? 'h-[95vh] pb-0' : 'h-[80vh] pb-5 '}`}>
                 <div className='flex gap-4 flex-col w-full'>

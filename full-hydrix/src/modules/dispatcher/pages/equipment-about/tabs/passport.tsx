@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/button";
 import { hardwareListModel } from "../../equipment/model/hardware-list-model";
 import { ModalServiceCreate } from "../../equipment/components/modal-service-create";
 import { Documents } from "@/entities/hardware/api";
+import EquipmentStatistics from "../components/equipment-statistic";
 
 export const EquipmentPassport = observer(() => {
     const { model, documents, сharacteristic, commandsInfo } = hardwareModel;
@@ -59,8 +60,8 @@ export const EquipmentPassport = observer(() => {
         <div>
             <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="space-y-7">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="space-y-4">
                     <div className="rounded-2xl bg-white shadow-sm py-2">
                         {/* Image */}
                         <div className="overflow-hidden mb-6">
@@ -102,98 +103,101 @@ export const EquipmentPassport = observer(() => {
                             </div>
                         </div>
                     }
+                </div>
 
-                    <div className="rounded-2xl bg-white shadow-sm p-5">
-                        <h3 className="font-bold text-gray-800 mb-4">Журнал событий</h3>
-                        <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2">
-                            {eventLog.map((event, idx) => (
-                                <div
-                                    key={idx}
-                                    className="border bg-white p-3 rounded-lg border-l-4"
-                                    style={{
-                                        borderLeftColor: event.status === 'warning' ? '#f87171' :
-                                            event.status === 'success' ? '#4ade80' :
-                                                event.status === 'info' ? '#60a5fa' : '#9ca3af'
-                                    }}
-                                >
-                                    <div className="flex justify-between items-start mb-1">
-                                        <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
-                                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusClass(event.status).split(' ')[0]
-                                            } ${getStatusClass(event.status).split(' ')[1]}`}>
-                                            {event.action}
-                                        </span>
-                                    </div>
-                                    <p className="text-sm text-gray-700 mt-1">{event.description}</p>
-                                    <p className="text-xs text-gray-500 mt-1">Инициатор: {event.initiator}</p>
+                <EquipmentStatistics />
+
+                <div className="rounded-2xl bg-white shadow-sm p-6">
+
+                    {/* Equipment Name */}
+                    <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
+
+                    <div className="space-y-4">
+
+                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                            <div className="info-comp__title">Модель</div>
+                            <div className="info-comp__description">{model.model || '—'}</div>
+                        </div>
+                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                            <div className="info-comp__title">Поставщик</div>
+                            <div className="info-comp__description">{model.supplierName || '—'}</div>
+                        </div>
+                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                            <div className="info-comp__title">Производитель</div>
+                            <div className="info-comp__description">{model.developerName || '—'}</div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div className="rounded-2xl bg-white shadow-sm p-5">
+                    <h3 className="font-bold text-gray-800 mb-4">Журнал событий</h3>
+                    <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2">
+                        {eventLog.map((event, idx) => (
+                            <div
+                                key={idx}
+                                className="border bg-white p-3 rounded-lg border-l-4"
+                                style={{
+                                    borderLeftColor: event.status === 'warning' ? '#f87171' :
+                                        event.status === 'success' ? '#4ade80' :
+                                            event.status === 'info' ? '#60a5fa' : '#9ca3af'
+                                }}
+                            >
+                                <div className="flex justify-between items-start mb-1">
+                                    <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
+                                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusClass(event.status).split(' ')[0]
+                                        } ${getStatusClass(event.status).split(' ')[1]}`}>
+                                        {event.action}
+                                    </span>
                                 </div>
-                            ))}
-                        </div>
+                                <p className="text-sm text-gray-700 mt-1">{event.description}</p>
+                                <p className="text-xs text-gray-500 mt-1">Инициатор: {event.initiator}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                <div className="w-full space-y-8">
 
+
+                {(сharacteristic && сharacteristic.length > 0 || commandsInfo.length > 0) && (
                     <div className="rounded-2xl bg-white shadow-sm p-6">
-
-                        {/* Equipment Name */}
-                        <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
-
+                        <h3 className="font-bold text-gray-800 mb-5">Характеристики</h3>
                         <div className="space-y-4">
+                            {сharacteristic.map((item, key) => {
+                                return (
+                                    <div className={`info-comp__item ${(сharacteristic.length > 1 || commandsInfo.length > 1) && "border-b border-gray-300 pb-4"} `} key={key}>
+                                        <div className="info-comp__title">{item.name}</div>
+                                        <div className="info-comp__description">{item.value}</div>
+                                    </div>
+                                )
+                            })}
 
-                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                <div className="info-comp__title">Модель</div>
-                                <div className="info-comp__description">{model.model || '—'}</div>
-                            </div>
-                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                <div className="info-comp__title">Поставщик</div>
-                                <div className="info-comp__description">{model.supplierName || '—'}</div>
-                            </div>
-                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                <div className="info-comp__title">Производитель</div>
-                                <div className="info-comp__description">{model.developerName || '—'}</div>
-                            </div>
+                            {commandsInfo.map((item, key) => {
+                                return (
+                                    <div className={`info-comp__item ${commandsInfo.length > 1 && "border-b border-gray-300 pb-4"}`} key={key}>
+                                        <div className="info-comp__title">{item.name}</div>
 
+                                        <div className='flex'>
+                                            {item.isCommand ?
+                                                <div className="info-comp__description">{item.value || "_"}</div>
+                                                :
+                                                <div className="info-comp__description">{item.value || "_"}</div>
+                                            }
+                                            <div className='w-3'></div>
+                                            <span>
+                                                {item.mesurement}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )
+                            })}
 
                         </div>
                     </div>
+                )}
 
-                    {(сharacteristic && сharacteristic.length > 0 || commandsInfo.length > 0) && (
-                        <div className="rounded-2xl bg-white shadow-sm p-6">
-                            <h3 className="font-bold text-gray-800 mb-5">Характеристики</h3>
-                            <div className="space-y-4">
-                                {сharacteristic.map((item, key) => {
-                                    return (
-                                        <div className={`info-comp__item ${(сharacteristic.length > 1 || commandsInfo.length > 1) && "border-b border-gray-300 pb-4"} `} key={key}>
-                                            <div className="info-comp__title">{item.name}</div>
-                                            <div className="info-comp__description">{item.value}</div>
-                                        </div>
-                                    )
-                                })}
-
-                                {commandsInfo.map((item, key) => {
-                                    return (
-                                        <div className={`info-comp__item ${commandsInfo.length > 1 && "border-b border-gray-300 pb-4"}`} key={key}>
-                                            <div className="info-comp__title">{item.name}</div>
-
-                                            <div className='flex'>
-                                                {item.isCommand ?
-                                                    <div className="info-comp__description">{item.value || "_"}</div>
-                                                    :
-                                                    <div className="info-comp__description">{item.value || "_"}</div>
-                                                }
-                                                <div className='w-3'></div>
-                                                <span>
-                                                    {item.mesurement}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
-
-                            </div>
-                        </div>
-                    )}
-                </div>
             </div>
         </div>
     );

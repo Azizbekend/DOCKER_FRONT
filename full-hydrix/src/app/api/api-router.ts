@@ -212,8 +212,8 @@ export const Control = {
   createOndeCommand: "/NodeInfo/createCommand",
   createManyCommand: "/NodeInfo/createMassCommand",
   all: "/NodeInfo/commands",
-  
-  
+
+
   allInfo: "/NodeInfo/infos",
 
 
@@ -231,6 +231,7 @@ export const Service = {
   next_week: "/MaintenanseSheduler/next_week",
   today: "/MaintenanseSheduler/today",
   historyRecords: "/MaintenanseSheduler/history/records",
+  historyRecordsAll: "/MaintenanseSheduler/history/records/all",
   completeRequest: "/MaintenanseSheduler/completeRequest",
 }
 

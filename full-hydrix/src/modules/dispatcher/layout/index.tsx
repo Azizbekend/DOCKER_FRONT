@@ -2,30 +2,38 @@ import { Link, Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Header } from "@/shared/components/header/header";
 import { Icon } from '@/shared/ui/icon';
+import { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
+import { Button } from "@/shared/ui/button";
 
-export const Layout = () => {
+export const Layout = observer(() => {
+
+
+    const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+
     return (
         <>
             <div className="bg-[#F5F5F5] flex flex-col min-h-screen w-full">
                 <Header />
 
-                <div className='flex items-center  gap-[28px] my-[30px] pl-[40px] pr-[40px]'>
+                <div className='flex items-center  gap-[28px] my-[30px] lg:pl-[40px] lg:pr-[40px] pr-[20px] pl-[20px] '>
                     <Link
-                    to="/domain/list"
-                    className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
-                >
-                    <Icon systemName="arrow-left" className="text-white" />
-                </Link>
+                        to="/domain/list"
+                        className="flex items-center justify-center lg:w-10 lg:h-10 w-8 h-8 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
+                    >
+                        <Icon systemName="arrow-left" className="text-white" />
+                    </Link>
+
                     <div>
-          <h1 className="font-bold text-gray-800 text-4xl">Диспетчеризация ЖКХ</h1>
-          <div className="w-28 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
-        </div>
+                        <h1 className="font-bold text-gray-800 text-xl lg:text-4xl">Диспетчеризация ЖКХ</h1>
+                    </div>
                 </div>
 
-                <div className="w-full flex flex-row h-full flex-grow">
+                <div className="w-full lg:flex-row flex-col flex h-full flex-grow md">
                     <Sidebar />
                     <div className="min-w-0 flex flex-col min-h-full flex-grow">
-                        <div className=" ml-5 pr-[40px] h-full">
+                        <div className="mx-4 ls:ml-5 ls:pr-[40px] h-full">
                             <Outlet />
                         </div>
                     </div>
@@ -33,4 +41,4 @@ export const Layout = () => {
             </div>
         </>
     )
-} 
+})

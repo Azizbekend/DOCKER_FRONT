@@ -60,8 +60,7 @@ export const EquipmentAbout = observer(() => {
                                 {window.location.pathname == `/dispatcher/equipment-about/${id}/controll/` && "Управление"}
                                 {window.location.pathname == `/dispatcher/equipment-about/${id}/service/` && "Сервис"}
                             </h1>
-
-                            {window.location.pathname == `/dispatcher/equipment-about/${id}/passport/` && <p className="w-max text-sm">{model.name || '—'}</p>}
+                            <p className="w-max text-sm">{model.name || '—'}</p>
                         </div>
                     </div>
                     {/* Top Action Buttons */}
