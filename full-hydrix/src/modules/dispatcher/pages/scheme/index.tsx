@@ -26,6 +26,7 @@ export const Scheme = observer(() => {
     setFade(false);
   };
 
+
   // Только две активные вкладки, как в макете
   const tabs = [
     { id: 0, label: "Механическая очистка", schemeId: 6 },

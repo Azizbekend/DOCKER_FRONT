@@ -12,7 +12,7 @@ import { useScheme } from './hooks/useScheme';
 
 
 export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeViewerType) => {
-    const { setFocusSchemeObject } = schemeModel
+    const { setFocusSchemeObject, switchColo } = schemeModel
 
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
 
@@ -72,11 +72,11 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                                 {/* 48 - Красный */}
                                 {/* 169 - Зелёный */}
                                 {/* 170 - сервый */}
-                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? p.redFileId : p.fileId)} />
+                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? (switchColo ? p.greenFileId : p.redFileId) : p.fileId)} />
                             </div>
 
 
-                            {p.id === 14 &&
+                            {p.id === 14 && !switchColo &&
                                 <div className='absolute top-[20%] left-[-30%] w-[30%]'>
                                     <img src={accident} alt="" />
                                 </div>

@@ -29,12 +29,12 @@ export const objects = [
 export interface Incident {
     id: number,
     object: string,
+    hardware: string,
     issue: string,
     status: string,
     time: string,
     duration: string,
     responsible: string,
-    company: string,
 }
 
 
@@ -43,10 +43,20 @@ export const incidents: Incident[] = [
         id: 3231,
         object: "Очистные сооружения в с. Шапши",
         issue: "Авария датчика давления",
+        hardware: "Оборудование",
+        status: "Новый",
+        time: "20:34",
+        duration: "42 мин",
+        responsible: "Смирнов И.И",
+    },
+    {
+        id: 3232,
+        object: "Очистные сооружения в с. Шапши",
+        issue: "Сработал автомат защиты двигателя",
+        hardware: "Оборудование",
         status: "Новый",
         time: "20:34",
         duration: "42 мин",
         responsible: "Кудрявцева Вероника",
-        company: "ООО \"Сервис СоцОп\""
     },
 ];

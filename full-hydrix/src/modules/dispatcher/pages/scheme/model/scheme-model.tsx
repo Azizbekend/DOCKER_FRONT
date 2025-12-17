@@ -1,6 +1,8 @@
 import { getSchemaObjects } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
+import { ProgressBar } from "node_modules/react-toastify/dist/components";
+import { toast } from "react-toastify";
 
 class SchemeModel {
 
@@ -27,7 +29,6 @@ class SchemeModel {
     }
 
     setFocusSchemeObject(id: number, tabScheme: number) {
-
         if (this.focusSchemeObject == id) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
@@ -37,6 +38,12 @@ class SchemeModel {
         }
     }
 
+
+    switchColo: boolean = false;
+    handdleSwitchImage() {
+        this.switchColo = !this.switchColo
+        toast.success("Авария устранено", { progressStyle: { background: "green" } })
+    }
 
 
     async init(id: number) {
