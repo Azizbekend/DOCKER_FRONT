@@ -12,10 +12,8 @@ export const EquipmentPassport = observer(() => {
     const { model, documents, сharacteristic, commandsInfo } = hardwareModel;
     const { modalService, closeModal } = hardwareListModel;
 
-    // Статус подключения
-    const isConnected = false; // заменить на реальное значение при интеграции
+    const isConnected = true;
 
-    // Расширенный журнал событий (аналогично странице "Управление")
     const eventLog = [
         {
             timestamp: "08.12.2025 12:34",
@@ -124,32 +122,31 @@ export const EquipmentPassport = observer(() => {
                     </div>
                 )}
 
-
-                <div className="rounded-2xl bg-white shadow-sm p-6">
-
-                    {/* Equipment Name */}
-                    <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
-
-                    <div className="space-y-4">
-
-                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                            <div className="info-comp__title">Модель</div>
-                            <div className="info-comp__description">{model.model || '—'}</div>
-                        </div>
-                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                            <div className="info-comp__title">Поставщик</div>
-                            <div className="info-comp__description">{model.supplierName || '—'}</div>
-                        </div>
-                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                            <div className="info-comp__title">Производитель</div>
-                            <div className="info-comp__description">{model.developerName || '—'}</div>
-                        </div>
-
-
-                    </div>
-                </div>
-
                 <div className="space-y-4">
+
+                    <div className="rounded-2xl bg-white shadow-sm p-6">
+
+                        {/* Equipment Name */}
+                        <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
+
+                        <div className="space-y-4">
+
+                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                <div className="info-comp__title">Модель</div>
+                                <div className="info-comp__description">{model.model || '—'}</div>
+                            </div>
+                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                <div className="info-comp__title">Поставщик</div>
+                                <div className="info-comp__description">{model.supplierName || '—'}</div>
+                            </div>
+                            <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                <div className="info-comp__title">Производитель</div>
+                                <div className="info-comp__description">{model.developerName || '—'}</div>
+                            </div>
+
+
+                        </div>
+                    </div>
 
                     {documents.length > 0 &&
                         <div className="rounded-2xl bg-white shadow-sm p-5">
@@ -195,6 +192,7 @@ export const EquipmentPassport = observer(() => {
                 </div>
 
                 <EquipmentStatistics />
+
             </div>
         </div>
     );

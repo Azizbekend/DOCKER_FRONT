@@ -23,7 +23,7 @@ export const columns: TableColumn<ServiceHistoryType>[] = [
             }).replace(/\//g, '.')
 
             return (
-                <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
+                <span className='font-bold text-[var(--clr-accent)] mt-1 text-sm'>
                     {date}
                 </span>
             )
@@ -35,7 +35,7 @@ export const columns: TableColumn<ServiceHistoryType>[] = [
         cell: (row) => {
             const scheduleDate = new Date(row.sheduleMaintenanceDate);
             const actualDate = new Date(row.completedMaintenanceDate);
-            const isOnTime = actualDate < scheduleDate;
+            // const isOnTime = actualDate < scheduleDate;
 
 
             const formattedDate = actualDate.toLocaleDateString('ru-RU', {
@@ -44,10 +44,18 @@ export const columns: TableColumn<ServiceHistoryType>[] = [
                 year: 'numeric'
             }).replace(/\//g, '.');
 
+            const formattedDate2 = scheduleDate.toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            }).replace(/\//g, '.');
+
+            const isOnTime = formattedDate <= formattedDate2
+
             return (
                 <span
-                    className={`font-bold text-[12px] ${isOnTime
-                        ? "text-[var(--clr-accent)]"
+                    className={`font-bold text-sm ${isOnTime
+                        ? "text-green-600"
                         : "text-red-500"
                         }`}
                 >

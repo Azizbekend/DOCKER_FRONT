@@ -16,7 +16,7 @@ export const EquipmentService = () => {
   const [show, setShow] = useState<boolean>(false);
 
   const [btnCount, setBtnCount] = useState<string>("");
-  const [filterPeriod, setFilterPeriod] = useState<"day" | "week" | "month">("day");
+  const [filterPeriod, setFilterPeriod] = useState<"day" | "week" | "month" | "year">("day");
 
   const handleServiceOpen = (id: number) => {
     setBtnCount(id.toString())
@@ -158,6 +158,7 @@ export const EquipmentService = () => {
             <ServiceFilterBtn name="За день" onClick={() => setFilterPeriod("day")} isActive={filterPeriod == "day"} />
             <ServiceFilterBtn name="За неделю" onClick={() => setFilterPeriod("week")} isActive={filterPeriod == "week"} />
             <ServiceFilterBtn name="За месяц" onClick={() => setFilterPeriod("month")} isActive={filterPeriod == "month"} />
+            <ServiceFilterBtn name="За год" onClick={() => setFilterPeriod("year")} isActive={filterPeriod == "year"} />
           </div>
 
           <div className="">

@@ -22,6 +22,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
 
   useEffect(() => {
     init(id, true);
+
   }, [id]);
 
   // Статус оборудования
@@ -115,11 +116,11 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
 
             <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <div className={`w-3 h-3 rounded-full ${status.color}`}></div>
-              <span className="font-medium text-gray-800">{status.text}</span>
+              <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
+              <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
             </div>
 
-            {model.id === 28 && (
+            {model.id === 28 && !switchColo && (
               <>
                 <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
                   <img src={accident} alt="Авария" width={24} height={24} />

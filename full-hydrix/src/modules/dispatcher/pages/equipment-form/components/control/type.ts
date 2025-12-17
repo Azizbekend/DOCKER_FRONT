@@ -72,5 +72,6 @@ export interface ServiceRecordsListType {
 
 export interface ServiceStatisticType {
   name: string,
-  progress: number
+  progress: number,
+  actualDate: Date | null
 }

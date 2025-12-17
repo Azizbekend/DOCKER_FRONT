@@ -52,7 +52,7 @@ class HardwareModel {
         this.isLoading = true
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, documents] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -60,6 +60,7 @@ class HardwareModel {
                 getTodayServiceApi({ id: id }),
                 getServiceApi({ id: id }),
                 getServiceHistoryRecordsAllOrderedApi({ id: id }),
+                getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id })
             ]);
 
@@ -73,6 +74,7 @@ class HardwareModel {
 
             console.log(historyService.data)
             this.servicesHistory = historyService.data
+            this.sortServiceHistory(statisticService.data)
 
             this.documents = documents.data;
 
@@ -93,19 +95,18 @@ class HardwareModel {
     }
 
 
-    // sortServiceHistory(historyService: ServiceHistoryDataApiType[]) {
+    sortServiceHistory(historyService: ServiceHistoryDataApiType[]) {
 
-    //     let data: ServiceHistoryType[] = [];
+        let data: ServiceHistoryType[] = [];
 
-    //     historyService.forEach(element => {
-    //         element.recordsList.forEach(recird => {
-    //             data.push({ title: element.title, sheduleMaintenanceDate: recird.sheduleMaintenanceDate, completedMaintenanceDate: recird.completedMaintenanceDate })
-    //         });
-    //     });
+        historyService.forEach(element => {
+            element.recordsList.forEach(recird => {
+                data.push({ title: element.title, sheduleMaintenanceDate: recird.sheduleMaintenanceDate, completedMaintenanceDate: recird.completedMaintenanceDate })
+            });
+        });
 
-    //      = data;
-    //     this.dataServiceStatistic(historyService);
-    // }
+        this.dataServiceStatistic(historyService);
+    }
 
 
     dataServiceStatistic(dataService: ServiceHistoryDataApiType[]) {
@@ -117,15 +118,18 @@ class HardwareModel {
                 const scheduleDate = new Date(item.sheduleMaintenanceDate);
                 const actualDate = new Date(item.completedMaintenanceDate);
 
-                if (actualDate >= scheduleDate) {
+                console.log(item.completedMaintenanceDate.includes("2025-12-17"))
+
+                if (item.completedMaintenanceDate.includes("2025-12-17")) {
                     ++count;
                 }
             });
 
             if (dataService[i].recordsList.length == 0 || count == 0) {
-                this.serviceStatistic.push({ name: dataService[i].title, progress: 0 })
+                // this.serviceStatistic.push({ name: dataService[i].title, progress: 0 })
             } else {
-                this.serviceStatistic.push({ name: dataService[i].title, progress: (count / dataService[i].recordsList.length * 100) })
+                this.serviceStatistic.push({ name: dataService[i].title, progress: 100 })
+                // this.serviceStatistic.push({ name: dataService[i].title, progress: (count / dataService[i].recordsList.length * 100) })
             }
         }
     }
