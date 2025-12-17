@@ -42,14 +42,14 @@ export const MapObjects = observer(() => {
   }, [])
 
   const chartData = [
-    { name: 'Критичные', value: 0, color: '#EF4444' },
-    { name: 'Важные', value: 0, color: '#F59E0B' },
-    { name: 'Плановые', value: 0, color: '#10B981' },
+    { name: 'Критичные', value: 30, color: '#EF4444' },
+    { name: 'Важные', value: 50, color: '#F59E0B' },
+    { name: 'Плановые', value: 20, color: '#10B981' },
   ];
 
   const chartDataInic = [
-    { name: 'Инцидентов', value: 1, color: 'red' },
-    { name: 'На исправлении', value: 0, color: 'blue' },
+    { name: 'Инцидентов', value: 9, color: 'red' },
+    { name: 'На исправлении', value: 3, color: 'blue' },
   ];
 
 
