@@ -42,7 +42,7 @@ class SchemeModel {
     switchColo: boolean = false;
     handdleSwitchImage() {
         this.switchColo = !this.switchColo
-        toast.success("Авария устранено", { progressStyle: { background: "green" } })
+        toast.success("Авария устранена", { progressStyle: { background: "green" } })
     }
 
 
