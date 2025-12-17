@@ -33,7 +33,7 @@ export const MapObjects = observer(() => {
       // color: "#FFFFFF",
       draggable: false
     })
-      .setLngLat([49.497765, 55.797557])
+      .setLngLat([49.495274, 55.957421])
       .addTo(map);
 
     marker.getElement().addEventListener('click', () => {
