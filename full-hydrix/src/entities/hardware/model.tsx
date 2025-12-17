@@ -72,7 +72,7 @@ class HardwareModel {
             this.servicesWeek = week.data;
 
             console.log(historyService.data)
-            this.servicesHistory(historyService.data)
+            this.servicesHistory = historyService.data
 
             this.documents = documents.data;
 
