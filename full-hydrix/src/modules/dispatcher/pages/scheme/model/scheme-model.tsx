@@ -42,6 +42,7 @@ class SchemeModel {
     async init(id: number) {
         await getSchemaObjects({ id: id }).then((res) => {
             this.model = res.data
+            console.log(res.data)
         })
 
         await getSchemaObjects({ id: 7 }).then((res) => {

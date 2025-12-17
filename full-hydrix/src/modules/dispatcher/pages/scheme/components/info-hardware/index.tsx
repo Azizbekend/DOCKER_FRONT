@@ -117,12 +117,19 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
 
             {model.id === 28 && (
-              <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
-                <img src={accident} alt="Авария" width={24} height={24} />
-                <div className="text-red-800 font-medium">
-                  Сработал автомат защиты двигателя!
+              <>
+                <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
+                  <img src={accident} alt="Авария" width={24} height={24} />
+                  <div className="text-red-800 font-medium">
+                    Сработал автомат защиты двигателя!
+                  </div>
                 </div>
-              </div>
+
+                <div className="flex gap-2 mb-4">
+                  <div className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
+                  <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
+                </div>
+              </>
             )}
 
             <div className="flex gap-3 mb-6 bg-gray-100 p-1 rounded-lg">

@@ -98,6 +98,8 @@ export interface SchemaObjectType {
     hardwareSchemaId: number,
     hardwareSchema: any,
     fileId: number,
+    redFileId?: number,
+    greenFileId?: number,
     file: any,
     hardwareId: number
 }

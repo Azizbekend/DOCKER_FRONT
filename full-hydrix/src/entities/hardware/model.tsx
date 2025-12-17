@@ -153,7 +153,7 @@ class HardwareModel {
 
 
 
-        await getNodeInfoIncidentTotal({ id: this.model.id }).then((res) => { console.log(res.data) })
+        await getNodeInfoIncidentTotal({ id: this.model.id }).then((res) => { console.log(res.data) }).catch((err) => { console.log(err) })
         await getNodeInfoIncidentAll({ id: this.model.id }).then((res) => { console.log(res.data) })
 
 

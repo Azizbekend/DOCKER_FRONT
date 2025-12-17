@@ -69,7 +69,10 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme }: SchemeView
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
-                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.fileId)} />
+                                {/* 48 - Красный */}
+                                {/* 169 - Зелёный */}
+                                {/* 170 - сервый */}
+                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? p.fileId : p.fileId)} />
                             </div>
 
 

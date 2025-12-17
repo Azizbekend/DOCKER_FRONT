@@ -171,9 +171,9 @@ class EquipmentCreateModel {
             body: formData
         });
 
+
         const result = await response.json();
 
-        console.log(result.id)
         this.model.fileId = result.id;
 
 
