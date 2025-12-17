@@ -146,6 +146,7 @@ export const EquipmentService = () => {
               data={servicesHistory}
               classNames={{
                 table: "!min-w-[100px]",
+                body: "!text-lg"
               }}
             />
           </div>

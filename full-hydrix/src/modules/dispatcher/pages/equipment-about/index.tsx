@@ -90,6 +90,7 @@ export const EquipmentAbout = observer(() => {
                 </div>
 
                 <Outlet />
+
             </div>
         </div>
 
