@@ -40,6 +40,16 @@ export interface Incident {
 
 export const incidents: Incident[] = [
     {
+        id: 1000,
+        object: "Очистные сооружения в с. Шапши",
+        issue: "Сработал автомат защиты двигателя",
+        hardware: "Воздуходувка №3",
+        status: "Завершён",
+        time: "10:11",
+        duration: "20 мин",
+        responsible: "Смирнов И.И",
+    },
+    {
         id: 1001,
         object: "Очистные сооружения в с. Шапши",
         issue: "Авария датчика уровня",
