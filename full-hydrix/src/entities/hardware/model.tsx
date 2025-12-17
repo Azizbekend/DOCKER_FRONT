@@ -72,7 +72,7 @@ class HardwareModel {
             this.servicesWeek = week.data;
 
             console.log(historyService.data)
-            this.sortServiceHistory(historyService.data)
+            this.servicesHistory(historyService.data)
 
             this.documents = documents.data;
 
@@ -93,19 +93,19 @@ class HardwareModel {
     }
 
 
-    sortServiceHistory(historyService: ServiceHistoryDataApiType[]) {
+    // sortServiceHistory(historyService: ServiceHistoryDataApiType[]) {
 
-        let data: ServiceHistoryType[] = [];
+    //     let data: ServiceHistoryType[] = [];
 
-        historyService.forEach(element => {
-            element.recordsList.forEach(recird => {
-                data.push({ title: element.title, sheduleMaintenanceDate: recird.sheduleMaintenanceDate, completedMaintenanceDate: recird.completedMaintenanceDate })
-            });
-        });
+    //     historyService.forEach(element => {
+    //         element.recordsList.forEach(recird => {
+    //             data.push({ title: element.title, sheduleMaintenanceDate: recird.sheduleMaintenanceDate, completedMaintenanceDate: recird.completedMaintenanceDate })
+    //         });
+    //     });
 
-        this.servicesHistory = data;
-        this.dataServiceStatistic(historyService);
-    }
+    //      = data;
+    //     this.dataServiceStatistic(historyService);
+    // }
 
 
     dataServiceStatistic(dataService: ServiceHistoryDataApiType[]) {
