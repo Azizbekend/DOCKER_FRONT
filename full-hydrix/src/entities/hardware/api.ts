@@ -40,6 +40,9 @@ export const getServiceApi = (params: { id: number }) => {
 export const getServiceHistoryRecordsAllApi = (params: { id: number }) => {
     return reserchInstance.get(Service.historyRecordsAll, { params })
 }
+export const getServiceHistoryRecordsAllOrderedApi = (params: { id: number }) => {
+    return reserchInstance.get(Service.historyRecordsAllOrdered, { params })
+}
 
 export const getTodayServiceApi = (params: { id: number }) => {
     return reserchInstance.get(Service.today, { params })

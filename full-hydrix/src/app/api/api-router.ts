@@ -232,6 +232,7 @@ export const Service = {
   today: "/MaintenanseSheduler/today",
   historyRecords: "/MaintenanseSheduler/history/records",
   historyRecordsAll: "/MaintenanseSheduler/history/records/all",
+  historyRecordsAllOrdered: "/MaintenanseSheduler/history/records/all/ordered",
   completeRequest: "/MaintenanseSheduler/completeRequest",
 }
 

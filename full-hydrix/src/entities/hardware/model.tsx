@@ -1,4 +1,4 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -52,18 +52,14 @@ class HardwareModel {
         this.isLoading = true
 
         try {
-
             const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, documents] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
-
                 getCommandAllInfo({ id }),
-
                 getCharacteristicAll({ id }),
                 getTodayServiceApi({ id: id }),
                 getServiceApi({ id: id }),
-                getServiceHistoryRecordsAllApi({ id: id }),
-
+                getServiceHistoryRecordsAllOrderedApi({ id: id }),
                 getDocuments({ id: id })
             ]);
 

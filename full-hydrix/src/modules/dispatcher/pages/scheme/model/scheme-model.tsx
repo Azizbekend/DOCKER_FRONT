@@ -1,7 +1,6 @@
 import { getSchemaObjects } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
-import { ProgressBar } from "node_modules/react-toastify/dist/components";
 import { toast } from "react-toastify";
 
 class SchemeModel {
