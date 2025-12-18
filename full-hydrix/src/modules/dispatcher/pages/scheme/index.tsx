@@ -9,8 +9,8 @@ import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 
 export const Scheme = observer(() => {
   const { init, list, focusHardware, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
-  const [tabScheme, setTabScheme] = useState<number>(6);
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [tabScheme, setTabScheme] = useState<number>(8);
+  const [activeTab, setActiveTab] = useState<number>(1);
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
