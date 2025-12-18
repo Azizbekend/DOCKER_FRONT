@@ -14,7 +14,7 @@ app.listen(5012, () => {
 
 const CAMERAS = [
     { id: 1, rtsp: 'rtsp://admin:Shapshi@16@192.168.1.100:554/cam/realmonitor?channel=7&subtype=0' },
-    // { id: 2, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=6&subtype=0' },
+    { id: 2, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=6&subtype=0' },
     // { id: 3, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=3&subtype=0' },
     // { id: 4, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=4&subtype=0' },
     // { id: 5, rtsp: 'rtsp://admin:Shapshi@16@85.141.81.53:554/cam/realmonitor?channel=5&subtype=0' },

@@ -1,10 +1,10 @@
 import { DespetcherTest } from '@/entities/despetcher-test/type';
 import { Table } from '@/shared/ui/table/index';
-import { TableColumn } from '@/shared/ui/table/setting/types';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
 import imageProfile from "./stations.jpg";
+import { TableColumn } from '@/shared/ui/table/types';
 
 const columns: TableColumn<DespetcherTest>[] = [
     {

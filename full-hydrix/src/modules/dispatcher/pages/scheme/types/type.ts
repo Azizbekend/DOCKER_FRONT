@@ -47,9 +47,10 @@ export type SchemeViewerPointControlType = {
 
 
 export type InfoCompType = {
+    key?: number,
     id?: number,
     className: string,
-    item: InformationsComponentsType,
+    item?: InformationsComponentsType,
     onClick: (id: number) => void
 }
 

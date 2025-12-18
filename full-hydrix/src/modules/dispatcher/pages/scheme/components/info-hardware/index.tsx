@@ -78,15 +78,14 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
   };
 
   return (
-    <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : ""}>
-      <div className={`info-comp w-full  lg:pb-0 pb-10 lg:w-auto h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
+    <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : "overflow-auto"}>
+      <div className={`info-comp w-full lg:pb-0 pb-10 lg:w-auto ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         {isLoading ? (
           <div className="h-full flex items-center justify-center">
             <Loader />
           </div>
         ) : (
           <div >
-            {/* Header */}
             <div className="flex items-center justify-between mb-5">
               <button
                 className="flex items-center gap-2 text-gray-700 hover:text-[#4A85F6] font-medium transition-colors"

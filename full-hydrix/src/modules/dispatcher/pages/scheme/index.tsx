@@ -42,10 +42,7 @@ export const Scheme = observer(() => {
   };
 
   return (
-    <div
-      className="informations-dispatch__scheme scheme-dispatch relative mt-8"
-      style={{ fontFamily: "'Open Sans', sans-serif" }}
-    >
+    <div className="informations-dispatch__scheme scheme-dispatch relative mt-8" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
         {tabs.map((tab) => (
           <button
@@ -64,7 +61,6 @@ export const Scheme = observer(() => {
           points={list}
           tabScheme={tabScheme}
         />
-
         {focusHardware !== 0 && focusSchemeObject === 0 && (
           <HardwareCard
             key={focusHardware}
