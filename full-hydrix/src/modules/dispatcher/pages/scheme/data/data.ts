@@ -256,3 +256,12 @@ export const CountersData: CountersType[] = [
     { id: 14, name: "ㅤДавление МБРㅤ", value: 0, unit: "бар", top: "53%", left: "25.7%", min: 5, max: 50 },
     { id: 15, name: "Расход QF4", value: 0, unit: "м³/ч", top: "24.4%", left: "94.1%", min: 4, max: 9 },
 ]
+
+
+export const tabs = [
+    { id: 0, label: "Механическая очистка", schemeId: 6 },
+    { id: 1, label: "Биологическая очистка", schemeId: 8 },
+    { id: 2, label: "Вентиляция", schemeId: 9 },
+    { id: 3, label: "СКУД", schemeId: 10 },
+    { id: 4, label: "Охрано-пожарная сигнализация", schemeId: 11 },
+];

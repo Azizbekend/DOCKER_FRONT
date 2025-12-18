@@ -39,8 +39,12 @@ class EquipmentCreateModel {
 
     isLoading = false;
     preview: string = "";
+    previewRed: string = "";
+    previewGreen: string = "";
 
     saveIMageScheme: File | null = null
+    saveIMageSchemeRed: File | null = null
+    saveIMageSchemeGreen: File | null = null
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -69,6 +73,16 @@ class EquipmentCreateModel {
     setSaveIMage(e: ChangeEvent<HTMLInputElement>) {
         this.saveIMageScheme = e.target.files && e.target?.files[0]
         if (this.saveIMageScheme) this.preview = URL.createObjectURL(this.saveIMageScheme);
+    }
+
+    setSaveIMageRed(e: ChangeEvent<HTMLInputElement>) {
+        this.saveIMageSchemeRed = e.target.files && e.target?.files[0]
+        if (this.saveIMageSchemeRed) this.previewRed = URL.createObjectURL(this.saveIMageSchemeRed);
+    }
+
+    setSaveIMageGreen(e: ChangeEvent<HTMLInputElement>) {
+        this.saveIMageSchemeGreen = e.target.files && e.target?.files[0]
+        if (this.saveIMageSchemeGreen) this.previewGreen = URL.createObjectURL(this.saveIMageSchemeGreen);
     }
 
     setId(value: number | string) {
@@ -328,8 +342,25 @@ class EquipmentCreateModel {
 
         const result = await response.json();
 
-        console.log(result.id)
         const schemaImageId = result.id;
+
+        const responseRed = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const resultRed = await responseRed.json();
+
+        const schemaImageIdRed = resultRed.id;
+
+        const responseGreen = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const resultGreen = await responseGreen.json();
+
+        const schemaImageIdGreen = resultGreen.id;
 
         if (this.model.id) {
             await schemaCoordinatesCreate({
@@ -339,7 +370,9 @@ class EquipmentCreateModel {
                 width: data.width.toString(),
                 hardwareSchemaId: this.schemaModel.hardwareSchemaId,
                 fileId: schemaImageId,
-                hardwareId: this.model?.id
+                hardwareId: this.model?.id,
+                redFileId: schemaImageIdRed,
+                greenFileId: schemaImageIdGreen,
             }).then((res) => {
                 if (res.data) {
                     toast.success("Схема создана", { progressStyle: { background: "green" } })

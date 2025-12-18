@@ -212,13 +212,21 @@ export const Control = {
   createOndeCommand: "/NodeInfo/createCommand",
   createManyCommand: "/NodeInfo/createMassCommand",
   all: "/NodeInfo/commands",
-
-
   allInfo: "/NodeInfo/infos",
-
-
   delete: "/NodeInfo/info/delete",
 }
+
+
+export const Incident = {
+  allIncedent: "/Incidents/incidents/all", // Получаем все все аварии
+  object: "/Incidents/incidents/object", // Получаем аварии по 1 объекту
+
+  common: "/NodeInfo/nodes/incident/common", // Информация о ноде, в которой лежит общая авария. Отправляю id оборудования и получаю 
+  commonCheck: "/NodeInfo/nodes/incident/common_check", // 
+  all: "/NodeInfo/nodes/incident/all", //
+  allCheck: "/NodeInfo/nodes/incident/all_check", //
+}
+
 
 export const Documents = {
   upload: "/FileStorage/documents/upload",

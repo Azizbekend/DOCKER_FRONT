@@ -10,6 +10,8 @@ class SchemeModel {
     focusHardware: number = 0
     focusSchemeObject: number = 0
     focusSchemeObjectData: SchemaObjectType | null = null
+    switchColo: boolean = false;
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -17,6 +19,17 @@ class SchemeModel {
 
     get list() {
         return this.model
+    }
+
+    async init() {
+        await getSchemaObjects({ id: 6 }).then((res) => {
+            this.model = res.data
+        })
+
+        await getSchemaObjects({ id: 8 }).then((res) => {
+            this.model.push(...res.data)
+            console.log(res.data)
+        })
     }
 
     setFocusHardware(id: number) {
@@ -27,7 +40,7 @@ class SchemeModel {
         this.focusHardware = id
     }
 
-    setFocusSchemeObject(id: number, tabScheme: number) {
+    setSchemeObjectData(id: number) {
         if (this.focusSchemeObject == id) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
@@ -37,23 +50,9 @@ class SchemeModel {
         }
     }
 
-
-    switchColo: boolean = false;
-    handdleSwitchImage() {
+    handleSwitchImage() {
         this.switchColo = !this.switchColo
         toast.success("Авария устранена", { progressStyle: { background: "green" } })
-    }
-
-
-    async init(id: number) {
-        await getSchemaObjects({ id: id }).then((res) => {
-            this.model = res.data
-            console.log(res.data)
-        })
-
-        await getSchemaObjects({ id: 7 }).then((res) => {
-            this.model.push(...res.data)
-        })
     }
 }
 

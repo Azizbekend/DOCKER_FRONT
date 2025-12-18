@@ -1,19 +1,20 @@
 import "./index.scss";
 import { useEffect, useState } from 'react';
-import { SchemeViewer } from "./scheme-viewer/ViewScheme.js";
 import { HardwareCard } from "./components/info-hardware/index.js";
 import { schemeModel } from "./model/scheme-model.js";
 import { observer } from "mobx-react-lite";
 import { FormSchemaObject } from "./components/form-schema-object.js";
+import { tabs } from "./data/data.js";
+import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 
 export const Scheme = observer(() => {
-  const { init, list, focusHardware, setFocusHardware, focusSchemeObject } = schemeModel;
+  const { init, list, focusHardware, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
   const [tabScheme, setTabScheme] = useState<number>(6);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
-    init(6);
+    init();
   }, []);
 
   const handleChangeImage = (id: number) => {
@@ -26,15 +27,6 @@ export const Scheme = observer(() => {
     setFade(false);
   };
 
-
-  // Только две активные вкладки, как в макете
-  const tabs = [
-    { id: 0, label: "Механическая очистка", schemeId: 6 },
-    { id: 1, label: "Биологическая очистка", schemeId: 7 },
-    { id: 2, label: "Вентиляция", schemeId: 8 },
-    { id: 3, label: "СКУД", schemeId: 9 },
-    { id: 4, label: "Охрано-пожарная сигнализация", schemeId: 10 },
-  ];
 
   const handleTabClick = (tab: { id: number; schemeId: number }) => {
     setActiveTab(tab.id);
@@ -56,11 +48,15 @@ export const Scheme = observer(() => {
       </div>
 
       <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh] lg:mb-0 mb-10">
+
         <SchemeViewer
           setInfo={handleChangeImage}
           points={list}
           tabScheme={tabScheme}
+          setSchemeObjectData={setSchemeObjectData}
+          switchColo={switchColo}
         />
+
         {focusHardware !== 0 && focusSchemeObject === 0 && (
           <HardwareCard
             key={focusHardware}

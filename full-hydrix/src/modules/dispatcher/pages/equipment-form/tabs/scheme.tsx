@@ -10,7 +10,7 @@ import { equipmentCreateModel } from "../model/equipment-form-model";
 export const Scheme = observer(() => {
 
 
-    const { createScheme, schemaModel, preview, saveIMageScheme, setHardwareSchemaId, setTop, setLeft, setHieght, setWidth, setSaveIMage, } = equipmentCreateModel
+    const { createScheme, schemaModel, preview, previewRed, previewGreen, saveIMageScheme, setHardwareSchemaId, setTop, setLeft, setHieght, setWidth, setSaveIMage, setSaveIMageRed, setSaveIMageGreen } = equipmentCreateModel
 
     const handleSubmit = () => {
         if (saveIMageScheme) {
@@ -51,10 +51,10 @@ export const Scheme = observer(() => {
 
                     <div>
                         <label className="w-[350px] h-[350px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
-                            <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
+                            <input className="hidden" type="file" onChange={(e) => setSaveIMageRed(e)} />
                             {
-                                preview ?
-                                    <img src={preview} className="max-w-full max-h-full object-container" />
+                                previewRed ?
+                                    <img src={previewRed} className="max-w-full max-h-full object-container" />
                                     :
                                     <>
                                         <Icon systemName="file-plus-blue" />
@@ -68,10 +68,10 @@ export const Scheme = observer(() => {
 
                     <div>
                         <label className="w-[350px] h-[350px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
-                            <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
+                            <input className="hidden" type="file" onChange={(e) => setSaveIMageGreen(e)} />
                             {
-                                preview ?
-                                    <img src={preview} className="max-w-full max-h-full object-container" />
+                                previewGreen ?
+                                    <img src={previewGreen} className="max-w-full max-h-full object-container" />
                                     :
                                     <>
                                         <Icon systemName="file-plus-blue" />
@@ -157,7 +157,7 @@ export const Scheme = observer(() => {
                                             title: "Механическая очистка"
                                         },
                                         {
-                                            value: 7,
+                                            value: 8,
                                             title: "Биологическая очистка"
                                         },
                                     ]}

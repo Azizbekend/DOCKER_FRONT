@@ -85,7 +85,7 @@ class SchemeObjectModel {
         await deleteSchemaCoordinates({ id: schemeModel.focusSchemeObject }).then((res) => {
             toast.success("Компонент удалён", { progressStyle: { background: "green" } })
             schemeModel.model.splice(this.index, 1)
-            schemeModel.setFocusSchemeObject(0)
+            schemeModel.setSchemeObjectData(0)
         })
     }
 

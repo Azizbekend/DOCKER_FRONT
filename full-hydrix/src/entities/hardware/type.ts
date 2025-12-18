@@ -112,6 +112,8 @@ export interface SchemaCoordinatesCreateType {
     width: string,
     hardwareSchemaId?: number,
     fileId?: number,
+    redFileId?: number,
+    greenFileId?: number,
     hardwareId?: number,
 }
 

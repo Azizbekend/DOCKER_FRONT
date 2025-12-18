@@ -15,7 +15,7 @@ import { InfoCompType } from "../../types/type";
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
 
-  const { handdleSwitchImage, switchColo } = schemeModel
+  const { handleSwitchImage, switchColo } = schemeModel
 
   const { init, model, isLoading } = hardwareModel;
   const navigate = useNavigate();
@@ -129,7 +129,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                 </div>
 
                 <div className="flex gap-2 mb-4">
-                  <div onClick={() => handdleSwitchImage()} className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
+                  <div onClick={() => handleSwitchImage()} className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
                   <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
                 </div>
               </>

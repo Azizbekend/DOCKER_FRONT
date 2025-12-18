@@ -16,7 +16,9 @@ export type InformationsType = {
 export type SchemeViewerType = {
     setInfo: (id: number) => void,
     tabScheme: number,
-    points: SchemaObjectType[]
+    points: SchemaObjectType[],
+    setSchemeObjectData: (id: number) => void,
+    switchColo: boolean
 }
 
 export type SchemeViewerPointType = {
@@ -63,4 +65,20 @@ export type CountersType = {
     left: string,
     min: number,
     max: number
+}
+
+export interface SchemeDragType {
+    offset: OffsetType,
+    setOffset: (IOffset: OffsetType) => void,
+}
+
+export interface OffsetType {
+    x: number,
+    y: number
+}
+export interface BoundsType {
+    minX: number,
+    minY: number,
+    maxX: number,
+    maxY: number
 }
