@@ -346,7 +346,7 @@ class EquipmentCreateModel {
 
         const formData = new FormData();
 
-        if (this.saveIMageSchemeRed) {
+        if (this.saveIMage) {
             formData.append("File", data.saveIMage);
             const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
                 method: "POST",
