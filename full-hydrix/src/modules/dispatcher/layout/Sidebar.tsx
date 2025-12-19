@@ -40,17 +40,12 @@ export const Sidebar = observer(() => {
         >
             <div className={`flex flex-col justify-between transition-all duration-300 sticky top-10 ${isSticky ? 'h-[95vh] pb-0' : 'h-[80vh] pb-5 '}`}>
                 <div className='flex gap-4 flex-col w-full'>
-                    {/* 
+
                     <div>
                         <div className={`flex relative rounded-md items-center cursor-pointer`} >
-                            <div className='flex flex-row gap-4 w-full py-2 px-3 2xl:py-3 2xl:px-5 items-center'>
-                                <button onClick={() => setIsFullPanel(!isFullPanel)} className='w-[32px] h-[32px] bg-gray-300 rounded-sm'>
-                                    <Icon systemName={"arrow-down"} width={24} height={24} />
-                                </button>
-                                <Link to={"/dispatcher"} className={`text-[13px] w-fit 2xl:text-[16px] tracking-[0.5px] text-[#757575] font-bold`}>Очистные сооружения в с. Шапши</Link>
-                            </div>
+                            <Link to={"/dispatcher"} className={`text-[13px] w-fit 2xl:text-[16px] tracking-[0.5px] text-[#757575] font-bold`}>Очистные сооружения в с. Шапши</Link>
                         </div>
-                    </div> */}
+                    </div>
 
 
                     <SidebarItem link={`/dispatcher`} icon='scheme' title='Мнемосхемы' isActive={location.pathname == ('/dispatcher')} />
