@@ -100,6 +100,7 @@ export interface SchemaObjectType {
     fileId: number,
     redFileId?: number,
     greenFileId?: number,
+    focusFileId?: number,
     file: any,
     hardwareId: number
 }

@@ -221,9 +221,14 @@ export const Incident = {
   allIncedent: "/Incidents/incidents/all", // Получаем все все аварии
   object: "/Incidents/incidents/object", // Получаем аварии по 1 объекту
 
-  common: "/NodeInfo/nodes/incident/common", // Информация о ноде, в которой лежит общая авария. Отправляю id оборудования и получаю 
-  commonCheck: "/NodeInfo/nodes/incident/common_check", // 
-  all: "/NodeInfo/nodes/incident/all", //
+  common: "/NodeInfo/nodes/incident/common", // Этот метод возвращает список всех узлов общей аварии для оборудования
+  commonCheck: "/NodeInfo/nodes/incident/common_check", // Информация об общей аварии у оборудования 
+  all: "/NodeInfo/nodes/incident/all", // Этот метод возвращает список всех узлов общей аварии для указанного оборудования
+
+  // Этот метод проверяет наличие активных аварий на оборудовании.
+  // - Получает все узлы аварий для оборудования (12 типов аварийных сигналов)
+  // - Для каждого узла проверяет последний статус
+  // - Возвращает список активных аварий (только те, где статус "True") с их ID и названиями
   allCheck: "/NodeInfo/nodes/incident/all_check", //
 }
 

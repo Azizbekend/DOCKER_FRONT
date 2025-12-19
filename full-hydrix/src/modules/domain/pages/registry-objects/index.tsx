@@ -6,11 +6,11 @@ import { observer } from 'mobx-react-lite';
 import { Link, NavLink, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/shared/ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
-import { useEffect, useState } from 'react';
-import { MapObjects } from '../registry-map';
-import { RegistryObjects } from '../registry-list';
+import { useEffect } from 'react';
 import { DespetcherTest } from '@/entities/despetcher-test/type';
 import { registryModel } from './model/registry-model';
+import { RegistryObjects } from './components/registry-list';
+import { MapObjects } from './components/registry-map';
 
 export const RegistryObjectsLayout = observer(() => {
   const { list, init } = registryModel;

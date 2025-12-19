@@ -15,13 +15,12 @@ import { columns } from "./components/columns";
 export const EquipmentRegistry = observer(() => {
   const { list, init } = hardwareListModel;
   const navigate = useNavigate();
-  const { search, setSearch, results } = useSearch<HardwareInterface>({
-    data: list,
-    searchFields: ['name', 'opcDescription']
-  });
+  const { search, setSearch, results } = useSearch<HardwareInterface>({ data: list, searchFields: ['name', 'position', 'opcDescription'] });
 
   useEffect(() => {
     init();
+
+    setSearch("Биологическая")
   }, []);
 
   return (

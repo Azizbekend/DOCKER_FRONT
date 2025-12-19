@@ -18,7 +18,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            console.log('hi')
+            // schemeModel.checkIncidents()
         }, 1000);
 
         return () => {
@@ -56,7 +56,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                 {points.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div
                         key={p.id}
-                        onDoubleClickCapture={() => setSchemeObjectData(p.id, tabScheme)}
+                        onDoubleClickCapture={() => setSchemeObjectData(p.id)}
                         onClick={() => setInfo(p.hardwareId)}
                         className="absolute cursor-pointer z-10"
                         style={{
@@ -71,7 +71,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                                 {/* 48 - Красный */}
                                 {/* 169 - Зелёный */}
                                 {/* 170 - сервый */}
-                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? (switchColo ? p.greenFileId : p.redFileId) : p.fileId)} />
+                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId || p.fileId)} />
                             </div>
 
 

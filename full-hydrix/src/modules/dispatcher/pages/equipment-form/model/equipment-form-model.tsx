@@ -1,4 +1,4 @@
-import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaModelInterface } from "@/entities/hardware/type";
+import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaCoordinatesCreateType, SchemaModelInterface } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
@@ -332,48 +332,58 @@ class EquipmentCreateModel {
         width: number,
         saveIMage: File,
     }) {
+
+
+        let dataCreate: SchemaCoordinatesCreateType = {
+            top: data.top.toString(),
+            left: data.left.toString(),
+            height: data.hieght.toString(),
+            width: data.width.toString(),
+            hardwareSchemaId: this.schemaModel.hardwareSchemaId,
+            hardwareId: this.model?.id,
+        }
+
+
         const formData = new FormData();
-        formData.append("File", data.saveIMage);
 
-        const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-            method: "POST",
-            body: formData
-        });
+        if (this.saveIMageSchemeRed) {
+            formData.append("File", data.saveIMage);
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.json();
+            dataCreate.fileId = result.id;
+        }
 
-        const result = await response.json();
 
-        const schemaImageId = result.id;
+        if (this.saveIMageSchemeRed) {
+            formData.append("File", this.saveIMageSchemeRed);
+            const responseRed = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            });
+            const resultRed = await responseRed.json();
+            dataCreate.redFileId = resultRed.id;
+        }
 
-        const responseRed = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-            method: "POST",
-            body: formData
-        });
 
-        const resultRed = await responseRed.json();
 
-        const schemaImageIdRed = resultRed.id;
+        if (this.saveIMageSchemeGreen) {
+            formData.append("File", this.saveIMageSchemeGreen);
+            const responseGreen = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            });
+            const resultGreen = await responseGreen.json();
+            dataCreate.greenFileId = resultGreen.id
+        }
 
-        const responseGreen = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-            method: "POST",
-            body: formData
-        });
 
-        const resultGreen = await responseGreen.json();
 
-        const schemaImageIdGreen = resultGreen.id;
 
         if (this.model.id) {
-            await schemaCoordinatesCreate({
-                top: data.top.toString(),
-                left: data.left.toString(),
-                height: data.hieght.toString(),
-                width: data.width.toString(),
-                hardwareSchemaId: this.schemaModel.hardwareSchemaId,
-                fileId: schemaImageId,
-                hardwareId: this.model?.id,
-                redFileId: schemaImageIdRed,
-                greenFileId: schemaImageIdGreen,
-            }).then((res) => {
+            await schemaCoordinatesCreate(dataCreate).then((res) => {
                 if (res.data) {
                     toast.success("Схема создана", { progressStyle: { background: "green" } })
                 }
