@@ -42,11 +42,11 @@ export const Sidebar = observer(() => {
             <div className={`flex flex-col justify-between transition-all duration-300 sticky top-10 ${isSticky ? 'h-[95vh] pb-0' : 'h-[80vh] pb-5 '}`}>
                 <div className='flex gap-4 flex-col w-full'>
 
-                    <div>
+                    {/* <div>
                         <div className={`flex relative rounded-md items-center cursor-pointer`} >
                             <Link to={"/dispatcher"} className={`text-[13px] w-fit 2xl:text-[16px] tracking-[0.5px] text-[#757575] font-bold`}>Очистные сооружения в с. Шапши</Link>
                         </div>
-                    </div>
+                    </div> */}
 
 
                     <SidebarItem link={`/dispatcher`} icon='scheme' title='Мнемосхемы' isActive={location.pathname == ('/dispatcher')} />
