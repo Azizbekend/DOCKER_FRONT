@@ -75,8 +75,7 @@ export const PassportObject = () => {
           <div className="flex gap-4 justify-end">
             {tab === "information" && <>
 
-              <Link
-                to="/gis/company/56"
+              <Link to="/gis/company/56"
                 className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
               >
                 <span>Перейти в Управление ЖБО</span>
@@ -84,6 +83,7 @@ export const PassportObject = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </Link>
+
               <Link
                 to="/dispatcher"
                 className="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm"

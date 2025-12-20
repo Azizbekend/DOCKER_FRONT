@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
 import { User } from "./type";
 import { WaterCompany } from "../water-company/types";
+import { Role } from "./role";
 
 export class UserModel {
     private _user: User | null = null;
@@ -78,8 +79,24 @@ export class UserModel {
         this._error = null;
 
         try {
-            const userResp = await GetUserById({ id: Number(userId) });
-            this.setUser(userResp.data);
+
+            if (userId === "99999") {
+                this.setUser({
+                    id: 99999,
+                    login: "Guest",
+                    firstName: "Guest",
+                    lastName: "Guest",
+                    patronymic: "Guest",
+                    email: "Guest",
+                    phoneNumber: "Guest",
+                    adress: "Guest",
+                    companyId: 99999,
+                    roleId: Role.Guest
+                })
+            } else {
+                const userResp = await GetUserById({ id: Number(userId) });
+                this.setUser(userResp.data);
+            }
         } catch (error) {
             this._error = "Failed to load user data";
             this.clearUser();

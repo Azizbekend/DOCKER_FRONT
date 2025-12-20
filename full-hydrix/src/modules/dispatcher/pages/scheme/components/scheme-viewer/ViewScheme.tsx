@@ -10,6 +10,7 @@ import { useScheme } from './hooks/useScheme';
 import { schemeModel } from '../../model/scheme-model';
 import { SchemeViewerType } from '../../types/type';
 import { useEffect } from 'react';
+import { Role } from '@/entities/user/role';
 
 
 export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObjectData, switchColo }: SchemeViewerType) => {
@@ -56,7 +57,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                 {points.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div
                         key={p.id}
-                        onDoubleClickCapture={() => setSchemeObjectData(p.id)}
+                        onDoubleClickCapture={() => user?.roleId === Role.Guest && setSchemeObjectData(p.id)}
                         onClick={() => setInfo(p.hardwareId)}
                         className="absolute cursor-pointer z-10"
                         style={{

@@ -17,6 +17,8 @@ export const Scheme = observer(() => {
     init();
   }, []);
 
+
+
   const handleChangeImage = (id: number) => {
     setFade(true);
     if (focusHardware === id) {

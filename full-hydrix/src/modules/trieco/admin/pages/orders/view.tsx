@@ -197,7 +197,7 @@ export const OderListView = observer(() => {
             <AttachSewerModal setShow={setModalShow} show={isModalShow} />
             <OrderModal isOpen={isOrderOpen} setShow={setOpen} />
 
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between mb-10">
                 <div className="flex flex-col w-[50%] gap-6">
                     <span className="text-[34px] font-semibold">Управление заявками</span>
                     <div className="flex flex-row gap-8 items-center">

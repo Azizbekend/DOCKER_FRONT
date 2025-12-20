@@ -1,7 +1,7 @@
 import { Button } from "@/shared/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 
-export const Error404 = () => {
+export const Error403 = () => {
 
     const navigate = useNavigate();
 

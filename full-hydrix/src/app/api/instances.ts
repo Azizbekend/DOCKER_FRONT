@@ -18,6 +18,12 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+
+    const userId = localStorage.getItem('user_id');
+    if (userId && userId === "99999" && config.method !== "get") {
+        return Promise.reject(new Error(config.method + " blocked by meta flag"))
+    }
+
     config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`
     return config;
 })
@@ -70,6 +76,12 @@ export const reserchInstance = axios.create({
 })
 
 reserchInstance.interceptors.request.use((config) => {
+
+    const userId = localStorage.getItem('user_id');
+    if (userId && userId === "99999" && config.method !== "get") {
+        return Promise.reject(new Error(config.method + " blocked by meta flag"))
+    }
+
     config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`
     return config;
 })

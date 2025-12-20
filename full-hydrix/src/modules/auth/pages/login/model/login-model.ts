@@ -74,36 +74,59 @@ class LoginModel {
 
 
     public async login(initUser: () => void, initCompany: (data: WaterCompany) => void) {
-        await authAdmin(this.model)
-            .then(response => {
 
+        if (this.model.username == "guest") {
+
+            await authAdmin({
+                username: "aovks",
+                password: "ffggrr",
+            }).then(async (response) => {
                 window.localStorage.setItem("access_token", response.data['jwtToken'])
                 window.localStorage.setItem("refresh_token", response.data['refreshToken'])
-                window.localStorage.setItem("user_id", response.data['id'])
+                window.localStorage.setItem("user_id", "99999")
+                initUser()
 
-                initUser(response.data)
-                switch (response.data.roleId) {
-                    case Role.Client:
-                        break;
-                    case Role.CompanyOperator:
-                        break;
-                    case Role.WaterCompany:
-                        getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
-                            initCompany(x.data)
+                await getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
+                    initCompany(x.data)
+                    setTimeout(() => {
+                        window.location.href = '/menu-moduls'
+                    }, 1000)
+                })
+
+            })
+
+        } else {
+            await authAdmin(this.model)
+                .then(response => {
+
+                    window.localStorage.setItem("access_token", response.data['jwtToken'])
+                    window.localStorage.setItem("refresh_token", response.data['refreshToken'])
+                    window.localStorage.setItem("user_id", response.data['id'])
+                    initUser()
+
+                    switch (response.data.roleId) {
+                        case Role.Client:
+                            break;
+                        case Role.CompanyOperator:
+                            break;
+                        case Role.WaterCompany:
+                            getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
+                                initCompany(x.data)
+                                setTimeout(() => {
+                                    window.location.href = '/menu-moduls'
+                                }, 1000)
+                            })
+                            break;
+                        case Role.Ministry:
                             setTimeout(() => {
                                 window.location.href = '/menu-moduls'
                             }, 1000)
-                        })
-                        break;
-                    case Role.Ministry:
-                        setTimeout(() => {
-                            window.location.href = '/menu-moduls'
-                        }, 1000)
-                        break;
-                    case Role.Admin:
-                        break;
-                }
-            })
+                            break;
+                        case Role.Admin:
+                            break;
+                    }
+                })
+        }
     }
 
     async logins() {

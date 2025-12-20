@@ -77,7 +77,7 @@ export const EnterprisesView = observer(() => {
 
             <CreateEnterprice setShow={setShow} show={show} />
 
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between mb-10">
                 <div className="flex flex-col gap-6 w-[100%]">
                     <span className="text-[34px] font-semibold">Предприятия</span>
                     <div className="flex gap-[23px] ">
@@ -99,7 +99,7 @@ export const EnterprisesView = observer(() => {
                     {
                         typeInfo == TypeInfoType.listCompanies
                             ?
-                            <div>
+                            <>
                                 <div className="flex justify-between w-[100%]">
                                     <div className="flex gap-[23px]">
                                         <Button children="Добавить" class="bg-[#4A85F6] h-[38px] px-6 flex items-center hover:opacity-50 duration-300 text-white"
@@ -125,7 +125,7 @@ export const EnterprisesView = observer(() => {
                                     }}
                                 />
 
-                            </div>
+                            </>
                             :
                             <div className="w-max">
                                 <div className="flex">

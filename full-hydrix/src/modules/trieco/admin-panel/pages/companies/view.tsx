@@ -99,7 +99,7 @@ export const CompaniesView = observer(() => {
             <DeleteCompaniesModal show={deleteUserShow} setShow={setDeleteUserShow} id={UserId} />
 
             <div className="mt-12">
-                <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-row items-center justify-between mb-10">
                     <div className="flex flex-col w-[70%] gap-6">
                         <span className="text-[34px] font-semibold">Список предприятий</span>
                         <div className="flex flex-row gap-8 items-center">

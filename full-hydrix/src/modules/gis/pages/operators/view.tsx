@@ -113,7 +113,7 @@ export const OperatorsView = observer(() => {
             <div className="flex flex-col w-[100%]">
                 <span className="mb-[16px] text-[34px] font-semibold">Операторы</span>
 
-                <div className="flex justify-between w-[100%]">
+                <div className="flex justify-between w-[100%] mb-10">
                     <div className="flex gap-[23px]">
                         <Button onClick={() => setShowModalChange(true, null)} class='bg-[#4A85F6] h-[38px] px-6 flex items-center hover:opacity-50 duration-300 text-white' children="Добавить" />
                         <Search

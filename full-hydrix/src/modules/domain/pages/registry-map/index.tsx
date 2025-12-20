@@ -48,7 +48,7 @@ export const MapObjects = observer(() => {
 
 
   const handleRow = () => {
-    navigate("/domain/passport")
+    navigate("/domain/passport/information")
   }
 
   return (

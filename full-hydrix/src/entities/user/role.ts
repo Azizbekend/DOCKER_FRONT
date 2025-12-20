@@ -10,4 +10,5 @@ export enum Role {
     Plant = 0, // Оператор водоканала
     TreatmentPlantOperator = 8, // Оператор очистного сооружения
     Admin = 9, // Админ
+    Guest = 99999, // Гость
 }

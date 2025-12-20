@@ -128,7 +128,7 @@ export const SewerListView = observer(() => {
             />
             {/* <SewerMapModal /> */}
             {/* <AccidentReportModal setShow={setAccidentShow} show={accidentShow} /> */}
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between mb-10">
                 <div className="flex flex-col gap-6">
                     <span className="text-[34px] font-semibold">Список ассенизаторов</span>
                     <div className="flex flex-row gap-8 items-center ">

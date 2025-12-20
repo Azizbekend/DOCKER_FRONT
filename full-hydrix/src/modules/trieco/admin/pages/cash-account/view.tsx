@@ -6,7 +6,7 @@ export const CashAccountView = observer(() => {
     return(
         <>
             <div className="mt-12">
-                <div className="flex flex-row items-center justify-between">
+                <div className="flex flex-row items-center justify-between mb-10">
                     <div className="flex flex-col w-[100%] gap-6">
                         <span className="text-[34px] font-semibold">Счет</span>
                         <div className="flex gap-[18px]">

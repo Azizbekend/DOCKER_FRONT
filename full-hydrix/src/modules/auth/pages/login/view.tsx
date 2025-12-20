@@ -16,7 +16,7 @@ export const LoginView = observer(() => {
 
     const { initUser, initCompany } = useAuth();
     const [isregister, setIsRegister] = useState<boolean>(false)
-    const { model, validError, isLoading, canSubmit, isErrorStart, login, } = loginModel;
+    const { model, validError, isLoading, canSubmit, isErrorStart, login } = loginModel;
 
     const handleSubmit = useCallback(
         (event: FormEvent<HTMLFormElement>) => {

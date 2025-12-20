@@ -22,7 +22,7 @@ export const Stats = observer(() => {
 
     return (
         <>
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between mb-10">
                 <div className="flex flex-col w-[94%] gap-6">
                     <span className="text-[34px] font-semibold">Статистика</span>
 
