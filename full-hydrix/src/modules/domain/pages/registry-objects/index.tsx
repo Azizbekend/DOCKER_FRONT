@@ -1,4 +1,3 @@
-import { Breadcrumbs } from '@/shared/components/breadcrumbs';
 import { Icon } from '@/shared/ui/icon';
 import { useSearch } from '@/shared/ui/Inputs/hooks/hook-search';
 import { Search } from '@/shared/ui/Inputs/input-search';
@@ -9,26 +8,29 @@ import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
 import { DespetcherTest } from '@/entities/despetcher-test/type';
 import { registryModel } from './model/registry-model';
-import { RegistryObjects } from './components/registry-list';
-import { MapObjects } from './components/registry-map';
+import { RegistryObjects } from '../registry-list';
+import { MapObjects } from '../registry-map';
 
 export const RegistryObjectsLayout = observer(() => {
+  const { page } = useParams();
   const { list, init } = registryModel;
+
   const { search, setSearch, results } = useSearch<DespetcherTest>({
     data: list,
     searchFields: ["nameMinin", "company"]
   });
-  const { page } = useParams();
+
 
   useEffect(() => {
     init();
   }, []);
 
+
   return (
     <div className="h-full flex flex-col" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-      {/* Заголовок */}
       <div className="flex items-center gap-4 mb-14">
         <Link
+
           to="/menu-moduls"
           className="flex items-center justify-center w-11 h-11  transition-colors"
         >

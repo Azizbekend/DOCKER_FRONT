@@ -186,6 +186,7 @@ export const Hardware = {
   info: "/Hardware/info",
   create: "/Hardware/create",
   active: "/Hardware/Activate",
+  statusCheck: "/Hardware/statusCheck/group",
 }
 export const Schema = {
   create: "/schemas/schema/create",

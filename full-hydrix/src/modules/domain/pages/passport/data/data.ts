@@ -1,0 +1,94 @@
+export const itemsInfo1 = [
+    {
+        name: "Адрес",
+        value: "с. Шапши, Высокогорский район, Республика Татарстан",
+        coord: true,
+    },
+    {
+        name: "Заказчик",
+        value: 'ГБУ "СЭТИК"',
+    },
+    {
+        name: "Эксплуатирующая организация",
+        value: 'АО "ВКС"',
+    },
+    {
+        name: "Генеральныйподрядчик",
+        value: 'АО "УКС"',
+    },
+];
+
+export const itemsInfo2 = [
+    {
+        name: "Проектная производительность",
+        value: "200 м³/сут",
+    },
+    {
+        name: "Среднесуточная производительность",
+        value: "158 м³/сут",
+    },
+    {
+        name: "Часовая производительность",
+        value: "10,5 м³/ч",
+    },
+    {
+        name: "Расход электроэнергии",
+        value: "74 кВт·ч",
+    },
+    {
+        name: "Водоснабжение",
+        value: "20 м³/сут",
+    },
+];
+
+export const infoContacts = [
+    {
+        type: 'Заказчик ГБУ "СЭТИК"',
+        name: "Сидоров Андрей",
+        email: "fondgaz@yandex.ru",
+        phone: "+7 (843) 221-51-89",
+    },
+    {
+        type: 'Эксплуатирующая организация АО "ВКС"',
+        name: "Иванов Иван",
+        email: "mppjkx1@mail.ru",
+        phone: "+7 (843) 653-28-72",
+    },
+    {
+        type: 'Генеральный подрядчик АО "УКС"',
+        name: "Петров Иван",
+        email: "uksr.kzn@tatar.ru",
+        phone: "+7 (843) 223-19-19",
+    },
+];
+export const coordinates = "55.775450, 48.762559";
+
+export const participantsData = [
+    {
+        organization: "ГБУ \"СЭТИК\"",
+        role: "Заказчик",
+        name: "Сидоров Андрей",
+        email: "fondgaz@yandex.ru",
+        phone: "+7 (843) 221-51-89",
+        status: "Действующая",
+        color: "#FF9500"
+    },
+    {
+        organization: "АО \"ВКС\"",
+        role: "Эксплуатирующая организация",
+        name: "Иванов Иван",
+        email: "mppjkx1@mail.ru",
+        phone: "+7 (843) 653-28-72",
+        status: "Действующая",
+        color: "#4A85F6"
+    },
+    {
+        organization: "АО \"УКС\"",
+        role: "Генеральный подрядчик",
+        name: "Петров Иван",
+        email: "uksr.kzn@tatar.ru",
+        phone: "+7 (843) 223-19-19",
+        status: "Действующая",
+        color: "#34C759"
+    },
+];

@@ -1,41 +1,14 @@
-export const objects = [
-    {
-        id: 1,
-        coords: [49.497765, 55.797557],
-        name: "Очистные сооружения в с. Шапши",
-        type: "Очистка стоков",
-        status: "Работает",
-        incidents: 3,
-        lastIncident: "20.12.2025",
-        capacity: "200 м³/сут",
-        efficiency: 98,
-        energy: 74
-    },
-    {
-        id: 2,
-        coords: [49.51, 55.82],
-        name: "Насосная станция №3",
-        type: "Подача воды",
-        status: "Отключено",
-        incidents: 1,
-        lastIncident: "15.12.2025",
-        capacity: "150 м³/сут",
-        efficiency: 95,
-        energy: 68
-    }
+
+export const chartData = [
+    { name: 'Критичные', value: 30, color: '#EF4444' },
+    { name: 'Важные', value: 50, color: '#F59E0B' },
+    { name: 'Плановые', value: 20, color: '#10B981' },
 ];
 
-
-export interface Incident {
-    id: number,
-    object: string,
-    hardware: string,
-    issue: string,
-    status: string,
-    time: string,
-    duration: string,
-    responsible: string,
-}
+export const chartDataInic = [
+    { name: 'Инцидентов', value: 9, color: 'red' },
+    { name: 'На исправлении', value: 3, color: 'blue' },
+];
 
 
 export const incidents: Incident[] = [

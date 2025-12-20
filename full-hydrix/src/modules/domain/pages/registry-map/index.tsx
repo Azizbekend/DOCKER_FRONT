@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import InfoCart from './components/infoCard';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import mapPl from './assets/map-pl.png';
-import { Icon } from "@/shared/ui/icon";
 import mmrgl from 'mmr-gl';
 import 'mmr-gl/dist/mmr-gl.css';
-import { Link, useNavigate, useNavigation } from "react-router-dom";
-import { incidents, objects } from './data/data';
+import { useNavigate } from "react-router-dom";
 import { Table } from '@/shared/ui/table/index';
-import { columns } from './components/table-columns';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { chartData, chartDataInic, incidents } from './data/data';
+import { columns } from './components/columns';
 
 
 
@@ -36,25 +34,16 @@ export const MapObjects = observer(() => {
       .setLngLat([49.495274, 55.957421])
       .addTo(map);
 
-    marker.getElement().addEventListener('click', () => {
-      handleMarkerClick(1);
-    });
+    // marker.getElement().addEventListener('click', () => {
+    //   handleMarkerClick(1);
+    // });  
   }, [])
 
-  const chartData = [
-    { name: 'Критичные', value: 30, color: '#EF4444' },
-    { name: 'Важные', value: 50, color: '#F59E0B' },
-    { name: 'Плановые', value: 20, color: '#10B981' },
-  ];
-
-  const chartDataInic = [
-    { name: 'Инцидентов', value: 9, color: 'red' },
-    { name: 'На исправлении', value: 3, color: 'blue' },
-  ];
 
 
   const navigate = useNavigate();
 
+  const [typeTable, setTypeTable] = useState<"orders" | "incident">("orders");
   const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
@@ -127,31 +116,42 @@ export const MapObjects = observer(() => {
         </div>
       </div>
 
-      <div>
-
-        <div className='ml-4 flex gap-3'>
+      <div className='flex items-center justify-between mb-7 bg-white p-5 rounded-lg'>
+        <div className='flex gap-3'>
           <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />
           <FilterButton name='Критичные' isActive={filterBtn == "critical"} onClick={() => setFilterBtn("critical")} />
           <FilterButton name='Важные' isActive={filterBtn == "important"} onClick={() => setFilterBtn("important")} />
           <FilterButton name='Плановые' isActive={filterBtn == "planned"} onClick={() => setFilterBtn("planned")} />
         </div>
 
-        <Table
-          classNames={{
-            body: "",
-            thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200",
-          }}
-          onRowClick={handleRow}
-          columns={columns}
-          countActive
-          data={incidents}
-        />
+
+        <div className='flex items-center gap-3'>
+          <TypeButton name='Заявки' isActive={typeTable == "orders"} onClick={() => setTypeTable("orders")} />
+          <TypeButton name='Аварии' isActive={typeTable == "incident"} onClick={() => setTypeTable("incident")} />
+        </div>
       </div>
+
+      <Table
+        classNames={{
+          body: "",
+          thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200",
+        }}
+        onRowClick={handleRow}
+        columns={columns}
+        countActive
+        data={incidents}
+      />
+
     </div>
   );
 });
 
 
+const TypeButton = ({ name, isActive, onClick }: { name: string, isActive: boolean, onClick: () => void }) => {
+  return <button onClick={onClick} className={`py-1 px-4 rounded-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
+}
+
+
 const FilterButton = ({ name, isActive, onClick }: { name: string, isActive: boolean, onClick: () => void }) => {
-  return <button onClick={onClick} className={`py-1 px-4 rounded-tl-lg rounded-tr-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
+  return <button onClick={onClick} className={`py-1 px-4 rounded-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
 }

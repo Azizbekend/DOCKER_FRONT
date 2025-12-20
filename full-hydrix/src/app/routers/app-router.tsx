@@ -172,12 +172,17 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: "passport",
-                async lazy() {
-                    const { PassportObject } = await import("@/modules/domain/pages/passport")
-                    return {
-                        Component: PassportObject
+                children: [
+                    {
+                        path: ":tab",
+                        async lazy() {
+                            const { PassportObject } = await import("@/modules/domain/pages/passport")
+                            return {
+                                Component: PassportObject
+                            }
+                        },
                     }
-                },
+                ]
             },
         ]
     },
@@ -539,10 +544,10 @@ export const AppRouter = createBrowserRouter([
             }
         ]
     },
-    {
-        path: '*',
-        element: <Navigate to="/error/404" replace />
-    },
+    // {
+    //     path: '*',
+    //     element: <Navigate to="/error/404" replace />
+    // },
     {
         path: '/error',
         async lazy() {

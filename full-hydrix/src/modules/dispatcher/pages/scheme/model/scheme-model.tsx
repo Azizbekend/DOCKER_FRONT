@@ -1,4 +1,4 @@
-import { getSchemaObjects } from "@/entities/hardware/api";
+import { getSchemaObjects, statusCheck } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -29,7 +29,7 @@ class SchemeModel {
             this.model = res.data
 
             res.data.forEach(element => {
-                this.idska.push(element.id)
+                this.idska.push(element.hardwareId)
             });
         })
 
@@ -38,6 +38,15 @@ class SchemeModel {
             console.log(res.data)
         })
     }
+
+
+    async test() {
+        await statusCheck({ ids: this.idska })
+            .then((res) => {
+                console.log(res.data)
+            })
+    }
+
 
     setFocusHardware(id: number) {
         if (this.focusSchemeObject != 0) {
