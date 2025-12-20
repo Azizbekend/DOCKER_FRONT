@@ -3,10 +3,11 @@ import { SidebarItem } from '../../../shared/components/sidebar-item'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'
+import { useAuth } from '@/entities/user/context';
 
 
 export const Sidebar = observer(() => {
-
+    const { logout } = useAuth();
 
     const location = useLocation();
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -14,25 +15,25 @@ export const Sidebar = observer(() => {
     const [isFullPanel, setIsFullPanel] = useState<boolean>(false);
 
     // Функция для расширения сайдбара при прокрутке
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         if (!sidebarRef.current) return;
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!sidebarRef.current) return;
 
-    //         const sidebarRect = sidebarRef.current.getBoundingClientRect();
-    //         const isTopReached = sidebarRect.top - 50 <= 0;
+            const sidebarRect = sidebarRef.current.getBoundingClientRect();
+            const isTopReached = sidebarRect.top - 50 <= 0;
 
-    //         setIsSticky(isTopReached);
-    //     };
+            setIsSticky(isTopReached);
+        };
 
-    //     window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
 
-    //     // Вызываем сразу для установки начального состояния
-    //     handleScroll();
+        // Вызываем сразу для установки начального состояния
+        handleScroll();
 
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <div ref={sidebarRef}
@@ -62,7 +63,7 @@ export const Sidebar = observer(() => {
                 <div>
                     {false && <SidebarItem link='/gis/sewers' icon='cog' title='Настройки' isActive={location.pathname === '/gis/settings'} />}
                     {false && <SidebarItem link='/gis/sewers' icon='help-circle' title='Помощь' isActive={location.pathname === '/gis/help'} />}
-                    {false && <SidebarItem link='/exit' icon='exit-client' title='Выйти' />}
+                    <SidebarItem link='/exit' icon='exit-client' title='Выйти' onClick={logout} />
                 </div>
             </div>
         </div>
