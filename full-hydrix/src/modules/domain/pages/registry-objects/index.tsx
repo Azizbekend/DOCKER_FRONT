@@ -101,7 +101,7 @@ export const RegistryObjectsLayout = observer(() => {
             ) : (
               <>
                 <Icon systemName="list" className="text-gray-600" />
-                <span>Объекты в виде списка</span>
+                <span>Реестр объектов</span>
               </>
             )}
           </NavLink>

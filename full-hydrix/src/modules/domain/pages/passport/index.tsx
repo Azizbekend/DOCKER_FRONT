@@ -50,7 +50,7 @@ export const PassportObject = () => {
           <NavLink to={'/domain/passport/hardwares'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
-            Оборудования
+            Оборудование
           </NavLink>
         </div>
 
@@ -66,7 +66,7 @@ export const PassportObject = () => {
 
               {tab === "information" && "Паспорт объекта"}
               {tab === "participants" && "Участники"}
-              {tab === "hardwares" && "Оборудования"}
+              {tab === "hardwares" && "Оборудование"}
 
             </h1>
           </div>

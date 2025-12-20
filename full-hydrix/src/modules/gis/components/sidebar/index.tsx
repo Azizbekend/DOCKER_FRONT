@@ -70,6 +70,7 @@ export const Sidebar = observer(() => {
                     {location.pathname.includes("gis") && <SidebarItem link='/exit' icon='exit-client' title='Выйти' onClick={logout} />}
                 </div>
             </div>
+
         </div >
     )
 })

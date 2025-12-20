@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import logo from './static/img/logo-3.png';
 import { useEffect } from 'react';
 
+
 export const Layout = () => {
   useEffect(() => {
     const style = document.createElement('style');
@@ -41,6 +42,10 @@ export const Layout = () => {
     };
   }, []);
 
+
+
+
+
   return (
     <>
       {/* Water-themed background */}
@@ -61,14 +66,11 @@ export const Layout = () => {
         <div className="absolute top-2/3 left-2/3 w-24 h-24 border-2 border-white/20 rounded-full opacity-30 animate-ping delay-500"></div>
       </div>
 
-      <div
-        className="flex w-full min-h-screen z-10 relative"
-        style={{ fontFamily: "'Open Sans', sans-serif" }}
-      >
+      <div className="flex w-full min-h-screen z-10 relative">
 
 
         {/* Left engaging section */}
-        <div className="w-[48%] min-h-screen bg-gradient-to-b from-[#4A85F6] via-[#3a6bc9] to-[#2a52a0] relative overflow-hidden flex flex-col">
+        <div className="w-[48%] min-h-screen bg-gradient-to-b relative overflow-hidden flex flex-col" id='selector'>
           {/* Decorative background elements */}
           <div className="absolute top-0 left-0 w-full h-full">
             <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>

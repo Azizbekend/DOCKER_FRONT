@@ -7,6 +7,7 @@ import { Icon } from '@/shared/ui/icon';
 import { coordinates, infoContacts, itemsInfo1, itemsInfo2 } from '../data/data';
 import { BlockContainer } from '../components/block-container';
 import DocumentViewer from '../components/document-viewer';
+import docs from "../../../../../../public/docs/functionGuide.pdf"
 
 export const PassportInformation = observer(() => {
 
@@ -27,7 +28,7 @@ export const PassportInformation = observer(() => {
     return (
 
         <div className="grid grid-cols-2 lg:grid-cols-2 gap-3">
-            <DocumentViewer isOpen={isOpen} setShow={setShow} />
+            <DocumentViewer isOpen={isOpen} setShow={setShow} docs={docs} />
 
             <div className='space-y-3'>
                 <BlockContainer title='Общая информация'>
@@ -91,7 +92,7 @@ export const PassportInformation = observer(() => {
 
                 <BlockContainer title='Документы'>
                     <div className="space-y-2">
-                        <div className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer" onClick={()=>setShow(true)}>
+                        <div className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer" onClick={() => setShow(true)}>
                             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <Icon systemName="docs" className="text-blue-700" />
                             </div>
