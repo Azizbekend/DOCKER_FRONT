@@ -12,10 +12,11 @@ class SchemeObjectModel {
     isLoading: boolean = true
     index: number = 0
 
-    preview: string = ""
+    preview: { default: string | null, red: string | null, green: string | null } = { default: null, red: null, green: null }
+
     fileId: string = ""
     hardwareSchemaId: number = 0
-    saveIMageScheme: File | null = null
+    saveIMageScheme: { default: File | null, red: File | null, green: File | null } = { default: null, red: null, green: null }
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -41,9 +42,19 @@ class SchemeObjectModel {
     }
 
 
-    setSaveIMage(e: ChangeEvent<HTMLInputElement>) {
-        this.saveIMageScheme = e.target.files && e.target?.files[0]
-        if (this.saveIMageScheme) this.preview = URL.createObjectURL(this.saveIMageScheme);
+    setSaveIMage(e: ChangeEvent<HTMLInputElement>, color: "default" | "red" | "green") {
+        if (color == "default") {
+            this.saveIMageScheme.default = e.target.files && e.target?.files[0]
+            if (this.saveIMageScheme.default) this.preview.default = URL.createObjectURL(this.saveIMageScheme.default);
+        }
+        if (color == "red") {
+            this.saveIMageScheme.red = e.target.files && e.target?.files[0]
+            if (this.saveIMageScheme.red) this.preview.red = URL.createObjectURL(this.saveIMageScheme.red);
+        }
+        if (color == "green") {
+            this.saveIMageScheme.green = e.target.files && e.target?.files[0]
+            if (this.saveIMageScheme.green) this.preview.green = URL.createObjectURL(this.saveIMageScheme.green);
+        }
     }
 
     async updateScheme() {
@@ -57,9 +68,9 @@ class SchemeObjectModel {
             hardwareSchemaId: schemeModel.model[this.index].hardwareSchemaId,
         }
 
-        if (this.saveIMageScheme) {
+        if (this.saveIMageScheme.default) {
             const formData = new FormData();
-            formData.append("File", this.saveIMageScheme);
+            formData.append("File", this.saveIMageScheme.default);
 
             const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
                 method: "POST",
@@ -70,8 +81,45 @@ class SchemeObjectModel {
 
             const schemaImageId = result.id;
             apiData.fileId = schemaImageId
+            schemeModel.model[this.index].fileId = schemaImageId
         } else {
             apiData.fileId = schemeModel.model[this.index].fileId
+        }
+
+        if (this.saveIMageScheme.red) {
+            const formData = new FormData();
+            formData.append("File", this.saveIMageScheme.red);
+
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            const schemaImageId = result.id;
+            apiData.redFileId = schemaImageId
+            schemeModel.model[this.index].redFileId = schemaImageId
+        } else {
+            apiData.redFileId = schemeModel.model[this.index].redFileId
+        }
+
+        if (this.saveIMageScheme.green) {
+            const formData = new FormData();
+            formData.append("File", this.saveIMageScheme.green);
+
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            const schemaImageId = result.id;
+            apiData.greenFileId = schemaImageId
+            schemeModel.model[this.index].greenFileId = schemaImageId
+        } else {
+            apiData.greenFileId = schemeModel.model[this.index].greenFileId
         }
 
         await updateSchemaCoordinatesCreate(apiData).then((res) => {
@@ -89,8 +137,11 @@ class SchemeObjectModel {
         })
     }
 
-    init(focusSchemeObjectData: SchemaObjectType) {
+    init() {
         this.isLoading = true
+        this.preview = { default: null, red: null, green: null }
+        this.saveIMageScheme = { default: null, red: null, green: null }
+
         this.index = schemeModel.model.findIndex(item => item.id === schemeModel.focusSchemeObjectData?.id)
         this.isLoading = false
     }

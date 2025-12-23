@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { Icon } from "@/shared/ui/icon"
 import { hardwareModel } from '@/entities/hardware/model';
 import { useEffect } from 'react';
+import { formatToTwoDecimalsSafe } from '@/shared/functions/formatToTwoDecimalsSafe';
 
 export const HardwareReview = observer(() => {
 
@@ -55,9 +56,9 @@ export const HardwareReview = observer(() => {
 
                                     <div className='flex'>
                                         {item.isCommand ?
-                                            <div className="info-comp__description text-right">{item.value || "_"}</div>
+                                            <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value) || "_"}</div>
                                             :
-                                            <div className="info-comp__description text-right">{item.value || "_"}</div>
+                                            <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value) || "_"}</div>
                                         }
                                         <div className='w-3'></div>
                                         <span>

@@ -8,7 +8,7 @@ import { tabs } from "./data/data.js";
 import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 
 export const Scheme = observer(() => {
-  const { init, test, list, focusHardware, listSensore, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
+  const { init, list, focusHardware, listSensore, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
   const [tabScheme, setTabScheme] = useState<number>(6);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [fade, setFade] = useState(false);
@@ -67,7 +67,6 @@ export const Scheme = observer(() => {
           setSchemeObjectData={setSchemeObjectData}
           switchColo={switchColo}
         />
-
         {focusHardware !== 0 && focusSchemeObject === 0 && (
           <HardwareCard
             key={focusHardware}
@@ -79,9 +78,8 @@ export const Scheme = observer(() => {
         {focusSchemeObject !== 0 && (
           <FormSchemaObject
             key={focusSchemeObject}
-            className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`}
             onClick={handleChangeImage}
-          />
+            className={`panel-scheme__info ${fade ? "fade-out" : "fade-in"}`} />
         )}
       </div>
     </div>

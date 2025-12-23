@@ -11,16 +11,20 @@ import { schemeModel } from '../../model/scheme-model';
 import { SchemeViewerType } from '../../types/type';
 import { useEffect } from 'react';
 import { Role } from '@/entities/user/role';
+import { useAuth } from '@/entities/user/context';
 
 
 export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObjectData, switchColo, listSensore }: SchemeViewerType) => {
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
 
+    const { timesFunctions, model } = schemeModel
+    const { user } = useAuth()
+
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            // schemeModel.timesFunctions()
-        }, 1000);
+            timesFunctions()
+        }, 3000);
 
         return () => {
             clearInterval(intervalId);
@@ -54,12 +58,12 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                 }}
             >
 
-                {points.map((p, _) => p.hardwareSchemaId == tabScheme && (
+                {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div
                         key={p.id}
-                        onDoubleClickCapture={() => user?.roleId === Role.Guest && setSchemeObjectData(p.id)}
+                        onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeObjectData(p.id) }}
                         onClick={() => setInfo(p.hardwareId)}
-                        className="absolute cursor-pointer z-10"
+                        className="absolute cursor-pointer z-3"
                         style={{
                             top: p.top + "%",
                             left: p.left + "%",
@@ -72,7 +76,10 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                                 {/* 48 - Красный */}
                                 {/* 169 - Зелёный */}
                                 {/* 170 - сервый */}
-                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? (switchColo ? 169 : 48) : p.focusFileId || p.fileId)} />
+
+                                {/* {p.id === 14 && <img className="not-hover h-full w-full object-cover" src={getPhoto(switchColo ? p.greenFileId : p.redFileId)} />} */}
+
+                                {p.focusFileId && <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId)} />}
                             </div>
 
 
@@ -91,9 +98,8 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                     className="scheme-view__image"
                 />
 
-
                 {/* {listSensore.map((point, key) => (
-                    <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 5 }}>
+                    <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}>
                         <div className="not-hover max-w-[150px] bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
                             <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.nodeName}</div>
                             <div className="flex items-baseline gap-1">
@@ -103,7 +109,6 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                         </div>
                     </div>
                 ))} */}
-
 
                 {tabScheme == 6 && scheme1DataPoints.map((point, key) => (
                     <div className="relative" key={key} style={{ top: point.top, left: point.left, position: "absolute", zIndex: 5 }}>

@@ -1,7 +1,5 @@
 import { Icon } from "@/shared/ui/icon"
-import { useEffect, useState } from 'react';
-import accident from "@/app/static/img/accident.svg"
-import { hardwareModel } from "@/entities/hardware/model";
+import { useEffect } from 'react';
 import { observer } from "mobx-react-lite";
 import { schemeObjectModel } from "../model/scheme-object-model";
 import { InputContainer } from "@/shared/ui/Inputs/input-container";
@@ -13,10 +11,10 @@ import Loader from "@/shared/ui/loader/loader";
 
 
 export const FormSchemaObject = observer(({ className, onClick }: { className: string, onClick: (id: number) => void }) => {
-    const { init, updateScheme, index, preview, deleteSchemeObject, hardwareSchemaId, saveIMageScheme, setTop, setLeft, setHardwareSchemaId, setHeight, setWidth, setSaveIMage, isLoading } = schemeObjectModel
+    const { init, updateScheme, index, preview, deleteSchemeObject, setTop, setLeft, setHardwareSchemaId, setHeight, setWidth, setSaveIMage, isLoading } = schemeObjectModel
 
     useEffect(() => {
-        schemeModel.focusSchemeObjectData && init(schemeModel.focusSchemeObjectData)
+        init()
     }, [])
 
     const handleSubmit = () => {
@@ -38,10 +36,32 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                     </button>
 
                     <div className="my-10 flex flex-col gap-5">
-                        <label className="w-full h-[300px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
-                            <input className="hidden" type="file" onChange={(e) => setSaveIMage(e)} />
-                            <img src={preview ? preview : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[250px] object-container" />
-                        </label>
+                        <div className="grid grid-cols-3 gap-3">
+                            <div>
+                                <p className="text-sm text-center mb-2">Обычное</p>
+                                <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
+                                    <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "default")} />
+                                    <img src={preview.default ? preview.default : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                </label>
+                            </div>
+
+                            <div>
+                                <p className="text-sm text-center mb-2">Аварии</p>
+                                <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
+                                    <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "red")} />
+                                    <img src={preview.red ? preview.red : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.redFileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                </label>
+                            </div>
+
+                            <div>
+                                <p className="text-sm text-center mb-2">Рабочее</p>
+                                <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
+                                    <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "green")} />
+                                    <img src={preview.green ? preview.green : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.greenFileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                </label>
+                            </div>
+
+                        </div>
 
                         <div className="flex gap-[20px] max-w-[450px] flex-wrap ">
                             <InputContainer

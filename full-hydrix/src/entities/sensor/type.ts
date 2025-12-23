@@ -5,7 +5,7 @@ export interface SchemaCardInterface {
     nodeInfoId: number,
     schemeId?: number,
     nodeName?: number,
-    value?: number,
+    value?: number | null,
     measurementName?: number,
 }
 export interface SchemaCardUpdateInterface {

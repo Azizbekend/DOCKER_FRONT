@@ -21,7 +21,7 @@ export const Header = observer(() => {
             </div>
             <div className="flex flex-row lg:gap-6 gap-3 w-full justify-end">
 
-                {false && location.pathname.includes('/dispatcher') &&
+                {location.pathname.includes('/dispatcher') &&
                     <Link to={"/dispatcher/helper"} className=" hidden lg:flex items-center justify-center gap-6 hover:opacity-50 duration-300 cursor-pointer bg-[var(--clr-accent)] text-white p-[3px_10px_0_20px] rounded-[12px]">
                         <div className="text-[12px] font-medium">
                             <div>Задай вопрос</div>

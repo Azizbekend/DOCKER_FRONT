@@ -2,12 +2,10 @@ import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaCoordin
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createDocuments, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteDocuments, deleteInfoHardware, Documents, getAllHardware, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getInfoHardware, getServiceApi, manyCharacteristic, schemaCoordinatesCreate, schemaCreate, updateInfoHardware } from "@/entities/hardware/api";
+import { createCharacteristic, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteInfoHardware, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getInfoHardware, manyCharacteristic, schemaCoordinatesCreate, updateInfoHardware } from "@/entities/hardware/api";
 import { toast } from "react-toastify";
-import { ControlType, ControlTypeCreate, ServiceTypeCreate } from "../components/control/type";
-import { constructNow, isValid } from "date-fns";
-import { ServiceType } from "../components/service/type";
-import { StreamControllerConfig } from "hls.js";
+import { ControlType, ControlTypeCreate, } from "../components/control/type";
+
 
 class EquipmentCreateModel {
 
@@ -345,7 +343,6 @@ class EquipmentCreateModel {
 
 
         const formData = new FormData();
-
         if (this.saveIMageScheme) {
             formData.append("File", this.saveIMageScheme);
             const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
@@ -355,7 +352,6 @@ class EquipmentCreateModel {
             const result = await response.json();
             dataCreate.fileId = result.id;
         }
-
 
         if (this.saveIMageSchemeRed) {
             formData.append("File", this.saveIMageSchemeRed);
@@ -367,8 +363,6 @@ class EquipmentCreateModel {
             dataCreate.redFileId = resultRed.id;
         }
 
-
-
         if (this.saveIMageSchemeGreen) {
             formData.append("File", this.saveIMageSchemeGreen);
             const responseGreen = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
@@ -378,9 +372,6 @@ class EquipmentCreateModel {
             const resultGreen = await responseGreen.json();
             dataCreate.greenFileId = resultGreen.id
         }
-
-
-
 
         if (this.model.id) {
             await schemaCoordinatesCreate(dataCreate).then((res) => {

@@ -14,7 +14,6 @@ import { InfoCompType } from "../../types/type";
 
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
-
   const { handleSwitchImage, switchColo } = schemeModel
 
   const { init, model, isLoading } = hardwareModel;
@@ -79,13 +78,13 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
 
   return (
     <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : "overflow-auto"}>
-      <div className={`info-comp w-full lg:pb-0 pb-10 lg:w-auto ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
+      <div className={`info-comp w-full lg:pb-0 pb-10 lg:w-auto !min-w-[470px] h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         {isLoading ? (
           <div className="h-full flex items-center justify-center">
             <Loader />
           </div>
         ) : (
-          <div >
+          <div>
             <div className="flex items-center justify-between mb-5">
               <button
                 className="flex items-center gap-2 text-gray-700 hover:text-[#4A85F6] font-medium transition-colors"
@@ -114,17 +113,10 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
             </div>
 
-            {model.id === 28 ?
-              <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
-                <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
-              </div>
-              :
-              <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                <div className={`w-3 h-3 rounded-full bg-green-500`}></div>
-                <span className="font-medium text-gray-800">Работает</span>
-              </div>
-            }
+            <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
+              <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
+              <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
+            </div>
 
             {model.id === 28 && !switchColo && (
               <>

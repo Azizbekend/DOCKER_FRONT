@@ -19,8 +19,6 @@ export const EquipmentRegistry = observer(() => {
 
   useEffect(() => {
     init();
-
-    setSearch("Биологическая")
   }, []);
 
   return (
