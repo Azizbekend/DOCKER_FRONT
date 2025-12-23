@@ -151,12 +151,8 @@ class HardwareModel {
     async getInfoNodeInfoAll() {
         let ids: (string | undefined)[] = []
 
-
-
         await getNodeInfoIncidentTotal({ id: this.model.id }).then((res) => { console.log(res.data) }).catch((err) => { console.log(err) })
         await getNodeInfoIncidentAll({ id: this.model.id }).then((res) => { console.log(res.data) })
-
-
 
         for (let i = 0; i < this.commandsInfo.length; i++) {
             ids.push(this.commandsInfo[i].id)

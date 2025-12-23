@@ -1,5 +1,5 @@
 // TODO: Реализовать работу с API
-// import instance from "@/api/instances";
+// import { instance } from "@/api/instances";
 // import { UserRoutes } from "@/api/api-router";
 
 // export const register = (params: RegistrationRequest) => {

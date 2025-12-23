@@ -1,4 +1,4 @@
-import instance from "@/app/cores/core-gis/network/api"
+import { instance } from "@/app/cores/core-gis/network/api"
 import { SewersRoutes, StatsRoutes } from "@/app/cores/core-gis/network/api-routes"
 
 export const getTableMunicipalities = (params: getDateMunicipalities) => {

@@ -1,5 +1,5 @@
 
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { WaterCompanyRoutes } from "@/app/cores/core-gis/network/api-routes"
 import { GetWaterCompanyOperatorsRequest } from "./types"
 

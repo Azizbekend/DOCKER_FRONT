@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { OrderRoutes, UserRoutes } from "@/app/cores/core-gis/network/api-routes"
 import { GetOrderCustomerRequest } from "./type"
 

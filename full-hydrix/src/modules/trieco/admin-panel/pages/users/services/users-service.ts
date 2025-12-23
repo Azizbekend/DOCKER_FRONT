@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { CompanyRoutes, UserRoutes } from "@/app/cores/core-trieco/network/api-routes"
 
 export const GetAllUsers = () => {

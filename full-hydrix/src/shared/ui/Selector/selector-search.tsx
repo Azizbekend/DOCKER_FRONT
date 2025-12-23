@@ -3,11 +3,12 @@ import { ReactNode, useState } from "react";
 import { Icon } from "../icon";
 import { useSearch } from "../Inputs/hooks/hook-search";
 import { Input } from "../Inputs/input-text";
+import { SeletectItemInterface } from "./type";
 
 type Props = {
     placeholder: string;
-    items: Item[];
-    onSelect?: (item: Item) => void;
+    items: SeletectItemInterface[];
+    onSelect?: (item: SeletectItemInterface) => void;
     classWripper?: string;
     className?: string;
     titleClass?: string;
@@ -15,15 +16,12 @@ type Props = {
     notEditTitle?: boolean;
 }
 
-type Item = {
-    value: string | number;
-    title: string;
-}
+
 
 export const SelectorSearch = observer(({ placeholder, items, onSelect, className, classWripper, icon, titleClass, notEditTitle }: Props) => {
     let [isOpen, setOpen] = useState(false)
 
-    const { search, setSearch, results } = useSearch<Item>({ data: items, searchFields: ['title'] })
+    const { search, setSearch, results } = useSearch<SeletectItemInterface>({ data: items, searchFields: ['title'] })
 
     const onChange = (value: string) => {
         setSearch(value)

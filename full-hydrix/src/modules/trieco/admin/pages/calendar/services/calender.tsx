@@ -1,5 +1,5 @@
 import { OrderRoutes } from "@/app/api/api-router"
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 
 export const getOrdersByIdTransporterCompany = (params: GetOrderTransporterCompanyId) => {
     return instance.get(OrderRoutes.GetByIdTransporterCompany, { params })

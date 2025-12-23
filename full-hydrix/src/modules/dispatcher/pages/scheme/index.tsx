@@ -8,9 +8,9 @@ import { tabs } from "./data/data.js";
 import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 
 export const Scheme = observer(() => {
-  const { init, test, list, focusHardware, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
-  const [tabScheme, setTabScheme] = useState<number>(8);
-  const [activeTab, setActiveTab] = useState<number>(1);
+  const { init, test, list, focusHardware, listSensore, setFocusHardware, focusSchemeObject, setSchemeObjectData, switchColo } = schemeModel;
+  const [tabScheme, setTabScheme] = useState<number>(6);
+  const [activeTab, setActiveTab] = useState<number>(0);
   const [fade, setFade] = useState(false);
 
   useEffect(() => {
@@ -38,13 +38,13 @@ export const Scheme = observer(() => {
   return (
     <div className="informations-dispatch__scheme scheme-dispatch relative mt-8" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
-        <button
+        {/* <button
           key={555}
           onClick={() => test()}
           className={`lg:px-5 lg:py-2.5 rounded-t-lg font-semibold min-w-max lg:text-sm px-3 py-3 text-[12px] transition-all duration-200 bg-gray-100 text-gray-700 bg-gray-200`}
         >
           Кликл
-        </button>
+        </button> */}
 
         {tabs.map((tab) => (
           <button
@@ -60,6 +60,7 @@ export const Scheme = observer(() => {
       <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh] lg:mb-0 mb-10">
 
         <SchemeViewer
+          listSensore={listSensore}
           setInfo={handleChangeImage}
           points={list}
           tabScheme={tabScheme}

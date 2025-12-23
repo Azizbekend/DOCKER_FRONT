@@ -1,7 +1,9 @@
 import { Characteristics, Control, ControlBlock, Documents, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
-import instance, { reserchInstance } from "@/app/api/instances"
+
+import { reserchInstance } from "@/app/api/instances"
+
 import { CharacteristicsCreateInterface, CharacteristicsCreateManyInterface, CreateHardwareInterface, ObjectInfoInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
-import { ControlType, ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-form/components/control/type"
+import { ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-form/components/control/type"
 
 
 export const getAllHardware = () => {
@@ -116,7 +118,6 @@ export const deleteCommandApi = (params: { id: number }) => {
 
 
 // Схема
-
 export const schemaCreate = (params: SchemaCreateType) => {
     return reserchInstance.post(Schema.create, params)
 }
@@ -152,9 +153,6 @@ export const passportObjectAll = () => {
 export const controlBlockCreate = (params: { name: string, plcIpAdress: string, staticObjectInfoId: number, }) => {
     return reserchInstance.post(ControlBlock.create, params)
 }
-
-// Documents
-
 
 export interface Documents {
     title: string,

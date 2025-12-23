@@ -1,5 +1,5 @@
 import { PlantRoutes } from "@/app/api/api-router";
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { GetWaterCompanyPlantsRequest } from "./types";
 
 export const getWaterCompanyPlants = (params: GetWaterCompanyPlantsRequest) => {

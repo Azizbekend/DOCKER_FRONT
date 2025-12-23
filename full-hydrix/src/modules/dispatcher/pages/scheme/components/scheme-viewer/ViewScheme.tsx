@@ -13,13 +13,13 @@ import { useEffect } from 'react';
 import { Role } from '@/entities/user/role';
 
 
-export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObjectData, switchColo }: SchemeViewerType) => {
+export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObjectData, switchColo, listSensore }: SchemeViewerType) => {
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
 
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            // schemeModel.checkIncidents()
+            // schemeModel.timesFunctions()
         }, 1000);
 
         return () => {
@@ -72,7 +72,7 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                                 {/* 48 - Красный */}
                                 {/* 169 - Зелёный */}
                                 {/* 170 - сервый */}
-                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId || p.fileId)} />
+                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.id === 14 ? (switchColo ? 169 : 48) : p.focusFileId || p.fileId)} />
                             </div>
 
 
@@ -90,6 +90,20 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                     alt="scheme"
                     className="scheme-view__image"
                 />
+
+
+                {/* {listSensore.map((point, key) => (
+                    <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 5 }}>
+                        <div className="not-hover max-w-[150px] bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
+                            <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.nodeName}</div>
+                            <div className="flex items-baseline gap-1">
+                                <span className=" text-emerald-400 font-semibold ">{point.value}</span>
+                                <span className="text-[10px] text-gray-400">{point.measurementName}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))} */}
+
 
                 {tabScheme == 6 && scheme1DataPoints.map((point, key) => (
                     <div className="relative" key={key} style={{ top: point.top, left: point.left, position: "absolute", zIndex: 5 }}>

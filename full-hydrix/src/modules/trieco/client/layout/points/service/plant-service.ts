@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { PlantsRoutes } from "@/app/api/instances-routes"
 
 export const getAllPlants = (params: GetCompanyPlantsRequest) => {

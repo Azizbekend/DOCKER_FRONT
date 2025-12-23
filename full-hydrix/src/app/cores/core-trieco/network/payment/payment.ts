@@ -1,4 +1,4 @@
-import instance from "../api";
+import { instance } from "@/app/api/instances";
 import { PaymentRoutes } from "../api-routes";
 
 export const getPaymentDetails = (params: GetPaymentRequest) => {

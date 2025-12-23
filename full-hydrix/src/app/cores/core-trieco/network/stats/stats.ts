@@ -1,4 +1,4 @@
-import instance from "../api"
+import { instance } from "@/app/api/instances"
 import { StatRoutes } from "../api-routes"
 
 export type GetCompanyStatRequest = {
@@ -6,13 +6,13 @@ export type GetCompanyStatRequest = {
 }
 
 export const getAvgPriceStat = (params: GetCompanyStatRequest) => {
-    return instance.get(StatRoutes.GetAvgPrice, {params})
+    return instance.get(StatRoutes.GetAvgPrice, { params })
 }
 
 export const getTransportIncome = (params: GetCompanyStatRequest) => {
-    return instance.get(StatRoutes.GetTransportingIncome, {params})
+    return instance.get(StatRoutes.GetTransportingIncome, { params })
 }
 
 export const getExported = (params: GetCompanyStatRequest) => {
-    return instance.get(StatRoutes.GetExported, {params})
+    return instance.get(StatRoutes.GetExported, { params })
 }

@@ -2,19 +2,11 @@ import { useState } from "react";
 import { Button } from "@/shared/ui/button";
 import { Icon } from "@/shared/ui/icon";
 import { CameraItem } from "./video-item";
-import { videoSurveillanceModel } from "../model/video-surveillance-model";
 
-
-interface VideoSliderProps {
-    cameraSources: string[];
-    setBigViewSrc: (src: string) => void;
-}
-
-export const VideoSlider = () => {
-    const { cameraSources, setBigViewSrc } = videoSurveillanceModel
-    const [active, setActive] = useState(0);
+export const VideoSlider = ({ cameraSources, CameraSwitch }: { cameraSources: number[], CameraSwitch: (value: number) => void }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [active, setActive] = useState(0);
     const itemsToShow = 4;
 
     const nextSlide = () => {
@@ -48,7 +40,7 @@ export const VideoSlider = () => {
                         }}
                     >
                         {cameraSources.map((src, index) => (
-                            <CameraItem setSrc={setBigViewSrc} onClick={() => setActive(index)} active={active == index} count={index} key={index} src={src} />
+                            <CameraItem onClick={() => { setActive(index); CameraSwitch(src) }} active={active == index} count={index} key={index} />
                         ))}
                     </div>
                 </div>

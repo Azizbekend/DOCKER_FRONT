@@ -1,5 +1,5 @@
 import { UserRoutes } from "@/app/api/api-router";
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { SewersRoutes } from "@/app/cores/core-trieco/network/api-routes";
 
 export const getSewersByCompanyId = (params: SewersGetByCompanyRequest) => {

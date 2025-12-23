@@ -195,6 +195,14 @@ export const Schema = {
   getCoordinates: "/schemas/schemas/coordinates",
 }
 
+
+export const SchemaCard = {
+  create: "schemas/card/create",
+  all: "/schemas/scheme/cards",
+  update: "/schemas/card/update",
+  delete: "/schemas/card/delete",
+}
+
 export const SchemaCooradinate = {
   update: "/schemas/schemas/coordinates/update",
   delete: "/schemas/schema/coordinates",
@@ -254,4 +262,11 @@ export const Service = {
 export const PassportObject = {
   create: "/Passport/create",
   all: "/Passport/all",
+}
+
+
+export const Camery = {
+  connect: "/connect",
+  switch: "/switch",
+  disconnect: "/disconnect",
 }

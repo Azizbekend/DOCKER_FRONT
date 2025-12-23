@@ -21,8 +21,7 @@ export const Header = observer(() => {
             </div>
             <div className="flex flex-row lg:gap-6 gap-3 w-full justify-end">
 
-                {
-                    location.pathname.includes('/dispatcher') &&
+                {false && location.pathname.includes('/dispatcher') &&
                     <Link to={"/dispatcher/helper"} className=" hidden lg:flex items-center justify-center gap-6 hover:opacity-50 duration-300 cursor-pointer bg-[var(--clr-accent)] text-white p-[3px_10px_0_20px] rounded-[12px]">
                         <div className="text-[12px] font-medium">
                             <div>Задай вопрос</div>
@@ -40,7 +39,7 @@ export const Header = observer(() => {
                 <div className="flex flex-row">
                     <div className="h-full w-[1px] bg-[#C2C2C2]" />
                     <div className="bg-[#C2C2C2] rounded-full w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] lg:ml-6 ml-3" />
-                    {user &&
+                    {user && false &&
                         <div className="flex h-full flex-col justify-center items-start ml-4">
                             <span className="font-semibold text-[16px]">{user?.lastName + " " + user?.firstName}</span>
                             <span className="text-[12px]">{getRoleText(user?.roleId)}</span>

@@ -1,5 +1,5 @@
 import { UserRoutes } from "@/app/api/api-router"
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 
 export const updateUserService = (data: UpdateUserEntity) => {
     return instance.put(UserRoutes.Update, data, { params: { id: data.id } })

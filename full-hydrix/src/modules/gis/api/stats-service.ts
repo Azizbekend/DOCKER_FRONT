@@ -8,7 +8,7 @@ export const getExportUtilizationStats = (params: GetStatRequest) => {
     return instance.get(StatsRoutes.ExportUtilization, { params, responseType: 'blob' })
 }
 
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { StatsRoutes } from "@/app/cores/core-gis/network/api-routes"
 
 export const getSummaryRecycleByCompanyStat = (params: GetStatRequest) => {

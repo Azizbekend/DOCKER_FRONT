@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { MunicipalityRoutes } from "@/app/api/instances-routes";
 
 export type Municipality = {

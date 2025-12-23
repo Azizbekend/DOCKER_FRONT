@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { OrderRoutes } from "@/app/api/instances-routes"
 
 export const createOrder = (data: CreateOrderEntity) => {

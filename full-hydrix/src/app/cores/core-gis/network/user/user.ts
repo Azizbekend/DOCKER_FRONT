@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { UserRoutes } from "@/app/api/instances-routes";
 
 export const GetUserById = (params: GetUserByIdRequest) => {

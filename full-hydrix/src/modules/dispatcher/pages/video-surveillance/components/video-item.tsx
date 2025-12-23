@@ -3,48 +3,12 @@ import { useEffect, useRef } from "react";
 import Hls from "hls.js";
 
 interface CameraItemProps {
-    src: string,
-    setSrc: (value: string) => void,
-
     onClick: () => void,
     active: boolean,
     count: number
 }
 
-export const CameraItem = ({ active, src, setSrc, onClick, count }: CameraItemProps) => {
-    const videoRef = useRef<HTMLVideoElement | null>(null);
-
-    const handleClick = () => {
-        setSrc(src);
-        onClick()
-    };
-
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-
-        let hls: Hls | null = null;
-
-        // Chrome/Firefox
-        if (Hls.isSupported()) {
-            hls = new Hls({ enableWorker: true });
-            hls.loadSource(src);
-            hls.attachMedia(video);
-
-            hls.on(Hls.Events.ERROR, (event, data) => {
-                console.warn("HLS error:", data);
-            });
-        } else {
-            // Safari
-            video.src = src;
-        }
-
-        return () => {
-            if (hls) hls.destroy();
-        };
-    }, [src]);
-
-
+export const CameraItem = ({ active, onClick, count }: CameraItemProps) => {
     const CameraIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -64,13 +28,11 @@ export const CameraItem = ({ active, src, setSrc, onClick, count }: CameraItemPr
         </svg>
     );
 
-
-
     return (
         <div
             className={`flex-shrink-0 transition-all duration-300 transform cursor-pointer`}
             style={{ width: `calc(${100 / 4}% - 16px)` }}
-            onClick={handleClick}
+            onClick={onClick}
         >
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden border border-gray-700">
                 {/* Placeholder-область вместо видео */}

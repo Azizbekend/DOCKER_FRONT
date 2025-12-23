@@ -372,6 +372,24 @@ export const AppRouter = createBrowserRouter([
                             }
                         ]
                     },
+                    {
+                        path: "incident",
+                        async lazy() {
+                            const { Incident } = await import("@/modules/dispatcher/pages/incident")
+                            return {
+                                Component: Incident
+                            }
+                        },
+                    },
+                    {
+                        path: "sensor/form",
+                        async lazy() {
+                            const { SensorForm } = await import("@/modules/dispatcher/pages/sensor-form")
+                            return {
+                                Component: SensorForm
+                            }
+                        },
+                    }
                 ]
             },
             {

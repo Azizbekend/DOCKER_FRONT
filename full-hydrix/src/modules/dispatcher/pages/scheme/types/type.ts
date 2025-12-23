@@ -1,4 +1,5 @@
 import { SchemaObjectType } from "@/entities/hardware/type"
+import { SchemaCardInterface } from "@/entities/sensor/type"
 
 export type InformationsComponentsType = {
     title: string,
@@ -18,7 +19,8 @@ export type SchemeViewerType = {
     tabScheme: number,
     points: SchemaObjectType[],
     setSchemeObjectData: (id: number) => void,
-    switchColo: boolean
+    switchColo: boolean,
+    listSensore: SchemaCardInterface[]
 }
 
 export type SchemeViewerPointType = {

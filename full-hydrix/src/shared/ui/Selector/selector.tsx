@@ -1,30 +1,27 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Icon } from "../icon";
+import { SeletectItemInterface } from "./type";
 
 type Props = {
     title: string;
-    items: Item[];
-    onSelect?: (item: Item) => void;
+    items: SeletectItemInterface[];
+    onSelect?: (item: SeletectItemInterface) => void;
     classWripper?: string;
     className?: string;
     titleClass?: string;
     icon?: string;
     notEditTitle?: boolean;
     defaultValue?: string | number;
-}
-
-type Item = {
-    value: string | number;
-    title: string;
+    disabled?: boolean;
 }
 
 export const Selector = observer(({
-    title, items, onSelect, className, classWripper, icon, titleClass, notEditTitle, defaultValue
+    title, items, onSelect, className, classWripper, icon, titleClass, notEditTitle, defaultValue, disabled = false
 }: Props) => {
 
     const [isOpen, setOpen] = useState(false);
-    const [selected, setSelected] = useState<Item | null>(null);
+    const [selected, setSelected] = useState<SeletectItemInterface | null>(null);
 
     // Устанавливаем выбранный элемент если передан defaultValue
     useEffect(() => {
@@ -37,7 +34,7 @@ export const Selector = observer(({
     return (
         <div
             className={`flex flex-col cursor-pointer relative rounded-lg ${classWripper}`}
-            onClick={() => setOpen(prev => !prev)}
+            onClick={() => { !disabled && setOpen(prev => !prev) }}
         >
             <div
                 className={`w-full outline-none disabled:bg-zinc-200 ${icon && "justify-between"} ${titleClass}`}

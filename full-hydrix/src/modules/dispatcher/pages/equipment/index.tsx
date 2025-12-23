@@ -33,6 +33,13 @@ export const EquipmentRegistry = observer(() => {
           <Icon systemName="plus-white" className="w-4 h-4" />
           Добавить оборудование
         </Link>
+        <Link
+          to="/dispatcher/sensor/form"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
+        >
+          <Icon systemName="plus-white" className="w-4 h-4" />
+          Добавить датчик
+        </Link>
 
         <Search
           value={search}

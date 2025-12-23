@@ -8,6 +8,7 @@ import { PassportInformation } from "./tabs/information"
 import { useState } from "react";
 import { CreateCompanyModal } from "./components/create-company-modal";
 import { EquipmentRegistry } from "./tabs/equipment";
+import { Incident } from "./tabs/incident";
 
 export const PassportObject = () => {
 
@@ -52,6 +53,11 @@ export const PassportObject = () => {
           >
             Оборудование
           </NavLink>
+          <NavLink to={'/domain/passport/incident'}
+            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
+          >
+            Аварии
+          </NavLink>
         </div>
 
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between h-[100px] gap-4 z-2 rounded-2xl bg-white shadow-sm p-6">
@@ -63,11 +69,9 @@ export const PassportObject = () => {
               <Icon systemName="arrow-left" className="text-white" />
             </Link>
             <h1 className="text-xl md:text-2xl font-bold">
-
               {tab === "information" && "Паспорт объекта"}
               {tab === "participants" && "Участники"}
-              {tab === "hardwares" && "Оборудование"}
-
+              {tab === "incident" && "Аварии"}
             </h1>
           </div>
 
@@ -112,6 +116,7 @@ export const PassportObject = () => {
         {tab === "information" && <PassportInformation />}
         {tab === "participants" && <PassportParticipants />}
         {tab === "hardwares" && <EquipmentRegistry />}
+        {tab === "incident" && <Incident />}
 
       </div>
     </>

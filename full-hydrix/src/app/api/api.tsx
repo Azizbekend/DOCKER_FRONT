@@ -1,4 +1,4 @@
-// import instance from "@api/setting"
+// import { instance } from "@api/setting"
 
 // export const getAllMunicipalities = () => {
 //     return instance.get(MunicipalityRoutes.GetAll)

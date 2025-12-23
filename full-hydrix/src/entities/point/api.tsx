@@ -1,5 +1,5 @@
 import { PickupPointRoutes } from "@/app/api/api-router"
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { GetAllPointRequest, Point, UpdatePointRequest } from "./type"
 
 export const getAllPointsByUser = (params: GetAllPointRequest) => {

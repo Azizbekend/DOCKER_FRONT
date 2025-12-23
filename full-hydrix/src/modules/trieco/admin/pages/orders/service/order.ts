@@ -1,5 +1,5 @@
 import { OrderRoutes, UserRoutes } from "@/app/api/api-router";
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { MunicipalityRoutes } from "@/app/cores/core-gis/network/api-routes";
 
 export const getAllOrders = () => {

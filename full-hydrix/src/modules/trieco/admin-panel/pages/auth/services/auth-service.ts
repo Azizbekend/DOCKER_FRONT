@@ -1,4 +1,4 @@
-import instance from "@/app/api/instances";
+import { instance } from "@/app/api/instances";
 import { UserRoutes, CompanyRoutes } from "@/app/api/instances-routes";
 
 export const identifyByPhone = (params: IdentifyByPhoneRequest) => {

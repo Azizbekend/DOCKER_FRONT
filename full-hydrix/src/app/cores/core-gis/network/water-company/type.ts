@@ -1,4 +1,4 @@
-import instance from "../api"
+import { instance } from "@/app/api/instances"
 import { WaterCompanyRoutes } from "../api-routes"
 
 export type GetWaterCompanyRequest = {

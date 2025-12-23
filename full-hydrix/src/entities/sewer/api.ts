@@ -2,7 +2,7 @@
 //     return instance.get(SewersRoutes.GetByCompanyId, { params })
 // }
 
-import instance from "@/app/api/instances"
+import { instance } from "@/app/api/instances"
 import { SewersRoutes } from "@/app/cores/core-gis/network/api-routes"
 import { GetSewersCompanyId } from "./type"
 
