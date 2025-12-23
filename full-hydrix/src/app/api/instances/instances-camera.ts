@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:5012";
+const baseUrl = "http://hydrig.gsurso.ru/camera";
 
 
 export const reserchCamera = axios.create({
