@@ -114,10 +114,17 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
             </div>
 
-            <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
-              <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
-            </div>
+            {model.id === 28 ?
+              <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
+                <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
+              </div>
+              :
+              <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div className={`w-3 h-3 rounded-full bg-green-500`}></div>
+                <span className="font-medium text-gray-800">Работает</span>
+              </div>
+            }
 
             {model.id === 28 && !switchColo && (
               <>

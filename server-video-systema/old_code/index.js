@@ -182,7 +182,7 @@ function stopFfmpegAndExit() {
     logger.info('Stopping ffmpeg and exiting...');
     if (ffmpegProc) {
         try {
-            ffmpegProc.kill('SIGINT'); // корректное завершение
+            ffmpegProc.kill('SIGINT');
             setTimeout(() => {
                 if (ffmpegProc) ffmpegProc.kill('SIGKILL');
                 process.exit(0);
