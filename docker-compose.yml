@@ -19,5 +19,5 @@ services:
       context: ./server-video-systema
     ports:
       - 5012:5012
-    command: node scr/server.js
+    command: node src/server.js
     working_dir: /app 
