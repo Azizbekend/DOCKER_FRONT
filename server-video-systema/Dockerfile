@@ -8,8 +8,8 @@ RUN apk add --no-cache ffmpeg
 
 RUN npm i
 
-COPY scr ./scr/
+COPY src ./src/
 
 EXPOSE 5012
 
-CMD ["node", "scr/server.js"]
+CMD ["node", "src/server.js"]
