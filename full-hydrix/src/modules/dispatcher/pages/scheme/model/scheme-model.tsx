@@ -1,6 +1,6 @@
 import { getInfoNodeInfos, getSchemaObjects, statusCheck } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import { SchemaCardInterface } from "@/entities/sensor/type";
 import { ApiSchemaCardAll } from "@/entities/sensor/api";
@@ -13,6 +13,7 @@ class SchemeModel {
 
     focusHardware: number = 0
     focusSchemeObject: number = 0
+    focusSchemeSensore: number = 0
     focusSchemeObjectData: SchemaObjectType | null = null
     switchColo: boolean = false;
 
@@ -33,51 +34,30 @@ class SchemeModel {
         return this.schemaSensoreData
     }
 
-    async init() {
-        await getSchemaObjects({ id: 6 }).then((res) => {
-            this.model = res.data
+    async init(schemeIds: number[]) {
+        try {
+            const [objects, sensors] = await Promise.all([
+                Promise.all(schemeIds.map(id => getSchemaObjects({ id }))),
+                Promise.all(schemeIds.map(id => ApiSchemaCardAll({ id })))
+            ]);
 
-            res.data.forEach(element => {
-                this.idska.push(element.hardwareId)
+            runInAction(() => {
+                this.model = objects.flatMap(r => r.data);
+                this.schemaSensoreData = sensors.flatMap(r => r.data);
             });
-        })
 
-        await getSchemaObjects({ id: 8 }).then((res) => {
-            this.model.push(...res.data)
+            this.idska = this.model.map(item => item.hardwareId);
+            this.idskaSensores = this.schemaSensoreData.map(item => item.nodeInfoId);
 
-            res.data.forEach(element => {
-                this.idska.push(element.hardwareId)
-            });
-        })
-
-        await ApiSchemaCardAll({ id: 6 }).then((res) => {
-            this.schemaSensoreData = res.data
-        })
-
-        await ApiSchemaCardAll({ id: 8 }).then((res) => {
-            this.schemaSensoreData.push(...res.data)
-        })
-
-        for (let i = 0; i < this.schemaSensoreData.length; i++) {
-            this.idskaSensores.push(this.schemaSensoreData[i].nodeInfoId)
+        } catch {
+            toast.error("Ошибка загрузки схемы");
         }
+
+        console.log(this.model)
     }
-
-
-    async test() {
-        this.statusCheckApi()
-    }
-
-    async statusCheckApi() {
-        await statusCheck({ ids: this.idska })
-            .then((res) => {
-                console.log(res.data)
-            })
-    }
-
-
 
     setFocusHardware(id: number) {
+        this.closePanels()
         if (this.focusSchemeObject != 0) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
@@ -86,6 +66,7 @@ class SchemeModel {
     }
 
     setSchemeObjectData(id: number) {
+        this.closePanels()
         if (this.focusSchemeObject == id) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
@@ -93,6 +74,22 @@ class SchemeModel {
             this.focusSchemeObjectData = this.model[this.model.findIndex(item => item.id === id)]
             this.focusSchemeObject = id
         }
+    }
+
+    setSchemeSensoreData(id: number) {
+        this.closePanels()
+        if (this.focusSchemeSensore == id) {
+            this.focusSchemeSensore = 0
+        } else {
+            this.focusSchemeSensore = id
+        }
+    }
+
+    closePanels() {
+        this.focusSchemeObject = 0;
+        this.focusSchemeSensore = 0;
+        this.focusHardware = 0;
+        this.focusSchemeObjectData = null;
     }
 
     handleSwitchImage() {
@@ -120,7 +117,6 @@ class SchemeModel {
                 }
             })
     }
-
 
     async checkIncidents() {
         await statusCheck({ ids: this.idska }).then((res) => {

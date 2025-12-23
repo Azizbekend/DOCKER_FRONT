@@ -7,7 +7,7 @@ import { Button } from "@/shared/ui/button"
 import { useEffect } from "react"
 import { Selector } from "@/shared/ui/Selector/selector"
 import Loader from "@/shared/ui/loader/loader"
-import { schemeSensoreModel } from "./model/form-sensor"
+import { sensoreModel } from "./model/form-sensor"
 import { SelectorSearch } from "@/shared/ui/Selector/selector-search"
 
 
@@ -16,7 +16,7 @@ export const SensorForm = observer(() => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { initFormData, setTop, setLeft, isLoading, isNodeLoading, listNodes, model, listHardwares, listSchemesTest, setNodeInfoId, setHardware, setSchemeId, create, schemaName, hardwareName, nodeName } = schemeSensoreModel
+    const { initFormData, setTop, setLeft, isLoading, isNodeLoading, listNodes, model, listHardwares, listSchemesTest, setNodeInfoId, setHardware, setSchemeId, create, schemaName, hardwareName, nodeName } = sensoreModel
 
     useEffect(() => {
         initFormData()

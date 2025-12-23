@@ -14,7 +14,7 @@ import { Role } from '@/entities/user/role';
 import { useAuth } from '@/entities/user/context';
 
 
-export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObjectData, switchColo, listSensore }: SchemeViewerType) => {
+export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData, switchColo, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
 
     const { timesFunctions, model } = schemeModel
@@ -92,14 +92,10 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                     </div>
                 ))}
 
-                <img ref={imgRef}
-                    src={tabScheme == 6 ? image : image2}
-                    alt="scheme"
-                    className="scheme-view__image"
-                />
-
-                {/* {listSensore.map((point, key) => (
-                    <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}>
+                {listSensore.map((point, key) => (
+                    <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}
+                        onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(point.id) }}>
+                            {point.schemeId}
                         <div className="not-hover max-w-[150px] bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
                             <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.nodeName}</div>
                             <div className="flex items-baseline gap-1">
@@ -108,9 +104,9 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                             </div>
                         </div>
                     </div>
-                ))} */}
+                ))}
 
-                {tabScheme == 6 && scheme1DataPoints.map((point, key) => (
+                {/* {tabScheme == 6 && scheme1DataPoints.map((point, key) => (
                     <div className="relative" key={key} style={{ top: point.top, left: point.left, position: "absolute", zIndex: 5 }}>
                         <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
                             <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.name}</div>
@@ -132,7 +128,14 @@ export const SchemeViewer = observer(({ setInfo, points, tabScheme, setSchemeObj
                             </div>
                         </div>
                     </div>
-                ))}
+                ))} */}
+
+                <img ref={imgRef}
+                    src={tabScheme == 6 ? image : image2}
+                    alt="scheme"
+                    className="scheme-view__image"
+                />
+
             </div>
         </div >
     );

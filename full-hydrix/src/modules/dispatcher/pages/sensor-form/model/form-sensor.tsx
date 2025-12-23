@@ -6,7 +6,7 @@ import { SeletectItemInterface } from "@/shared/ui/Selector/type"
 import { makeAutoObservable } from "mobx"
 import { toast } from "react-toastify"
 
-class SchemeSensoreModel {
+class SensoreModel {
 
     model: SchemaCardInterface = {
         top: "",
@@ -99,27 +99,6 @@ class SchemeSensoreModel {
             .catch((err) => { console.log(err) })
     }
 
-    async update() {
-        await ApiSchemaCardUpdate({
-            id: 2,
-            top: "48%",
-            left: "25.7%",
-        })
-            .then((res) => {
-                toast.success("Данные обновились", { progressStyle: { background: "green" } })
-            })
-            .catch((err) => { console.log(err) })
-
-    }
-
-    async delete() {
-        await ApiSchemaCardDelete({ id: 2 })
-            .then((res) => {
-                toast.success("Карточка удалена", { progressStyle: { background: "green" } })
-            })
-            .catch((err) => { console.log(err) })
-    }
-
     async initFormData() {
         this.isLoading = true
 
@@ -150,4 +129,4 @@ class SchemeSensoreModel {
     }
 }
 
-export const schemeSensoreModel = new SchemeSensoreModel()
+export const sensoreModel = new SensoreModel()

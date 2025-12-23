@@ -19,6 +19,7 @@ export type SchemeViewerType = {
     tabScheme: number,
     points: SchemaObjectType[],
     setSchemeObjectData: (id: number) => void,
+    setSchemeSensoreData: (id: number) => void,
     switchColo: boolean,
     listSensore: SchemaCardInterface[]
 }
