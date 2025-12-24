@@ -21,6 +21,15 @@ export const OrderCard = ({ title, status, date, time, id }: Props) => {
         })
     }, [id])
 
+    const getStatusColor = (statusId: number) => {
+        switch (statusId) {
+            case 1: return 'bg-green-100 text-green-800';
+            case 2: return 'bg-yellow-100 text-yellow-800';
+            case 3: return 'bg-red-100 text-red-800';
+            default: return 'bg-gray-100 text-gray-800';
+        }
+    };
+
     return (
         <div className="w-[290px] h-[170px] overflow-hidden relative rounded-xl bg-[#2879E4]">
             <div className="absolute flex items-center w-full h-full pl-[19px] pr-[24px] py-[15px] top-0 left-0">

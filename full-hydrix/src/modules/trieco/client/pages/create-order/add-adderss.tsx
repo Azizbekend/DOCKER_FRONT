@@ -9,17 +9,15 @@ import { Input } from '@/shared/ui/Inputs/input-text';
 import { InputContainer } from '@/shared/ui/Inputs/input-container';
 import { Button } from '@/shared/ui/button';
 
-const YandexMapComponent: React.FC = observer(() => {
+const YandexMapComponent = observer(({ getPage }: { getPage: () => void }) => {
     const { user } = clientModel;
-    const { nextPage, isAddress, changeAddress, model, getPoints, pickupPoints, setPickupPoint, showMap, setCoords, selectedPoint, changeMunicipality } = createOrderModel;
+    const { isAddress, changeAddress, model, getPoints, pickupPoints, showMap, setCoords, changeMunicipality } = createOrderModel;
 
     const [showPoints, setShowPoints] = useState<boolean>(false);
     const { modelMap } = mapVKModel;
 
 
-    useEffect(() => {
-        getPoints(user?.id || 0)
-    }, [])
+    useEffect(() => { getPoints(user?.id) }, [])
 
     // ===РАБОТА С КАРТОЙ===
     // Ссылки на блок карты
@@ -27,7 +25,7 @@ const YandexMapComponent: React.FC = observer(() => {
     // Ссылка на карту 
     const mapRef = useRef<mmrgl.Map | null>(null);
     //! Ссылка на маркер
-    // const markerRef = useRef<mmrgl.Marker | null>(null);
+    const markerRef = useRef<mmrgl.Marker | null>(null);
 
     // Переменная для централизации карты по координатам
     const [center, setcenter] = useState<[number, number]>(modelMap.initialCenter);
@@ -99,17 +97,17 @@ const YandexMapComponent: React.FC = observer(() => {
         mapRef.current = map;
 
         //! Вставление маркера
-        // var marker = new mmrgl.Marker({
-        //     pitchAlignment: "map",
-        // })
-        // markerRef.current = marker;
+        var marker = new mmrgl.Marker({
+            pitchAlignment: "map",
+        })
+        markerRef.current = marker;
 
 
         // Обработчик клика для получения координат
         const handleMapClick = async (e: mmrgl.MapMouseEvent & { lngLat: mmrgl.LngLat; }) => {
             setcenter([e.lngLat.lng, e.lngLat.lat]);
             map.setCenter([e.lngLat.lng, e.lngLat.lat])
-            //! markerRef.current?.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map).getLngLat()
+            !markerRef.current?.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map).getLngLat()
 
             // Функция для получение данных по координатам 
             getAdressCoordinates(e.lngLat, getResultMap)
@@ -218,7 +216,7 @@ const YandexMapComponent: React.FC = observer(() => {
 
             <Button
                 disabled={!isAddress()}
-                onClick={nextPage} children="Продолжить"
+                onClick={getPage} children="Продолжить"
                 class='bg-[#4A85F6] text-white mt-[20px] rounded-lg max-w-[242px] w-full flex items-center justify-center font-bold text-[17px]' />
         </div >
     );

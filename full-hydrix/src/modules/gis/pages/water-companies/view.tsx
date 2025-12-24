@@ -116,7 +116,7 @@ export const CompanyListView = observer(() => {
 
             <div className="flex flex-col w-[50%] gap-6">
                 <span className="text-[34px] font-semibold">Список водоканалов</span>
-                <div className="flex flex-row gap-8 items-center">
+                <div className="flex flex-row gap-8 items-center mb-10">
                     <Button children="Создать" class="bg-[#4A85F6] h-[38px] px-6 flex items-center hover:opacity-50 duration-300 text-white" onClick={() => setShowCreateCompanyModal(true)} />
                     <Search placeholder="Поиск (название, адрес)" value={search} onChange={setSearch} classNames={{
                         container: "w-min rounded-lg h-[38px]",

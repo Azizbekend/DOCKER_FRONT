@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import operatorListModel from "./models/operator-list-model";
 import { Table } from "@/shared/ui/table/index";
-import { TableColumn } from "@/shared/ui/table/setting/types";
+import { TableColumn } from "@/shared/ui/table/types";
 import { Icon } from "@/shared/ui/icon";
 import { OperatorRole, operatorRole } from "@/entities/user/hooks";
 import { OperatorInfoModal } from "./components/info-operator-madal";

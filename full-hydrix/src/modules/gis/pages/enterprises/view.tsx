@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import clientCompaniesModel, { TypeInfoType } from "./models/client-company-model";
 import { Table } from "@/shared/ui/table/index";
 import { ClientCompany } from "@/entities/company/type";
-import { TableColumn } from "@/shared/ui/table/setting/types";
 import { Button } from "@/shared/ui/button";
 import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
 import { Search } from "@/shared/ui/Inputs/input-search";
 import { CreateEnterprice } from "./components/create-enterprise";
+import { TableColumn } from "@/shared/ui/table/types";
 
 const columns: TableColumn<ClientCompany>[] = [
     {
@@ -96,50 +96,47 @@ export const EnterprisesView = observer(() => {
                             </Button>
                         </div>
                     </div>
-                    {
-                        typeInfo == TypeInfoType.listCompanies
-                            ?
-                            <>
-                                <div className="flex justify-between w-[100%]">
-                                    <div className="flex gap-[23px]">
-                                        <Button children="Добавить" class="bg-[#4A85F6] h-[38px] px-6 flex items-center hover:opacity-50 duration-300 text-white"
-                                            onClick={() => setShow(true)} />
-                                        <Search
-                                            placeholder="Поиск..."
-                                            value={search}
-                                            onChange={setSearch}
-                                            classNames={{
-                                                container: "w-min rounded-lg h-[38px]",
-                                                input: "!w-[400px]",
-                                            }}
-                                        />
-                                    </div>
-                                    <Button class='px-[32px] py-[9px] text-[#4a85f6] border-[#4a85f6] border-solid border-[2px] items-center justify-center' children={<span className="font-semibold leading-none text-[#4a85f6]">Архив</span>} />
-                                </div>
-                                <Table
-                                    columns={columns}
-                                    data={results.length > 0 ? results : []}
-                                    countActive
+                    {typeInfo == TypeInfoType.listCompanies ? <>
+                        <div className="flex justify-between w-[100%]">
+                            <div className="flex gap-[23px]">
+                                <Button children="Добавить" class="bg-[#4A85F6] h-[38px] px-6 flex items-center hover:opacity-50 duration-300 text-white"
+                                    onClick={() => setShow(true)} />
+                                <Search
+                                    placeholder="Поиск..."
+                                    value={search}
+                                    onChange={setSearch}
                                     classNames={{
-                                        body: "mt-4",
+                                        container: "w-min rounded-lg h-[38px]",
+                                        input: "!w-[400px]",
                                     }}
                                 />
-
-                            </>
-                            :
-                            <div className="w-max">
-                                <div className="flex">
-                                    <Search
-                                        placeholder="Поиск..."
-                                        value={search}
-                                        onChange={setSearch}
-                                        classNames={{
-                                            container: "w-min rounded-lg h-[38px]",
-                                            input: "!w-[400px]",
-                                        }}
-                                    />
-                                </div>
                             </div>
+                            <Button class='px-[32px] py-[9px] text-[#4a85f6] border-[#4a85f6] border-solid border-[2px] items-center justify-center' children={<span className="font-semibold leading-none text-[#4a85f6]">Архив</span>} />
+                        </div>
+                        <Table
+                            columns={columns}
+                            data={results.length > 0 ? results : []}
+                            countActive
+                            classNames={{
+                                body: "mt-4",
+                            }}
+                        />
+
+                    </>
+                        :
+                        <div className="w-max">
+                            <div className="flex">
+                                <Search
+                                    placeholder="Поиск..."
+                                    value={search}
+                                    onChange={setSearch}
+                                    classNames={{
+                                        container: "w-min rounded-lg h-[38px]",
+                                        input: "!w-[400px]",
+                                    }}
+                                />
+                            </div>
+                        </div>
                     }
                 </div>
             </div>

@@ -2,36 +2,25 @@
 import { AddDetails } from "./add-details";
 import { observer } from "mobx-react-lite";
 import { Created } from "./created";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import YandexMapComponent from "./add-adderss";
 import { createOrderModel } from "./entities/create-order-model";
 import { useAuth } from "@/entities/user/context";
 import { getAdressCoordinates } from "@/shared/ui/mapVK/mapVk-functions";
+import Cookies from "universal-cookie";
 
 export const CreateOrder = observer(() => {
-    const { user } = useAuth();
-    const location = useLocation();
+    const navigate = useNavigate();
     const [params] = useSearchParams();
-
-    const { pageCounter, setPage, changeAddress, model, changeMunicipality } = createOrderModel;
+    const { tab } = useParams();
+    const cookie = new Cookies();
+    const { init, changeAddress, model, saveData, changeMunicipality, clearData, save } = createOrderModel;
+    const { user } = useAuth();
 
 
     useEffect(() => {
-        if (params.get("result") != null) {
-            if (params.get('result') === "success") {
-                setPage(3)
-                createOrderModel.save(user?.id || 0);
-                params.delete('result');
-                const newUrl = `${window.location.pathname}?${params.toString()}`;
-                window.history.replaceState(null, '', newUrl);
-            }
-            else {
-                toast("Не удалось создать заявку", { progressStyle: { background: "red" } });
-            }
-        }
-
         if (params.get("adress") !== null) {
             getAdressCoordinates({ lat: Number(params.get("latitude")), lng: Number(params.get("longitude")) || 0 }, (data: any) => {
 
@@ -40,17 +29,16 @@ export const CreateOrder = observer(() => {
 
                 model.longitude = Number(params.get("longitude"))
                 model.latitude = Number(params.get("latitude"))
-                setPage(1)
-
             })
         }
-    }, [location])
+        init(cookie.get("order") !== undefined ? cookie.get("order") : null);
+    }, [])
 
     return (
         <>
-            {pageCounter === 1 && <YandexMapComponent />}
-            {pageCounter === 2 && <AddDetails />}
-            {pageCounter === 3 && <Created />}
+            {tab === "map" && <YandexMapComponent getPage={() => { navigate('/trieco/client/order/create/detail'); saveData() }} />}
+            {tab === "detail" && <AddDetails getPage={() => { save(user?.id); navigate('/trieco/client/order/create/сreated'); }} />}
+            {tab === "сreated" && <Created getPage={() => { navigate('/trieco/client/'); clearData() }} />}
             {/* {pageCounter === 4 && <></>} */}
         </>
     )

@@ -5,15 +5,16 @@ import { observer } from "mobx-react-lite";
 import { Input } from "@/shared/ui/GIS";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";
+import { useAuth } from "@/entities/user/context";
 
 export const ProfileView = observer(() => {
     const { model, init, changeEmail, changeFirstName, changeLastName, changeMiddleName, changePhone, update, isValid } = updateUserModel;
-    const { setUser, user } = clientModel;
+    const { setUser, user } = useAuth();
     useEffect(() => {
         user && init(user)
     }, [])
     return (
-        <div className="mt-16 py-8 px-10 flex flex-col gap-14 shadow-[1px_1px_5px_rgb(145,_145,_145)] rounded-[6px] ">
+        <div className="mt-16 py-8 px-10 flex flex-col gap-14 bg-white shadow-[1px_1px_5px_rgb(145,_145,_145)] rounded-[6px] ">
             <div className="flex flex-col gap-6">
 
                 <div className="flex justify-between pb-6 mb-6 border-b-[1px]">
@@ -40,7 +41,7 @@ export const ProfileView = observer(() => {
                     </div>
                 </div>
             </div>
-            <Button children="Обновить профиль" onClick={() => update(setUser)} class={`!w-fit px-[15px] font-bold py-[11px] bg-[#${isValid ? "4080FB" : "DCDEE3"}]`} />
+            <Button children="Обновить профиль" onClick={() => update(setUser)} class={`text-white !w-fit px-[15px] font-bold py-[11px] bg-[#${isValid ? "4080FB" : "DCDEE3"}]`} />
         </div>
     )
 })

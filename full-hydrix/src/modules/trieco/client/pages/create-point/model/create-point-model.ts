@@ -28,14 +28,22 @@ export class CreatePointModel {
     }
 
     get canCreate() {
+        return true
         return this.model.address != "" && this.model.wasteVolume != 0
     }
 
     create(userId: number) {
-        this.model.userId = userId
 
-        createPoint(this.model).then(x => {
-            window.location.href = '/'
+        createPoint({
+            id: this.model.id,
+            pointId: this.model.pointId,
+            address: this.model.address,
+            wasteVolume: this.model.wasteVolume,
+            userId: userId,
+            latitude: this.model.latitude,
+            longitude: this.model.longitude,
+        }).then(x => {
+            window.location.href = '/trieco/client'
         })
     }
 }

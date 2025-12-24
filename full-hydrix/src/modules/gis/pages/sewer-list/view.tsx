@@ -6,7 +6,7 @@ import { ButtonCheckList } from "@/shared/ui/button-check-list";
 import { Table } from "@/shared/ui/table/index";
 import { useEffect, useState } from "react";
 import { Sewer } from "@/entities/sewer/type";
-import { TableColumn } from "@/shared/ui/table/setting/types";
+import { TableColumn } from "@/shared/ui/table/types";
 import { Button } from "@/shared/ui/button";
 import { SewerInfoModal } from "./component/sewer-info-modal";
 import sewerMapModel from "./models/sewer-map-model";

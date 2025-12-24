@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import createPointModel from "./model/create-point-model";
-import clientModel from "../../kernel/model/client-model";
 import { observer } from "mobx-react-lite";
 
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
@@ -8,10 +7,11 @@ import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
 import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/shared/ui/mapVK/mapVk-functions";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/GIS";
+import { useAuth } from "@/entities/user/context";
 
 export const CreatePointView = observer(() => {
     const { canCreate: isAddress, changeAddress, model, create, changeWasteVolume } = createPointModel;
-    const { user } = clientModel;
+    const { user } = useAuth();
     const { modelMap } = mapVKModel;
 
 
@@ -144,7 +144,7 @@ export const CreatePointView = observer(() => {
 
                 <div className='mb-[30px] w-full relative'>
                     <Input
-                        value={model.wasteVolume}
+                        value={model.wasteVolume || ""}
                         onChange={(v) => changeWasteVolume(v)}
                         placeholder=''
                         type="number"
@@ -172,7 +172,7 @@ export const CreatePointView = observer(() => {
                 <div ref={mapContainer} style={{ width: '100%', height: '400px' }} />
 
                 <Button
-                    onClick={() => create(user?.id || 0)}
+                    onClick={() => create(user?.id)}
                     disabled={!isAddress}
                     children="Добавить"
                     class='bg-[#4A85F6] text-white hover:opacity-50 rounded-lg max-w-[242px] w-full flex items-center justify-center font-bold text-[17px] mt-8' />

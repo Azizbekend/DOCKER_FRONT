@@ -1,4 +1,4 @@
-import { TableColumn } from "@/shared/ui/table/setting/types";
+import { TableColumn } from "@/shared/ui/table/types";
 import { ServiceHistoryType } from "../../equipment-form/components/control/type";
 
 export const columns: TableColumn<ServiceHistoryType>[] = [

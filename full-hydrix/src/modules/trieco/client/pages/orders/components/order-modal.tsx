@@ -78,11 +78,14 @@ export const OrderModal = observer(({ isOpen, setShow }: Props) => {
                     }
                 </div> :
                 <>
-                    <div className="flex flex-col gap-3">
-                        <Input headerText="Напишите причину отмены заявки" />
+                    <div className="flex flex-col gap-3 w-[500px] h-[300px]">
+                        <div>Напишите причину отмены заявки</div>
+                        <div className="p-3 rounded-lg border border-[var(--clr-border-gray)]">
+                            <textarea placeholder="Описание" className="w-full h-[160px] outline-none disabled:bg-zinc-200" />
+                        </div>
                         <div className="flex flex-row gap-6 items-center">
-                            <Button onClick={() => { orderModel.cancelOrder((id) => orderListModel.changeOrderStatus(id, OrderStatus.Cancelled)); setShow(false); orderModel.setIsCancel() }} children="Отменить" class="bg-[#4A85F6] w-max !py-3 px-6" />
-                            <Button onClick={() => orderModel.setIsCancel()} class='w-[max-content] !text-[#4A85F6] font-semibold !py-2 !px-6 rounded-[8px]' children="Назад" />
+                            <Button onClick={() => { orderModel.cancelOrder((id) => orderListModel.changeOrderStatus(id, OrderStatus.Cancelled)); setShow(false); orderModel.setIsCancel() }} children="Отменить" class="bg-[#4A85F6] w-max py-3 px-6" />
+                            <Button onClick={() => orderModel.setIsCancel()} class='w-[max-content] !text-[#4A85F6] border border-[var(--clr-accent)] font-semibold py-3 px-6 rounded-[8px]' children="Назад" />
                         </div>
                     </div>
                 </>

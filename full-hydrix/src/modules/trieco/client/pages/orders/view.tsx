@@ -1,4 +1,3 @@
-import { ColumnDef } from "@tanstack/react-table"
 import { format, parseISO } from 'date-fns';
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
@@ -6,11 +5,8 @@ import clientModel from "../../kernel/model/client-model";
 import ordersListModel from "./model/order-list-model";
 import { observer } from "mobx-react-lite";
 import { ru } from "date-fns/locale";
-import { OrderModal } from "./components/order-modal";
 import orderModel from "./model/order-model";
-import { toast } from "react-toastify";
 import { Icon } from "@/shared/ui/icon";
-import { TableColumn } from "@/shared/ui/table/setting/types";
 import { Order } from "./service/order";
 import { formatAddress } from "@/shared/ui/format-adress";
 import { OrderStatus } from "@/entities/order/order-status";
@@ -19,23 +15,26 @@ import { OrderStatusText, StatusColor } from "@/app/cores/core-trieco/lib/order"
 import { OrderCard } from "../../layout/oder-card";
 import { Table } from "@/shared/ui/table/index";
 import { Button } from "@/shared/ui/button";
+import { TableColumn } from "@/shared/ui/table/types";
+import { useAuth } from '@/entities/user/context';
+import { OrderModal } from './components/order-modal';
 
 const columns: TableColumn<Order>[] = [
-    {
-        header: "",
-        key: "selfCreated",
-        cell: ({ selfCreated }) => {
-            return (
-                <div style={{ flex: "0 0 50px", textAlign: "center" }}>
-                    {selfCreated ? (
-                        <Icon width={30} systemName="ambulance" className="cursor-pointer" />
-                    ) : (
-                        <div style={{ width: 30, height: 30 }}></div>
-                    )}
-                </div>
-            );
-        },
-    },
+    // {
+    //     header: "",
+    //     key: "selfCreated",
+    //     cell: ({ selfCreated }) => {
+    //         return (
+    //             <div style={{ flex: "0 0 50px", textAlign: "center" }}>
+    //                 {selfCreated ? (
+    //                     <Icon width={30} systemName="ambulance" className="cursor-pointer" />
+    //                 ) : (
+    //                     <div style={{ width: 30, height: 30 }}></div>
+    //                 )}
+    //             </div>
+    //         );
+    //     },
+    // },
     {
         header: "Номер заявки",
         key: 'id',
@@ -66,13 +65,10 @@ const columns: TableColumn<Order>[] = [
         header: 'Дата и время',
         key: 'arrivalStartDate',
         cell: ({ arrivalStartDate, arrivalEndDate }) => {
-            // const arrivalStartDateISO = parseISO(arrivalStartDate || "")
-            // const arrivalEndDateISO = parseISO(arrivalEndDate || "")
-            const arrivalStartDateISO = arrivalStartDate || "";
-            const arrivalEndDateISO = arrivalEndDate || "";
+            const arrivalStartDateISO = parseISO(arrivalStartDate || "")
+            const arrivalEndDateISO = parseISO(arrivalEndDate || "")
             return (
-                <span className="text-[12px]">{arrivalStartDateISO.toString()} {arrivalStartDateISO.toString()}-{arrivalEndDateISO.toString()}</span>
-                // <span className="text-[12px]">{format(arrivalStartDateISO, 'dd.MM.yyyy')} {format(arrivalStartDateISO, 'HH:mm')}-{format(arrivalEndDateISO, 'HH:mm')}</span>
+                <span className="text-[12px]">{format(arrivalStartDateISO, 'dd.MM.yyyy')} <br /> {format(arrivalStartDateISO, 'HH:mm')}-{format(arrivalEndDateISO, 'HH:mm')}</span>
             )
         },
     },
@@ -80,10 +76,9 @@ const columns: TableColumn<Order>[] = [
         header: 'Дата создания',
         key: 'timeOfPublication',
         cell: ({ timeOfPublication }) => {
-            const date = new Date(timeOfPublication)
+            const date = parseISO(timeOfPublication)
             return (
-                <div className="text-[12px] text-center">{date.toString()}</div>
-                // <div className="text-[12px] text-center">{format(date, 'd MMMM yyyy HH:mm', { locale: ru })}</div>
+                <div className="text-[12px] text-center">{format(date, 'd MMMM yyyy HH:mm', { locale: ru })}</div>
             )
         },
 
@@ -121,12 +116,12 @@ const columns: TableColumn<Order>[] = [
 
 
 export const OrdersView = observer(() => {
-    const { user } = clientModel;
+    const { user } = useAuth();
     const { initMain, modelMain, init, model, filteredModel, filter, filterId, isInit, toggleInit } = ordersListModel;
 
     useEffect(() => {
-        init(user?.id ?? 0);
-        initMain(user?.id ?? 0)
+        init(user?.id);
+        initMain(user?.id)
         return () => {
             toggleInit()
         }
@@ -136,12 +131,12 @@ export const OrdersView = observer(() => {
     const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const statuses = Object.keys(OrderStatusText).map((key) => Number(key));
 
-    if (!isInit) return <></>
 
     return (
         <>
             <div className="relative">
-                {/* <OrderModal isOpen={isOrderModalOpen} setShow={setIsOrderModalOpen} /> */}
+                <OrderModal isOpen={isOrderModalOpen} setShow={setIsOrderModalOpen} />
+
                 <div className="py-16 flex flex-col gap-8">
 
                     <div className="overflow-x-auto w-full pb-1">
@@ -155,14 +150,13 @@ export const OrdersView = observer(() => {
                         </div>
                     </div>
 
-                    <Button class="bg-[#E03131] rounded-lg px-4 py-3 max-w-[180px] ">
-                        <Link to={'/order/create'} className="w-full flex items-center justify-between">
-                            <span className="text-white">Создать заявку</span>
-                            <Icon systemName="arrow-left" />
-                        </Link>
-                    </Button>
+                    <Link to={'order/create/map'} className="bg-[#E03131] rounded-lg px-4 py-3 w-fit text-center flex items-center justify-between hover:opacity-50 duration-300">
+                        <span className="text-white">Создать заявку</span>
+                        {/* <Icon systemName="arrow-left" /> */}
+                    </Link>
+
                     <div>
-                        <div className="flex flex-row gap-4 items-center">
+                        <div className="flex flex-row gap-4 items-center mb-10">
                             <Button onClick={() => { filter(-1) }} children="Все" class={`!text-[#2879E4] text-[16px] ${filterId !== -1 && "!text-[#999999]"}`} />
                             <div className="border-r-[1px] border-[#2879E4] w-[2px] h-[24px]" />
                             <div className="flex flex-row gap-4 items-center">

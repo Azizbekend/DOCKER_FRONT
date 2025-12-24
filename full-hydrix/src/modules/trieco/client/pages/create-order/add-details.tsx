@@ -16,11 +16,12 @@ import { SelectionComponent } from "../../layout/selection";
 import { Button } from "@/shared/ui/button";
 import Cookies from "universal-cookie";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
+import { useAuth } from "@/entities/user/context";
 
 
 
-export const AddDetails = observer(() => {
-    const { user } = clientModel
+export const AddDetails = observer(({ getPage }: { getPage: () => void }) => {
+    const { user } = useAuth();
     const { model,
         changeDate,
         changeStartTime, canSave,
@@ -28,8 +29,6 @@ export const AddDetails = observer(() => {
         changeMiddleName, changePhone,
         changeWaste, selectedPoint, switchSelfCreated, isSelfCreated } = createOrderModel;
     const [minTime, setMinTime] = useState<string>("");
-
-    const cookies = new Cookies();
 
     const [cost, setCost] = useState((500 * 4))
 
@@ -59,6 +58,7 @@ export const AddDetails = observer(() => {
     return (
         <div className='pt-10'>
             <span className='font-bold text-[34px]'>Уточните детали вывоза сточных вод</span>
+            <span className='font-bold text-[34px]'>{model.address}</span>
 
             <div className='flex flex-col gap-7 mt-10 max-w-[70%]'>
                 <div className="flex flex-col gap-3">
@@ -196,7 +196,12 @@ export const AddDetails = observer(() => {
                     <span className="font-bold text-[15px]">Стоимость</span>
                     <span className="font-bold text-[22px]">{cost} рублей</span>
                 </div>
-                <form method='POST' action='https://trieco.server.paykeeper.ru/create/'  >
+                <div>
+                    <Button type="submit" children="Оформить заказ" disabled={!canSave()} onClick={getPage}
+                        class='bg-[#4A85F6] rounded-lg max-w-[242px] text-white w-full flex items-center justify-center font-bold text-[16px]' />
+                </div>
+
+                {/* <form method='POST' action='https://trieco.server.paykeeper.ru/create/'  >
                     <input type='text' name='sum' value={cost.toString()} hidden />
                     <input type='text' name='orderid' value={Guid.create().toString()} hidden />
                     <input type='text' name='service_name' value={`Оплата заказа на вывоз ${model.wasteVolume} куб.м. ЖБО`} hidden />
@@ -204,7 +209,7 @@ export const AddDetails = observer(() => {
 
                     <Button type="submit" children="Оформить заказ" disabled={!canSave()} onClick={() => cookies.set('orderData', JSON.stringify(createOrderModel.model), { expires: 0.01 })}
                         class='bg-[#4A85F6] rounded-lg max-w-[242px] w-full flex items-center justify-center font-bold text-[16px]' />
-                </form>
+                </form> */}
             </div>
         </div>
     )

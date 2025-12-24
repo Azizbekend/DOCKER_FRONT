@@ -6,7 +6,7 @@ import { volumes } from "@/entities/volume/data";
 import { useEffect, useState } from "react";
 import { OrderStatus } from "@/entities/order/order-status";
 import useOrderStatus from "@/entities/order/useOrderStatus";
-import { TableColumn } from "@/shared/ui/table/setting/types";
+import { TableColumn } from "@/shared/ui/table/types";
 import { Order } from "@/entities/order/type";
 import { Icon } from "@/shared/ui/icon";
 // import { format, parseISO } from "date-fns";

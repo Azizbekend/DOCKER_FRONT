@@ -3,7 +3,7 @@ import { createOrderModel } from "./entities/create-order-model";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";
 
-export const Created = () => {
+export const Created = ({ getPage }: { getPage: () => void }) => {
     const { clearCounter } = createOrderModel;
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export const Created = () => {
                     {/* <span className="text-[20px] font-bold">Номер вашей заявки № 5550</span> */}
                 </div>
             </div>
-            <Button onClick={() => { clearCounter(); navigate('/trieco/client/') }} children={"На главную"} class="text-white bg-[#4A85F6] flex items-center justify-center py-2 px-16" />
+            <Button onClick={getPage} children={"На главную"} class="text-white bg-[#4A85F6] flex items-center justify-center py-2 px-16" />
         </div>
     )
 }

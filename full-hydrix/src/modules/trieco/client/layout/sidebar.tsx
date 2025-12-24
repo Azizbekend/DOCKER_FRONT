@@ -4,10 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Icon } from "@/shared/ui/icon"
 import { Button } from "@/shared/ui/button"
 import { createOrderModel } from "../pages/create-order/entities/create-order-model"
+import { useAuth } from "@/entities/user/context"
 
 export const Sidebar = observer(() => {
-    const { logout } = clientModel;
-    const navigate = useNavigate();
+    const { logout } = useAuth();
     const { pageCounter, setPage } = createOrderModel;
     const location = useLocation()
     return (
@@ -54,7 +54,7 @@ export const Sidebar = observer(() => {
             </div>
             <div className="flex flex-col gap-7">
                 <span className="text-[36px] font-semibold text-white">Повысьте комфорт<br /> с TRIECO</span>
-                <Button class="flex flex-row items-center gap-4 hover:opacity-50" onClick={() => { logout(); navigate('/auth') }}>
+                <Button class="flex flex-row items-center gap-4 hover:opacity-50" onClick={() => { logout() }}>
                     <Icon systemName="exit" />
                     <span className="font-semibold text-[20px] text-white">Выйти</span>
                 </Button>

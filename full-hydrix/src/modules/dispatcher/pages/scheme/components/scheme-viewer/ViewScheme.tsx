@@ -45,7 +45,6 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
 
-
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -79,7 +78,7 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
 
                                 {/* {p.id === 14 && <img className="not-hover h-full w-full object-cover" src={getPhoto(switchColo ? p.greenFileId : p.redFileId)} />} */}
 
-                                {p.focusFileId && <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId)} />}
+                                <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId || p.fileId)} />
                             </div>
 
 
@@ -92,10 +91,9 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                     </div>
                 ))}
 
-                {listSensore.map((point, key) => (
+                {listSensore.map((point, key) => point.schemeId == tabScheme && (
                     <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(point.id) }}>
-                            {point.schemeId}
                         <div className="not-hover max-w-[150px] bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
                             <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.nodeName}</div>
                             <div className="flex items-baseline gap-1">

@@ -20,4 +20,4 @@ services:
   #   ports:
   #     - 5012:5012
   #   command: node src/server.js
-  #   working_dir: /app 
+  #   working_dir: /app   

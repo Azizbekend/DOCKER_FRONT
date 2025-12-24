@@ -1,11 +1,8 @@
 import { Icon } from "@/shared/ui/icon";
-import { Link, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/entities/hardware/model";
-import { Button } from "@/shared/ui/button";
 import { hardwareListModel } from "../../equipment/model/hardware-list-model";
 import { ModalServiceCreate } from "../../equipment/components/modal-service-create";
-import { Documents } from "@/entities/hardware/api";
 import EquipmentStatistics from "../components/equipment-statistic";
 
 export const EquipmentPassport = observer(() => {

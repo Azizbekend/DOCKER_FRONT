@@ -23,11 +23,11 @@ export const PickupPoint = ({ id, address, coords, wasteVolume }: Props) => {
 
     return (
         <div className="flex flex-row items-center">
-            <div className="mr-3">
+            <div className="mr-3 min-w-[25px] min-h-[25px]">
                 <Icon systemName="circle" width={22} height={22} />
             </div>
             <div className="flex flex-col mr-5 gap-1 w-full">
-                <Link to={`order/create?adress=${address}&latitude=${coords.latitude}&longitude=${coords.longitude}`} className="text-[16px] font-semibold">{address}</Link>
+                <Link to={`/trieco/client/order/create/map?adress=${address}&latitude=${coords.latitude}&longitude=${coords.longitude}`} className="text-[16px] font-semibold">{address}</Link>
                 <span className="text-[14px]">{coords.latitude}, {coords.longitude}</span>
             </div>
             <div>

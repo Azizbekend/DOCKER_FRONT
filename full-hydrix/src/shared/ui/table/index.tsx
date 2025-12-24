@@ -33,7 +33,7 @@ export function Table<T>(props: TableProps<T>) {
 
 
     return (
-        <div className="bg-white rounded-2xl shadow border mb-10">
+        <div className="bg-white rounded-2xl shadow overflow-hidden border mb-10">
             <div
                 className="overflow-auto h-[80vh]"
             >

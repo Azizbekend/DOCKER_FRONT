@@ -52,9 +52,8 @@ class SchemeModel {
         } catch {
             toast.error("Ошибка загрузки схемы");
         }
-
-        console.log(this.model)
     }
+    
 
     setFocusHardware(id: number) {
         this.closePanels()
@@ -128,7 +127,7 @@ class SchemeModel {
                         } else if (info.incidents == "True") {
                             this.model[i].focusFileId = this.model[i].redFileId
                         } else if (info.hardwareStatus == null || info.incidents == null) {
-                            this.model[i].focusFileId = this.model[i].fileId
+                            this.model[i].focusFileId = this.model[i].greenFileId
                         } else {
                             this.model[i].focusFileId = this.model[i].fileId
                         }

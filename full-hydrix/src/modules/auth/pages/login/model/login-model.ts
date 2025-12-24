@@ -106,6 +106,9 @@ class LoginModel {
 
                     switch (response.data.roleId) {
                         case Role.Client:
+                            setTimeout(() => {
+                                window.location.href = '/trieco/client'
+                            }, 1000)
                             break;
                         case Role.CompanyOperator:
                             break;

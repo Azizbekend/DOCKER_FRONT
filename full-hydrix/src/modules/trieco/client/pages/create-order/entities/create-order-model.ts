@@ -83,6 +83,8 @@ class CreateOrderModel {
       longitude: 0,
       selfCreated: true,
     }
+
+    cookies.remove("order");
   }
 
   setPickupPoint(point: Point | null) {
@@ -95,7 +97,7 @@ class CreateOrderModel {
   }
 
   nextPage() {
-    ++this._pageCounter;
+
   }
 
   clearCounter() {
@@ -167,7 +169,6 @@ class CreateOrderModel {
   }
 
   async save(userId: number) {
-    this._model = JSON.parse(cookies.get("orderData") || "")
     if (!this.canSave()) return;
     if (this.selectedPoint) {
       try {
@@ -192,12 +193,9 @@ class CreateOrderModel {
         window.localStorage.setItem('latitude', this.selectedPoint!.latitude.toString())
         window.localStorage.setItem('longitude', this.selectedPoint!.longitude.toString())
         this.clearData()
-        cookies.remove("orderData");
       } catch (error) {
         console.log(error)
       }
-
-
       return;
     }
     const resp = await createOrder({
@@ -219,6 +217,21 @@ class CreateOrderModel {
     })
     this.clearData()
     cookies.remove("orderData");
+  }
+
+
+  init(data: CreateOrderEntity | null) {
+    if (data) {
+      this._model = {
+        ...data,
+      }
+    }
+  }
+
+  saveData() {
+    cookies.set("order", JSON.stringify({
+      ...this._model,
+    }))
   }
 }
 
