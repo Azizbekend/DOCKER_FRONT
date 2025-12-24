@@ -79,11 +79,11 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                             </div>
 
 
-                            {p.id === 14 && !switchColo &&
+                            {/* {p.id === 14 && !switchColo &&
                                 <div className='absolute top-[20%] left-[-30%] w-[30%]'>
                                     <img src={accident} alt="" />
                                 </div>
-                            }
+                            } */}
                         </div>
                     </div>
                 ))}
