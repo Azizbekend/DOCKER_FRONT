@@ -125,10 +125,10 @@ class SchemeModel {
                     if (this.model[i].hardwareId == info.hardwareId) {
                         if (info.hardwareStatus == "True" && (info.incidents == "False" || info.incidents == null)) {
                             this.model[i].focusFileId = this.model[i].greenFileId
-                            this.model[i].status = true
+                            this.model[i].status = false
                         } else if (info.incidents == "True") {
                             this.model[i].focusFileId = this.model[i].redFileId
-                            this.model[i].status = false
+                            this.model[i].status = true
                         } else if (info.hardwareStatus == null || info.incidents == null) {
                             this.model[i].focusFileId = this.model[i].greenFileId
                             this.model[i].status = false
