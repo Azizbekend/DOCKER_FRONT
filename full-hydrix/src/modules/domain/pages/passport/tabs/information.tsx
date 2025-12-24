@@ -96,7 +96,7 @@ export const PassportInformation = observer(() => {
                             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <Icon systemName="docs" className="text-blue-700" />
                             </div>
-                            <span className="text-gray-800 font-medium">item.title</span>
+                            <span className="text-gray-800 font-medium">Паспорт объекта</span>
                         </div>
                     </div>
                 </BlockContainer>

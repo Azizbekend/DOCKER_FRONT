@@ -83,6 +83,6 @@ export const cartLinksCompany: MenuItemType[] = [
     {
         name: "Сопровождение пользователей",
         link: "",
-        userIds: [Role.Client, Role.Ministry]
+        userIds: []
     },
 ];
