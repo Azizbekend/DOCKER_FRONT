@@ -13,6 +13,7 @@ import { ExtendedColumnDef, Table } from "@/app/cores/core-trieco/UIKit/table"
 import { Button } from "@/shared/ui/button"
 import { Icon } from "@/shared/ui/icon"
 import { Input } from "@/shared/ui/GIS"
+import { useAuth } from "@/entities/user/context"
 
 const columns: ExtendedColumnDef<any, any>[] = [
     {
@@ -113,21 +114,12 @@ const columns: ExtendedColumnDef<any, any>[] = [
 export const SewerListView = observer(() => {
 
     const { init, model, isSearch, searchValue, search, searchedModel, pushTank, tanks } = sewerListModel;
-
     const location = useLocation();
+    const { triecoCompanyId } = useAuth()
 
     useEffect(() => {
-
-
-        // =================
-        // Вернуть инициализацию и убрать url-ки
-        // =================
-
         const searchParams = new URLSearchParams(location.search);
-        const userId = searchParams.get('userId');
-        console.log(userId)
-
-        // init(adminModel.companyId || 0)
+        init(triecoCompanyId)
     }, [])
 
     const [show, setShow] = useState(false)
@@ -151,7 +143,6 @@ export const SewerListView = observer(() => {
 
     return (
         <>
-            ?userId=5
             {showInfo &&
                 <SewerInfoModal onClose={() => { }} setShow={setShowInfo} show={showInfo} sewer={selectedRow} />
             }
@@ -191,7 +182,6 @@ export const SewerListView = observer(() => {
                 </div>
                 <Table onRowClick={handleRowClick} pageSize={10} columns={columns} data={isSearch ? searchedModel : model} />
             </div>
-
         </>
     )
 })

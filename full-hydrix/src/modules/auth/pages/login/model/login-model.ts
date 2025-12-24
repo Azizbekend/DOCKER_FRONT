@@ -4,7 +4,9 @@ import { authAdmin, AuthEntity } from "../services/login-service";
 import { testEmail } from "@/shared/ui/Inputs/setting/input-valid-email";
 import { Role } from "@/entities/user/role";
 import { getWaterCompanyByUserId } from "@/app/cores/core-gis/network/water-company/type";
-import { WaterCompany } from "@/entities/water-company/types";
+import { InitTriecoCompanyInterface, WaterCompany } from "@/entities/water-company/types";
+import { getUserCompany } from "@/app/cores/core-trieco/network/user/user";
+import { getRoleText } from "@/entities/user/hooks";
 
 class LoginModel {
     model: AuthEntity = { username: "", password: "" };
@@ -72,8 +74,7 @@ class LoginModel {
         // this.setCapchaCount(this.capchaCount + 1);
     }
 
-
-    public async login(initUser: () => void, initCompany: (data: WaterCompany) => void) {
+    public async login(initUser: () => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
 
         if (this.model.username == "guest") {
 
@@ -111,6 +112,14 @@ class LoginModel {
                             }, 1000)
                             break;
                         case Role.CompanyOperator:
+                            getUserCompany({ UserId: response.data.id })
+                                .then(x => {
+                                    initTriecoCompany(x.data)
+                                    setTimeout(() => {
+                                        window.location.href = '/trieco/admin'
+                                    }, 1000)
+                                })
+
                             break;
                         case Role.WaterCompany:
                             getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {

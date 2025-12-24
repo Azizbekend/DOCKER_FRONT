@@ -37,6 +37,8 @@ export type WaterCompany = {
     phoneNumber?: string;
 }
 
+export type InitTriecoCompanyInterface = { companyId: number, companyMunicipalityIds: number[] }
+
 export type DeleteCompanyRequest = {
     WaterCompanyId: number,
 }

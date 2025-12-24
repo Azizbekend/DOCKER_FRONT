@@ -14,14 +14,14 @@ import { Link } from "react-router-dom";
 
 export const LoginView = observer(() => {
 
-    const { initUser, initCompany } = useAuth();
+    const { initUser, initCompany, initTriecoCompany } = useAuth();
     const [isregister, setIsRegister] = useState<boolean>(false)
     const { model, validError, isLoading, canSubmit, isErrorStart, login } = loginModel;
 
     const handleSubmit = useCallback(
         (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-            login(initUser, initCompany);
+            login(initUser, initCompany, initTriecoCompany);
         },
         [login],
     );

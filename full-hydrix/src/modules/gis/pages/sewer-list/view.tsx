@@ -102,10 +102,10 @@ export const SewerListView = observer(() => {
     const { search, setSearch, results } = useSearch<Sewer>({ data: list, searchFields: ['sewerNumberPlate', 'sewerCarModel', 'companyName', "firstName", "lastName", "patronymic"] })
 
 
-    const { waterCompany } = useAuth();
+    const { user } = useAuth();
 
     useEffect(() => {
-        waterCompany && init(waterCompany?.id)
+        user && init(user?.id)
     }, []);
 
     const [selectedRow, setSelectedRow] = useState<Sewer | null>(null);

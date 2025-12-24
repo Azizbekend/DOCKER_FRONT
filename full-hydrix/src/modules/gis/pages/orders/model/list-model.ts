@@ -115,15 +115,6 @@ export class OrderListModel {
     }
   }
 
-  filterByMunicipalityModel() {
-    if (this.tanks.length === 0) {
-      return this.filterByMunicipalityModel;
-    }
-    return this.filterByMunicipalityModel.filter((item) =>
-      this.tanks.includes(item.wasteVolume)
-    );
-  }
-
   filterByTanksAndStatuses() {
     return this.model.filter(
       (item) =>

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, ReactNode } from "react";
 import { userModel } from "./user";
 import { User } from "./type";
-import { WaterCompany } from "../water-company/types";
+import { InitTriecoCompanyInterface, WaterCompany } from "../water-company/types";
 
 interface AuthContextType {
     // Данные пользователя
@@ -10,12 +10,14 @@ interface AuthContextType {
     isLoading: boolean;
     error: string | null;
     isAuthenticated: boolean;
+    triecoCompanyId: number | null;
 
     // Методы
     setUser: (user: User) => void;
     updateUser: (updates: Partial<User>) => void;
     initUser: () => Promise<void>;
     initCompany: (data: WaterCompany) => void;
+    initTriecoCompany: (data: InitTriecoCompanyInterface) => void;
     logout: () => void;
 }
 
@@ -41,10 +43,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         isAuthenticated: userModel.isAuthenticated,
 
         // Методы
+        triecoCompanyId: userModel.triecoCompanyId,
         setUser: userModel.setUser,
         updateUser: userModel.updateUser,
         initUser: userModel.initUser,
         initCompany: userModel.initCompany,
+        initTriecoCompany: userModel.initTriecoCompany,
         logout: userModel.logout
     };
 

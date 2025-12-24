@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
 import { User } from "./type";
-import { WaterCompany } from "../water-company/types";
+import { InitTriecoCompanyInterface, WaterCompany } from "../water-company/types";
 import { Role } from "./role";
 
 export class UserModel {
@@ -9,6 +9,7 @@ export class UserModel {
     private _waterCompany: WaterCompany | null = null;
     private _isLoading = false;
     private _error: string | null = null;
+    private _triecoCompanyId: number | null = null;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -21,6 +22,10 @@ export class UserModel {
 
     get waterCompany() {
         return this._waterCompany;
+    }
+
+    get triecoCompanyId() {
+        return this._triecoCompanyId;
     }
 
     get isLoading() {
@@ -38,14 +43,13 @@ export class UserModel {
     private initFromStorage() {
         const storedUser = localStorage.getItem("user");
         const storedWaterCompany = localStorage.getItem("waterCompany");
+        const storedTriecoCompany = localStorage.getItem("triecoCompany");
 
         if (storedUser) {
             try {
                 this._user = JSON.parse(storedUser);
-
-                if (storedWaterCompany) {
-                    this._waterCompany = JSON.parse(storedWaterCompany);
-                }
+                if (storedWaterCompany) this._waterCompany = JSON.parse(storedWaterCompany);
+                if (storedTriecoCompany) this._triecoCompanyId = JSON.parse(storedTriecoCompany).companyId
             } catch {
                 this.clearStorage();
             }
@@ -106,8 +110,16 @@ export class UserModel {
     }
 
     initCompany(data: WaterCompany) {
+
+        console.log(data)
+
         this._waterCompany = data;
         localStorage.setItem("waterCompany", JSON.stringify(data));
+    }
+
+    initTriecoCompany(data: InitTriecoCompanyInterface) {
+        this._triecoCompanyId = data.companyId
+        localStorage.setItem("triecoCompany", JSON.stringify(data));
     }
 
     logout() {

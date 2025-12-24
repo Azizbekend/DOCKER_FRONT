@@ -6,14 +6,9 @@ import adminModel from "../kernel/model/admin-model";
 import { observer } from "mobx-react-lite";
 
 export const AdminLayout = observer(() => {
-    const navigate = useNavigate();
-
     const { init } = adminModel;
 
-    useEffect(() => {
-        init();
-    }, [])
-
+    useEffect(() => { init() }, [])
 
     return (
         <div className="bg-[#F5F5F5] flex min-h-screen">
