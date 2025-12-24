@@ -114,11 +114,9 @@ const columns: ExtendedColumnDef<any, any>[] = [
 export const SewerListView = observer(() => {
 
     const { init, model, isSearch, searchValue, search, searchedModel, pushTank, tanks } = sewerListModel;
-    const location = useLocation();
     const { triecoCompanyId } = useAuth()
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
         init(triecoCompanyId)
     }, [])
 

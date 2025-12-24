@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite"
-import clientModel from "../kernel/model/client-model"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { Icon } from "@/shared/ui/icon"
 import { Button } from "@/shared/ui/button"
 import { createOrderModel } from "../pages/create-order/entities/create-order-model"
+import logo from "./static/logo-3.png"
 import { useAuth } from "@/entities/user/context"
 
 export const Sidebar = observer(() => {
@@ -14,8 +14,10 @@ export const Sidebar = observer(() => {
         <div className="h-screen overflow-hidden w-1/3 p-[50px] bg-[#4A85F6] flex flex-col justify-between">
             <div className="flex flex-col gap-[100px]">
                 <div className="flex flex-row gap-[25px] items-center">
-                    <Icon systemName="client-logo" width={55} height={55} />
-                    <span className="font-bold text-[27px] text-white">TRIECO</span>
+
+                    <img src={logo} alt="logo" className="w-[50px]" />
+
+                    <span className="font-bold text-[27px] text-white">ИАС “Цифровой Водоканал”</span>
                 </div>
                 {
                     location.pathname === "/order/create" &&

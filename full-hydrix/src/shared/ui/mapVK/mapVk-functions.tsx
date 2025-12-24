@@ -53,6 +53,7 @@ async function getAdressCoordinates(lngLat: { lat: number, lng: number }, getRes
             `https://maps.vk.com/api/search?api_key=${_token}&q=${lngLat.lat},${lngLat.lng}&lang=ru&limit=1&fields=address_details,address,pin`
         );
 
+
         const data: any = await response.json();
 
         if (data.results?.length > 0 && getResultMap) {

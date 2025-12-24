@@ -22,7 +22,7 @@ export const CreateSewerModal = observer(({ onClose }: Props) => {
         changePhone, changeEmail
     } = createSewerModel;
 
-    const { user } = useAuth();
+    const { triecoCompanyId } = useAuth();
 
     return (
         <>
@@ -78,10 +78,7 @@ export const CreateSewerModal = observer(({ onClose }: Props) => {
                         {
                             <Button
                                 onClick={() => {
-                                    createSewer(user?.companyId || 0, (sewer) => {
-                                        sewerListModel.pushSewer(sewer);
-                                        onClose();
-                                    });
+                                    createSewer(triecoCompanyId, (sewer) => { sewerListModel.pushSewer(sewer); onClose(); });
                                 }}
                                 children="Создать"
                                 class="text-white bg-[#4a85f6] py-[10px] px-[17px]"

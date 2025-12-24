@@ -14,14 +14,13 @@ import { InfoCompType } from "../../types/type";
 
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
-  const { handleSwitchImage, switchColo } = schemeModel
+  const { handleSwitchImage, switchColo, focusHardwareStatus } = schemeModel
 
-  const { init, model, isLoading } = hardwareModel;
+  const { init, model, isLoading, incidentList } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
     init(id, true);
-
   }, [id]);
 
   // Статус оборудования
@@ -80,15 +79,18 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
     <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : "overflow-auto"}>
       <div className={`info-comp w-full lg:pb-0 pb-10 lg:w-auto !max-w-[470px] h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         {isLoading ? (
+
           <div className="h-full flex items-center justify-center">
             <Loader />
           </div>
+
         ) : (
+
           <div>
             <div className="flex items-center justify-between mb-5">
               <button
                 className="flex items-center gap-2 text-gray-700 hover:text-[#4A85F6] font-medium transition-colors"
-                onClick={() => onClick(0)}
+                onClick={() => onClick(0, false)}
               >
                 <div className="rotate-180">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,11 +116,28 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
 
             <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <div className={`w-3 h-3 rounded-full ${!switchColo ? "bg-red-500" : "bg-green-500"}`}></div>
-              <span className="font-medium text-gray-800">{!switchColo ? "Не работает" : "Работает"}</span>
+              <div className={`w-3 h-3 rounded-full ${focusHardwareStatus ? "bg-red-500" : "bg-green-500"}`}></div>
+              <span className="font-medium text-gray-800">{focusHardwareStatus ? "Не работает" : "Работает"}</span>
             </div>
 
-            {model.id === 28 && !switchColo && (
+            {incidentList.length > 0 && incidentList.map((incident, _) => {
+              return (
+                <div key={incident.nodeId}>
+                  <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
+                    <img src={accident} alt="Авария" width={24} height={24} />
+                    <div className="text-red-800 font-medium">
+                      {incident.nodeName}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2 mb-4">
+                    <div onClick={() => handleSwitchImage()} className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
+                    <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
+                  </div>
+                </div>
+              )
+            })}
+            {/* {model.id === 28 && !switchColo && (
               <>
                 <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
                   <img src={accident} alt="Авария" width={24} height={24} />
@@ -132,7 +151,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                   <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
                 </div>
               </>
-            )}
+            )} */}
 
             <div className="flex gap-3 mb-6 bg-gray-100 p-1 rounded-lg">
               {['Обзор', 'Управление', 'Сервис'].map((tab, index) => (

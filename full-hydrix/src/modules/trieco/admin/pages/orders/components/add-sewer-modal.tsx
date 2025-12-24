@@ -7,21 +7,21 @@ import { Sewer } from "../../sewer-list/services/sewers";
 import { useAuth } from "@/entities/user/context";
 
 type Props = {
+    id: number | null;
     show: boolean;
     setShow: (value: boolean) => void;
 };
 
-export const AttachSewerModal = observer(({ show, setShow }: Props) => {
+export const AttachSewerModal = observer(({ show, setShow, id }: Props) => {
     const { filteredSewers, handleInput, init, selectedSewer, handleSelect, attach, orderId } = attachSewerModel;
 
     const [showList, setShowList] = useState(false);
     const [inputValue, setInput] = useState("");
 
-    const { user } = useAuth()
 
     const listRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
-        init(user?.companyId || 0);
+        init(id);
     }, []);
 
     useEffect(() => {

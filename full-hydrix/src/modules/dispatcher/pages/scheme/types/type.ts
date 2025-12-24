@@ -15,7 +15,7 @@ export type InformationsType = {
 
 
 export type SchemeViewerType = {
-    setInfo: (id: number) => void,
+    setInfo: (id: number, status: boolean) => void,
     tabScheme: number,
     points: SchemaObjectType[],
     setSchemeObjectData: (id: number) => void,
@@ -56,7 +56,7 @@ export type InfoCompType = {
     id?: number,
     className: string,
     item?: InformationsComponentsType,
-    onClick: (id: number) => void
+    onClick: (id: number, status: boolean) => void
 }
 
 export type CountersType = {

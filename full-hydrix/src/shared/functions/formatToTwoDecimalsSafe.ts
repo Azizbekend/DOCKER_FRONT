@@ -1,9 +1,6 @@
-export function formatToTwoDecimalsSafe(
-    value: string | number | null | undefined
-): number | null {
-    if (value === null || value === undefined) {
-        return null;
-    }
+export function formatToTwoDecimalsSafe(value: string | number | null | undefined): number | null | string {
+
+    if (value === null || value === undefined) return "—";
 
     let num: number;
 
@@ -15,7 +12,7 @@ export function formatToTwoDecimalsSafe(
     }
 
     if (Number.isNaN(num) || !Number.isFinite(num)) {
-        return null;
+        return "—";
     }
 
     return roundToTwoDecimals(num);

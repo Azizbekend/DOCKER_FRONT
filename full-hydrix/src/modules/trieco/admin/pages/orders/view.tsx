@@ -15,24 +15,9 @@ import { Button } from "@/app/cores/core-trieco/UIKit"
 import { formatAddress } from "@/app/cores/core-trieco/UIKit/format-adress"
 import { CreateOrderModal } from "./components/create-order-modal"
 import adminModel from "../../kernel/model/admin-model"
+import { useAuth } from "@/entities/user/context"
 
 const columns: ExtendedColumnDef<any, any>[] = [
-    {
-        header: "",
-        accessorKey: "selfCreated",
-        size: 10,
-        cell: ({ row }) => {
-            return (
-                <div className="flex justify-center items-center" style={{ minWidth: 50 }}>
-                    {row.original["selfCreated"] ? (
-                        <Icon width={30} systemName="ambulance" className="cursor-pointer" />
-                    ) : (
-                        <div style={{ width: 30, height: 30 }}></div>
-                    )}
-                </div>
-            );
-        },
-    },
     {
         header: "ФИО Заказчика",
         accessorKey: 'firstName',
@@ -180,11 +165,11 @@ export const OderListView = observer(() => {
     const [switchMunicipalityFilter, setSwitchMunicipalityFilter] = useState(false)
     const [showAddSidebar, setAddShowSidebar] = useState(false);
 
-    const companyId = adminModel.companyId;
+    const { triecoCompanyId } = useAuth()
 
     useEffect(() => {
-        if (companyId) {
-            init(companyId);
+        if (triecoCompanyId) {
+            init(triecoCompanyId);
         }
     }, [init])
 
@@ -194,7 +179,7 @@ export const OderListView = observer(() => {
                 <CreateOrderModal onClose={() => setAddShowSidebar(!showAddSidebar)} />
             )}
 
-            <AttachSewerModal setShow={setModalShow} show={isModalShow} />
+            <AttachSewerModal setShow={setModalShow} show={isModalShow} id={triecoCompanyId} />
             <OrderModal isOpen={isOrderOpen} setShow={setOpen} />
 
             <div className="flex flex-row items-center justify-between mb-10">

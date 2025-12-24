@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 export const HardwareServes = observer(() => {
 
-    const { services, servicesToday, getCommands, servicesHistory, checkedService } = hardwareModel
+    const { getCommands, servicesHistory, checkedService } = hardwareModel
 
     const [btnCount, setBtnCount] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
@@ -36,45 +36,44 @@ export const HardwareServes = observer(() => {
 
 
             <Modal
-  title="Подтвердить выполнение задачи"
-  wrapperId="wardhare"
-  type="center"
-  show={show}
-  setShow={setShow}
-  children={
-    <div 
-      className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
-      style={{ fontFamily: "'Open Sans', sans-serif" }}
-    >
-      Вы подтверждаете выполнение задачи?
-    </div>
-  }
-  footerSlot={
-    <div className="flex justify-end gap-3 p-6">
-      <Button
-        class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-500 hover:bg-gray-700 transition-colors"
-        onClick={() => setShow(false)}
-      >
-        Отмена
-      </Button>
-      <Button
-        class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
-        onClick={handleService}
-      >
-        Подтвердить
-      </Button>
-    </div>
-  }
-  classNames={{
-    panel: "max-w-md w-full rounded-2xl border border-gray-200 shadow-xl",
-    header: "border-b border-gray-100",
-    title: "text-xl font-bold text-gray-800"
-  }}
-/>
+                title="Подтвердить выполнение задачи"
+                wrapperId="wardhare"
+                type="center"
+                show={show}
+                setShow={setShow}
+                children={
+                    <div
+                        className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
+                        style={{ fontFamily: "'Open Sans', sans-serif" }}
+                    >
+                        Вы подтверждаете выполнение задачи?
+                    </div>
+                }
+                footerSlot={
+                    <div className="flex justify-end gap-3 p-6">
+                        <Button
+                            class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-500 hover:bg-gray-700 transition-colors"
+                            onClick={() => setShow(false)}
+                        >
+                            Отмена
+                        </Button>
+                        <Button
+                            class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
+                            onClick={handleService}
+                        >
+                            Подтвердить
+                        </Button>
+                    </div>
+                }
+                classNames={{
+                    panel: "max-w-md w-full rounded-2xl border border-gray-200 shadow-xl",
+                    header: "border-b border-gray-100",
+                    title: "text-xl font-bold text-gray-800"
+                }}
+            />
 
 
-            {
-                false &&
+            {false &&
                 <div className="border-2 border-[#4A85F6] bg-[#4A85F620] rounded-[8px] mb-5 flex items-center justify-center gap-[16px] py-[16px] pl-[16px] pr-[34px]">
                     <Icon systemName="info-blue" width={32} />
                     <div className="text-regular text-[#4A85F6]">Нужно проверить и заменить масла</div>
@@ -124,7 +123,7 @@ export const HardwareServes = observer(() => {
                                         <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2'>
                                             <div className='flex flex-col flex-1'>
                                                 <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
-                                                    {new Date(item.nextMaintenanceDate).toLocaleDateString('ru-RU', {
+                                                    {new Date(item.sheduleMaintenanceDate).toLocaleDateString('ru-RU', {
                                                         day: '2-digit',
                                                         month: '2-digit',
                                                         year: 'numeric'

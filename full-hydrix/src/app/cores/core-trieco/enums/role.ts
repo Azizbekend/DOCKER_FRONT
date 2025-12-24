@@ -10,7 +10,7 @@ export enum Role {
     Admin = 9, // Админ
 }
 
-// export enum Role {
+// export enum Role {   
 //     Client = 1, //Обычный клиент
 //     Sewer = 2, // Сточная труба
 //     CompanyOperator = 3, // Перевозчик за триеко

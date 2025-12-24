@@ -8,10 +8,10 @@ import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import orderListModel from "../model/order-list-model";
-import mapVKModel from "@/app/cores/core-trieco/UIKit/mapVK/model/mapVK-model";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
-import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/app/cores/core-trieco/UIKit/mapVK/mapVk-functions";
 import { useAuth } from "@/entities/user/context";
+import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
+import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/shared/ui/mapVK/mapVk-functions";
 
 type Props = {
     onClose: () => void;
@@ -23,14 +23,12 @@ export const CreateOrderModal = observer(({ onClose }: Props) => {
         changeStartTime, changeSewer, save, getSewers, isSave, clearData, changeMunicipality } = orderModel
 
     const [switchSewer, setSwitchSewer] = useState(false)
-    const [mapType, setMapType] = useState("searchPoint")
-
     const { modelMap } = mapVKModel
 
-    const { user } = useAuth();
+    const { triecoCompanyId } = useAuth();
 
     useEffect(() => {
-        getSewers(user?.companyId || 0)
+        getSewers(triecoCompanyId)
     }, []);
 
     const handleTimeChange = (value: string) => {
@@ -62,6 +60,8 @@ export const CreateOrderModal = observer(({ onClose }: Props) => {
         };
     }, []);
 
+
+
     const close = () => {
         clearData();
         onClose();
@@ -73,8 +73,8 @@ export const CreateOrderModal = observer(({ onClose }: Props) => {
             clearData();
             onClose();
             toast.success("Заявка успешно создана", { progressStyle: { background: "green" } });
-            if (user?.companyId) {
-                orderListModel.init(user?.companyId);
+            if (triecoCompanyId) {
+                orderListModel.init(triecoCompanyId);
             }
         } catch (error) {
             toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } });
@@ -161,10 +161,11 @@ export const CreateOrderModal = observer(({ onClose }: Props) => {
         mapRef.current = map;
 
         //! Вставление маркера
-        // var marker = new mmrgl.Marker({
-        //     pitchAlignment: "map",
-        // })
-        // markerRef.current = marker;
+        const marker = new mmrgl.Marker({
+            color: "#FF0000",
+            scale: 1.2,
+        });
+        markerRef.current = marker;
 
         var geolocate = new mmrgl.GeolocateControl({
             positionOptions: {
@@ -173,17 +174,17 @@ export const CreateOrderModal = observer(({ onClose }: Props) => {
             trackUserLocation: true
         });
         map.addControl(geolocate);
-        map.on('load', function () {
+        map.on('load', () => {
             geolocate.trigger();
+            map.once('click', handleMapClick);
         });
+
 
         // Обработчик клика для получения координат
         const handleMapClick = async (e: mmrgl.MapMouseEvent & { lngLat: mmrgl.LngLat; }) => {
             setcenter([e.lngLat.lng, e.lngLat.lat]);
-            map.setCenter([e.lngLat.lng, e.lngLat.lat])
-            markerRef.current?.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map).getLngLat()
+            markerRef.current?.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map)
 
-            // Функция для получение данных по координатам 
             getAdressCoordinates(e.lngLat, getResultMap)
         };
 

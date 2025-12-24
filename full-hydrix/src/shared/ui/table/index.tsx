@@ -14,7 +14,7 @@ export function Table<T>(props: TableProps<T>) {
 
     const tableState = useTableStorageState({
         tableId: props.id!,
-        defaultPageSize: 10,
+        defaultPageSize: 20,
     });
 
     const columns = useTableColumns(props.columns, props.countActive);
@@ -34,9 +34,7 @@ export function Table<T>(props: TableProps<T>) {
 
     return (
         <div className="bg-white rounded-2xl shadow overflow-hidden border mb-10">
-            <div
-                className="overflow-auto h-[80vh]"
-            >
+            <div className={"overflow-auto h-[80vh] " + props.classNames?.body}>
                 <table className="min-w-[1100px] w-full">
                     <TableHeader table={table} gridTemplate={gridTemplate} />
                     <TableBody

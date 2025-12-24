@@ -15,14 +15,16 @@ export const Profile = observer(() => {
     const [isConfirmCodeModalShow, setConfirmCodeModalShow] = useState(false);
 
     const {
-        currentUser: user, changeEmail,
+        currentUser: changeEmail,
         changeFirstName, changeLastName,
         changeMiddleName, changePhone,
         init, isChanged, isError, updateUser, sendConfirmCode
     } = profileModel;
 
+    const { user } = useAuth()
+
     useEffect(() => {
-        // init(useAuth().user)
+        init(user)
     }, [])
 
 

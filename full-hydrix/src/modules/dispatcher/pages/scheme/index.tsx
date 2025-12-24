@@ -9,13 +9,12 @@ import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 import { FormSchemaSensore } from "./components/form-schema-sensore.js";
 
 export const Scheme = observer(() => {
-  const { init, list, focusHardware, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData } = schemeModel;
+  const { init, list, focusHardware, focusHardwareStatus, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData } = schemeModel;
   const [tabScheme, setTabScheme] = useState<number>(6);
 
   useEffect(() => {
     init([6, 8]);
   }, []);
-
 
 
   return (

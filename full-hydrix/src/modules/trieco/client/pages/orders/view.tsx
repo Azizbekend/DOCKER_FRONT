@@ -174,9 +174,6 @@ export const OrdersView = observer(() => {
                             </div>
                         </div>
                         <Table
-                            options={{
-                                pageSize: [10, 20, 50]
-                            }}
                             columns={columns}
                             data={model.length > 0 ? model : []}
                             onRowClick={(value) => { orderModel.open(model.find(x => x.id === value.id)!); setIsOrderModalOpen(true) }} />

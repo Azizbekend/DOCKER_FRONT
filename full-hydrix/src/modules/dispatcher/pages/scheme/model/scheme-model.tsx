@@ -12,15 +12,14 @@ class SchemeModel {
     schemaSensoreData: SchemaCardInterface[] = []
 
     focusHardware: number = 0
+    focusHardwareStatus: boolean = false
     focusSchemeObject: number = 0
     focusSchemeSensore: number = 0
     focusSchemeObjectData: SchemaObjectType | null = null
     switchColo: boolean = false;
 
-
     idska: number[] = []
     idskaSensores: number[] = []
-
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -56,13 +55,14 @@ class SchemeModel {
     }
 
 
-    setFocusHardware(id: number) {
+    setFocusHardware(id: number, status: boolean) {
         this.closePanels()
         if (this.focusSchemeObject != 0) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
         }
         this.focusHardware = id
+        this.focusHardwareStatus = status
     }
 
     setSchemeObjectData(id: number) {
@@ -125,12 +125,16 @@ class SchemeModel {
                     if (this.model[i].hardwareId == info.hardwareId) {
                         if (info.hardwareStatus == "True" && (info.incidents == "False" || info.incidents == null)) {
                             this.model[i].focusFileId = this.model[i].greenFileId
+                            this.model[i].status = true
                         } else if (info.incidents == "True") {
                             this.model[i].focusFileId = this.model[i].redFileId
+                            this.model[i].status = false
                         } else if (info.hardwareStatus == null || info.incidents == null) {
                             this.model[i].focusFileId = this.model[i].greenFileId
+                            this.model[i].status = false
                         } else {
                             this.model[i].focusFileId = this.model[i].fileId
+                            this.model[i].status = false
                         }
                     }
                 }

@@ -8,17 +8,12 @@ import { useAuth } from "@/entities/user/context";
 export const Requisites = observer(() => {
 
     const {
-        init, paymentDetails,
+        paymentDetails,
         canSave, changeBIK,
         changeBankName, changeCorrAcc,
         changeKPP, changePaymentAccount, save
     } = paymentModel;
 
-    const { user } = useAuth();
-
-    useEffect(() => {
-        init(user?.id || 0);
-    }, [])
 
     return (
         <div className="flex flex-col gap-6">

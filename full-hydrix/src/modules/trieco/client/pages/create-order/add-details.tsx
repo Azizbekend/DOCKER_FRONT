@@ -58,7 +58,6 @@ export const AddDetails = observer(({ getPage }: { getPage: () => void }) => {
     return (
         <div className='pt-10'>
             <span className='font-bold text-[34px]'>Уточните детали вывоза сточных вод</span>
-            <span className='font-bold text-[34px]'>{model.address}</span>
 
             <div className='flex flex-col gap-7 mt-10 max-w-[70%]'>
                 <div className="flex flex-col gap-3">

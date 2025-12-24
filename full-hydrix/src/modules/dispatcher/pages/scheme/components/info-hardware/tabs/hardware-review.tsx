@@ -55,11 +55,7 @@ export const HardwareReview = observer(() => {
                                     <div className="info-comp__title">{item.name}</div>
 
                                     <div className='flex'>
-                                        {item.isCommand ?
-                                            <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value) || "_"}</div>
-                                            :
-                                            <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value) || "_"}</div>
-                                        }
+                                        <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value)}</div>
                                         <div className='w-3'></div>
                                         <span>
                                             {item.mesurement}

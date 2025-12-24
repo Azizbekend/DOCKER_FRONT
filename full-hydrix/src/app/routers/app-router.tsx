@@ -566,7 +566,129 @@ export const AppRouter = createBrowserRouter([
                             //             ]
                             //         },
                         ]
-                    }
+                    },
+                    // {
+                    //     path: "mobile",
+                    //     async lazy() {
+                    //         const { Mobile } = await import('@/modules/trieco/mobile/kernel/mobile')
+                    //         return {
+                    //             Component: Mobile
+                    //         }
+                    //     },
+                    //     children: [
+                    //         // {
+                    //         //     path: 'registration',
+                    //         //     async lazy() {
+                    //         //         const { Registration } = await import("@/modules/trieco/mobile/pages/registration/registration")
+                    //         //         return {
+                    //         //             Component: Registration
+                    //         //         }
+                    //         //     }
+                    //         // },
+                    //         // {
+                    //         //     path: 'auth',
+                    //         //     async lazy() {
+                    //         //         const { Auth } = await import("@/modules/trieco/mobile/pages/auth/auth")
+                    //         //         return {
+                    //         //             Component: Auth
+                    //         //         }
+                    //         //     }
+                    //         // },
+                    //         // {
+                    //         //     path: 'registration/confirm',
+
+                    //         //     async lazy() {
+                    //         //         const { EmailConfirm } = await import("@/modules/trieco/mobile/pages/emal-confirm/email-confirm")
+                    //         //         return {
+                    //         //             Component: EmailConfirm
+                    //         //         }
+                    //         //     }
+                    //         // },
+                    //         {
+                    //             path: '',
+                    //             async lazy() {
+                    //                 const { MobileLayout } = await import("@/modules/trieco/mobile/components/mobile-layout")
+                    //                 return {
+                    //                     Component: MobileLayout
+                    //                 }
+                    //             },
+                    //             children: [
+                    //                 {
+                    //                     path: '',
+                    //                     async lazy() {
+                    //                         const { Main } = await import("@/modules/trieco/mobile/pages/main/main")
+                    //                         return {
+                    //                             Component: Main
+                    //                         }
+                    //                     }
+                    //                 },
+                    //                 // {
+                    //                 //     path: 'order/create',
+                    //                 //     async lazy() {
+                    //                 //         const { CreateOrder } = await import("@/modules/trieco/mobile/pages/create-order/create-order")
+                    //                 //         return {
+                    //                 //             Component: CreateOrder
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'pickup/create',
+                    //                 //     async lazy() {
+                    //                 //         const { CreatePoint } = await import("@/modules/trieco/mobile/pages/create-pickup-point/create-point")
+                    //                 //         return {
+                    //                 //             Component: CreatePoint
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'pickup/edit',
+                    //                 //     async lazy() {
+                    //                 //         const { EditPoint } = await import("@/modules/trieco/mobile/pages/edit-point/edit-point")
+                    //                 //         return {
+                    //                 //             Component: EditPoint
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'orders',
+                    //                 //     async lazy() {
+                    //                 //         const { Orders } = await import("@/modules/trieco/mobile/pages/orders/orders")
+                    //                 //         return {
+                    //                 //             Component: Orders
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'order/:id',
+                    //                 //     async lazy() {
+                    //                 //         const { Order } = await import("@/modules/trieco/mobile/pages/order/order")
+                    //                 //         return {
+                    //                 //             Component: Order
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'profile',
+                    //                 //     async lazy() {
+                    //                 //         const { Profile } = await import("@/modules/trieco/mobile/pages/profile/profile")
+                    //                 //         return {
+                    //                 //             Component: Profile
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //                 // {
+                    //                 //     path: 'notification',
+                    //                 //     async lazy() {
+                    //                 //         const { Notifications } = await import("@/modules/trieco/mobile/pages/notifications/notification")
+                    //                 //         return {
+                    //                 //             Component: Notifications
+                    //                 //         }
+                    //                 //     }
+                    //                 // },
+                    //             ]
+                    //         },
+                    //     ]
+                    // },
                 ]
             },
         ]

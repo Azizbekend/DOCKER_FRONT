@@ -1,11 +1,8 @@
 import image from '../../assets/scheme.png'
 import image2 from '../../assets/scheme2-need.png'
-
 import accident from '../../assets/icons/accident.svg'
-
 import "./ViewScheme.scss";
 import { observer } from "mobx-react-lite";
-import { scheme1DataPoints, scheme2DataPoints } from './data/data';
 import { useScheme } from './hooks/useScheme';
 import { schemeModel } from '../../model/scheme-model';
 import { SchemeViewerType } from '../../types/type';
@@ -61,7 +58,7 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                     <div
                         key={p.id}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeObjectData(p.id) }}
-                        onClick={() => setInfo(p.hardwareId)}
+                        onClick={() => setInfo(p.hardwareId, p.status)}
                         className="absolute cursor-pointer z-3"
                         style={{
                             top: p.top + "%",

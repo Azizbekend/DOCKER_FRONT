@@ -77,6 +77,9 @@ export const EquipmentRegistry = observer(() => {
       <Table
         id="equipment"
         countActive
+        classNames={{
+          body: "!h-[60vh]"
+        }}
         columns={columns}
         data={results.length > 0 ? results : []}
         onRowClick={(row) => navigate(`/dispatcher/equipment-about/${row.id}/passport/`)}

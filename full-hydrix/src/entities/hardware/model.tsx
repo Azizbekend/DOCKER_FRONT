@@ -1,4 +1,4 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -33,9 +33,9 @@ class HardwareModel {
     servicesHistory: ServiceHistoryType[] | any = []
     serviceStatistic: ServiceStatisticType[] | any = []
     documents: Documents[] | any = []
-
-
+    incidentList: { nodeId: number, nodeName: string }[] = []
     commandInfoIds: string[] = []
+    ids: (string | undefined)[] = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -46,13 +46,40 @@ class HardwareModel {
         return this.servicesToday
     }
 
+    clear() {
+        this.model = {
+            id: 0,
+            fileId: 0,
+            name: "",
+            model: "",
+            category: "",
+            developerName: "",
+            supplierName: "",
+            photoName: "",
+            position: "",
+            opcDescription: "",
+            controlBlockId: 0,
+        };
+
+        this.commands = [];
+        this.commandsInfo = [];
+        this.сharacteristic = [];
+        this.servicesToday = [];
+        this.servicesWeek = [];
+        this.servicesHistory = [];
+        this.documents = [];
+        this.incidentList = [];
+        this.ids = []
+    }
+
 
     async init(id: number, serviceTody: boolean = false) {
 
         this.isLoading = true
+        this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -61,22 +88,27 @@ class HardwareModel {
                 getServiceApi({ id: id }),
                 getServiceHistoryRecordsAllOrderedApi({ id: id }),
                 getServiceHistoryRecordsAllApi({ id: id }),
-                getDocuments({ id: id })
+                getDocuments({ id: id }),
+                getInfoNodeInfoAllCheck({ id: id })
             ]);
 
             this.model = info.data;
             this.commands = commands.data;
             this.commandsInfo = commandsInfo.data;
+            for (let i = 0; i < commandsInfo.data.length; i++) { this.ids.push(commandsInfo.data[i].id) }
+
+
             this.сharacteristic = characteristics.data;
 
             this.servicesToday = servicesToday.data;
             this.servicesWeek = week.data;
 
-            console.log(historyService.data)
             this.servicesHistory = historyService.data
             this.sortServiceHistory(statisticService.data)
 
             this.documents = documents.data;
+            this.incidentList = incidentList.data;
+
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
@@ -146,25 +178,15 @@ class HardwareModel {
         })
     }
 
-
-
     async getInfoNodeInfoAll() {
-        let ids: (string | undefined)[] = []
-
-        await getNodeInfoIncidentTotal({ id: this.model.id }).then((res) => { console.log(res.data) }).catch((err) => { console.log(err) })
-        await getNodeInfoIncidentAll({ id: this.model.id }).then((res) => { console.log(res.data) })
-
-        for (let i = 0; i < this.commandsInfo.length; i++) {
-            ids.push(this.commandsInfo[i].id)
-        }
-
         try {
-            await getInfoNodeInfos(JSON.stringify({ listId: ids }))
+            await getInfoNodeInfos(JSON.stringify({ listId: this.ids }))
                 .then(res => {
                     for (const key in res.data.indecatesGroup) {
                         this.commandsInfo = this.commandsInfo.map(item => {
 
                             if (item.id == key) {
+                                console.log(res.data.indecatesGroup[key])
                                 return { ...item, value: res.data.indecatesGroup[key] };
                             }
 

@@ -102,7 +102,8 @@ export interface SchemaObjectType {
     greenFileId?: number,
     focusFileId?: number,
     file: any,
-    hardwareId: number
+    hardwareId: number,
+    status?: boolean,
 }
 
 export interface SchemaCoordinatesCreateType {

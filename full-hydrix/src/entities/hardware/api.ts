@@ -180,6 +180,9 @@ export const getInfoNodeInfoOne = (params: { id: string }) => {
     return reserchInstance.get("/NodeIndicates/actual/plcNodeOd", { params })
 }
 
+export const getInfoNodeInfoAllCheck = (params: { id: number }) => {
+    return reserchInstance.get("/NodeInfo/nodes/incident/all_check", { params })
+}
 
 export const getNodeInfoIncidentTotal = (params: { id: number }) => {
     return reserchInstance.get("/NodeInfo/nodes/incident/total", { params })

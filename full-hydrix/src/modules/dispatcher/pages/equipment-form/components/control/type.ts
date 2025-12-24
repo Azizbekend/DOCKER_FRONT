@@ -1,7 +1,7 @@
 export interface ControlType {
   id?: string;
   name: string;
-  value?: string;
+  value?: string | number | boolean;
   mesurement: string;
   plcNodeid: string;
   plcNodeId: string;

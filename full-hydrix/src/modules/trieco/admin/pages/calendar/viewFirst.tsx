@@ -6,6 +6,7 @@ import { calendarModel } from "./models/calendar-model"
 import { getMonthName } from "./utils/monthNames"
 import { OrdersLinsPanel } from "./components/orders-lins-panel"
 import adminModel from "../../kernel/model/admin-model"
+import { useAuth } from "@/entities/user/context"
 
 export const CalendarView = observer(() => {
 
@@ -13,11 +14,12 @@ export const CalendarView = observer(() => {
     const { init, getNowDate, getcalendar, nextMonth, prevMonth } = calendarModel
     const [showInfo, setShowInfo] = useState(false)
     const [ordersListDay, setOrdersListDay] = useState<any | null>(null);
-    const companyId = adminModel.companyId;
+
+    const { triecoCompanyId } = useAuth()
 
     useEffect(() => {
-        if (companyId) {
-            init(companyId);
+        if (triecoCompanyId) {
+            init(triecoCompanyId);
         }
     }, [init])
 

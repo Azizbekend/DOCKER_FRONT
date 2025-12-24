@@ -15,11 +15,7 @@ export const MunicipalityPanel = observer(() => {
     const [error, setError] = useState<string | null>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
-    const { initUser, user } = useAuth();
-
-    useEffect(() => {
-        initUser();
-    }, []);
+    const { triecoCompanyId, user } = useAuth();
 
     useEffect(() => {
         const initData = async () => {
@@ -40,15 +36,6 @@ export const MunicipalityPanel = observer(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-
-
-    const getCompanyId = () => {
-        if (user?.companyId) {
-            toast("Компания не найдена.", { progressStyle: { background: "red" } });
-            return null;
-        }
-        return user?.companyId;
-    };
 
     const isSavedInDatabase = (id: number) => {
         return municipalityModel.municipalites.some((m) => m.id === id);
@@ -73,13 +60,13 @@ export const MunicipalityPanel = observer(() => {
         : municipalityModel.municipalites;
 
     const loadUserMunicipalities = async () => {
-        if (!user) {
+        if (!triecoCompanyId) {
             toast("Пользователь не найден.", { progressStyle: { background: "red" } });
             return;
         }
 
         try {
-            const userCompanyResponse = await getUserCompany({ UserId: user.id });
+            const userCompanyResponse = await getUserCompany({ UserId: user?.id });
             const userCompany = userCompanyResponse.data;
 
             if (!userCompany) {
@@ -102,7 +89,7 @@ export const MunicipalityPanel = observer(() => {
     };
 
     const handleSaveSelection = async () => {
-        const companyId = getCompanyId();
+        const companyId = triecoCompanyId;
         if (!companyId || !user) return;
 
         try {
@@ -136,7 +123,7 @@ export const MunicipalityPanel = observer(() => {
 
 
     const removeMunicipality = async (id: number) => {
-        const companyId = getCompanyId();
+        const companyId = triecoCompanyId;
         if (!companyId) return;
 
         const isSaved = isSavedInDatabase(id);
@@ -160,7 +147,7 @@ export const MunicipalityPanel = observer(() => {
     };
 
     const removeAllMunicipalities = async () => {
-        const companyId = getCompanyId();
+        const companyId = triecoCompanyId;
         if (!companyId) return;
 
         try {

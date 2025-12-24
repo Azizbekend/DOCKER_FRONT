@@ -9,32 +9,32 @@ interface SwitchButtonProps {
     },
 
     label?: string;
-
+    disabled: boolean,
     onChange: (value: boolean) => void;
 }
 
 
-export const SwitchButton = (props: SwitchButtonProps) => {
+export const SwitchButton = ({ classNames, label, disabled = false, onChange }: SwitchButtonProps) => {
 
 
     const [checked, setChecked] = useState(false);
 
 
     const handleClick = () => {
-        if (props.onChange) {
-            props.onChange(checked);
+        if (onChange && disabled !== true) {
+            onChange(checked);
 
             setChecked(!checked)
         }
     }
     return (
-        <div className={`flex items-cennter cursor-pointer ${props.classNames?.container}`} onClick={handleClick}>
-            <div className={`duration-300 ${props.classNames?.button}`}
+        <div className={`flex items-cennter cursor-pointer ${classNames?.container}`} onClick={handleClick}>
+            <div className={`duration-300 ${classNames?.button}`}
                 style={{
                     backgroundColor: checked ? "var(--clr-accent)" : "",
                 }}
             >
-                <div className={`duration-300 ${props.classNames?.circle}`}
+                <div className={`duration-300 ${classNames?.circle}`}
                     style={{
                         marginLeft: checked ? "auto" : "",
                     }}
@@ -42,12 +42,12 @@ export const SwitchButton = (props: SwitchButtonProps) => {
                 </div>
             </div>
 
-            <div className={`duration-300 ${props.classNames?.label}`}
+            <div className={`duration-300 ${classNames?.label}`}
 
                 style={{
                     color: checked ? "var(--clr-accent)" : "",
                 }}>
-                {props.label}
+                {label}
             </div>
         </div >
     );

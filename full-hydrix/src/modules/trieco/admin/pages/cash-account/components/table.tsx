@@ -5,6 +5,7 @@ export const TableView = () => {
         <Table columns={columns} data={data} />
     )
 }
+
 const data: any[] = [
     {
         date: '31.07.2024',

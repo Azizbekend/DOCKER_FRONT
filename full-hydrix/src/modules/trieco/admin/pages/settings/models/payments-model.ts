@@ -32,16 +32,18 @@ export class PaymentModel {
     getUserCompany({ UserId: userId })
       .then((x) => {
         this._companyId = x.data["companyId"];
-        this._paymentDetails.companyId = this._companyId;
-      })
-      .then(() => {
-        getPaymentDetails({ CompanyId: this._companyId })
+        this._paymentDetails.companyId = x.data["companyId"];
+
+        getPaymentDetails({ CompanyId: x.data["companyId"] })
           .then((x) => {
             this._paymentDetails = x.data;
             this._tempPaymentDetails = x.data;
             this._isInitPayment = true;
           })
-          .catch((x) => (this._isInitPayment = false));
+          .catch((x) => {
+            this._isInitPayment = false
+          });
+
       })
       .catch(() => {
         toast("Компания не найдена", { progressStyle: { background: "red" } });

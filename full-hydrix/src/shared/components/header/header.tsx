@@ -10,7 +10,7 @@ import { getRoleText } from "@/entities/user/hooks";
 export const Header = observer(() => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user, isAuthenticated } = useAuth();
+    const { user } = useAuth();
 
 
     return (

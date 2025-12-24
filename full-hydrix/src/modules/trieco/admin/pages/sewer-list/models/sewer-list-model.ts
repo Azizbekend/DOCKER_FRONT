@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { getSewersByCompanyId, Sewer } from "../services/sewers";
+import { deleteSewer, getSewersByCompanyId, Sewer } from "../services/sewers";
 
 export class SewerListModel {
   constructor() {
@@ -59,16 +59,19 @@ export class SewerListModel {
       : (this._tanks = this._tanks.filter((item) => item !== value));
   }
 
-  public async init(companyId: number) {
-    getSewersByCompanyId({ Id: companyId }).then((x) => {
-      this._model = x.data;
-    });
+  public async init(companyId: number | null) {
+    if (companyId) {
+      getSewersByCompanyId({ Id: companyId }).then((x) => {
+        this._model = x.data;
+      });
+    }
   }
 
   public pushSewer(sewer: Sewer) {
     this._model.push(sewer);
     this._model = this._model.slice();
   }
+
 }
 
 const sewerListModel = new SewerListModel();
