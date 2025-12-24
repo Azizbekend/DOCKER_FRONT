@@ -58,76 +58,68 @@ class SchemeObjectModel {
     }
 
     async updateScheme() {
+        const currentScheme = schemeModel.model[this.index];
+
+        const uploadImage = async (file: File): Promise<number> => {
+            const formData = new FormData();
+            formData.append("File", file);
+
+            const response = await fetch(
+                "https://triapi.ru/research/api/FileStorage/images/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                }
+            );
+
+            const result = await response.json();
+            return result.id;
+        };
 
         const apiData: SchemaCoordinatesCreateType = {
-            id: schemeModel.model[this.index].id,
-            top: schemeModel.model[this.index].top,
-            left: schemeModel.model[this.index].left,
-            height: schemeModel.model[this.index].height,
-            width: schemeModel.model[this.index].width,
-            hardwareSchemaId: schemeModel.model[this.index].hardwareSchemaId,
-        }
+            id: currentScheme.id,
+            top: currentScheme.top,
+            left: currentScheme.left,
+            height: currentScheme.height,
+            width: currentScheme.width,
+            hardwareSchemaId: currentScheme.hardwareSchemaId,
+            fileId: currentScheme.fileId,
+            redFileId: currentScheme.redFileId,
+            greenFileId: currentScheme.greenFileId,
+        };
 
-        if (this.saveIMageScheme.default) {
-            const formData = new FormData();
-            formData.append("File", this.saveIMageScheme.default);
-
-            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-                method: "POST",
-                body: formData
-            });
-
-            const result = await response.json();
-
-            const schemaImageId = result.id;
-            apiData.fileId = schemaImageId
-            schemeModel.model[this.index].fileId = schemaImageId
-        } else {
-            apiData.fileId = schemeModel.model[this.index].fileId
-        }
-
-        if (this.saveIMageScheme.red) {
-            const formData = new FormData();
-            formData.append("File", this.saveIMageScheme.red);
-
-            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-                method: "POST",
-                body: formData
-            });
-
-            const result = await response.json();
-
-            const schemaImageId = result.id;
-            apiData.redFileId = schemaImageId
-            schemeModel.model[this.index].redFileId = schemaImageId
-        } else {
-            apiData.redFileId = schemeModel.model[this.index].redFileId
-        }
-
-        if (this.saveIMageScheme.green) {
-            const formData = new FormData();
-            formData.append("File", this.saveIMageScheme.green);
-
-            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-                method: "POST",
-                body: formData
-            });
-
-            const result = await response.json();
-
-            const schemaImageId = result.id;
-            apiData.greenFileId = schemaImageId
-            schemeModel.model[this.index].greenFileId = schemaImageId
-        } else {
-            apiData.greenFileId = schemeModel.model[this.index].greenFileId
-        }
-
-        await updateSchemaCoordinatesCreate(apiData).then((res) => {
-            if (res.data) {
-                toast.success("Компонент обнавлён", { progressStyle: { background: "green" } })
+        try {
+            if (this.saveIMageScheme.default) {
+                const id = await uploadImage(this.saveIMageScheme.default);
+                apiData.fileId = id;
+                currentScheme.fileId = id;
             }
-        })
+
+            if (this.saveIMageScheme.red) {
+                const id = await uploadImage(this.saveIMageScheme.red);
+                apiData.redFileId = id;
+                currentScheme.redFileId = id;
+            }
+
+            if (this.saveIMageScheme.green) {
+                const id = await uploadImage(this.saveIMageScheme.green);
+                apiData.greenFileId = id;
+                currentScheme.greenFileId = id;
+            }
+
+            const res = await updateSchemaCoordinatesCreate(apiData);
+
+            if (res?.data) {
+                toast.success("Компонент обновлён", {
+                    progressStyle: { background: "green" },
+                });
+            }
+        } catch (error) {
+            console.error("Ошибка обновления схемы:", error);
+            toast.error("Ошибка при обновлении компонента");
+        }
     }
+
 
     async deleteSchemeObject() {
         await deleteSchemaCoordinates({ id: schemeModel.focusSchemeObject }).then((res) => {

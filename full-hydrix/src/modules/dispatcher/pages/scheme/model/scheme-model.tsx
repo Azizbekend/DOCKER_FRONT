@@ -49,11 +49,12 @@ class SchemeModel {
             this.idska = this.model.map(item => item.hardwareId);
             this.idskaSensores = this.schemaSensoreData.map(item => item.nodeInfoId);
 
+            this.timesFunctions()
         } catch {
             toast.error("Ошибка загрузки схемы");
         }
     }
-    
+
 
     setFocusHardware(id: number) {
         this.closePanels()
