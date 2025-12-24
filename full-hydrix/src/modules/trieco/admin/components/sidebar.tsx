@@ -1,4 +1,4 @@
-import logo from './logo.svg'
+import logo from './logo.png'
 
 import { SidebarItem } from './sidebar-item'
 import { observer } from 'mobx-react-lite'
@@ -13,12 +13,10 @@ export const Sidebar = observer(() => {
     return (
         <div className="pt-10 pl-8 pr-3 bg-white min-h-screen w-min w-full flex flex-col gap-14">
             <div className='flex items-center gap-[22px]'>
-                <img src={logo} />
+                <img src={logo} className='w-[33px]' />
             </div>
             <div className='flex gap-8 flex-col'>
-
-
-            <SidebarItem link='/trieco/admin/' icon='sewer-car' isActive={location.pathname === "/trieco/admin/"} hoverText="Список ассенизаторов" />
+                <SidebarItem link='/trieco/admin' icon='sewer-car' isActive={location.pathname === "/trieco/admin"} hoverText="Список ассенизаторов" />
                 <SidebarItem link='/trieco/admin/orders' icon='client-clipboard' isActive={location.pathname === '/trieco/admin/orders'} hoverText='Управление заявками' />
                 {/* <SidebarItem link='/trieco/admin/statistics' icon='arrows-clockwise' title='Управление сменами' isActive={location.pathname === '/trieco/admin/shifts'}/> */}
                 < SidebarItem link='/trieco/admin/calendar' icon='calendar' isActive={location.pathname === '/trieco/admin/calendar'} hoverText='График' />

@@ -62,7 +62,7 @@ export const MainView = observer(() => {
                 </div>
             </div>
 
-            <Link to={'order/create/map'} className="bg-[#E03131] rounded-lg px-4 py-3 w-fit text-center flex items-center justify-between hover:opacity-50 duration-300">
+            <Link to={'/trieco/client/order/create/map'} className="bg-[#E03131] rounded-lg px-4 py-3 w-fit text-center flex items-center justify-between hover:opacity-50 duration-300">
                 <span className="text-white">Создать заявку</span>
                 {/* <Icon systemName="arrow-left" />  */}
             </Link>

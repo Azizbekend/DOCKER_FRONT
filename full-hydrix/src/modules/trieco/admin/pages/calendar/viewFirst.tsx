@@ -39,7 +39,7 @@ export const CalendarView = observer(() => {
         <div className="mt-12 pb-4">
             <span className="text-[34px] font-semibold">График</span>
 
-            <div className="flex flex-col w-[100%] max-w-[1600px] bg-white rounded-lg border-[1px] border-[#EFF4FA] mt-[30px] xl:mt-[68px]">
+            <div className="flex flex-col w-[100%]  bg-white rounded-lg border-[1px] border-[#EFF4FA] mt-[30px] xl:mt-[68px]">
                 <div className="flex items-center justify-center py-[12px] xl:py-[18px]">
                     <Button onClick={() => prevMonth()}>
                         <Icon systemName="arrow-black" className="rotate-180 w-[7px] xl:w-[9px]" />

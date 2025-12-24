@@ -55,7 +55,7 @@ export const Sidebar = observer(() => {
 
             </div>
             <div className="flex flex-col gap-7">
-                <span className="text-[36px] font-semibold text-white">Повысьте комфорт<br /> с TRIECO</span>
+                <span className="text-[36px] font-semibold text-white">Повысьте комфорт<br /> с ИАС “Цифровой Водоканал”</span>
                 <Button class="flex flex-row items-center gap-4 hover:opacity-50" onClick={() => { logout() }}>
                     <Icon systemName="exit" />
                     <span className="font-semibold text-[20px] text-white">Выйти</span>

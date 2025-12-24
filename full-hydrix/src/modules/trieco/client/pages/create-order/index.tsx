@@ -38,7 +38,7 @@ export const CreateOrder = observer(() => {
         <>
             {tab === "map" && <YandexMapComponent getPage={() => { navigate('/trieco/client/order/create/detail'); saveData() }} />}
             {tab === "detail" && <AddDetails getPage={() => { save(user?.id); navigate('/trieco/client/order/create/сreated'); }} />}
-            {tab === "сreated" && <Created getPage={() => { navigate('/trieco/client/'); clearData() }} />}
+            {tab === "сreated" && <Created getPage={() => { navigate('/trieco/client/orders'); clearData() }} />}
             {/* {pageCounter === 4 && <></>} */}
         </>
     )
