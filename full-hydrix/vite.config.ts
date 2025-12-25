@@ -74,5 +74,3 @@ export default defineConfig(({ command, mode }) => {
     },
   }
 })
-
-// тест
