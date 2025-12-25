@@ -21,9 +21,8 @@ export const SwitchButton = ({ classNames, label, disabled = false, onChange }: 
 
 
     const handleClick = () => {
-        if (onChange && disabled !== true) {
+        if (onChange && disabled) {
             onChange(checked);
-
             setChecked(!checked)
         }
     }

@@ -22,7 +22,7 @@ class HardwareModel {
     };
 
     isLoading: boolean = false;
-    isCommand: boolean = false;
+    isActiveCommand: boolean = false;
     isLoaderCommand: boolean = false;
 
     сharacteristic: Characteristic[] = []
@@ -78,7 +78,8 @@ class HardwareModel {
         this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, commandCheck] = await Promise.all([
+            // commandCheck
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -89,7 +90,7 @@ class HardwareModel {
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
                 getInfoNodeInfoAllCheck({ id: id }),
-                getCommandCheck({ hardwareId: id })
+                // getCommandCheck({ hardwareId: id })
             ]);
 
             this.model = info.data;
@@ -108,8 +109,8 @@ class HardwareModel {
 
             this.documents = documents.data;
             this.incidentList = incidentList.data;
-
-            this.isCommand = !(commandCheck.data == "True")
+            this.isActiveCommand = "True" == "True"
+            // this.isActiveCommand = commandCheck.data == "True"
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
@@ -176,30 +177,37 @@ class HardwareModel {
     async switchIsCommand() {
         this.isLoaderCommand = true;
 
-        if (this.isCommand) {
-            await getCommandActive({ hardwareId: this.model.id })
-                .then(() => {
-                    this.isCommand = false
-                    toast("Команды активированы", { progressStyle: { background: "green" } });
-                })
-                .catch((error) => {
-                    console.log(error)
-                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
-                })
-                .finally(() => { this.isLoaderCommand = false })
-        } else {
-            await getCommandDeactive({ hardwareId: this.model.id })
-                .then(() => {
-                    this.isCommand = true
-                    toast("Команды деактивированы", { progressStyle: { background: "green" } });
-                })
-                .catch((error) => {
-                    console.log(error)
-                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
-                })
-                .finally(() => { this.isLoaderCommand = false })
+        setTimeout(() => {
+            if (this.isLoaderCommand) {
+                this.isLoaderCommand = false;
+                this.isActiveCommand = !this.isActiveCommand
+            }
+        }, 1000)
 
-        }
+        // if (this.isActiveCommand) {
+        //     await getCommandActive({ hardwareId: this.model.id })
+        //         .then(() => {
+        //             this.isActiveCommand = false
+        //             toast("Команды активированы", { progressStyle: { background: "green" } });
+        //         })
+        //         .catch((error) => {
+        //             console.log(error)
+        //             toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+        //         })
+        //         .finally(() => { this.isLoaderCommand = false })
+        // } else {
+        //     await getCommandDeactive({ hardwareId: this.model.id })
+        //         .then(() => {
+        //             this.isActiveCommand = true
+        //             toast("Команды деактивированы", { progressStyle: { background: "green" } });
+        //         })
+        //         .catch((error) => {
+        //             console.log(error)
+        //             toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+        //         })
+        //         .finally(() => { this.isLoaderCommand = false })
+
+        // }
     }
 
     async checkedService(id: string) {
