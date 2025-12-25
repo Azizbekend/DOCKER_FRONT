@@ -119,35 +119,36 @@ class SchemeModel {
     }
 
     async checkIncidents() {
-        await statusCheck({ ids: this.idska }).then((res) => {
-            res.data.forEach(info => {
-                for (let i = 0; i < this.model.length; i++) {
-                    if (this.model[i].hardwareId == info.hardwareId) {
-                        if (info.hardwareStatus == "True" && (info.incidents == "False" || info.incidents == null)) {
+        await statusCheck({ ids: this.idska })
+            .then((res) => {
+                res.data.forEach(info => {
+                    for (let i = 0; i < this.model.length; i++) {
+                        if (this.model[i].hardwareId == info.hardwareId) {
+                            if (info.hardwareStatus == "True") {
 
-                            this.model[i].focusFileId = this.model[i].greenFileId
-                            this.model[i].status = false
+                                this.model[i].focusFileId = this.model[i].greenFileId
+                                this.model[i].status = false
 
-                        } else if (info.incidents == "True") {
+                            } else if (info.incidents == "True") {
 
-                            this.model[i].focusFileId = this.model[i].redFileId
-                            this.model[i].status = true
+                                this.model[i].focusFileId = this.model[i].redFileId
+                                this.model[i].status = true
 
-                        } else if (info.hardwareStatus == null || info.incidents == null) {
+                            } else if (info.hardwareStatus == null || info.incidents == false) {
 
-                            this.model[i].focusFileId = this.model[i].fileId
-                            this.model[i].status = false
+                                this.model[i].focusFileId = this.model[i].fileId
+                                this.model[i].status = false
 
-                        } else {
+                            } else {
 
-                            this.model[i].focusFileId = this.model[i].fileId
-                            this.model[i].status = false
+                                this.model[i].focusFileId = this.model[i].fileId
+                                this.model[i].status = true
 
+                            }
                         }
                     }
-                }
+                })
             })
-        })
     }
 }
 

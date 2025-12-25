@@ -42,6 +42,6 @@
 
     },
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/entities/schemes/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
