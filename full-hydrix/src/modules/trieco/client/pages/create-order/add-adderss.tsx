@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clientModel from '../../kernel/model/client-model';
 import { observer } from 'mobx-react-lite';
-import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
+import mmrgl from 'mmr-gl';
 import mapVKModel from '@/shared/ui/mapVK/model/mapVK-model';
 import { createOrderModel } from './entities/create-order-model';
 import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from '@/shared/ui/mapVK/mapVk-functions';
@@ -10,216 +10,243 @@ import { InputContainer } from '@/shared/ui/Inputs/input-container';
 import { Button } from '@/shared/ui/button';
 
 const YandexMapComponent = observer(({ getPage }: { getPage: () => void }) => {
-    const { user } = clientModel;
-    const { isAddress, changeAddress, model, getPoints, pickupPoints, showMap, setCoords, changeMunicipality } = createOrderModel;
+  const { user } = clientModel;
+  const { isAddress, changeAddress, model, getPoints, pickupPoints, showMap, setCoords, changeMunicipality } = createOrderModel;
+  const { modelMap } = mapVKModel;
 
-    const [showPoints, setShowPoints] = useState<boolean>(false);
-    const { modelMap } = mapVKModel;
+  const [showPoints, setShowPoints] = useState<boolean>(false);
+  const [suggestions, setSuggestions] = useState<{ address: string; address_details: any }[]>([]);
+  
+  // === КАРТА ===
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mmrgl.Map | null>(null);
+  const markerRef = useRef<mmrgl.Marker | null>(null);
+  const [center, setCenter] = useState<[number, number]>(modelMap.initialCenter);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
+  useEffect(() => {
+    getPoints(user?.id);
+  }, [user?.id]);
 
-    useEffect(() => { getPoints(user?.id) }, [])
+  const getResultMap = (data: any) => {
+    changeAddress(data.address);
+    setCoords(data.pin[1], data.pin[0]);
+    changeMunicipality(data.address_details.subregion);
+  };
 
-    // ===РАБОТА С КАРТОЙ===
-    // Ссылки на блок карты
-    const mapContainer = useRef<HTMLDivElement | null>(null);
-    // Ссылка на карту 
-    const mapRef = useRef<mmrgl.Map | null>(null);
-    //! Ссылка на маркер
-    const markerRef = useRef<mmrgl.Marker | null>(null);
+  useEffect(() => {
+    if (model.address.trim()) {
+      getAdressList(model.address, setSuggestions);
+      setShowDropdown(true);
+      setShowPoints(false);
+    } else {
+      setShowDropdown(false);
+      setShowPoints(true);
+    }
+  }, [model.address]);
 
-    // Переменная для централизации карты по координатам
-    const [center, setcenter] = useState<[number, number]>(modelMap.initialCenter);
-    // Открытие списка найденных адресов
-    const [show, setShow] = useState<boolean>(false);
-    // Хранитель найденных адресов
-    const [suggestions, setSuggestions] = useState<{ address: string; address_details: any }[]>([]);
+  const handleSuggestionClick = async (suggestion: { address: string; address_details: any }) => {
+    try {
+      const data = await getSuggestionClick(suggestion.address);
+      
+      if (mapRef.current) {
+        mapRef.current.setCenter([data.pin[0], data.pin[1]]);
+        mapRef.current.setZoom(15);
+        
+        if (!markerRef.current) {
+          markerRef.current = new mmrgl.Marker({ pitchAlignment: "map" });
+        }
+        markerRef.current.setLngLat([data.pin[0], data.pin[1]]).addTo(mapRef.current);
+      }
 
-    // Функция записи полученных данных
-    const getResultMap = (data: any) => {
-        changeAddress(data.address)
-        setCoords(data.pin[1], data.pin[0])
-        changeMunicipality(data.address_details.subregion)
+      getResultMap(data);
+      setShowDropdown(false);
+      setShowPoints(false);
+    } catch (error) {
+      console.error('Ошибка при обработке адреса:', error);
+    }
+  };
+
+  const handleMapClick = async (e: mmrgl.MapMouseEvent & { lngLat: mmrgl.LngLat }) => {
+    const { lng, lat } = e.lngLat;
+    setCenter([lng, lat]);
+    
+    if (mapRef.current) {
+      mapRef.current.setCenter([lng, lat]);
+      
+      if (!markerRef.current) {
+        markerRef.current = new mmrgl.Marker({ pitchAlignment: "map" });
+      }
+      markerRef.current.setLngLat([lng, lat]).addTo(mapRef.current);
     }
 
-    // Поиск адреса по запросу
-    useEffect(() => {
-        getAdressList(model.address, setSuggestions)
-    }, [model.address])
+    getAdressCoordinates(e.lngLat, getResultMap);
+  };
 
-    // Выбор адреса из списка найденных
-    const handleSuggestionClick = async (suggestion: { address: string; address_details: any }) => {
-        try {
-            // Фунция для получения данных по адресу из списка найденных
-            const data = await getSuggestionClick(suggestion.address);
+  useEffect(() => {
+    if (!mapContainer.current || mapRef.current) return;
 
-            mapRef.current?.setCenter([data.pin[0], data.pin[1]])
-            mapRef.current?.setZoom(15)
+    mmrgl.accessToken = modelMap.token;
 
-            //! if (mapRef.current) markerRef.current?.setLngLat([data.pin[0], data.pin[1]]).addTo(mapRef.current).getLngLat()
+    const map = new mmrgl.Map({
+      container: mapContainer.current,
+      zoom: modelMap.initialZoom,
+      center: center,
+      style: 'mmr://api/styles/main_style.json',
+      hash: true,
+    });
 
-            changeAddress(data.address)
-            setCoords(data.pin[1], data.pin[0])
-            changeMunicipality(data.address_details.subregion)
-            setSuggestions([]);
-            setShow(false)
+    mapRef.current = map;
+    map.on('click', handleMapClick);
 
-        } catch (error) {
-            console.error('Ошибка при обработке адреса:', error);
-        }
+    // Геолокация или центрирование по адресу
+    if (!model.address) {
+      const geolocate = new mmrgl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true
+      });
+      map.addControl(geolocate);
+      map.on('load', () => geolocate.trigger());
+    } else {
+      getAdressText(model.address, getResultMap)
+        .then(data => {
+          map.setCenter([data.pin[0], data.pin[1]]);
+          if (!markerRef.current) {
+            markerRef.current = new mmrgl.Marker({ pitchAlignment: "map" });
+          }
+          markerRef.current.setLngLat([data.pin[0], data.pin[1]]).addTo(map);
+        });
+    }
+
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.off('click', handleMapClick);
+        mapRef.current.remove();
+        mapRef.current = null;
+        markerRef.current = null;
+      }
+    };
+  }, []);
+
+  // Управление выпадающим списком
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.address-input-container')) {
+        setShowDropdown(false);
+        setShowPoints(false);
+      }
     };
 
-    // Закрытие списка рекомендованных
-    const handleMouseDown = (event: any) => {
-        if (!event.target.className.includes("adress")) {
-            setShow(false)
-            setShowPoints(false)
-        }
-    }
-    useEffect(() => {
-        document.addEventListener('mousedown', handleMouseDown);
-        return () => { document.removeEventListener('mousedown', handleMouseDown) }
-    }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-    // Полечение данных по координатам
-    useEffect(() => {
-        if (!mapContainer.current) return;
+  if (user?.roleId === 5 && !showMap) return null;
 
-        // Инициализация карты
-        mmrgl.accessToken = modelMap.token;
+  const handleAddressChange = (value: string) => {
+    changeAddress(value);
+  };
 
-        const map = new mmrgl.Map({
-            container: mapContainer.current,
-            zoom: modelMap.initialZoom,
-            center: center,
-            style: 'mmr://api/styles/main_style.json',
-            hash: true,
-        });
-        mapRef.current = map;
+  return (
+    <div className="mx-5 mt-10" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+      {/* Заголовок */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Выберите точку забора сточных вод</h1>
+        <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+      </div>
 
-        //! Вставление маркера
-        var marker = new mmrgl.Marker({
-            pitchAlignment: "map",
-        })
-        markerRef.current = marker;
+      {/* Адресная строка */}
+      <div className="mb-8 relative address-input-container">
+        <InputContainer
+          isRequired
+          headerText="Адрес"
+          underlineText="Обязательное поле"
+          classNames={{
+            wrapper: "relative",
+            children: "w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus-within:border-[#4A85F6] focus-within:ring-1 focus-within:ring-[#4A85F6] transition-colors"
+          }}
+        >
+          <Input
+            type="text"
+            value={model.address}
+            onChange={handleAddressChange}
+            placeholder="Начните вводить адрес..."
+            className="w-full outline-none"
+            onFocus={() => {
+              if (model.address.trim()) {
+                setShowDropdown(true);
+                setShowPoints(false);
+              } else {
+                setShowPoints(true);
+                setShowDropdown(false);
+              }
+            }}
+          />
+        </InputContainer>
 
+        {/* Выпадающий список */}
+        {(showDropdown || showPoints) && (
+          <div className="absolute z-20 mt-1 w-full bg-white border border-[#4A85F6] rounded-lg shadow-lg max-h-60 overflow-y-auto">
+            {showPoints && pickupPoints.length > 0 && (
+              <>
+                <div className="px-4 py-2 bg-gray-50 border-b border-gray-200 font-semibold text-gray-700">
+                  Ваши точки
+                </div>
+                {pickupPoints.map((point, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleSuggestionClick({ address: point.address, address_details: "" })}
+                    className="px-4 py-3 cursor-pointer hover:bg-blue-50 transition-colors"
+                  >
+                    {point.address}
+                  </div>
+                ))}
+              </>
+            )}
 
-        // Обработчик клика для получения координат
-        const handleMapClick = async (e: mmrgl.MapMouseEvent & { lngLat: mmrgl.LngLat; }) => {
-            setcenter([e.lngLat.lng, e.lngLat.lat]);
-            map.setCenter([e.lngLat.lng, e.lngLat.lat])
-            !markerRef.current?.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(map).getLngLat()
-
-            // Функция для получение данных по координатам 
-            getAdressCoordinates(e.lngLat, getResultMap)
-        };
-
-        map.on('click', handleMapClick);
-
-
-        if (!model.address) {
-            var geolocate = new mmrgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                trackUserLocation: true
-            });
-            map.addControl(geolocate);
-            map.on('load', function () {
-                geolocate.trigger();
-            });
-        } else {
-            // Костыльно находим по адресу и полчаем соответвующий рисунок
-            getAdressText(model.address, getResultMap)
-                .then((data) => {
-                    map.setCenter([data.pin[0], data.pin[1]])
-                })
-        }
-
-        // Очистка при размонтировании
-        return () => {
-            if (mapRef.current) {
-                mapRef.current.off('click', handleMapClick);
-                mapRef.current.remove();
-                mapRef.current = null;
-            }
-        };
-    }, []);
-    // ===КОНЕЦ===
-
-
-    if (user?.roleId === 5 && !showMap) return <></>
-
-    const changeAdress = (value: string) => {
-        const isValid = value.length > 0
-        setShow(isValid);
-        setShowPoints(!isValid);
-        changeAddress(value)
-    }
-
-    return (
-        <div>
-            <div className="mb-9 mt-10">
-                <span className="font-bold text-[34px]">Выберите точку забора сточных вод</span>
-            </div>
-
-            <div className='mb-[30px] w-full relative'>
-                <InputContainer
-                    isRequired
-                    headerText='Адрес'
-                    underlineText='Обязательное поле'
-                    iconName='arrow-down'
-                    classNames={{
-                        icon: `duration-300 ${showPoints ? "rotate-180" : ""}`,
-                        children: "w-full bg-white flex px-5 items-center py-3",
-                    }}
-
-                >
-                    <Input
-                        type='text'
-                        onFocus={setShowPoints}
-                        value={model.address}
-                        onChange={changeAdress}
-                        placeholder='Адрес...'
-                        className='w-full'
-                    />
-                </InputContainer>
-
-
-                {showPoints && suggestions?.length === 0 && pickupPoints.length > 0 &&
-                    <ul className='absolute z-10 bg-white border-[#4A85F6] border-[1px] rounded-lg max-h-[400px] overflow-y-auto w-full adress'>
-                        <li className='px-3 py-2 font-bold adress'>
-                            Ваши точки
-                        </li>
-                        {pickupPoints.map((point, index) => (
-                            <li
-                                key={index}
-                                onClick={() => handleSuggestionClick({ address: point.address, address_details: "" })}
-                                className='adress px-3 py-2 cursor-pointer hover:bg-[#4A85F624] hover:rounded-lg'
-                            >
-                                <div className='adress'>{point.address}</div>
-                            </li>
-                        ))}
-                    </ul>
-                }
-                {(show && suggestions?.length > 0 && model.address?.length > 0) && (
-                    <ul className='absolute z-10 bg-white border-[#4A85F6] border-[1px] rounded-lg max-h-[400px] overflow-y-auto w-full adress'>
-                        {suggestions.map((suggestion, index) => (
-                            <li key={index} onClick={() => { handleSuggestionClick(suggestion) }} className='adress px-3 py-2 cursor-pointer hover:bg-[#4A85F624] hover:rounded-lg'>
-                                <div className="adress">{suggestion.address}</div>
-                            </li>
-                        ))}
-                    </ul>
+            {showDropdown && suggestions.length > 0 && (
+              <>
+                {showPoints && pickupPoints.length > 0 && (
+                  <div className="px-4 py-2 bg-gray-50 border-y border-gray-200 font-semibold text-gray-700">
+                    Рекомендации
+                  </div>
                 )}
-            </div>
+                {suggestions.map((suggestion, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="px-4 py-3 cursor-pointer hover:bg-blue-50 transition-colors"
+                  >
+                    {suggestion.address}
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+        )}
+      </div>
 
-            <div ref={mapContainer} style={{ width: '100%', height: '400px' }} />
+      {/* Карта */}
+      <div 
+        ref={mapContainer} 
+        className="w-full h-[400px] rounded-xl border border-gray-200 shadow-sm mb-6"
+      />
 
-            <Button
-                disabled={!isAddress()}
-                onClick={getPage} children="Продолжить"
-                class='bg-[#4A85F6] text-white mt-[20px] rounded-lg max-w-[242px] w-full flex items-center justify-center font-bold text-[17px]' />
-        </div >
-    );
-})
+      {/* Кнопка продолжения */}
+      <Button
+        disabled={!isAddress()}
+        onClick={getPage}
+        class={` max-w-xs py-3 px-6 rounded-lg font-bold text-white transition-colors ${
+          isAddress() 
+            ? 'bg-[#4A85F6] hover:bg-[#3a6bc9] shadow-md hover:shadow-lg' 
+            : 'bg-gray-400 cursor-not-allowed'
+        }`}
+      >
+        Продолжить
+      </Button>
+    </div>
+  );
+});
 
 export default YandexMapComponent;

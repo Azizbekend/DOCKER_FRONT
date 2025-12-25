@@ -1,215 +1,258 @@
-// import { Button, Input } from "@/app/cores/core-trieco/UIKit"
-// import createOrderModel from "./entities/create-order-model"
 import { observer } from "mobx-react-lite";
-// import { SelectionComponent } from "../../components/selection";
 import { PaymentTypeList, WasteList } from "./entities/selections";
 import { useEffect, useState } from "react";
-import clientModel from "../../kernel/model/client-model";
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs from 'dayjs';
-// import Cookies from 'js-cookie';
-import { Guid } from "guid-typescript";
 import { createOrderModel } from "./entities/create-order-model";
 import { Input } from "@/shared/ui/Inputs/input-text";
 import { InputContainer } from "@/shared/ui/Inputs/input-container";
 import { SelectionComponent } from "../../layout/selection";
 import { Button } from "@/shared/ui/button";
-import Cookies from "universal-cookie";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
 import { useAuth } from "@/entities/user/context";
-
-
+import dayjs from 'dayjs';
 
 export const AddDetails = observer(({ getPage }: { getPage: () => void }) => {
-    const { user } = useAuth();
-    const { model,
-        changeDate,
-        changeStartTime, canSave,
-        changeFirstName, changeLastName,
-        changeMiddleName, changePhone,
-        changeWaste, selectedPoint, switchSelfCreated, isSelfCreated } = createOrderModel;
-    const [minTime, setMinTime] = useState<string>("");
+  const { user } = useAuth();
+  const { 
+    model,
+    changeDate,
+    changeStartTime,
+    canSave,
+    changeFirstName,
+    changeLastName,
+    changeMiddleName,
+    changePhone,
+    changeWaste,
+    selectedPoint,
+    switchSelfCreated,
+    isSelfCreated 
+  } = createOrderModel;
+  
+  const [cost, setCost] = useState(0);
 
-    const [cost, setCost] = useState((500 * 4))
+  // Расчёт стоимости
+  useEffect(() => {
+    const basePrice = selectedPoint ? selectedPoint.wasteVolume * 500 : model.wasteVolume * 600;
+    setCost(basePrice);
+  }, [model.wasteVolume, selectedPoint]);
 
-    useEffect(() => {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
-        setMinTime(`${hours}:${minutes}`);
-    }, [model.date]);
+  // Обработчик выбора объёма
+  const handleWasteSelect = (value: number) => {
+    changeWaste(value);
+  };
 
-    // Изменение данных при отработке switchSelfCreated
-    useEffect(() => {
-        changeLastName(isSelfCreated ? user?.lastName ?? "" : "");
-        changeFirstName(isSelfCreated ? user?.firstName ?? "" : "");
-        changeMiddleName(isSelfCreated ? user?.patronymic ?? "" : "");
-        changePhone(isSelfCreated ? user?.phoneNumber ?? "" : "");
-    }, [isSelfCreated, user]);
+  // Обработчик времени
+  const handleTimeChange = (value: string | null) => {
+    if (!value) return;
+    
+    const selectedTime = dayjs(value, 'HH:mm');
+    const now = dayjs();
+    const minTime = model.date === now.format('YYYY-MM-DD') 
+      ? now.startOf('minute') 
+      : dayjs().hour(7).minute(0);
+    const maxTime = dayjs().hour(22).minute(0);
 
-    const handleTimeChange = (value: string) => {
-        if (((value < minTime && model.date == new Date().toISOString()) || (value < "07:00" && model.date != new Date().toISOString())) || value > "22:00") {
-            return;
-        }
-
-        changeStartTime(value);
+    if (selectedTime.isBetween(minTime, maxTime, null, '[]')) {
+      changeStartTime(value);
     }
+  };
 
-    return (
-        <div className='pt-10'>
-            <span className='font-bold text-[34px]'>Уточните детали вывоза сточных вод</span>
+  // Автозаполнение данных пользователя
+  useEffect(() => {
+    if (isSelfCreated && user) {
+      changeLastName(user.lastName || '');
+      changeFirstName(user.firstName || '');
+      changeMiddleName(user.patronymic || '');
+      changePhone(user.phoneNumber || '');
+    }
+  }, [isSelfCreated, user]);
 
-            <div className='flex flex-col gap-7 mt-10 max-w-[70%]'>
-                <div className="flex flex-col gap-3">
-                    <span className="font-bold text-[18px]">Когда подать машину?</span>
-                    <div className="flex flex-row gap-10 items-center">
-                        <InputContainer
-                            headerText="Дата вывоза"
-                            underlineText="Обязательное поле"
-                            classNames={{
-                            }}>
-                            <Input
-                                onChange={changeDate}
-                                value={model.date}
-                                type="date"
-                                className="cursor-pointer bg-white h-[55px] border border-solid border-[#C6C6C6] px-3 !rounded-[4px]"
-                            />
+  return (
+    <div 
+      className="mx-5 mt-10"
+      style={{ fontFamily: "'Open Sans', sans-serif" }}
+    >
+      {/* Заголовок */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Уточните детали вывоза сточных вод</h1>
+        <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+      </div>
 
-                        </InputContainer>
-                        <InputContainer
-                            headerText="Время начала"
-                            underlineText="Обязательное поле"
-                            classNames={{
-                                children: ""
-                            }}>
-                            <TimePicker
-                                format="HH:mm"
-                                ampm={false}
-                                minTime={new Date().toISOString().split('T')[0] === model.date ? dayjs() : dayjs("2022-04-04T07:00")}
-                                maxTime={dayjs("2022-04-04T22:00")}
-                                timeSteps={{
-                                    minutes: 1
-                                }}
-                                onChange={(props) => handleTimeChange(props!.format("HH:mm"))}
-                                className="h-[55px] bg-white"
-                            />
-                        </InputContainer>
+      <div className="space-y-8">
+        {/* Блок 1: Время вывоза */}
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-800 mb-5">Когда подать машину?</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InputContainer
+              headerText="Дата вывоза"
+              isRequired
+            >
+              <Input
+                type="date"
+                value={model.date}
+                onChange={changeDate}
+                min={dayjs().format('YYYY-MM-DD')}
+                className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+              />
+            </InputContainer>
+            
+            <InputContainer
+              headerText="Время начала"
+              isRequired
+            >
+              <input
+                type="time"
+                value={model.startTime}
+                onChange={(e) => handleTimeChange(e.target.value)}
+                min={model.date === dayjs().format('YYYY-MM-DD') ? dayjs().format('HH:mm') : '07:00'}
+                max="22:00"
+                className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+              />
+            </InputContainer>
+          </div>
 
-                        {
-                            model.endTime && <span>Примерное время приезда с <span className="font-semibold">{model.startTime}</span> до <span className="font-semibold">{model.endTime}</span></span>
-                        }
-                    </div>
-                    {
-                        !selectedPoint && <div className="">
-                            <div className="mb-3.5"><span className="font-semibold text-[16px] ">Объем септика/колодца<span className="text-[#C30707]">*</span></span></div>
-
-                            <SelectionComponent items={WasteList} selected={model.wasteVolume} onSelect={(item) => { changeWaste(item.value); setCost(item.value * 600) }} />
-                        </div>
-                    }
-                    <div className="">
-                        <div className="mb-3.5"><span className="font-semibold text-[16px] mb-4">Способ оплаты <span className="text-[#C30707]">*</span></span></div>
-                        <SelectionComponent items={PaymentTypeList} onSelect={() => { }} selected={0} />
-                    </div>
-                </div>
-
-                <div className="flex flex-col gap-3">
-                    <span className="font-bold text-[18px]">Данные контактного лица</span>
-                    <div className="flex flex-row gap-5">
-                        <InputContainer
-                            isRequired
-                            headerText="Фамилия"
-                            underlineText="Обязательное поле"
-                            classNames={{
-                                children: "w-[222px]"
-                            }}
-                        >
-                            <Input
-                                type="text"
-                                placeholder="Фамилия"
-                                onChange={(v) => changeLastName(v)}
-                                value={model.surname}
-                                disabled={isSelfCreated}
-                                className={`${isSelfCreated ? "border-[#DCDEE3]" : ""} cursor-pointer bg-white py-2 border border-solid border-[#C6C6C6] px-3 !rounded-[4px]`}
-                            />
-                        </InputContainer>
-                        <InputContainer
-                            isRequired
-                            headerText="Имя"
-                            underlineText="Обязательное поле"
-                            classNames={{
-                                children: "w-[222px]"
-                            }}
-                        >
-                            <Input type="text"
-                                placeholder="Имя"
-                                onChange={(v) => changeFirstName(v)}
-                                value={model.name}
-                                disabled={isSelfCreated}
-                                className={`${isSelfCreated ? "border-[#DCDEE3]" : ""} cursor-pointer bg-white py-2 border border-solid border-[#C6C6C6] px-3 !rounded-[4px]`}
-                            />
-                        </InputContainer>
-                        <InputContainer
-                            headerText="Отчество"
-                            classNames={{
-                                children: "w-[222px]"
-                            }}
-                        >
-                            <Input type="text"
-                                placeholder="Отчество"
-                                onChange={(v) => changeMiddleName(v)}
-                                value={model.patronymic}
-                                disabled={isSelfCreated}
-                                className={`${isSelfCreated ? "border-[#DCDEE3]" : ""} cursor-pointer bg-white py-2 border border-solid border-[#C6C6C6] px-3 !rounded-[4px]`}
-                            />
-                        </InputContainer>
-                    </div>
-                    <div className="flex flex-row gap-10">
-                        <InputContainer
-                            headerText="Телефон"
-                            isRequired
-                            underlineText="Обязательное поле"
-                            classNames={{
-                                children: "w-[222px]"
-                            }}
-                        >
-                            <Input type="phone"
-                                placeholder="Телефон"
-                                onChange={(v) => changePhone(v)}
-                                value={model.phone}
-                                disabled={isSelfCreated}
-                                className={`${isSelfCreated ? "border-[#DCDEE3]" : ""} cursor-pointer bg-white py-2 border border-solid border-[#C6C6C6] px-3 !rounded-[4px]`}
-                            />
-                        </InputContainer>
-
-                        <div className="flex flex-row items-center gap-1">
-                            <InputCheckbox
-                                onChange={() => switchSelfCreated()}
-                                label="Другое контактное лицо"
-                            />
-                            <p className="font-semibold 2xl:text-[13px] text-[11px] mb-1 ml-1"></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col">
-                    <span className="font-bold text-[15px]">Стоимость</span>
-                    <span className="font-bold text-[22px]">{cost} рублей</span>
-                </div>
-                <div>
-                    <Button type="submit" children="Оформить заказ" disabled={!canSave()} onClick={getPage}
-                        class='bg-[#4A85F6] rounded-lg max-w-[242px] text-white w-full flex items-center justify-center font-bold text-[16px]' />
-                </div>
-
-                {/* <form method='POST' action='https://trieco.server.paykeeper.ru/create/'  >
-                    <input type='text' name='sum' value={cost.toString()} hidden />
-                    <input type='text' name='orderid' value={Guid.create().toString()} hidden />
-                    <input type='text' name='service_name' value={`Оплата заказа на вывоз ${model.wasteVolume} куб.м. ЖБО`} hidden />
-                    <input name='user_result_callback' value={`http://trieco.ru/order/create`} hidden />
-
-                    <Button type="submit" children="Оформить заказ" disabled={!canSave()} onClick={() => cookies.set('orderData', JSON.stringify(createOrderModel.model), { expires: 0.01 })}
-                        class='bg-[#4A85F6] rounded-lg max-w-[242px] w-full flex items-center justify-center font-bold text-[16px]' />
-                </form> */}
+          {model.endTime && (
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <span className="text-sm text-gray-700">
+                Примерное время приезда с <span className="font-semibold">{model.startTime}</span> до <span className="font-semibold">{model.endTime}</span>
+              </span>
             </div>
+          )}
         </div>
-    )
-})
+
+        {/* Блок 2: Объём и оплата */}
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {!selectedPoint && (
+              <div>
+                <div className="mb-3">
+                  <label className="block text-sm font-semibold text-gray-700 mb-1">
+                    Объём септика/колодца <span className="text-red-600">*</span>
+                  </label>
+                </div>
+                <SelectionComponent 
+                  items={WasteList} 
+                  selected={model.wasteVolume} 
+                  onSelect={(item) => handleWasteSelect(item.value)} 
+                />
+              </div>
+            )}
+
+            <div>
+              <div className="mb-3">
+                <label className="block text-sm font-semibold text-gray-700 mb-1">
+                  Способ оплаты <span className="text-red-600">*</span>
+                </label>
+              </div>
+              <SelectionComponent 
+                items={PaymentTypeList} 
+                selected={model.paymentType || 0} 
+                onSelect={(item) => {/* handle payment selection */}} 
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Блок 3: Контактные данные */}
+        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-semibold text-gray-800 mb-5">Данные контактного лица</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <InputContainer headerText="Фамилия" isRequired>
+              <Input
+                type="text"
+                placeholder="Фамилия"
+                value={model.surname}
+                onChange={changeLastName}
+                disabled={isSelfCreated}
+                className={`w-full h-12 border rounded-lg px-4 py-2.5 focus:outline-none ${
+                  isSelfCreated 
+                    ? 'bg-gray-100 border-gray-200 cursor-not-allowed' 
+                    : 'border-gray-300 focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent'
+                }`}
+              />
+            </InputContainer>
+            
+            <InputContainer headerText="Имя" isRequired>
+              <Input
+                type="text"
+                placeholder="Имя"
+                value={model.name}
+                onChange={changeFirstName}
+                disabled={isSelfCreated}
+                className={`w-full h-12 border rounded-lg px-4 py-2.5 focus:outline-none ${
+                  isSelfCreated 
+                    ? 'bg-gray-100 border-gray-200 cursor-not-allowed' 
+                    : 'border-gray-300 focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent'
+                }`}
+              />
+            </InputContainer>
+            
+            <InputContainer headerText="Отчество">
+              <Input
+                type="text"
+                placeholder="Отчество"
+                value={model.patronymic}
+                onChange={changeMiddleName}
+                disabled={isSelfCreated}
+                className={`w-full h-12 border rounded-lg px-4 py-2.5 focus:outline-none ${
+                  isSelfCreated 
+                    ? 'bg-gray-100 border-gray-200 cursor-not-allowed' 
+                    : 'border-gray-300 focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent'
+                }`}
+              />
+            </InputContainer>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <InputContainer headerText="Телефон" isRequired>
+              <Input
+                type="tel"
+                placeholder="+7 (843) XXX-XX-XX"
+                value={model.phone}
+                onChange={changePhone}
+                disabled={isSelfCreated}
+                className={`w-full h-12 border rounded-lg px-4 py-2.5 focus:outline-none ${
+                  isSelfCreated 
+                    ? 'bg-gray-100 border-gray-200 cursor-not-allowed' 
+                    : 'border-gray-300 focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent'
+                }`}
+              />
+            </InputContainer>
+
+            <div className="flex items-center">
+              <InputCheckbox
+                checked={!isSelfCreated}
+                onChange={() => switchSelfCreated()}
+                label="Другое контактное лицо"
+                className="text-sm"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Блок 4: Стоимость и кнопка */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <div className="text-sm text-gray-600">Стоимость услуги</div>
+              <div className="text-2xl font-bold text-gray-800">{cost.toLocaleString()} ₽</div>
+            </div>
+            
+            <Button
+              disabled={!canSave()}
+              onClick={getPage}
+              class={`px-8 py-3 rounded-lg font-bold text-white transition-colors min-w-[200px] ${
+                canSave() 
+                  ? 'bg-[#4A85F6] hover:bg-[#3a6bc9] shadow-md hover:shadow-lg' 
+                  : 'bg-gray-400 cursor-not-allowed'
+              }`}
+            >
+              Оформить заказ
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});

@@ -1,47 +1,143 @@
-import clientModel from "../../kernel/model/client-model"
+import clientModel from "../../kernel/model/client-model";
 import updateUserModel from "./model/update-user";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Input } from "@/shared/ui/GIS";
+import { Input } from "@/shared/ui/Inputs/input-text";
+import { InputContainer } from "@/shared/ui/Inputs/input-container";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";
 import { useAuth } from "@/entities/user/context";
 
 export const ProfileView = observer(() => {
-    const { model, init, changeEmail, changeFirstName, changeLastName, changeMiddleName, changePhone, update, isValid } = updateUserModel;
-    const { setUser, user } = useAuth();
-    useEffect(() => {
-        user && init(user)
-    }, [])
-    return (
-        <div className="mt-16 py-8 px-10 flex flex-col gap-14 bg-white shadow-[1px_1px_5px_rgb(145,_145,_145)] rounded-[6px] ">
-            <div className="flex flex-col gap-6">
+  const { model, init, changeEmail, changeFirstName, changeLastName, changeMiddleName, changePhone, update, isValid } = updateUserModel;
+  const { setUser, user } = useAuth();
 
-                <div className="flex justify-between pb-6 mb-6 border-b-[1px]">
-                    <div className="flex items-center gap-5">
-                        <label htmlFor="img" className="bg-[#D9D9D9] w-[60px] h-[60px] rounded-[100%] flex">
-                            {/* <input type="file" className="hidden" id="img" /> */}
-                            {/* cursor-pointer */}
-                            <Icon systemName="gallery" className="m-auto" width={20} height={20} />
-                        </label>
+  useEffect(() => {
+    if (user) {
+      init(user);
+    }
+  }, [user]);
 
-                        <div className="text-lg"><span>{model?.lastName} {model?.firstName} {model?.patronymic}</span></div>
-                    </div>
-                    {/* <label htmlFor="img" className="cursor-pointer leading-loose bg-[#ECF3FF] text-[#4080FB] rounded-lg py-[14px] px-4 hover:bg-[#4080FB] hover:text-white ease-in-out duration-300">Изменить изображение</label> */}
-                </div>
+  // Получение инициалов для аватара
+  const getInitials = () => {
+    if (!model) return '--';
+    const firstInitial = model.firstName?.charAt(0) || '';
+    const lastInitial = model.lastName?.charAt(0) || '';
+    return (lastInitial + firstInitial).toUpperCase() || '--';
+  };
 
-                <div className="flex flex-col gap-[25px]">
-                    <span className="font-bold text-[15px]">Персональные данные</span>
-                    <div className="grid grid-cols-3 gap-6 max-w-[800px]">
-                        <Input headerText="Фамилия" onChange={changeLastName} value={model?.lastName} placeholder="Иванов" class="text-[14px] h-[38px] border-[1px] rounded mt-[10px] py-[16px]" />
-                        <Input headerText="Имя" onChange={changeFirstName} value={model?.firstName} placeholder="Иван" class="text-[14px] h-[38px] border-[1px] rounded mt-[10px] py-[16px]" />
-                        <Input headerText="Отчество" onChange={changeMiddleName} value={model?.patronymic} placeholder="Иванович" class="text-[14px] h-[38px] border-[1px] rounded mt-[10px] py-[16px]" />
-                        <Input type="email" headerText="E-mail" onChange={changeEmail} value={model?.email} placeholder="ivanovivan@gmail.com" class="text-[14px] h-[38px] border-[1px] rounded mt-[10px] py-[16px]" />
-                        <Input type="phone" headerText="Моб. телефон" onChange={changePhone} value={model?.phoneNumber} placeholder="+7 (965) 457-45-66" class="text-[14px]  h-[38px] border-[1px] rounded mt-[10px] py-[16px]" />
-                    </div>
-                </div>
+  return (
+    <div 
+      className="mx-5 mt-10"
+      style={{ fontFamily: "'Open Sans', sans-serif" }}
+    >
+      {/* Заголовок */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Профиль пользователя</h1>
+        <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+      </div>
+
+      {/* Основной контент */}
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+        <div className="p-8">
+          {/* Аватар и имя */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 pb-6 border-b border-gray-200">
+            <div className="flex items-center gap-5">
+              {/* Аватар с инициалами */}
+              <div className="w-16 h-16 rounded-full bg-[#4A85F6] flex items-center justify-center text-white font-bold text-lg">
+                {getInitials()}
+              </div>
+              
+              <div>
+                <h2 className="text-xl font-bold text-gray-800">
+                  {model?.lastName} {model?.firstName} {model?.patronymic}
+                </h2>
+                <p className="text-gray-600 text-sm mt-1">
+                  {model?.email}
+                </p>
+              </div>
             </div>
-            <Button children="Обновить профиль" onClick={() => update(setUser)} class={`text-white !w-fit px-[15px] font-bold py-[11px] bg-[#${isValid ? "4080FB" : "DCDEE3"}]`} />
+            
+            {/* Кнопка изменения фото */}
+            {/* <button className="mt-4 sm:mt-0 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              <Icon systemName="gallery" className="w-4 h-4 mr-2 inline" />
+              Изменить фото
+            </button> */}
+          </div>
+
+          {/* Персональные данные */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold text-gray-800 mb-6">Персональные данные</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl">
+              <InputContainer headerText="Фамилия" isRequired>
+                <Input
+                  type="text"
+                  placeholder="Иванов"
+                  value={model?.lastName || ''}
+                  onChange={changeLastName}
+                  className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                />
+              </InputContainer>
+              
+              <InputContainer headerText="Имя" isRequired>
+                <Input
+                  type="text"
+                  placeholder="Иван"
+                  value={model?.firstName || ''}
+                  onChange={changeFirstName}
+                  className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                />
+              </InputContainer>
+              
+              <InputContainer headerText="Отчество">
+                <Input
+                  type="text"
+                  placeholder="Иванович"
+                  value={model?.patronymic || ''}
+                  onChange={changeMiddleName}
+                  className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                />
+              </InputContainer>
+              
+              <InputContainer headerText="E-mail" isRequired>
+                <Input
+                  type="email"
+                  placeholder="ivanovivan@gmail.com"
+                  value={model?.email || ''}
+                  onChange={changeEmail}
+                  className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                />
+              </InputContainer>
+              
+              <InputContainer headerText="Мобильный телефон" isRequired>
+                <Input
+                  type="tel"
+                  placeholder="+7 (965) 457-45-66"
+                  value={model?.phoneNumber || ''}
+                  onChange={changePhone}
+                  className="w-full h-12 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                />
+              </InputContainer>
+            </div>
+          </div>
         </div>
-    )
-})
+
+        {/* Кнопка сохранения */}
+        <div className="px-8 py-6 bg-gray-50 border-t border-gray-200">
+          <Button
+            onClick={() => update(setUser)}
+            disabled={!isValid}
+            class={`px-6 py-3 font-semibold rounded-lg transition-colors min-w-[180px] ${
+              isValid
+                ? 'bg-[#4A85F6] hover:bg-[#3a6bc9] text-white shadow-md hover:shadow-lg'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            Обновить профиль
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+});

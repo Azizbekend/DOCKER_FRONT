@@ -1,95 +1,132 @@
-
-import { Link } from "react-router-dom"
-import { observer } from "mobx-react-lite"
-import orderListModel from "../orders/model/order-list-model"
-import { useEffect, useRef } from "react"
-import { format } from "date-fns"
-import moment from "moment"
-import { ru } from "date-fns/locale"
-import { useAuth } from "@/entities/user/context"
-import { OrderCard } from "../../layout/oder-card"
-import { Points } from "../../layout/points/points"
-import useOrderStatus from "@/entities/order/useOrderStatus"
-// import { OrderCard } from "../../layout/oder-card"
-// import useOrderStatus from "@/entities/order/useOrderStatus"
-// import { Points } from "../../layout/points/points"
-
-moment.locale('ru');
+import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import orderListModel from "../orders/model/order-list-model";
+import { useEffect, useRef } from "react";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
+import { useAuth } from "@/entities/user/context";
+import { OrderCard } from "../../layout/oder-card";
+import { Points } from "../../layout/points/points";
+import useOrderStatus from "@/entities/order/useOrderStatus";
 
 export const MainView = observer(() => {
-    const { user } = useAuth();
-    const { initMain, modelMain } = orderListModel;
+  const { user } = useAuth();
+  const { initMain, modelMain } = orderListModel;
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (user) {
+      initMain(user.id);
+    }
 
-    useEffect(() => {
-        user && initMain(user?.id)
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault();
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft += event.deltaY;
+      }
+    };
 
-        const handleWheel = (event: any) => {
-            event.preventDefault();
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('wheel', handleWheel);
+    }
 
-            if (scrollContainerRef.current) {
-                scrollContainerRef.current.scrollLeft += event.deltaY;
-            }
-        };
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('wheel', handleWheel);
+      }
+    };
+  }, [user]);
 
-        const scrollContainer = scrollContainerRef.current;
-        if (scrollContainer) {
-            scrollContainer.addEventListener('wheel', handleWheel);
-        }
+  const services = [
+    {
+      title: "Вывоз ЖБО",
+      description: "Удаление жидких бытовых отходов"
+    },
+    {
+      title: "Услуги",
+      description: "Удобные услуги для всех"
+    },
+    {
+      title: "Технические условия",
+      description: "Предоставление технического условия для подключения к водоснабжению"
+    }
+  ];
 
-        return () => {
-            if (scrollContainer) {
-                scrollContainer.removeEventListener('wheel', handleWheel);
-            }
-        };
-    }, [])
+  return (
+    <div 
+      className="mx-5 mt-10"
+      style={{ fontFamily: "'Open Sans', sans-serif" }}
+    >
+      {/* Заголовок */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-800">Мои заявки</h1>
+        <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+      </div>
 
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
+      {/* Карточки заявок */}
+      <div className="overflow-x-auto pb-4 -mx-4 px-4">
+        <div 
+          className="flex flex-row gap-5 min-w-max" 
+          ref={scrollContainerRef}
+        >
+          {modelMain.map(x => {
+            const startDate = new Date(x.arrivalStartDate ?? "");
+            const endDate = new Date(x.arrivalEndDate ?? "");
+            const formattedDate = format(startDate, 'd MMMM yyyy', { locale: ru });
 
-    return (
-        <div className="py-16 flex flex-col gap-8">
-            <div className="overflow-x-auto w-full pb-1">
-                <div className="flex flex-row gap-5 w-fit" ref={scrollContainerRef}>
-                    {modelMain.map(x => {
-                        const startDate = new Date(x.arrivalStartDate ?? "")
-                        const endDate = new Date(x.arrivalEndDate ?? "")
-                        const formattedDate = format(startDate, 'd MMMM yyyy', { locale: ru });
+            return (
+              <OrderCard 
+                key={x.id}
+                id={x.id} 
+                date={formattedDate} 
+                time={`${format(startDate, 'HH:mm')}-${format(endDate, 'HH:mm')}`} 
+                statusId={x.orderStatusId} 
+                status={useOrderStatus().StatusText(x.orderStatusId)} 
+                title="Вывоз ЖБО" 
+                code={""} 
+              />
+            );
+          })}
+        </div>
+      </div>
 
-                        return (
-                            <OrderCard id={x.id} date={formattedDate} time={`${format(startDate, 'HH:mm')}-${format(endDate, 'HH:mm')}`} statusId={x.orderStatusId} status={useOrderStatus().StatusText(x.orderStatusId)} title="Вывоз ЖБО" code={""} />
-                        )
-                    })}
-                </div>
+      {/* Кнопка создания заявки */}
+      <div className="mt-8 flex justify">
+        <Link 
+          to="/trieco/client/order/create/map" 
+          className="bg-[#4A85F6] text-white rounded-lg px-6 py-3 font-medium hover:bg-[#3a6bc9] transition-colors shadow-md hover:shadow-lg"
+        >
+          Создать заявку
+        </Link>
+      </div>
+
+      {/* Услуги */}
+      <div className="mt-12">
+        <h1 className="text-3xl font-bold text-gray-800">Услуги</h1>
+        <div className="mb-8 w-10 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-5">
+            {services.map((service, index) => (
+              <Link 
+                key={index}
+                to="/services"
+                className="block p-5 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow hover:border-[#4A85F6]"
+              >
+                <h3 className="font-bold text-lg text-gray-800 mb-2">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="flex items-start">
+            <div className="w-full">
+              <Points />
             </div>
-
-            <Link to={'/trieco/client/order/create/map'} className="bg-[#E03131] rounded-lg px-4 py-3 w-fit text-center flex items-center justify-between hover:opacity-50 duration-300">
-                <span className="text-white">Создать заявку</span>
-                {/* <Icon systemName="arrow-left" />  */}
-            </Link>
-
-            <div className="flex flex-col gap-8">
-                <span className="text-[28px] font-semibold">Услуги</span>
-                <div className="flex flex-row w-full justify-between">
-                    <div className="flex flex-col gap-5 max-w-[420px]">
-                        <div className="flex flex-col rounded-xl p-4 gap-2 shadow-lg border cursor-pointer">
-                            <span className="font-semibold text-[20px]">Вывоз ЖБО</span>
-                            <span className="text-[#575757] text-[16px]">Удаление жидких бытовых отходов</span>
-                            <hr className="border-[#F0F0F0] mb-2" />
-                        </div>
-                        <div className="flex flex-col rounded-xl p-4 gap-2 shadow-lg border cursor-pointer">
-                            <span className="font-semibold text-[20px]">Услуги</span>
-                            <span className="text-[#575757] text-[16px]">Удобные услуги для всех</span>
-                            <hr className="border-[#F0F0F0] mb-2" />
-                        </div>
-                        <div className="flex flex-col rounded-xl p-4 gap-2 shadow-lg border cursor-pointer">
-                            <span className="font-semibold text-[20px]">Технические условия</span>
-                            <span className="text-[#575757] text-[16px]">Предоставление технического условия для подключения к водоснабжению</span>
-                            <hr className="border-[#F0F0F0] mb-2" />
-                        </div>
-                    </div>
-                    <Points />
-                </div>
-            </div>
-        </div >
-    )
-})
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
