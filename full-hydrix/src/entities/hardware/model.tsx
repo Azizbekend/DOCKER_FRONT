@@ -1,9 +1,8 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
 import { makeAutoObservable } from "mobx";
-import { json } from "react-router-dom";
 import { toast } from "react-toastify";
 
 class HardwareModel {
@@ -23,6 +22,8 @@ class HardwareModel {
     };
 
     isLoading: boolean = false;
+    isCommand: boolean = false;
+    isLoaderCommand: boolean = false;
 
     сharacteristic: Characteristic[] = []
     commands: ControlType[] = []
@@ -40,7 +41,6 @@ class HardwareModel {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }
-
 
     get getCommands() {
         return this.servicesToday
@@ -72,14 +72,13 @@ class HardwareModel {
         this.ids = []
     }
 
-
     async init(id: number, serviceTody: boolean = false) {
 
         this.isLoading = true
         this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, commandCheck] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -89,7 +88,8 @@ class HardwareModel {
                 getServiceHistoryRecordsAllOrderedApi({ id: id }),
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
-                getInfoNodeInfoAllCheck({ id: id })
+                getInfoNodeInfoAllCheck({ id: id }),
+                getCommandCheck({ hardwareId: id })
             ]);
 
             this.model = info.data;
@@ -109,6 +109,7 @@ class HardwareModel {
             this.documents = documents.data;
             this.incidentList = incidentList.data;
 
+            this.isCommand = !(commandCheck.data == "True")
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
@@ -171,6 +172,36 @@ class HardwareModel {
         this.commands[this.commands.findIndex(item => item.id === id)].value = value
     }
 
+
+    async switchIsCommand() {
+        this.isLoaderCommand = true;
+
+        if (this.isCommand) {
+            await getCommandActive({ hardwareId: this.model.id })
+                .then(() => {
+                    this.isCommand = false
+                    toast("Команды активированы", { progressStyle: { background: "green" } });
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                })
+                .finally(() => { this.isLoaderCommand = false })
+        } else {
+            await getCommandDeactive({ hardwareId: this.model.id })
+                .then(() => {
+                    this.isCommand = true
+                    toast("Команды деактивированы", { progressStyle: { background: "green" } });
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                })
+                .finally(() => { this.isLoaderCommand = false })
+
+        }
+    }
+
     async checkedService(id: string) {
         await checkedServiceApi({ id: id }).then((res) => {
             this.servicesToday = this.servicesToday.filter(item => item.id !== Number(id));
@@ -186,7 +217,6 @@ class HardwareModel {
                         this.commandsInfo = this.commandsInfo.map(item => {
 
                             if (item.id == key) {
-                                console.log(res.data.indecatesGroup[key])
                                 return { ...item, value: res.data.indecatesGroup[key] };
                             }
 

@@ -1,4 +1,4 @@
-import { Characteristics, Control, ControlBlock, Documents, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
+import { Characteristics, Command, Control, ControlBlock, Documents, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
 
 import { reserchInstance } from "@/app/api/instances"
 
@@ -169,6 +169,18 @@ export const createDocuments = (params: Documents) => {
 }
 export const getDocuments = (params: { id: number }) => {
     return reserchInstance.get(Documents.hardware, { params })
+}
+
+export const getCommandCheck = (params: { hardwareId: number }) => {
+    return reserchInstance.get(Command.check, { params })
+}
+
+export const getCommandActive = (params: { hardwareId: number }) => {
+    return reserchInstance.get(Command.active, { params })
+}
+
+export const getCommandDeactive = (params: { hardwareId: number }) => {
+    return reserchInstance.get(Command.deactive, { params })
 }
 
 

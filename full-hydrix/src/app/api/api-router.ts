@@ -225,6 +225,13 @@ export const Control = {
   delete: "/NodeInfo/info/delete",
 }
 
+export const Command = {
+  check: "/Comand/check/remoteControlStatus",
+  active: "/Comand/hardware/remoreControl/Activate",
+  deactive: "/Comand/hardware/remoreControl/Deactivate",
+}
+
+
 
 export const Incident = {
   allIncedent: "/Incidents/incidents/all", // Получаем все все аварии

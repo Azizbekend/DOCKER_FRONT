@@ -33,7 +33,6 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
 
   const status = getStatusInfo();
 
-  // Журнал событий — в едином стиле с "Управление" и "Паспортом"
   const eventLog = [
 
     {
