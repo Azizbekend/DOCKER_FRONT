@@ -1,45 +1,54 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
-import path from 'path';
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  const comm = command;
   const env = loadEnv(mode, process.cwd(), '')
+
   return {
     plugins: [
       react(),
+      svgr(),
     ],
+
     define: {
       __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
+
     server: {
       port: Number(env.VITE_APP_PORT),
       cors: false,
       host: env.VITE_REACT_APP_HOST,
       proxy: {
-        "/api": {
+        '/api': {
           target: `http://${env.VITE_BACKEND_HOST}:${env.VITE_BACKEND_PORT}`,
           changeOrigin: true,
           secure: false,
           headers: {
-            'Connection': 'keep-alive',
-            'Content-Type': 'application/json'
+            Connection: 'keep-alive',
+            'Content-Type': 'application/json',
           },
-          configure: (proxy, _options) => {
-            proxy.on('error', (err, _req, _res) => {
-              console.log('proxy error', err);
-            });
-            proxy.on('proxyReq', (proxyReq, req, _res) => {
-              console.log('Sending Request to the Target:', req.method, req.url);
-            });
-            proxy.on('proxyRes', (proxyRes, req, _res) => {
-              console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
-            });
+          configure: (proxy) => {
+            proxy.on('error', (err) => {
+              console.log('proxy error', err)
+            })
+            proxy.on('proxyReq', (proxyReq, req) => {
+              console.log('Sending Request to the Target:', req.method, req.url)
+            })
+            proxy.on('proxyRes', (proxyRes, req) => {
+              console.log('Received Response from the Target:', proxyRes.statusCode, req.url)
+            })
           },
         },
-      }
+      },
+    },
+
+    preview: {
+      allowedHosts: ['hydrig.gsurso.ru'],
+      port: Number(env.VITE_APP_PORT),
+      host: true,
     },
 
     resolve: {
@@ -62,6 +71,6 @@ export default defineConfig(({ command, mode }) => {
         { find: '@core-gis', replacement: path.resolve(__dirname, 'src/app/cores/core-gis') },
         { find: '@core-trieco', replacement: path.resolve(__dirname, 'src/app/cores/core-trieco') },
       ],
-    }
+    },
   }
 })
