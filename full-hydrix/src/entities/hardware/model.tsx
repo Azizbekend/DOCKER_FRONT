@@ -1,4 +1,4 @@
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, commandSend, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
@@ -109,7 +109,6 @@ class HardwareModel {
 
             this.documents = documents.data;
             this.incidentList = incidentList.data;
-            this.isActiveCommand = "True" == "True"
 
             // this.isActiveCommand = commandCheck.data == "True"
 
@@ -178,37 +177,30 @@ class HardwareModel {
     async switchIsCommand() {
         this.isLoaderCommand = true;
 
-        setTimeout(() => {
-            if (this.isLoaderCommand) {
-                this.isLoaderCommand = false;
-                this.isActiveCommand = !this.isActiveCommand
-            }
-        }, 1000)
+        if (this.isActiveCommand) {
+            await getCommandActive({ hardwareId: this.model.id })
+                .then(() => {
+                    this.isActiveCommand = false
+                    toast("Команды активированы", { progressStyle: { background: "green" } });
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                })
+                .finally(() => { this.isLoaderCommand = false })
+        } else {
+            await getCommandDeactive({ hardwareId: this.model.id })
+                .then(() => {
+                    this.isActiveCommand = true
+                    toast("Команды деактивированы", { progressStyle: { background: "green" } });
+                })
+                .catch((error) => {
+                    console.log(error)
+                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                })
+                .finally(() => { this.isLoaderCommand = false })
 
-        // if (this.isActiveCommand) {
-        //     await getCommandActive({ hardwareId: this.model.id })
-        //         .then(() => {
-        //             this.isActiveCommand = false
-        //             toast("Команды активированы", { progressStyle: { background: "green" } });
-        //         })
-        //         .catch((error) => {
-        //             console.log(error)
-        //             toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
-        //         })
-        //         .finally(() => { this.isLoaderCommand = false })
-        // } else {
-        //     await getCommandDeactive({ hardwareId: this.model.id })
-        //         .then(() => {
-        //             this.isActiveCommand = true
-        //             toast("Команды деактивированы", { progressStyle: { background: "green" } });
-        //         })
-        //         .catch((error) => {
-        //             console.log(error)
-        //             toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
-        //         })
-        //         .finally(() => { this.isLoaderCommand = false })
-
-        // }
+        }
     }
 
     async checkedService(id: string) {
@@ -237,6 +229,23 @@ class HardwareModel {
             console.error(`Ошибка при получении данных для plcNodeid :`, error);
         }
     }
+
+
+
+    async clickTest() {
+        await fetch('https://triapi.ru/research/api/Comand/send/command/string?nodeId=261&value=1.4', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            // body: JSON.stringify({  })
+        })
+            .then((res) => console.log(res))
+            .catch((error) => console.log(error))
+
+        // await commandSend({ nodeId: 261, value: "1,6" })
+        //     .then((res) => alert(res.data))
+        //     .catch((error) => console.log(error))
+    }
+
 
 }
 

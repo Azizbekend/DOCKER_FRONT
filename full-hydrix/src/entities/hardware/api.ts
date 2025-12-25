@@ -183,6 +183,10 @@ export const getCommandDeactive = (params: { hardwareId: number }) => {
     return reserchInstance.get(Command.deactive, { params })
 }
 
+export const commandSend = (params: { nodeId: number, value: string }) => {
+    return reserchInstance.post(Command.send, params)
+}
+
 
 export const getInfoNodeInfos = (params: any) => {
     return reserchInstance.post("/NodeIndicates/actual/group", params)

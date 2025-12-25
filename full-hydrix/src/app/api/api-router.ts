@@ -229,6 +229,7 @@ export const Command = {
   check: "/Comand/check/remoteControlStatus",
   active: "/Comand/hardware/remoreControl/Activate",
   deactive: "/Comand/hardware/remoreControl/Deactivate",
+  send: "/Comand/send/command/string",
 }
 
 

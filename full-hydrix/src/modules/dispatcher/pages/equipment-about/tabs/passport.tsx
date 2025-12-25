@@ -6,7 +6,7 @@ import { ModalServiceCreate } from "../../equipment/components/modal-service-cre
 import EquipmentStatistics from "../components/equipment-statistic";
 
 export const EquipmentPassport = observer(() => {
-    const { model, documents, сharacteristic, commandsInfo } = hardwareModel;
+    const { model, documents, сharacteristic, commandsInfo, clickTest } = hardwareModel;
     const { modalService, closeModal } = hardwareListModel;
 
     const isConnected = true;
@@ -71,7 +71,7 @@ export const EquipmentPassport = observer(() => {
                     </div>
 
                     {/* Connection Status */}
-                    <div className="text-center mb-2">
+                    <div className="text-center mb-2" onClick={clickTest}>
                         <p className="text-sm text-gray-600 mb-2">Статус подключения к ИАС</p>
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                             }`}>
