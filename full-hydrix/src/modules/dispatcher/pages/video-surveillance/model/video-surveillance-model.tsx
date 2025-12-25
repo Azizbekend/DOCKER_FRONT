@@ -17,7 +17,7 @@ class VideoSurveillanceModel {
     async CameraConnect() {
         await CameryConnectApi({ userId: 1, cameraId: this.cameraSources[0] })
             .then((res) => {
-                this._videoSrc = "http://hydrig.gsurso.ru/camera" + res.data.data.streamUrl;
+                this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
                 console.log(this._videoSrc)
             })
             .catch((err) => { console.log(err) })
@@ -29,7 +29,7 @@ class VideoSurveillanceModel {
             cameraId: id
         })
             .then((res) => {
-                this._videoSrc = "http://hydrig.gsurso.ru/camera" + res.data.data.streamUrl;
+                this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
                 console.log(res.data.data.streamUrl)
             })
             .catch((err) => { console.log(err) })
