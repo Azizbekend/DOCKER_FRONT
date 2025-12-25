@@ -37,7 +37,7 @@ export const HardwareControlle = observer(() => {
                 </div>
 
                 {/* {isLoaderCommand ? <Loader /> : */}
-                <div className={` duration-200 ${isActiveCommand ? "opacity-50" : "opacity-100"}`}>
+                <div className={` duration-200 ${!isActiveCommand ? "opacity-50" : "opacity-100"}`}>
                     <div className="flex justify-between mb-5 border-b pb-5 gap-3">
                         <Button onClick={() => { isActiveCommand && setBtnCount(0) }} class={`border-2 w-full justify-center ${btnCount == 0 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Пуск</Button>
                         <Button onClick={() => { isActiveCommand && setBtnCount(1) }} class={`border-2 w-full justify-center ${btnCount == 1 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Стоп</Button>
@@ -53,7 +53,7 @@ export const HardwareControlle = observer(() => {
                                         <>
                                             <Input type="number" value={item.value} onChange={(e) => { changeCommands(e.target.value, item.id) }}
                                                 className="border rounded-lg max-w-[80px] py-1 px-2"
-                                                disabled={isActiveCommand}
+                                                disabled={!isActiveCommand}
                                                 lengthOptions={{
                                                     maxLength: 5,
                                                 }}
@@ -70,7 +70,7 @@ export const HardwareControlle = observer(() => {
                                         />
                                     }
 
-                                    <div className='px-2 min-w-[40px] py-2 bg-[var(--clr-accent)] rounded-lg hover:opacity-50 cursor-pointer duration-300' onClick={() => !isActiveCommand && setShow(true)}>
+                                    <div className='px-2 min-w-[40px] py-2 bg-[var(--clr-accent)] rounded-lg hover:opacity-50 cursor-pointer duration-300' onClick={() => isActiveCommand && setShow(true)}>
                                         <Icon systemName='save-white' />
                                     </div>
                                 </div>

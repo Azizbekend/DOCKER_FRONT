@@ -110,6 +110,7 @@ class HardwareModel {
             this.documents = documents.data;
             this.incidentList = incidentList.data;
             this.isActiveCommand = "True" == "True"
+
             // this.isActiveCommand = commandCheck.data == "True"
 
         } catch (error) {
