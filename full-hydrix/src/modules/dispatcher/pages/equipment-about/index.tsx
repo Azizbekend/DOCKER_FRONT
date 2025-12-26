@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
-import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/entities/hardware/model";
 import Loader from "@/shared/ui/loader/loader";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";
 import { hardwareListModel } from "../equipment/model/hardware-list-model";
+import { ModalServiceCreate } from "../equipment/components/modal-service-create";
 
 export const EquipmentAbout = observer(() => {
     const { id } = useParams();
 
     const { model, init, isLoading } = hardwareModel
     const { setModalService } = hardwareListModel;
+    const { modalService, closeModal } = hardwareListModel;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -22,6 +24,8 @@ export const EquipmentAbout = observer(() => {
         <Loader />
         :
         <div className="informations-dispatch__requestregistry relative mt-10" >
+            <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
+
             <div className="absolute  top-[-36px] left-[30px] flex gap-3">
                 <NavLink
                     to={`/dispatcher/equipment-about/${id}/passport/`}
@@ -65,8 +69,7 @@ export const EquipmentAbout = observer(() => {
                     </div>
                     {/* Top Action Buttons */}
                     <div className="flex gap-3 z-10">
-                        <Link
-                            to="/dispatcher/orders/create"
+                        <Link to="/dispatcher/orders/create/form"
                             className="flex items-center gap-2 px-4 py-2.5 bg-[#4A85F6] text-white rounded-lg font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
                         >
                             <Icon systemName="file-plus" />

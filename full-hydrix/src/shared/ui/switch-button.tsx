@@ -9,7 +9,7 @@ interface SwitchButtonProps {
     },
 
     label?: string;
-    disabled: boolean,
+    disabled?: boolean,
     onChange: (value: boolean) => void;
 }
 

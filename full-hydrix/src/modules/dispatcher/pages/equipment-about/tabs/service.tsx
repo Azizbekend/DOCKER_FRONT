@@ -13,6 +13,7 @@ import { ServiceStatisticItem } from "../components/service-statistic-item";
 
 export const EquipmentService = () => {
   const { getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic } = hardwareModel;
+
   const [show, setShow] = useState<boolean>(false);
 
   const [btnCount, setBtnCount] = useState<string>("");
@@ -52,10 +53,7 @@ export const EquipmentService = () => {
         }
         footerSlot={
           <div className="flex justify-end gap-3 p-6">
-            <Button
-              class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors"
-              onClick={() => setShow(false)}
-            >
+            <Button class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors" onClick={() => setShow(false)}>
               Отмена
             </Button>
             <Button
@@ -89,7 +87,7 @@ export const EquipmentService = () => {
                   info={item.discription}
 
                   children={
-                    <div className='flex items-center gap-4 justify-between' onClick={() => handleServiceOpen(item.id)}>
+                    <div className='flex items-center gap-4 justify-between mb-2' onClick={() => handleServiceOpen(item.id)}>
                       <InputCheckbox
                         disabled
                         label={item.title}
@@ -117,7 +115,7 @@ export const EquipmentService = () => {
                   className='w-full'
                   info={item.discription}
                   children={
-                    <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2'>
+                    <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2 mb-2'>
                       <div className='flex flex-col flex-1'>
                         <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
                           {new Date(item.nextMaintenanceDate).toLocaleDateString('ru-RU', {

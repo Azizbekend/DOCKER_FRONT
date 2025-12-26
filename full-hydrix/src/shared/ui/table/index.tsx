@@ -35,7 +35,7 @@ export function Table<T>(props: TableProps<T>) {
     return (
         <div className="bg-white rounded-2xl shadow overflow-hidden border mb-10">
             <div className={"overflow-auto h-[80vh] " + props.classNames?.body}>
-                <table className="min-w-[1100px] w-full">
+                <table className={`min-w-[1100px] w-full ${props.classNames?.table}`}>
                     <TableHeader table={table} gridTemplate={gridTemplate} />
                     <TableBody
                         table={table}

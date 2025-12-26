@@ -61,24 +61,30 @@ class HardwareModel {
             controlBlockId: 0,
         };
 
+        this.isLoading = false;
+        this.isActiveCommand = false;
+        this.isLoaderCommand = false;
+
+        this.сharacteristic = [];
         this.commands = [];
         this.commandsInfo = [];
-        this.сharacteristic = [];
+        this.services = [];
         this.servicesToday = [];
         this.servicesWeek = [];
         this.servicesHistory = [];
+        this.serviceStatistic = [];
         this.documents = [];
         this.incidentList = [];
+        this.commandInfoIds = []
         this.ids = []
     }
 
     async init(id: number, serviceTody: boolean = false) {
-
         this.isLoading = true
         this.clear()
 
         try {
-            // commandCheck
+
             const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),

@@ -3,10 +3,10 @@ import { Icon } from '@/shared/ui/icon';
 import { Input } from '@/shared/ui/Inputs/input-text';
 import { SwitchButton } from '@/shared/ui/switch-button';
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { hardwareModel } from '@/entities/hardware/model';
-import { ConfirmModal } from '../components/modal-confirm';
-import { ModalCommanActive } from '../components/modal-comman-active';
+import { ConfirmModal } from '@/shared/components/hardware-modal-confirms/modal-confirm';
+import { ModalCommanActive } from '@/shared/components/hardware-modal-confirms/modal-comman-active';
 import Loader from '@/shared/ui/loader/loader';
 
 export const HardwareControlle = observer(() => {
@@ -25,11 +25,8 @@ export const HardwareControlle = observer(() => {
 
     return (
         <>
-
             {isActiveCommand && <ConfirmModal show={show} setShow={setShow} />}
-
             <ModalCommanActive show={showAvtive} setShow={setShowAvtive} confirm={confirm} cancle={cancle} />
-
 
             <div className="w-full mt-10 p-[0_0_50px_0]">
 
