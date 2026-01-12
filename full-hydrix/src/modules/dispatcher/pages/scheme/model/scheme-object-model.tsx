@@ -60,22 +60,6 @@ class SchemeObjectModel {
     async updateScheme() {
         const currentScheme = schemeModel.model[this.index];
 
-        const uploadImage = async (file: File): Promise<number> => {
-            const formData = new FormData();
-            formData.append("File", file);
-
-            const response = await fetch(
-                "https://triapi.ru/research/api/FileStorage/images/upload",
-                {
-                    method: "POST",
-                    body: formData,
-                }
-            );
-
-            const result = await response.json();
-            return result.id;
-        };
-
         const apiData: SchemaCoordinatesCreateType = {
             id: currentScheme.id,
             top: currentScheme.top,
@@ -90,19 +74,19 @@ class SchemeObjectModel {
 
         try {
             if (this.saveIMageScheme.default) {
-                const id = await uploadImage(this.saveIMageScheme.default);
+                const id = await this.uploadImage(this.saveIMageScheme.default);
                 apiData.fileId = id;
                 currentScheme.fileId = id;
             }
 
             if (this.saveIMageScheme.red) {
-                const id = await uploadImage(this.saveIMageScheme.red);
+                const id = await this.uploadImage(this.saveIMageScheme.red);
                 apiData.redFileId = id;
                 currentScheme.redFileId = id;
             }
 
             if (this.saveIMageScheme.green) {
-                const id = await uploadImage(this.saveIMageScheme.green);
+                const id = await this.uploadImage(this.saveIMageScheme.green);
                 apiData.greenFileId = id;
                 currentScheme.greenFileId = id;
             }
@@ -119,6 +103,22 @@ class SchemeObjectModel {
             toast.error("Ошибка при обновлении компонента");
         }
     }
+
+    async uploadImage(file: File) {
+        const formData = new FormData();
+        formData.append("File", file);
+
+        const response = await fetch(
+            "https://triapi.ru/research/api/FileStorage/images/upload",
+            {
+                method: "POST",
+                body: formData,
+            }
+        );
+
+        const result = await response.json();
+        return result.id;
+    };
 
 
     async deleteSchemeObject() {

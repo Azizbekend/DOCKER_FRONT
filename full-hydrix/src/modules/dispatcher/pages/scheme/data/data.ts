@@ -261,7 +261,5 @@ export const CountersData: CountersType[] = [
 export const tabs = [
     { id: 0, label: "Механическая очистка", schemeId: 6 },
     { id: 1, label: "Биологическая очистка", schemeId: 8 },
-    // { id: 2, label: "Вентиляция", schemeId: 9 },
-    // { id: 3, label: "СКУД", schemeId: 10 },
-    // { id: 4, label: "Охрано-пожарная сигнализация", schemeId: 11 },
+    { id: 2, label: "Доочистка", schemeId: 9 },
 ];

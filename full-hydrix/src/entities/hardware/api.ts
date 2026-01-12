@@ -3,7 +3,7 @@ import { Characteristics, Command, Control, ControlBlock, Documents, Hardware, P
 import { reserchInstance } from "@/app/api/instances"
 
 import { CharacteristicsCreateInterface, CharacteristicsCreateManyInterface, CreateHardwareInterface, ObjectInfoInterface, SchemaCoordinatesCreateType, SchemaCreateType } from "./type"
-import { ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/equipment-form/components/control/type"
+import { ControlTypeCreate, ControlTypeCreateMany } from "@/modules/dispatcher/pages/hardware-form/components/control/type"
 
 
 export const getAllHardware = () => {

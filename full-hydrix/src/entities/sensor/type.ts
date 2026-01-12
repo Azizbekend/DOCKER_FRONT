@@ -4,7 +4,7 @@ export interface SchemaCardInterface {
     left: string,
     nodeInfoId: number,
     schemeId?: number,
-    nodeName?: number,
+    nodeName?: string,
     value?: number | null,
     measurementName?: number,
 }

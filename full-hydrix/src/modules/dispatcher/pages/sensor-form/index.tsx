@@ -25,7 +25,7 @@ export const SensorForm = observer(() => {
     return isLoading ? <Loader fullscreen size={64} color="#222" /> : (
         <div className="bg-white rounded-[20px] p-[45px_30px_50px_40px] mb-5 relative">
             <div className="mb-[32px] flex items-center gap-[28px]">
-                <Link to={"/dispatcher/equipment"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
+                <Link to={"/dispatcher/hardware"} className='bg-[var(--clr-accent)] rounded px-3 py-2 hover:opacity-50 cursor-pointer duration-300'>
                     <Icon systemName="arrow-left" />
                 </Link>
                 <span className="font-bold text-[34px] mb-2">Добавление датчика</span>
@@ -140,7 +140,7 @@ export const SensorForm = observer(() => {
             <div className="flex gap-4 mt-5 justify-end items-end">
                 <div className="flex gap-4">
                     <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={create}>Сохранить</Button>
-                    <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/equipment")}>Отменить</Button>
+                    <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/hardware")}>Отменить</Button>
                 </div>
             </div>
         </div>

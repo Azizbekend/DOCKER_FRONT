@@ -1,24 +1,33 @@
 import image from '../../assets/scheme.png'
-import image2 from '../../assets/scheme2-need.png'
+import image2 from '../../assets/scheme-biological.png'
+import image3 from '../../assets/scheme-post-cleaning.png'
 import accident from '../../assets/icons/accident.svg'
 import "./ViewScheme.scss";
 import { observer } from "mobx-react-lite";
 import { useScheme } from './hooks/useScheme';
-import { schemeModel } from '../../model/scheme-model';
 import { SchemeViewerType } from '../../types/type';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Role } from '@/entities/user/role';
 import { useAuth } from '@/entities/user/context';
+import { SchemaCardInterface } from '@/entities/sensor/type';
 
 
-export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData, switchColo, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
+export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabScheme, setSchemeObjectData, switchColo, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
-
-    const { timesFunctions, model } = schemeModel
     const { user } = useAuth()
 
+    const getMaxNodeNameLength = (listSensoresScheme: SchemaCardInterface[]) => {
+        let maxLenth = 0;
+        listSensoresScheme.forEach(element => {
+            maxLenth = element.nodeName!.length > maxLenth ? element.nodeName!.length : maxLenth
+        });
+        return maxLenth * 8;
+    };
+
+    let maxLengthSensore: number = getMaxNodeNameLength(listSensore)
 
     useEffect(() => {
+
         const intervalId = setInterval(() => {
             timesFunctions()
         }, 3000);
@@ -28,7 +37,16 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
         };
     }, []);
 
-
+    const getSchemePhoto = (id: number) => {
+        switch (id) {
+            case 6:
+                return image
+            case 8:
+                return image2
+            case 9:
+                return image3
+        }
+    }
 
     return (
         <div
@@ -53,7 +71,6 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                     transformOrigin: "top left",
                 }}
             >
-
                 {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div
                         key={p.id}
@@ -91,9 +108,10 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                 {listSensore.map((point, key) => point.schemeId == tabScheme && (
                     <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(point.id) }}>
-                        <div className="not-hover max-w-[150px] bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
-                            <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.nodeName}</div>
-                            <div className="flex items-baseline gap-1">
+                        <div className={`not-hover ax-w-[150px]  bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm`}
+                            style={{ width: maxLengthSensore + "px" }}>
+                            <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0 text-center">{point.nodeName}</div>
+                            <div className="flex items-baseline gap-1 justify-center">
                                 <span className=" text-emerald-400 font-semibold ">{point.value}</span>
                                 <span className="text-[10px] text-gray-400">{point.measurementName}</span>
                             </div>
@@ -126,7 +144,7 @@ export const SchemeViewer = observer(({ setInfo, tabScheme, setSchemeObjectData,
                 ))} */}
 
                 <img ref={imgRef}
-                    src={tabScheme == 6 ? image : image2}
+                    src={getSchemePhoto(tabScheme)}
                     alt="scheme"
                     className="scheme-view__image"
                 />

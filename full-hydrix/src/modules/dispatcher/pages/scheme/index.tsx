@@ -9,13 +9,12 @@ import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 import { FormSchemaSensore } from "./components/form-schema-sensore.js";
 
 export const Scheme = observer(() => {
-  const { init, list, focusHardware, focusHardwareStatus, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData } = schemeModel;
+  const { init, list, focusHardware, focusHardwareStatus, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData, timesFunctions, model } = schemeModel;
   const [tabScheme, setTabScheme] = useState<number>(6);
 
   useEffect(() => {
     init([6, 8]);
   }, []);
-
 
   return (
     <div className="informations-dispatch__scheme scheme-dispatch relative mt-8" style={{ fontFamily: "'Open Sans', sans-serif" }}>
@@ -41,6 +40,8 @@ export const Scheme = observer(() => {
           setSchemeObjectData={setSchemeObjectData}
           setSchemeSensoreData={setSchemeSensoreData}
           switchColo={switchColo}
+          timesFunctions={timesFunctions}
+          model={model}
         />
         {focusHardware !== 0 && (
           <HardwareCard

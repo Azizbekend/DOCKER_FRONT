@@ -17,11 +17,16 @@ export type InformationsType = {
 export type SchemeViewerType = {
     setInfo: (id: number, status: boolean) => void,
     tabScheme: number,
+    switchColo: boolean,
+
     points: SchemaObjectType[],
+    listSensore: SchemaCardInterface[]
+
+    model: SchemaObjectType[],
+    timesFunctions: () => void,
+
     setSchemeObjectData: (id: number) => void,
     setSchemeSensoreData: (id: number) => void,
-    switchColo: boolean,
-    listSensore: SchemaCardInterface[]
 }
 
 export type SchemeViewerPointType = {

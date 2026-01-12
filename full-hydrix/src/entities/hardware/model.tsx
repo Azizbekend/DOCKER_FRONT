@@ -1,7 +1,7 @@
 import { checkedServiceApi, commandSend, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
-import { Characteristic } from "@/modules/dispatcher/pages/equipment-form/components/characteristic/type";
-import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/equipment-form/components/control/type";
+import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
+import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

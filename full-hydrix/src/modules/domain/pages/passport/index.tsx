@@ -7,7 +7,7 @@ import { PassportParticipants } from "./tabs/participants"
 import { PassportInformation } from "./tabs/information"
 import { useState } from "react";
 import { CreateCompanyModal } from "./components/create-company-modal";
-import { EquipmentRegistry } from "./tabs/equipment";
+import { EquipmentRegistry } from "./tabs/hardware";
 import { Incident } from "./tabs/incident";
 
 export const PassportObject = () => {
@@ -44,17 +44,17 @@ export const PassportObject = () => {
           >
             Паспорт
           </NavLink>
-          
+
           <NavLink to={'/domain/passport/participants'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
             Участники
           </NavLink>
-          
+
           <NavLink to={'/domain/passport/hardwares'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
-            Оборудование
+            Оборудования
           </NavLink>
 
           <NavLink to={'/domain/passport/incident'}
@@ -79,8 +79,10 @@ export const PassportObject = () => {
               <Icon systemName="arrow-left" className="text-white" />
             </Link>
             <h1 className="text-xl md:text-2xl font-bold">
+
               {tab === "information" && "Паспорт объекта"}
               {tab === "participants" && "Участники"}
+              {tab === "hardwares" && "Оборудования"}
               {tab === "incident" && "Аварии"}
               {tab === "documentation" && "Документация"}
             </h1>
@@ -134,8 +136,8 @@ export const PassportObject = () => {
     </>
   )
 
-  
 
-  
+
+
 }
 

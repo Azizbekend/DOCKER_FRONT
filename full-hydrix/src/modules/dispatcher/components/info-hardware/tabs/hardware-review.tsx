@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Icon } from "@/shared/ui/icon"
-import { Characteristic } from '@/modules/dispatcher/pages/equipment-form/components/characteristic/type';
 import { hardwareModel } from '@/entities/hardware/model';
-import { Characteristics } from '@/app/api/api-router';
 
 export const HardwareReview = observer(() => {
 

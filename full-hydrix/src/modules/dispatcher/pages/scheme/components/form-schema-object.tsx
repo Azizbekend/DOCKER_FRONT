@@ -129,12 +129,21 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                         items={[
                                             {
                                                 value: 6,
-                                                title: "Технологическое оборудование"
+                                                title: "Механическая очистка"
+                                            },
+                                            {
+                                                value: 8,
+                                                title: "Биологическая очистка"
+                                            },
+                                            {
+                                                value: 9,
+                                                title: "Доочистка"
                                             },
                                         ]}
                                     />
                                 }
                             />
+
                         </div>
                     </div>
                     <div className="flex items-center justify-between">
