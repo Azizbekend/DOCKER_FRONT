@@ -16,7 +16,7 @@ export const Created = ({ getPage }: { getPage: () => void }) => {
       className="flex flex-col items-center justify-center min-h-screen px-4 bg-gradient-to-b  to-white"
       style={{ fontFamily: "'Open Sans', sans-serif" }}
     >
-      <div className="max-w-md w-full  animate-fadeIn text-center">
+      <div className="max-w-md w-full  animate-fadeIn">
         {/* Иконка успеха с анимацией */}
         <div className="relative inline-flex items-center justify-center w-24 h-24 mb-8">
          <Icon systemName="checkmate" className="w-20 h-20  rounded-full flex items-center justify-center w-12 h-12 text-green-600" />
@@ -33,7 +33,7 @@ export const Created = ({ getPage }: { getPage: () => void }) => {
         </p>
 
         {/* Кнопка */}
-        <Button onClick={getPage} children={"На главную"} class="text-white bg-[#4A85F6] mx-auto  justify-center  py-3 px-10" />
+        <Button onClick={getPage} children={"На главную"} class="text-white bg-[#4A85F6]  justify-center  py-3 px-10" />
       </div>
     </div>
   );

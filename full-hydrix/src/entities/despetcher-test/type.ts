@@ -3,7 +3,6 @@ export type DespetcherTest = {
     nameMinin?: string,
     company?: string,
     statusСonnection?: boolean,
-    statusJob?: boolean,
     volumeProjec?: number,
     volumeAverage?: number,
     volumeReale?: number,

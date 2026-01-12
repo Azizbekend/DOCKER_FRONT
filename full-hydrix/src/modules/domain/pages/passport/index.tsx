@@ -2,7 +2,7 @@
 import { Link, NavLink, useParams } from "react-router-dom";
 import { Icon } from "@/shared/ui/icon"
 import { Button } from '@/shared/ui/button';
-
+import { PassportDocumentation } from "./tabs/documentation"
 import { PassportParticipants } from "./tabs/participants"
 import { PassportInformation } from "./tabs/information"
 import { useState } from "react";
@@ -36,6 +36,7 @@ export const PassportObject = () => {
       </div>
 
 
+
       <div className="relative top-[15px] mb-20">
         <div className="absolute top-[-39px] left-[30px] flex gap-2">
           <NavLink to={'/domain/passport/information'}
@@ -43,20 +44,29 @@ export const PassportObject = () => {
           >
             Паспорт
           </NavLink>
+          
           <NavLink to={'/domain/passport/participants'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
             Участники
           </NavLink>
+          
           <NavLink to={'/domain/passport/hardwares'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
             Оборудование
           </NavLink>
+
           <NavLink to={'/domain/passport/incident'}
             className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
           >
             Аварии
+          </NavLink>
+
+          <NavLink to={'/domain/passport/documentation'}
+            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
+          >
+            Документация
           </NavLink>
         </div>
 
@@ -72,6 +82,7 @@ export const PassportObject = () => {
               {tab === "information" && "Паспорт объекта"}
               {tab === "participants" && "Участники"}
               {tab === "incident" && "Аварии"}
+              {tab === "documentation" && "Документация"}
             </h1>
           </div>
 
@@ -117,8 +128,14 @@ export const PassportObject = () => {
         {tab === "participants" && <PassportParticipants />}
         {tab === "hardwares" && <EquipmentRegistry />}
         {tab === "incident" && <Incident />}
+        {tab === "documentation" && <PassportDocumentation />}
 
       </div>
     </>
   )
+
+  
+
+  
 }
+

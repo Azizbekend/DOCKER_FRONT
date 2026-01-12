@@ -21,7 +21,6 @@ class RegistryModel {
             nameMinin: "Очистные сооружения в с. Шапши",
             company: "АО “ВКС”",
             statusСonnection: true,
-            statusJob: true,
             volumeProjec: 250,
             volumeAverage: 110,
             volumeReale: 9.2,

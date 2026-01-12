@@ -60,24 +60,6 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Статус работы",
-        key: 'statusJob',
-        cell: ({ statusJob }) => {
-            return (
-                <div className="flex justify-center">
-                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${statusJob
-                        ? "bg-blue-100 text-blue-800 border border-blue-200"
-                        : "bg-gray-100 text-gray-800 border border-gray-200"
-                        }`}>
-                        <div className={`w-2 h-2 rounded-full mr-2 ${statusJob ? "bg-blue-500" : "bg-gray-500"
-                            }`}></div>
-                        {statusJob ? "Функционирует" : "Не функционирует"}
-                    </div>
-                </div>
-            );
-        },
-    },
-    {
         header: "Проектная произ., м³/сут",
         key: 'volumeProjec',
         cell: ({ volumeProjec }) => {
