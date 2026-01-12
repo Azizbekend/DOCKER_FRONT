@@ -5,17 +5,25 @@ import { Button } from '@/shared/ui/button';
 import { PassportDocumentation } from "./tabs/documentation"
 import { PassportParticipants } from "./tabs/participants"
 import { PassportInformation } from "./tabs/information"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateCompanyModal } from "./components/create-company-modal";
 import { EquipmentRegistry } from "./tabs/hardware";
 import { Incident } from "./tabs/incident";
+import { passportModel } from "./model/passport-model";
+import { tabLinks } from "./data/config";
+import { observer } from "mobx-react-lite";
 
-export const PassportObject = () => {
+export const PassportObject = observer(() => {
+
+  const { init: passportInit, model: passportData } = passportModel;
 
   const [showCreateCompanyModal, setShowCreateCompanyModal] = useState<boolean>(false);
-
-
   const { tab } = useParams();
+
+  useEffect(() => {
+    passportInit()
+  }, [])
+
 
   return (
     <>
@@ -35,39 +43,17 @@ export const PassportObject = () => {
         </div>
       </div>
 
-
-
       <div className="relative top-[15px] mb-20">
         <div className="absolute top-[-39px] left-[30px] flex gap-2">
-          <NavLink to={'/domain/passport/information'}
-            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-          >
-            Паспорт
-          </NavLink>
-
-          <NavLink to={'/domain/passport/participants'}
-            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-          >
-            Участники
-          </NavLink>
-
-          <NavLink to={'/domain/passport/hardwares'}
-            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-          >
-            Оборудования
-          </NavLink>
-
-          <NavLink to={'/domain/passport/incident'}
-            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-          >
-            Аварии
-          </NavLink>
-
-          <NavLink to={'/domain/passport/documentation'}
-            className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-          >
-            Документация
-          </NavLink>
+          {tabLinks.map((link, key) => {
+            return (
+              <NavLink to={link.to} key={key}
+                className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
+              >
+                {link.name}
+              </NavLink>
+            )
+          })}
         </div>
 
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between h-[100px] gap-4 z-2 rounded-2xl bg-white shadow-sm p-6">
@@ -126,7 +112,7 @@ export const PassportObject = () => {
           </div>
         </div>
 
-        {tab === "information" && <PassportInformation />}
+        {tab === "information" && <PassportInformation techData={passportData} />}
         {tab === "participants" && <PassportParticipants />}
         {tab === "hardwares" && <EquipmentRegistry />}
         {tab === "incident" && <Incident />}
@@ -135,9 +121,4 @@ export const PassportObject = () => {
       </div>
     </>
   )
-
-
-
-
-}
-
+})

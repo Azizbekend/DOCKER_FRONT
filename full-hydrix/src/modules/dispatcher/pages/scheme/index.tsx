@@ -13,7 +13,7 @@ export const Scheme = observer(() => {
   const [tabScheme, setTabScheme] = useState<number>(6);
 
   useEffect(() => {
-    init([6, 8]);
+    init([6, 8, 9]);
   }, []);
 
   return (

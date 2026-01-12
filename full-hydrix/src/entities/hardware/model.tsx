@@ -134,7 +134,6 @@ class HardwareModel {
             })
     }
 
-
     sortServiceHistory(historyService: ServiceHistoryDataApiType[]) {
 
         let data: ServiceHistoryType[] = [];
@@ -147,7 +146,6 @@ class HardwareModel {
 
         this.dataServiceStatistic(historyService);
     }
-
 
     dataServiceStatistic(dataService: ServiceHistoryDataApiType[]) {
         for (let i = 0; i < dataService.length; i++) {
@@ -174,11 +172,9 @@ class HardwareModel {
         }
     }
 
-
     changeCommands(value: string, id: string) {
         this.commands[this.commands.findIndex(item => item.id === id)].value = value
     }
-
 
     async switchIsCommand() {
         this.isLoaderCommand = true;

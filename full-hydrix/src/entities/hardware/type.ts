@@ -86,7 +86,7 @@ export interface SchemaCreateType {
     name: string,
     schemaImage: string,
     staticObjectInfoId: number
-    fileId: number,
+    fileId: number | null,
 }
 
 export interface SchemaObjectType {
@@ -113,6 +113,7 @@ export interface SchemaCoordinatesCreateType {
     height: string,
     width: string,
     hardwareSchemaId?: number,
+    newSchemeId?: number,
     fileId?: number,
     redFileId?: number,
     greenFileId?: number,

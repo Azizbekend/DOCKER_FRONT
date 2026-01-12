@@ -10,8 +10,9 @@ import { columns } from "../components/service-history-column";
 import { Table } from "@/shared/ui/table/index";
 import { ServiceFilterBtn } from "../components/service-filter-btn";
 import { ServiceStatisticItem } from "../components/service-statistic-item";
+import { observer } from "mobx-react-lite";
 
-export const EquipmentService = () => {
+export const EquipmentService = observer(() => {
   const { getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic } = hardwareModel;
 
   const [show, setShow] = useState<boolean>(false);
@@ -37,8 +38,7 @@ export const EquipmentService = () => {
 
   return (
     <div>
-      <Modal
-        title="Подтвердить значение"
+      <Modal title="Подтвердить значение"
         wrapperId="wardhare"
         type="center"
         show={show}
@@ -102,7 +102,6 @@ export const EquipmentService = () => {
           </BlockListContainer>
         </BlockContainer>
 
-
         <BlockContainer>
           <BlockTitle title="Обслуживание на ближайшую неделю" />
 
@@ -135,7 +134,6 @@ export const EquipmentService = () => {
           </BlockListContainer>
         </BlockContainer>
 
-
         <BlockContainer>
           <BlockTitle title="История выполнения" />
           <div>
@@ -167,4 +165,4 @@ export const EquipmentService = () => {
       </div>
     </div>
   );
-};
+})

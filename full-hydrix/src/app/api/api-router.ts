@@ -278,3 +278,8 @@ export const Camery = {
   switch: "/switch",
   disconnect: "/disconnect",
 }
+
+
+export const NodeIndicates = {
+  technicalChars: "/NodeIndicates/technicalChars/Shapshi"
+}

@@ -3,7 +3,7 @@ import { makeAutoObservable } from "mobx"
 import { ChangeEvent } from "react"
 import { schemeModel } from "./scheme-model"
 
-import { deleteSchemaCoordinates, updateSchemaCoordinatesCreate } from "@/entities/hardware/api"
+import { deleteSchemaCoordinates, schemaCreate, updateSchemaCoordinatesCreate } from "@/entities/hardware/api"
 import { toast } from "react-toastify"
 
 class SchemeObjectModel {
@@ -58,15 +58,16 @@ class SchemeObjectModel {
     }
 
     async updateScheme() {
+
         const currentScheme = schemeModel.model[this.index];
 
         const apiData: SchemaCoordinatesCreateType = {
             id: currentScheme.id,
+            newSchemeId: currentScheme.hardwareSchemaId,
             top: currentScheme.top,
             left: currentScheme.left,
             height: currentScheme.height,
             width: currentScheme.width,
-            hardwareSchemaId: currentScheme.hardwareSchemaId,
             fileId: currentScheme.fileId,
             redFileId: currentScheme.redFileId,
             greenFileId: currentScheme.greenFileId,

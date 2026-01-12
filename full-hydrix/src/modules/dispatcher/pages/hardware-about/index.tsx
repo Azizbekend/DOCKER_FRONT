@@ -11,8 +11,8 @@ import { ModalServiceCreate } from "../hardware-list/components/modal-service-cr
 export const EquipmentAbout = observer(() => {
     const { id } = useParams();
 
-    const { model, init, isLoading } = hardwareModel
     const { setModalService } = hardwareListModel;
+    const { model, init, isLoading } = hardwareModel
     const { modalService, closeModal } = hardwareListModel;
     const navigate = useNavigate();
 

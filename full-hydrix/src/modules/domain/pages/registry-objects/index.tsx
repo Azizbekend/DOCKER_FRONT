@@ -13,9 +13,9 @@ import { MapObjects } from '../registry-map';
 
 export const RegistryObjectsLayout = observer(() => {
   const { page } = useParams();
-  const { list, init } = registryModel;
+  const { model, init } = registryModel;
 
-  const { search, setSearch, results } = useSearch<DespetcherTest>({ data: list, searchFields: ["nameMinin", "company"] });
+  const { search, setSearch, results } = useSearch<DespetcherTest>({ data: model, searchFields: ["nameMinin", "company"] });
 
   useEffect(() => {
     init();

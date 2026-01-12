@@ -1,14 +1,16 @@
-import { observer } from 'mobx-react-lite';
-import { useState, useEffect } from 'react';
-import imagePassport from "../assets/passport.jpg";
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import imagePassport from "../../assets/passport.jpg";
 import { Icon } from '@/shared/ui/icon';
-import { coordinates, infoContacts, itemsInfo1, itemsInfo2 } from '../data/data';
-import { BlockContainer } from '../components/block-container';
-import DocumentViewer from '../components/document-viewer';
-import docs from "../../../../../../public/docs/functionGuide.pdf";
+import { coordinates, infoContacts, itemsInfo1 } from '../../data/data';
+import { BlockContainer } from '../../components/block-container';
+import { IPassportModel } from '../../type/types';
+import { TechSpecifications } from './components/tech-specifications';
 
-export const PassportInformation = observer(() => {
+interface PassportInformationProps {
+  techData: IPassportModel
+}
+
+export const PassportInformation = ({ techData }: PassportInformationProps) => {
   const [copied, setCopied] = useState(false);
   const [isOpen, setShow] = useState(false);
 
@@ -136,27 +138,13 @@ export const PassportInformation = observer(() => {
             </div>
           </BlockContainer>
 
-          {/* Технические характеристики */}
-          <BlockContainer title="Технические характеристики">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {itemsInfo2.map((item, index) => (
-                <div key={index} className="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                  <div className="text-sm font-semibold text-gray-600 mb-1">
-                    {item.name}
-                  </div>
-                  <div className="text-xl font-bold text-gray-800">
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </BlockContainer>
+          <TechSpecifications data={techData} />
 
           {/* Документы */}
           <BlockContainer title="Документы">
             <div className="space-y-2">
-              <div 
-                className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer" 
+              <div
+                className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer"
                 onClick={() => setShow(true)}
               >
                 <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -182,11 +170,12 @@ export const PassportInformation = observer(() => {
                 <span className="font-bold text-gray-800">253 755 699 ₽</span>
               </div>
 
-              <div className="flex justify-between pt-2 border-t border-gray-200">
+              <div className="flex justify-between pt-2 border-gray-200">
                 <span className="font-semibold text-gray-800">Законтрактовано</span>
                 <span className="font-bold text-gray-800">123 820 142 ₽</span>
               </div>
-              <div className="pl-4 space-y-2">
+
+              <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Оплачено</span>
                   <span className="text-gray-800">0 ₽</span>
@@ -239,4 +228,4 @@ export const PassportInformation = observer(() => {
       </div>
     </div>
   );
-});
+};

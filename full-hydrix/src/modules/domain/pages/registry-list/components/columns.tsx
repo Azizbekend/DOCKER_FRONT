@@ -70,26 +70,26 @@ export const columns: TableColumn<DespetcherTest>[] = [
     },
     {
         header: "Производительность., м³/сут",
-        key: 'volumeAverage',
-        cell: ({ volumeAverage }) => {
+        key: 'dayEfficiency',
+        cell: ({ dayEfficiency }) => {
             return (
                 <div className='flex items-center justify-center gap-2 font-medium text-lg text-red-600'>
                     <Icon systemName="trending-down" />
-                    {volumeAverage + " м³" || '—'}
+                    {dayEfficiency + " м³" || '—'}
                 </div>
             );
         },
     },
     {
         header: "Реальная почасовая производительность, м³/ч",
-        key: 'volumeReale',
-        cell: ({ volumeReale }) => {
+        key: 'hourEfficiency',
+        cell: ({ hourEfficiency }) => {
             return (
                 <div className='flex items-center justify-center gap-2 font-medium text-lg text-[var(--clr-accent)]'>
 
                     <Icon systemName="trending-up" />
 
-                    {volumeReale + " м³" || '—'}
+                    {hourEfficiency + " м³" || '—'}
                 </div>
             );
         },
