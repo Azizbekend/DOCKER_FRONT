@@ -14,10 +14,10 @@ services:
   #   command: node index.js
   #   working_dir: /app
 
-  # servercamera:
-  #   build:
-  #     context: ./server-video-systema
-  #   ports:
-  #     - 5012:5012
-  #   command: node src/server.js
-  #   working_dir: /app   
+  #servercamera:
+   #  build:
+    #   context: ./server-video-systema
+    # ports:
+     #  - 5012:5012
+     #command: node src/server.js
+     #working_dir: /app   
