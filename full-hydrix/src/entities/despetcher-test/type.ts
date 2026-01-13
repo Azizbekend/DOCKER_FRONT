@@ -15,3 +15,15 @@ export type DespetcherTest = {
     projectEfficiency?: number
     photoName?: string
 }
+
+export type ObjectCreateType = {
+    name: string,
+    latitude: string,
+    longitude: string,
+    adress: string,
+    operatingOrganization: string,
+    customerName: string,
+    generalContractorName: string,
+    projectEfficiency: number,
+    fileId: number
+}

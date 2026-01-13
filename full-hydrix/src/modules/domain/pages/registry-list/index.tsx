@@ -10,7 +10,6 @@ export const RegistryObjects = observer(({ list }: { list: DespetcherTest[] }) =
     };
 
     return (
-
         <Table
             classNames={{
                 thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200",

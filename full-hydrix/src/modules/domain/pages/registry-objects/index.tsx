@@ -10,6 +10,8 @@ import { DespetcherTest } from '@/entities/despetcher-test/type';
 import { registryModel } from './model/registry-model';
 import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
+import { Button } from '@/shared/ui/button';
+import { ObjectsForm } from '../objects-form';
 
 export const RegistryObjectsLayout = observer(() => {
   const { page } = useParams();
@@ -86,7 +88,7 @@ export const RegistryObjectsLayout = observer(() => {
 
           {/* Правая часть: переключение вида */}
           <NavLink to={page == "list" ? "/domain/map" : "/domain/list"}
-            className="flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
+            className="ml-auto flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
           >
             {page == "list" ? (
               <>
@@ -101,12 +103,17 @@ export const RegistryObjectsLayout = observer(() => {
               </>
             )}
           </NavLink>
+
+          <NavLink to={"/domain/form-add"} className='px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm'>+ Создать объект</NavLink>
+
         </div>
       </div>
 
       {/* Основной контент */}
       <div className="flex-1 min-h-0">
-        {page == "list" ? <RegistryObjects list={results.length > 0 ? results : []} /> : <MapObjects />}
+        {page == "list" && <RegistryObjects list={results.length > 0 ? results : []} />}
+        {page == "map" && <MapObjects />}
+        {page == "form-add" && <ObjectsForm />}
       </div>
     </div>
   );
