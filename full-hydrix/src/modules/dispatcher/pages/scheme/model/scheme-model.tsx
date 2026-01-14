@@ -147,6 +147,8 @@ class SchemeModel {
                 res.data.forEach(info => {
                     for (let i = 0; i < this.model.length; i++) {
                         if (this.model[i].hardwareId == info.hardwareId) {
+
+
                             if (info.hardwareStatus == "True") {
 
                                 this.model[i].focusFileId = this.model[i].greenFileId

@@ -14,7 +14,7 @@ import { InfoCompType } from "../../types/type";
 
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
-  const { handleSwitchImage, switchColo, focusHardwareStatus } = schemeModel
+  const { handleSwitchImage, focusHardwareStatus } = schemeModel
 
   const { init, model, isLoading, incidentList } = hardwareModel;
   const navigate = useNavigate();
@@ -145,7 +145,6 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               {mode === 1 && <HardwareControlle />}
               {mode === 2 && <HardwareServes />}
             </div>
-
 
             <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">

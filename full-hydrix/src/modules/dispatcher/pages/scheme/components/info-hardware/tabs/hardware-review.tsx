@@ -15,6 +15,42 @@ export const HardwareReview = observer(() => {
         return () => clearInterval(interval);
     }, []);
 
+    const getValue = (name: string, value: string) => {
+        console.log({ name, value })
+
+        switch (name) {
+            case "Режим управления":
+                return (value == "0" || value == "False") ? "Ручной" : "Автоматический"
+            case "Потеря связи с ПЧ":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Сработал автомат защиты двигателя":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Авария ПЧ":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Cостояние линии датчика":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Перегрев статора":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Предупреждение о перегреве насоса":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+            case "Сработал автомат защиты вентилятор":
+                return (value == "0" || value == "False") ? "Норма" : "Авария"
+
+            default:
+                return formatToTwoDecimalsSafe(value)
+
+
+
+
+
+
+
+
+
+
+        }
+    }
+
     return (
         <>
             <div className="info-comp__content">
@@ -55,11 +91,12 @@ export const HardwareReview = observer(() => {
                                     <div className="info-comp__title">{item.name}</div>
 
                                     <div className='flex'>
-                                        <div className="info-comp__description text-right">{formatToTwoDecimalsSafe(item.value)}</div>
-                                        <div className='w-3'></div>
-                                        <span>
-                                            {item.mesurement}
-                                        </span>
+                                        <div className="info-comp__description text-right">{getValue(item.name, item.value)}</div>
+                                        {item.mesurement.trim().length != 0 &&
+                                            <span className='ml-[3px]'>
+                                                {item.mesurement}
+                                            </span>
+                                        }
                                     </div>
                                 </div>
                             )

@@ -7,23 +7,23 @@ class PassportModel {
     model: IPassportModel = {
         designPerformance: {
             name: "Проектная производительность",
-            value: "200 м³/сут",
+            value: "250 м³/сут",
         },
         hourEfficiency: {
             name: "Часовая производительность",
-            value: "0",
+            value: "0 м³/ч",
         },
         dayEfficiency: {
             name: "Среднесуточная производительность",
-            value: "0",
+            value: "0 м³/сут",
         },
         electroConsumption: {
             name: "Расход электроэнергии",
-            value: "0",
+            value: "0 кВт/ч",
         },
         waterConsumption: {
             name: "Водоснабжение",
-            value: "0",
+            value: "0 м³",
         },
     }
 
@@ -35,10 +35,10 @@ class PassportModel {
         await getTechnicalCharsShapshi()
             .then((res) => {
                 const data = res.data;
-                this.model.hourEfficiency.value = data.hourEfficiency;
-                this.model.dayEfficiency.value = data.dayEfficiency;
-                this.model.electroConsumption.value = data.electroConsumption;
-                this.model.waterConsumption.value = data.waterConsumption;
+                this.model.hourEfficiency.value = data.hourEfficiency + " м³/ч";
+                this.model.dayEfficiency.value = data.dayEfficiency + " м³/сут";
+                this.model.electroConsumption.value = data.electroConsumption + " кВт/ч";
+                this.model.waterConsumption.value = data.waterConsumption + " м³";
             })
             .catch((err) => {
                 console.log(err)
