@@ -50,7 +50,7 @@ export const HardwareReview = observer(() => {
                         })}
 
                         {commandsInfo.map((item, key) => {
-                            return (
+                            return ((item.name != "Состояние") &&
                                 <div className={`info-comp__item ${commandsInfo.length > 1 && "border-b border-gray-300 pb-4"}`} key={key}>
                                     <div className="info-comp__title">{item.name}</div>
 

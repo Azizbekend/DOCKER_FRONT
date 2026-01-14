@@ -21,7 +21,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
         listSensoresScheme.forEach(element => {
             maxLenth = element.nodeName!.length > maxLenth ? element.nodeName!.length : maxLenth
         });
-        return maxLenth * 8;
+        return maxLenth * 7;
     };
 
     let maxLengthSensore: number = getMaxNodeNameLength(listSensore)
@@ -96,10 +96,10 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                             onClick={() => setInfo(Number(point.hardwareId), point.hardwareStatus)}>
 
                             <div className='relative'>
-                                <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0 text-center">{point.nodeName}</div>
+                                <div className="text-[7px] uppercase tracking-wide text-gray-100 mb-0 text-center">{point.nodeName}</div>
                                 <div className="flex items-baseline gap-1 justify-center">
-                                    <span className=" text-emerald-400 font-semibold ">{point.value}</span>
-                                    <span className="text-[10px] text-gray-400">{point.measurementName}</span>
+                                    <span className="text-[9px] text-emerald-400 font-semibold ">{point.value}</span>
+                                    <span className="text-[9px] text-gray-400">{point.measurementName}</span>
                                 </div>
                             </div>
                         </div>
