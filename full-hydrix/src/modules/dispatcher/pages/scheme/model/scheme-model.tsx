@@ -12,7 +12,6 @@ class SchemeModel {
     schemaSensoreData: SchemaCardInterface[] = []
 
     focusHardware: number = 0
-    focusHardwareStatus: boolean = false
     focusSchemeObject: number = 0
     focusSchemeSensore: number = 0
     focusSchemeObjectData: SchemaObjectType | null = null
@@ -55,22 +54,8 @@ class SchemeModel {
                 })
             );
 
-            const uniqueHardwareIds = [...new Set(nodeInfoMap.values())];
-
-            const hardwareMap = new Map<number, string>();
-
-            await Promise.all(
-                uniqueHardwareIds.map(async (hardwareId) => {
-                    const { data } = await getInfoHardware({ id: hardwareId });
-                    hardwareMap.set(hardwareId, data.name);
-                })
-            );
-
             sensors.forEach(sensor => {
-                const hardwareId = nodeInfoMap.get(sensor.nodeInfoId);
-                if (hardwareId) {
-                    sensor.hardwareName = hardwareMap.get(hardwareId) ?? "";
-                }
+                sensor.hardwareId = nodeInfoMap.get(sensor.nodeInfoId);
             });
 
             runInAction(() => {
@@ -91,14 +76,13 @@ class SchemeModel {
         return [...new Set(data.map(item => item[key] as number))];
     }
 
-    setFocusHardware(id: number, status: boolean) {
+    setFocusHardware(id: number) {
         this.closePanels()
         if (this.focusSchemeObject != 0) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
         }
         this.focusHardware = id
-        this.focusHardwareStatus = status
     }
 
     setSchemeObjectData(id: number) {

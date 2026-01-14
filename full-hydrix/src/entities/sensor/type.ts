@@ -7,7 +7,7 @@ export interface SchemaCardInterface {
     nodeName?: string,
     value?: number | null,
     measurementName?: number,
-    hardwareName?: string,
+    hardwareId?: number,
 }
 export interface SchemaCardUpdateInterface {
     id: number,

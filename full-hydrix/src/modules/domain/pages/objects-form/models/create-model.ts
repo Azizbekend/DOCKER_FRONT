@@ -20,7 +20,6 @@ class CreateObjectModel {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-
     setName(value: string) {
         this.model.name = value
     }
