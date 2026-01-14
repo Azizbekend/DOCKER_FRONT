@@ -11,9 +11,8 @@ import { ModalServiceCreate } from "../hardware-list/components/modal-service-cr
 export const EquipmentAbout = observer(() => {
     const { id } = useParams();
 
-    const { setModalService } = hardwareListModel;
+    const { setModalService, modalService, closeModal } = hardwareListModel;
     const { model, init, isLoading } = hardwareModel
-    const { modalService, closeModal } = hardwareListModel;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,26 +27,25 @@ export const EquipmentAbout = observer(() => {
 
             <div className="absolute  top-[-36px] left-[30px] flex gap-3">
                 <NavLink
-                    to={`/dispatcher/hardware-about/${id}/passport/`}
+                    to={`/dispatcher/hardware-about/${id}/passport`}
                     className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
                 >
                     Паспорт
                 </NavLink>
                 <NavLink
-                    to={`/dispatcher/hardware-about/${id}/controll/`}
+                    to={`/dispatcher/hardware-about/${id}/controll`}
                     className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
                 >
                     Управление
                 </NavLink>
                 <NavLink
-                    to={`/dispatcher/hardware-about/${id}/service/`}
+                    to={`/dispatcher/hardware-about/${id}/service`}
                     className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
                 >
                     Сервис
                 </NavLink>
             </div>
 
-            {/* border border-gray-200 shadow-xl  */}
             <div className="space-y-6 min-h-[60vh] mb-10">
                 {/* Шапка */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between h-[100px] gap-4 z-2 rounded-2xl bg-white shadow-sm p-6">
@@ -60,9 +58,9 @@ export const EquipmentAbout = observer(() => {
                         </Link>
                         <div className="relative">
                             <h1 className="text-xl md:text-2xl font-bold">
-                                {window.location.pathname == `/dispatcher/hardware-about/${id}/passport/` && "Паспорт"}
-                                {window.location.pathname == `/dispatcher/hardware-about/${id}/controll/` && "Управление"}
-                                {window.location.pathname == `/dispatcher/hardware-about/${id}/service/` && "Сервис"}
+                                {window.location.pathname.includes("passport") && "Паспорт"}
+                                {window.location.pathname.includes("controll") && "Управление"}
+                                {window.location.pathname.includes("service") && "Сервис"}
                             </h1>
                             <p className="w-max text-sm">{model.name || '—'}</p>
                         </div>

@@ -46,44 +46,48 @@ export const RegistryObjectsLayout = observer(() => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Левая часть: поиск и фильтры */}
           <div className="flex flex-cols items-center gap-4">
-            <Search
-              placeholder="Поиск по названию или организации..."
-              value={search}
-              onChange={setSearch}
-              classNames={{
-                container: "!w-[420px] bg-gray-50 rounded-lg h-11",
-                input: "bg-gray-50 px-4 text-gray-800",
-              }}
-            />
 
-            <FilterObjects />
+            {page == "list" && <>
+              <Search
+                placeholder="Поиск по названию или организации..."
+                value={search}
+                onChange={setSearch}
+                classNames={{
+                  container: "!w-[420px] bg-gray-50 rounded-lg h-11",
+                  input: "bg-gray-50 px-4 text-gray-800",
+                }}
+              />
 
-            {/* Переключатели с метками */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
+              <FilterObjects />
 
-                <SwitchButton
-                  label=""
-                  onChange={() => { console.log() }}
-                  classNames={{
-                    container: "ml-7 gap-3",
-                    button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                    circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                  }}
-                />
-                <span className="text-sm text-gray-700 font-medium">Диспетчерская</span>
-                <SwitchButton
-                  label=""
-                  onChange={() => { console.log() }}
-                  classNames={{
-                    container: "ml-7 gap-3",
-                    button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                    circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                  }}
-                />
-                <span className="text-sm text-gray-700 font-medium">Управление ЖБО</span>
+              {/* Переключатели с метками */}
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+
+                  <SwitchButton
+                    label=""
+                    onChange={() => { console.log() }}
+                    classNames={{
+                      container: "ml-7 gap-3",
+                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                    }}
+                  />
+                  <span className="text-sm text-gray-700 font-medium">Диспетчерская</span>
+                  <SwitchButton
+                    label=""
+                    onChange={() => { console.log() }}
+                    classNames={{
+                      container: "ml-7 gap-3",
+                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                    }}
+                  />
+                  <span className="text-sm text-gray-700 font-medium">Управление ЖБО</span>
+                </div>
               </div>
-            </div>
+            </>}
+
           </div>
 
           {/* Правая часть: переключение вида */}

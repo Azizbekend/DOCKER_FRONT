@@ -113,13 +113,13 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                 }
                             />
                             <InputContainer
-                                headerText="ПЛК"
+                                headerText="Схема"
                                 classNames={{ wrapper: "w-[420px]" }}
                                 children={
                                     <Selector
                                         titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
                                         classWripper="!w-full"
-                                        title="ПЛК"
+                                        title="Схема"
                                         defaultValue={schemeModel.model[index].hardwareSchemaId}
                                         onSelect={(item) => setHardwareSchemaId(Number(item.value))}
                                         items={[

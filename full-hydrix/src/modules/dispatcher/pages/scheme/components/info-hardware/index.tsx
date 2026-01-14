@@ -31,8 +31,6 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
     return { color: 'bg-green-500', text: 'Работает' };
   };
 
-  const status = getStatusInfo();
-
   const eventLog = [
 
     {
@@ -106,8 +104,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                 <Icon width={20} height={20} systemName="edit-white" />
               </Button>
             </div>
-
-            <Link to={`/dispatcher/equipment-about/${model.id}/passport`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
+            <Link to={`/dispatcher/hardware-about/${model.id}/passport/`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
 
             {/* Image */}
             <div className="info-comp__image">

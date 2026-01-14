@@ -72,8 +72,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                 }}
             >
                 {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
-                    <div
-                        key={p.id}
+                    <div key={p.id}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeObjectData(p.id) }}
                         onClick={() => setInfo(p.hardwareId, p.status)}
                         className="absolute cursor-pointer z-3"
@@ -86,21 +85,8 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
-                                {/* 48 - Красный */}
-                                {/* 169 - Зелёный */}
-                                {/* 170 - сервый */}
-
-                                {/* {p.id === 14 && <img className="not-hover h-full w-full object-cover" src={getPhoto(switchColo ? p.greenFileId : p.redFileId)} />} */}
-
                                 <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId || p.fileId)} />
                             </div>
-
-
-                            {/* {p.id === 14 && !switchColo &&
-                                <div className='absolute top-[20%] left-[-30%] w-[30%]'>
-                                    <img src={accident} alt="" />
-                                </div>
-                            } */}
                         </div>
                     </div>
                 ))}
@@ -108,46 +94,22 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                 {listSensore.map((point, key) => point.schemeId == tabScheme && (
                     <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(point.id) }}>
-                        <div className={`not-hover ax-w-[150px]  bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm`}
+                        <div className={`not-hover ax-w-[150px]  bg-gray-700 backdrop-blur-sm border border-gray-800 text-white font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm`}
                             style={{ width: maxLengthSensore + "px" }}>
+
+                            {/* <div className='relative'> */}
+                            <div className="text-[6px] text-gray-100 text-center">{point.hardwareName}</div>
                             <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0 text-center">{point.nodeName}</div>
                             <div className="flex items-baseline gap-1 justify-center">
                                 <span className=" text-emerald-400 font-semibold ">{point.value}</span>
                                 <span className="text-[10px] text-gray-400">{point.measurementName}</span>
                             </div>
                         </div>
+                        {/* </div> */}
                     </div>
                 ))}
 
-                {/* {tabScheme == 6 && scheme1DataPoints.map((point, key) => (
-                    <div className="relative" key={key} style={{ top: point.top, left: point.left, position: "absolute", zIndex: 5 }}>
-                        <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
-                            <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.name}</div>
-                            <div className="flex items-baseline gap-1">
-                                <span className=" text-emerald-400 font-semibold ">{point.value}</span>
-                                <span className="text-[10px] text-gray-400">{point.type}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-
-                {tabScheme != 6 && scheme2DataPoints.map((point, key) => (
-                    <div className="relative" key={key} style={{ top: point.top, left: point.left, position: "absolute", zIndex: 5 }}>
-                        <div className="not-hover bg-gray-700 backdrop-blur-sm border border-gray-800 text-white text-xs font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm">
-                            <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0">{point.name}</div>
-                            <div className="flex items-baseline gap-1">
-                                <span className=" text-emerald-400 font-semibold ">{point.value}</span>
-                                <span className="text-[10px] text-gray-400">{point.type}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))} */}
-
-                <img ref={imgRef}
-                    src={getSchemePhoto(tabScheme)}
-                    alt="scheme"
-                    className="scheme-view__image"
-                />
+                <img ref={imgRef} src={getSchemePhoto(tabScheme)} alt="scheme" className="scheme-view__image" />
 
             </div>
         </div >

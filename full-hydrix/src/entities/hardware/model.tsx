@@ -1,7 +1,7 @@
-import { checkedServiceApi, commandSend, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
+import { checkedServiceApi, commandSend, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getHStatusAll, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
 import { ModelHardwareOneInterface } from "@/entities/hardware/type";
 import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
-import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
+import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
@@ -37,6 +37,9 @@ class HardwareModel {
     incidentList: { nodeId: number, nodeName: string }[] = []
     commandInfoIds: string[] = []
     ids: (string | undefined)[] = []
+
+    evengLog: EventLogsType[] = [];
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -232,8 +235,6 @@ class HardwareModel {
         }
     }
 
-
-
     async clickTest() {
         await fetch('https://triapi.ru/research/api/Comand/send/command/string?nodeId=261&value=1.4', {
             method: 'POST',
@@ -247,8 +248,6 @@ class HardwareModel {
         //     .then((res) => alert(res.data))
         //     .catch((error) => console.log(error))
     }
-
-
 }
 
 export const hardwareModel = new HardwareModel()

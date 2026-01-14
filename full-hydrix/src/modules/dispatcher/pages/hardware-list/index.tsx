@@ -25,7 +25,7 @@ export const EquipmentRegistry = observer(() => {
     <>
       <div className="flex items-center gap-4 mb-8 p-2 bg-white rounded-xl shadow-sm border border-gray-200">
         <Link
-          to="/dispatcher/equipment/form"
+          to="/dispatcher/hardware/form"
           className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
         >
           <Icon systemName="plus-white" className="w-4 h-4" />

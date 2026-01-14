@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 export const HardwareServes = observer(() => {
 
-    const { getCommands, servicesHistory, checkedService } = hardwareModel
+    const { getCommands, servicesWeek, checkedService } = hardwareModel
 
     const [btnCount, setBtnCount] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
@@ -32,9 +32,6 @@ export const HardwareServes = observer(() => {
 
     return (
         <div className="w-full mt-10 p-[0_0_50px_0]">
-
-
-
             <Modal
                 title="Подтвердить выполнение задачи"
                 wrapperId="wardhare"
@@ -109,12 +106,12 @@ export const HardwareServes = observer(() => {
                     } />
             }
 
-            {servicesHistory.length > 0 &&
+            {servicesWeek.length > 0 &&
                 <BlockSelect
                     title="Обслуживание на ближайшую неделю"
                     className='flex flex-col gap-2'
                     children={
-                        servicesHistory.map((item, key) => {
+                        servicesWeek.map((item, key) => {
                             return (
                                 <InfoObject key={key}
                                     className='w-full'
@@ -123,7 +120,7 @@ export const HardwareServes = observer(() => {
                                         <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2'>
                                             <div className='flex flex-col flex-1'>
                                                 <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
-                                                    {new Date(item.sheduleMaintenanceDate).toLocaleDateString('ru-RU', {
+                                                    {new Date(item.nextMaintenanceDate).toLocaleDateString('ru-RU', {
                                                         day: '2-digit',
                                                         month: '2-digit',
                                                         year: 'numeric'

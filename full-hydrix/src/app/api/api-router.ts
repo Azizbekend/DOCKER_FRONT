@@ -223,6 +223,8 @@ export const Control = {
   all: "/NodeInfo/commands",
   allInfo: "/NodeInfo/infos",
   delete: "/NodeInfo/info/delete",
+  
+  single: "/NodeInfo/single",
 }
 
 export const Command = {
@@ -281,5 +283,8 @@ export const Camery = {
 
 
 export const NodeIndicates = {
-  technicalChars: "/NodeIndicates/technicalChars/Shapshi"
+  technicalChars: "/NodeIndicates/technicalChars/Shapshi",
+  group: "/NodeIndicates/actual/group",
+  plcNodeOd: "/NodeIndicates/actual/plcNodeOd",
+  hStatusAll: "/NodeIndicates/hStatus/all/byPlcNodeId",
 }

@@ -3,10 +3,7 @@ import { Icon } from "@/shared/ui/icon"
 import { Link } from "react-router-dom";
 
 
-export default function InfoCart({ className, onClick }: {
-    className?: string,
-    onClick?: () => void
-}) {
+export default function InfoCart({ className, onClick }: { className?: string, onClick?: () => void }) {
 
     const information = [
         { name: 'Проектная производительность очистных сооружений', description: '250 м3/сут' },

@@ -1,4 +1,4 @@
-import { getInfoNodeInfos, getSchemaObjects, statusCheck } from "@/entities/hardware/api";
+import { getInfoHardware, getInfoNodeInfos, getSchemaObjects, NodeInfoSingle, statusCheck } from "@/entities/hardware/api";
 import { SchemaObjectType } from "@/entities/hardware/type";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
@@ -35,25 +35,61 @@ class SchemeModel {
 
     async init(schemeIds: number[]) {
         try {
-            const [objects, sensors] = await Promise.all([
+            const [objectsResponses, sensorsResponses] = await Promise.all([
                 Promise.all(schemeIds.map(id => getSchemaObjects({ id }))),
-                Promise.all(schemeIds.map(id => ApiSchemaCardAll({ id })))
+                Promise.all(schemeIds.map(id => ApiSchemaCardAll({ id }))),
             ]);
 
-            runInAction(() => {
-                this.model = objects.flatMap(r => r.data);
-                this.schemaSensoreData = sensors.flatMap(r => r.data);
+            const objects = objectsResponses.flatMap(r => r.data);
+            const sensors = sensorsResponses.flatMap(r => r.data as SchemaCardInterface[]);
+
+            const hardwareIds = this.collectIds(objects, "hardwareId");
+            const nodeInfoIds = this.collectIds(sensors, "nodeInfoId");
+
+            const nodeInfoMap = new Map<number, number>();
+
+            await Promise.all(
+                nodeInfoIds.map(async (nodeInfoId) => {
+                    const { data } = await NodeInfoSingle({ id: nodeInfoId });
+                    nodeInfoMap.set(nodeInfoId, data.hardwareId);
+                })
+            );
+
+            const uniqueHardwareIds = [...new Set(nodeInfoMap.values())];
+
+            const hardwareMap = new Map<number, string>();
+
+            await Promise.all(
+                uniqueHardwareIds.map(async (hardwareId) => {
+                    const { data } = await getInfoHardware({ id: hardwareId });
+                    hardwareMap.set(hardwareId, data.name);
+                })
+            );
+
+            sensors.forEach(sensor => {
+                const hardwareId = nodeInfoMap.get(sensor.nodeInfoId);
+                if (hardwareId) {
+                    sensor.hardwareName = hardwareMap.get(hardwareId) ?? "";
+                }
             });
 
-            this.idska = this.model.map(item => item.hardwareId);
-            this.idskaSensores = this.schemaSensoreData.map(item => item.nodeInfoId);
+            runInAction(() => {
+                this.model = objects;
+                this.schemaSensoreData = sensors;
+                this.idska = hardwareIds;
+                this.idskaSensores = nodeInfoIds;
+            });
 
-            this.timesFunctions()
-        } catch {
+            this.timesFunctions();
+        } catch (error) {
             toast.error("Ошибка загрузки схемы");
+            console.error(error);
         }
     }
 
+    private collectIds<T, K extends keyof T>(data: T[], key: K): number[] {
+        return [...new Set(data.map(item => item[key] as number))];
+    }
 
     setFocusHardware(id: number, status: boolean) {
         this.closePanels()
@@ -96,8 +132,6 @@ class SchemeModel {
         this.switchColo = !this.switchColo
         toast.success("Авария устранена", { progressStyle: { background: "green" } })
     }
-
-
     // async 
     timesFunctions() {
         this.checkIncidents()

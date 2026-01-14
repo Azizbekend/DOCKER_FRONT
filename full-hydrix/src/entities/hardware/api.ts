@@ -1,4 +1,4 @@
-import { Characteristics, Command, Control, ControlBlock, Documents, Hardware, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
+import { Characteristics, Command, Control, ControlBlock, Documents, Hardware, NodeIndicates, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
 
 import { reserchInstance } from "@/app/api/instances"
 
@@ -33,6 +33,10 @@ export const activeHardware = (params: { id: number }) => {
 
 export const statusCheck = (params: { ids: number[] }) => {
     return reserchInstance.post(Hardware.statusCheck, params)
+}
+
+export const NodeInfoSingle = (params: { id: number }) => {
+    return reserchInstance.get(Control.single, { params })
 }
 
 export const createServiceApi = (params: { Title: string, HardwareId: number, Discription: string, Period: number }) => {
@@ -189,11 +193,15 @@ export const commandSend = (params: { nodeId: number, value: string }) => {
 
 
 export const getInfoNodeInfos = (params: any) => {
-    return reserchInstance.post("/NodeIndicates/actual/group", params)
+    return reserchInstance.post(NodeIndicates.group, params)
 }
 
 export const getInfoNodeInfoOne = (params: { id: string }) => {
-    return reserchInstance.get("/NodeIndicates/actual/plcNodeOd", { params })
+    return reserchInstance.get(NodeIndicates.plcNodeOd, { params })
+}
+
+export const getHStatusAll = (params: { hStatusNode: string }) => {
+    return reserchInstance.get(NodeIndicates.hStatusAll, { params })
 }
 
 export const getInfoNodeInfoAllCheck = (params: { id: number }) => {

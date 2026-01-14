@@ -13,10 +13,12 @@ import { columns } from './components/columns';
 
 export const MapObjects = observer(() => {
 
-  const getImage = document.createElement('img');
-  getImage.src = mapPl;
 
   useEffect(() => {
+    const getImage = document.createElement('img');
+    getImage.src = mapPl;
+    getImage.onclick = () => { navigate("/domain/passport/information") }
+
     mmrgl.accessToken = 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814';
 
     const map = new mmrgl.Map({
@@ -28,15 +30,10 @@ export const MapObjects = observer(() => {
 
     var marker = new mmrgl.Marker({
       element: getImage,
-      // color: "#FFFFFF",
       draggable: false
     })
       .setLngLat([49.495274, 55.957421])
       .addTo(map);
-
-    // marker.getElement().addEventListener('click', () => {
-    //   handleMarkerClick(1);
-    // });  
   }, [])
 
 

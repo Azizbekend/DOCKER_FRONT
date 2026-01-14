@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import imagePassport from "../../assets/passport.jpg";
 import { Icon } from '@/shared/ui/icon';
 import { coordinates, infoContacts, itemsInfo1 } from '../../data/data';
 import { BlockContainer } from '../../components/block-container';
 import { IPassportModel } from '../../type/types';
 import { TechSpecifications } from './components/tech-specifications';
+import mmrgl from 'mmr-gl';
+import mapPl from '../../../registry-map/assets/map-pl.png';
+
+import mapPin from "./assets/map-pin.png"
 
 interface PassportInformationProps {
   techData: IPassportModel
@@ -23,6 +27,31 @@ export const PassportInformation = ({ techData }: PassportInformationProps) => {
       console.error('Ошибка при копировании: ', err);
     }
   };
+
+  useEffect(() => {
+
+    const getImage = document.createElement('img');
+    getImage.src = mapPl;
+
+    mmrgl.accessToken = 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814';
+
+
+    const map = new mmrgl.Map({
+      container: 'map',
+      zoom: 10,
+      center: [49.495274, 55.957421],
+      style: 'mmr://api/styles/main_style.json',
+    })
+
+    var marker = new mmrgl.Marker({
+      element: getImage,
+      draggable: false,
+      pitchAlignment: 'map',
+    })
+      .setLngLat([49.495274, 55.957421])
+      .addTo(map);
+  }, [])
+
 
   return (
     <div className=" mx-auto" style={{ fontFamily: "'Open Sans', sans-serif" }}>
@@ -84,8 +113,8 @@ export const PassportInformation = ({ techData }: PassportInformationProps) => {
 
           {/* Карта */}
           <BlockContainer title="Расположение">
-            <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-              <Icon systemName="map" className="text-gray-400 w-12 h-12" />
+            <div className="h-[360px] bg-gray-100 rounded-lg flex items-center justify-center">
+              <div id="map" className="w-full h-full rounded-xl shadow-sm" />
             </div>
           </BlockContainer>
         </div>

@@ -75,3 +75,10 @@ export interface ServiceStatisticType {
   progress: number,
   actualDate: Date | null
 }
+
+export interface EventLogsType {
+  id: number,
+  indicates: string,
+  plcNodeId: string,
+  timeStamp: Date | null
+}

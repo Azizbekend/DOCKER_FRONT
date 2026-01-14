@@ -201,7 +201,7 @@ export const EquipmentCreate = observer(() => {
                                                 },
                                                 {
                                                     value: 6,
-                                                    title: "Наш Технологики"
+                                                    title: "ПЛК Технологики"
                                                 },
                                             ]}
                                         />

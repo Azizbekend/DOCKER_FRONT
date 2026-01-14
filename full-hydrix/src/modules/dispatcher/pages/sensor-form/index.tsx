@@ -77,7 +77,7 @@ export const SensorForm = observer(() => {
                             <Selector
                                 titleClass="border !w-full flex justify-between flex p-2 rounded-lg py-3 "
                                 classWripper="!w-full"
-                                title="ПЛК"
+                                title="Поиск"
                                 defaultValue={model.schemeId}
                                 onSelect={(item) => setSchemeId(item)}
                                 items={listSchemesTest}
@@ -86,7 +86,7 @@ export const SensorForm = observer(() => {
                     />
 
                     <InputContainer
-                        headerText="Выбор схемы"
+                        headerText="Оборудование"
                         classNames={{
                             wrapper: "w-[calc(50%_-_20px)]"
                         }}
