@@ -12,6 +12,7 @@ class SchemeModel {
     schemaSensoreData: SchemaCardInterface[] = []
 
     focusHardware: number = 0
+    focusHardwareStatus: boolean = false
     focusSchemeObject: number = 0
     focusSchemeSensore: number = 0
     focusSchemeObjectData: SchemaObjectType | null = null
@@ -45,17 +46,20 @@ class SchemeModel {
             const hardwareIds = this.collectIds(objects, "hardwareId");
             const nodeInfoIds = this.collectIds(sensors, "nodeInfoId");
 
-            const nodeInfoMap = new Map<number, number>();
+            const hardwareIdMap = new Map<number, number>();
+            const hardwareStatusMap = new Map<number, boolean>();
 
             await Promise.all(
                 nodeInfoIds.map(async (nodeInfoId) => {
                     const { data } = await NodeInfoSingle({ id: nodeInfoId });
-                    nodeInfoMap.set(nodeInfoId, data.hardwareId);
+                    hardwareIdMap.set(nodeInfoId, data.hardwareId);
+                    hardwareStatusMap.set(nodeInfoId, data.status);
                 })
             );
 
             sensors.forEach(sensor => {
-                sensor.hardwareId = nodeInfoMap.get(sensor.nodeInfoId);
+                sensor.hardwareId = hardwareIdMap.get(sensor.nodeInfoId);
+                sensor.hardwareStatus = hardwareStatusMap.get(sensor.nodeInfoId);
             });
 
             runInAction(() => {
@@ -76,13 +80,14 @@ class SchemeModel {
         return [...new Set(data.map(item => item[key] as number))];
     }
 
-    setFocusHardware(id: number) {
+    setFocusHardware(id: number, status: boolean) {
         this.closePanels()
         if (this.focusSchemeObject != 0) {
             this.focusSchemeObject = 0
             this.focusSchemeObjectData = null
         }
         this.focusHardware = id
+        this.focusHardwareStatus = status
     }
 
     setSchemeObjectData(id: number) {

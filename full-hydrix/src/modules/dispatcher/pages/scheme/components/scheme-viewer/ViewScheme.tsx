@@ -27,14 +27,11 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
     let maxLengthSensore: number = getMaxNodeNameLength(listSensore)
 
     useEffect(() => {
-
         const intervalId = setInterval(() => {
             timesFunctions()
         }, 3000);
 
-        return () => {
-            clearInterval(intervalId);
-        };
+        return () => { clearInterval(intervalId) };
     }, []);
 
     const getSchemePhoto = (id: number) => {
@@ -74,7 +71,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                 {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div key={p.id}
                         onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeObjectData(p.id) }}
-                        onClick={() => setInfo(p.hardwareId)}
+                        onClick={() => setInfo(p.hardwareId, p.status)}
                         className="absolute cursor-pointer z-3"
                         style={{
                             top: p.top + "%",
@@ -93,13 +90,12 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
 
                 {listSensore.map((point, key) => point.schemeId == tabScheme && (
                     <div className="relative" key={point.id} style={{ top: point.top + "%", left: point.left + "%", position: "absolute", zIndex: 8 }}
-                        onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(point.id) }}>
+                        onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeSensoreData(Number(point.id)) }}>
                         <div className={`not-hover ax-w-[150px]  bg-gray-700 backdrop-blur-sm border border-gray-800 text-white font-sans z-8 rounded-lg px-1.5 py-1 shadow-sm`}
                             style={{ width: maxLengthSensore + "px" }}
-                            onClick={() => setInfo(point.hardwareId)}>
+                            onClick={() => setInfo(Number(point.hardwareId), point.hardwareStatus)}>
 
                             <div className='relative'>
-                                <div className="text-[6px] text-gray-100 text-center absolute t-0 l-0">{point.hardwareName}</div>
                                 <div className="text-[10px] uppercase tracking-wide text-gray-100 mb-0 text-center">{point.nodeName}</div>
                                 <div className="flex items-baseline gap-1 justify-center">
                                     <span className=" text-emerald-400 font-semibold ">{point.value}</span>

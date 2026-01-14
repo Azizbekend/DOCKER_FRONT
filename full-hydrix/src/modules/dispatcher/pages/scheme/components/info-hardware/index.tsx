@@ -23,14 +23,6 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
     init(id, true);
   }, [id]);
 
-  // Статус оборудования
-  const getStatusInfo = () => {
-    if (model.id === 28) {
-      return { color: 'bg-red-500', text: 'Не работает' };
-    }
-    return { color: 'bg-green-500', text: 'Работает' };
-  };
-
   const eventLog = [
 
     {
@@ -106,14 +98,13 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
             <Link to={`/dispatcher/hardware-about/${model.id}/passport/`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
 
-            {/* Image */}
             <div className="info-comp__image">
               <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
             </div>
 
             <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <div className={`w-3 h-3 rounded-full ${focusHardwareStatus ? "bg-red-500" : "bg-green-500"}`}></div>
-              <span className="font-medium text-gray-800">{focusHardwareStatus ? "Не работает" : "Работает"}</span>
+              <div className={`w-3 h-3 rounded-full ${focusHardwareStatus ? "bg-gray-500" : "bg-green-500"}`}></div>
+              <span className="font-medium text-gray-800">{focusHardwareStatus ? "Ожидании" : "Работает"}</span>
             </div>
 
             {incidentList.length > 0 && incidentList.map((incident, _) => {
@@ -133,21 +124,6 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                 </div>
               )
             })}
-            {/* {model.id === 28 && !switchColo && (
-              <>
-                <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
-                  <img src={accident} alt="Авария" width={24} height={24} />
-                  <div className="text-red-800 font-medium">
-                    Сработал автомат защиты двигателя!
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mb-4">
-                  <div onClick={() => handleSwitchImage()} className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
-                  <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
-                </div>
-              </>
-            )} */}
 
             <div className="flex gap-3 mb-6 bg-gray-100 p-1 rounded-lg">
               {['Обзор', 'Управление', 'Сервис'].map((tab, index) => (
@@ -170,7 +146,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
               {mode === 2 && <HardwareServes />}
             </div>
 
-            {/* Журнал событий — как в других модулях */}
+
             <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <Icon systemName="history" className="text-gray-600" />

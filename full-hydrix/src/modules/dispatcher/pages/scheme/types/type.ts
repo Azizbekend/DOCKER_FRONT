@@ -15,7 +15,7 @@ export type InformationsType = {
 
 
 export type SchemeViewerType = {
-    setInfo: (id: number) => void,
+    setInfo: (id: number, status: boolean) => void,
     tabScheme: number,
     switchColo: boolean,
 
