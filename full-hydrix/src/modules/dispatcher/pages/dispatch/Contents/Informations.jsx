@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Passport from "@pages/Dispatch/About/Passport.jsx";
 import Scheme from "@pages/Dispatch/About/Scheme/Scheme.jsx";
 import TimModel from "@pages/Dispatch/About/TimModel.jsx";
-import EquipmentRegistry from "@pages/Dispatch/About/EquipmentRegistry.jsx";
+import HardwareRegistry from "@pages/Dispatch/About/HardwareRegistry.jsx";
 import RequestRegistry from "@pages/Dispatch/About/RequestRegistry.jsx";
 
 export default function Informations() {
@@ -14,7 +14,7 @@ export default function Informations() {
         passport: <Passport />,
         scheme: <Scheme />,
         tim_model: <TimModel />,
-        equipment_registry: <EquipmentRegistry />,
+        equipment_registry: <HardwareRegistry />,
         request_registry: <RequestRegistry />,
     };
 

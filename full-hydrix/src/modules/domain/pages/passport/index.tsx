@@ -1,34 +1,21 @@
 
-import { Link, NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { Icon } from "@/shared/ui/icon"
-import { Button } from '@/shared/ui/button';
-import { PassportDocumentation } from "./tabs/documentation"
-import { PassportParticipants } from "./tabs/participants"
-import { PassportInformation } from "./tabs/information"
-import { useEffect, useState } from "react";
-import { CreateCompanyModal } from "./components/create-company-modal";
-import { EquipmentRegistry } from "./tabs/hardware";
-import { Incident } from "./tabs/incident";
-import { passportModel } from "./model/passport-model";
-import { tabLinks } from "./data/config";
+import { useEffect } from "react";
+import { passportModel } from "../../../../features/object/model";
+import { tabLinks } from "../../../../entities/object/config";
 import { observer } from "mobx-react-lite";
 
 export const PassportObject = observer(() => {
 
-  const { init: passportInit, model: passportData } = passportModel;
-
-  const [showCreateCompanyModal, setShowCreateCompanyModal] = useState<boolean>(false);
-  const { tab } = useParams();
+  const { init: passportInit } = passportModel;
 
   useEffect(() => {
     passportInit()
   }, [])
 
-
   return (
     <>
-      <CreateCompanyModal show={showCreateCompanyModal} setShow={setShowCreateCompanyModal} />
-
       <div className="flex items-center gap-4 mb-14">
         <Link
           to="/menu-moduls"
@@ -44,7 +31,8 @@ export const PassportObject = observer(() => {
       </div>
 
       <div className="relative top-[15px] mb-20">
-        <div className="absolute top-[-39px] left-[30px] flex gap-2">
+
+        <div className="absolute top-[-37px] left-[30px] flex gap-2">
           {tabLinks.map((link, key) => {
             return (
               <NavLink to={link.to} key={key}
@@ -56,67 +44,7 @@ export const PassportObject = observer(() => {
           })}
         </div>
 
-        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between h-[100px] gap-4 z-2 rounded-2xl bg-white shadow-sm p-6">
-          <div className="flex items-center gap-4">
-            <Link
-              to="/domain/list"
-              className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
-            >
-              <Icon systemName="arrow-left" className="text-white" />
-            </Link>
-            <h1 className="text-xl md:text-2xl font-bold">
-
-              {tab === "information" && "Паспорт объекта"}
-              {tab === "participants" && "Участники"}
-              {tab === "hardwares" && "Оборудования"}
-              {tab === "incident" && "Аварии"}
-              {tab === "documentation" && "Документация"}
-            </h1>
-          </div>
-
-
-          <div className="flex gap-4 justify-end">
-            {tab === "information" && <>
-
-              <Link to="/gis/company/56"
-                className="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
-              >
-                <span>Перейти в Управление ЖБО</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-
-              <Link
-                to="/dispatcher"
-                className="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm"
-              >
-                <span>Перейти в Диспетчерскую</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-
-            </>}
-
-            {tab === "participants" &&
-              <Button
-                class='bg-[#4A85F6] py-3 px-6 rounded-xl text-white font-semibold hover:bg-[#3a6bc9] transition-all duration-300 flex items-center gap-2'
-                onClick={() => setShowCreateCompanyModal(true)}
-              >
-                <Icon systemName='plus-white' />
-                Добавить организацию
-              </Button>
-            }
-
-          </div>
-        </div>
-
-        {tab === "information" && <PassportInformation techData={passportData} />}
-        {tab === "participants" && <PassportParticipants />}
-        {tab === "hardwares" && <EquipmentRegistry />}
-        {tab === "incident" && <Incident />}
-        {tab === "documentation" && <PassportDocumentation />}
+        <Outlet />
 
       </div>
     </>

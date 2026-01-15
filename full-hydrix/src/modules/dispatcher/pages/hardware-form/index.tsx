@@ -1,7 +1,7 @@
 import { Icon } from "@/shared/ui/icon"
 import { InputContainer } from "@/shared/ui/Inputs/input-container"
 import { Input } from "@/shared/ui/Inputs/input-text"
-import { equipmentCreateModel } from "./model/equipment-form-model"
+import { equipmentCreateModel } from "./model/hardware-form-model"
 import { observer } from "mobx-react-lite"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { Button } from "@/shared/ui/button"
@@ -14,7 +14,7 @@ import Loader from "@/shared/ui/loader/loader"
 import { Documents } from "./tabs/documents"
 
 
-export const EquipmentCreate = observer(() => {
+export const HardwareCreate = observer(() => {
 
     const navigate = useNavigate();
     const { id } = useParams();

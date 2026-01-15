@@ -1,7 +1,7 @@
 import { DespetcherTest } from "@/entities/despetcher-test/type";
 import { makeAutoObservable } from "mobx";
 import { passportObject } from "../service/api";
-import { getTechnicalCharsShapshi } from "../../passport/service";
+import { getTechnicalCharsShapshi } from "@/entities/object/api";
 
 
 

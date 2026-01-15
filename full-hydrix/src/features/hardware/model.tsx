@@ -1,7 +1,7 @@
-import { getInfoHardware } from "@/entities/hardware/api";
+import { getInfoHardware, statusCheck } from "@/entities/hardware/api";
 import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getDocuments, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api-general";
+import { HardwareInterface } from "@/entities/hardware/type";
 
-import { ModelHardwareOneInterface } from "@/entities/hardware/type-general";
 import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
 import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
 import { makeAutoObservable } from "mobx";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 class HardwareModel {
 
-    model: ModelHardwareOneInterface = {
+    model: HardwareInterface = {
         id: 0,
         fileId: 0,
         name: "",
@@ -36,12 +36,13 @@ class HardwareModel {
     servicesHistory: ServiceHistoryType[] | any = []
     serviceStatistic: ServiceStatisticType[] | any = []
     documents: Documents[] | any = []
+
     incidentList: { nodeId: number, nodeName: string }[] = []
+
     commandInfoIds: string[] = []
     ids: (string | undefined)[] = []
-
     evengLog: EventLogsType[] = [];
-
+    status: boolean = false;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -66,6 +67,7 @@ class HardwareModel {
             controlBlockId: 0,
         };
 
+        this.status = false;
         this.isLoading = false;
         this.isActiveCommand = false;
         this.isLoaderCommand = false;
@@ -101,7 +103,6 @@ class HardwareModel {
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
                 getInfoNodeInfoAllCheck({ id: id }),
-                // getCommandCheck({ hardwareId: id })
             ]);
 
             this.model = info.data;
@@ -214,7 +215,7 @@ class HardwareModel {
         await checkedServiceApi({ id: id }).then((res) => {
             this.servicesToday = this.servicesToday.filter(item => item.id !== Number(id));
             toast("Задача выполнена", { progressStyle: { background: "green" }, });
-        })  
+        })
     }
 
     async getInfoNodeInfoAll() {
@@ -232,23 +233,23 @@ class HardwareModel {
                         });
                     }
                 })
+
+
+            await statusCheck({ ids: [this.model.id] })
+                .then((res) => {
+                    res.data.forEach(info => {
+                        if (this.model.id == info.hardwareId) {
+                            if (info.hardwareStatus == "True") {
+                                this.status = true
+                            } else {
+                                this.status = false
+                            }
+                        }
+                    })
+                })
         } catch (error) {
             console.error(`Ошибка при получении данных для plcNodeid :`, error);
         }
-    }
-
-    async clickTest() {
-        await fetch('https://triapi.ru/research/api/Comand/send/command/string?nodeId=261&value=1.4', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            // body: JSON.stringify({  })
-        })
-            .then((res) => console.log(res))
-            .catch((error) => console.log(error))
-
-        // await commandSend({ nodeId: 261, value: "1,6" })
-        //     .then((res) => alert(res.data))
-        //     .catch((error) => console.log(error))
     }
 }
 

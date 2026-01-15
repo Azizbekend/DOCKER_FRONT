@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui/button";
 import { Icon } from "@/shared/ui/icon";
 import { observer } from "mobx-react-lite";
 import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { equipmentCreateModel } from "../model/equipment-form-model";
+import { equipmentCreateModel } from "../model/hardware-form-model";
 import { useControl } from "../components/control/hook";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
 import { SwitchButton } from "@/shared/ui/switch-button";

@@ -5,14 +5,14 @@ import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
 import { ButtonCheckList } from "@/shared/ui/button-check-list";
 import { Icon } from "@/shared/ui/icon";
 import { hardwareListModel } from "./model/hardware-list-model";
-import { HardwareInterface } from "@/entities/hardware/type-general";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { ExportButton } from "./components/equipment-buttons";
-import { columns } from "./components/columns";
+import { ExportButton } from "../../../../shared/libs/hardware/components/hardware-buttons";
+import { columns } from "../../../../shared/libs/hardware/columns/columns";
+import { HardwareInterface } from "@/entities/hardware/type";
 
 
-export const EquipmentRegistry = observer(() => {
+export const HardwareRegistry = observer(() => {
   const { list, init } = hardwareListModel;
   const navigate = useNavigate();
   const { search, setSearch, results } = useSearch<HardwareInterface>({ data: list, searchFields: ['name', 'position', 'opcDescription'] });
@@ -23,10 +23,33 @@ export const EquipmentRegistry = observer(() => {
 
   return (
     <>
-      <div className="flex items-center gap-4 mb-8 p-2 bg-white rounded-xl shadow-sm border border-gray-200">
+      <div className="flex items-center gap-4 mb-8 rounded-xl ">
+        <Search
+          value={search}
+          onChange={setSearch}
+          placeholder="Поиск по названию или описанию..."
+          classNames={{
+            container: "!w-[420px] rounded-lg h-11",
+            input: "px-4 text-gray-800",
+          }}
+        />
+
+        <ButtonCheckList
+          name="Состояние"
+          classNames={{ button: "text-sm" }}
+          children={["Функционирует", "Авария", "Плановое обслуживание"].map((value, key) => (
+            <label key={key} className="flex items-center gap-2 p-2 hover:rounded cursor-pointer">
+              <input type="checkbox" className="rounded text-[#4A85F6]" />
+              <span className="text-sm">{value}</span>
+            </label>
+          ))}
+        />
+
+        {/* <ExportButton className="ml-auto" /> */}
+
         <Link
           to="/dispatcher/hardware/form"
-          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm ml-auto"
         >
           <Icon systemName="plus-white" className="w-4 h-4" />
           Добавить оборудование
@@ -38,40 +61,6 @@ export const EquipmentRegistry = observer(() => {
           <Icon systemName="plus-white" className="w-4 h-4" />
           Добавить датчик
         </Link>
-
-        <Search
-          value={search}
-          onChange={setSearch}
-          placeholder="Поиск по названию или описанию..."
-          classNames={{
-            container: "!w-[420px] bg-gray-50 rounded-lg h-11",
-            input: "bg-gray-50 px-4 text-gray-800",
-          }}
-        />
-
-        <ButtonCheckList
-          name="Доступ"
-          classNames={{ button: "text-sm" }}
-          children={["Все", "Онлайн", "Оффлайн"].map((value, key) => (
-            <label key={key} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
-              <input type="checkbox" className="rounded text-[#4A85F6]" />
-              <span className="text-sm">{value}</span>
-            </label>
-          ))}
-        />
-
-        <ButtonCheckList
-          name="Состояние"
-          classNames={{ button: "text-sm" }}
-          children={["Функционирует", "Авария", "Плановое обслуживание"].map((value, key) => (
-            <label key={key} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
-              <input type="checkbox" className="rounded text-[#4A85F6]" />
-              <span className="text-sm">{value}</span>
-            </label>
-          ))}
-        />
-
-        <ExportButton className="ml-auto" />
       </div>
 
       <Table

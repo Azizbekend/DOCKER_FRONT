@@ -4,7 +4,7 @@ import { Icon } from "@/shared/ui/icon"
 import { InputContainer } from "@/shared/ui/Inputs/input-container"
 import { Input } from "@/shared/ui/Inputs/input-text"
 import { useCharacteristics } from '../components/characteristic/hook';
-import { equipmentCreateModel } from '../model/equipment-form-model';
+import { equipmentCreateModel } from '../model/hardware-form-model';
 import { useDocuments } from '../components/documents/hook';
 
 export const Documents = observer(() => {

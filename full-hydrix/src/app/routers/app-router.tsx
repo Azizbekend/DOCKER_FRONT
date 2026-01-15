@@ -181,16 +181,72 @@ export const AppRouter = createBrowserRouter([
                     },
                     {
                         path: "passport",
+                        async lazy() {
+                            const { PassportObject } = await import("@/modules/domain/pages/passport")
+                            return {
+                                Component: PassportObject
+                            }
+                        },
                         children: [
                             {
-                                path: ":tab",
+                                path: "information",
                                 async lazy() {
-                                    const { PassportObject } = await import("@/modules/domain/pages/passport")
+                                    const { PassportInformation } = await import("@/modules/domain/pages/passport/pages/information")
                                     return {
-                                        Component: PassportObject
+                                        Component: PassportInformation
                                     }
                                 },
-                            }
+                            },
+                            {
+                                path: "participants",
+                                async lazy() {
+                                    const { PassportParticipants } = await import("@/modules/domain/pages/passport/pages/participants")
+                                    return {
+                                        Component: PassportParticipants
+                                    }
+                                },
+                            },
+                            {
+                                path: "hardwares",
+                                children: [
+                                    {
+                                        index: true,
+                                        async lazy() {
+                                            const { HardwareRegistry } = await import("@/modules/domain/pages/passport/pages/hardwares")
+                                            return {
+                                                Component: HardwareRegistry
+                                            }
+                                        },
+                                    },
+                                    {
+                                        path: ":id",
+                                        async lazy() {
+                                            const { HardwareInformation } = await import("@/modules/domain/pages/passport/pages/hardware")
+                                            return {
+                                                Component: HardwareInformation
+                                            }
+                                        },
+                                    },
+                                ]
+                            },
+                            {
+                                path: "incident",
+                                async lazy() {
+                                    const { Incident } = await import("@/modules/domain/pages/passport/pages/incident")
+                                    return {
+                                        Component: Incident
+                                    }
+                                },
+                            },
+                            {
+                                path: "documentation",
+                                async lazy() {
+                                    const { PassportDocumentation } = await import("@/modules/domain/pages/passport/pages/documentation")
+                                    return {
+                                        Component: PassportDocumentation
+                                    }
+                                },
+                            },
                         ]
                     },
                 ]
@@ -243,58 +299,29 @@ export const AppRouter = createBrowserRouter([
                     {
                         path: "hardware",
                         async lazy() {
-                            const { EquipmentRegistry } = await import("@/modules/dispatcher/pages/hardware-list")
+                            const { HardwareRegistry } = await import("@/modules/dispatcher/pages/hardware-list")
                             return {
-                                Component: EquipmentRegistry
+                                Component: HardwareRegistry
                             }
                         },
                     },
                     {
                         path: "hardware/form/:id?",
                         async lazy() {
-                            const { EquipmentCreate } = await import("@/modules/dispatcher/pages/hardware-form")
+                            const { HardwareCreate } = await import("@/modules/dispatcher/pages/hardware-form")
                             return {
-                                Component: EquipmentCreate
+                                Component: HardwareCreate
                             }
                         },
                     },
                     {
-                        path: "hardware-about/:id",
+                        path: "hardware-about/:id/:tab",
                         async lazy() {
-                            const { EquipmentAbout } = await import("@/modules/dispatcher/pages/hardware-about")
+                            const { HardwareAbout } = await import("@/modules/dispatcher/pages/hardware-about")
                             return {
-                                Component: EquipmentAbout
+                                Component: HardwareAbout
                             }
                         },
-                        children: [
-                            {
-                                path: "passport",
-                                async lazy() {
-                                    const { EquipmentPassport } = await import("@/modules/dispatcher/pages/hardware-about/tabs/passport")
-                                    return {
-                                        Component: EquipmentPassport
-                                    }
-                                }
-                            },
-                            {
-                                path: "controll",
-                                async lazy() {
-                                    const { EquipmentControll } = await import("@/modules/dispatcher/pages/hardware-about/tabs/controll")
-                                    return {
-                                        Component: EquipmentControll
-                                    }
-                                }
-                            },
-                            {
-                                path: "service",
-                                async lazy() {
-                                    const { EquipmentService } = await import("@/modules/dispatcher/pages/hardware-about/tabs/service")
-                                    return {
-                                        Component: EquipmentService
-                                    }
-                                }
-                            }
-                        ]
                     },
                     {
                         path: "orders",

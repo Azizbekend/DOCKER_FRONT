@@ -1,18 +1,22 @@
 import { useEffect } from "react";
-import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/features/hardware/model";
 import Loader from "@/shared/ui/loader/loader";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";
 import { hardwareListModel } from "../hardware-list/model/hardware-list-model";
-import { ModalServiceCreate } from "../hardware-list/components/modal-service-create";
+import { ModalServiceCreate } from "../../../../shared/libs/hardware/components/modal-service-create";
+import { tabsList } from "@/features/hardware/data";
+import { HardwareControll, HardwarePassport, HardwareService } from "@/shared/libs/hardware/tabs/page-tabs";
 
-export const EquipmentAbout = observer(() => {
-    const { id } = useParams();
+export const HardwareAbout = observer(() => {
+    const { id, tab } = useParams();
 
     const { setModalService, modalService, closeModal } = hardwareListModel;
-    const { model, init, isLoading } = hardwareModel
+
+    const { status, model, init, isLoading, commands, switchIsCommand, changeCommands, incidentList, isLoaderCommand, isActiveCommand, getInfoNodeInfoAll, documents, сharacteristic, commandsInfo, getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic } = hardwareModel
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,24 +30,13 @@ export const EquipmentAbout = observer(() => {
             <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
 
             <div className="absolute  top-[-36px] left-[30px] flex gap-3">
-                <NavLink
-                    to={`/dispatcher/hardware-about/${id}/passport`}
-                    className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-                >
-                    Паспорт
-                </NavLink>
-                <NavLink
-                    to={`/dispatcher/hardware-about/${id}/controll`}
-                    className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-                >
-                    Управление
-                </NavLink>
-                <NavLink
-                    to={`/dispatcher/hardware-about/${id}/service`}
-                    className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
-                >
-                    Сервис
-                </NavLink>
+                {tabsList.map((tab, key) => {
+                    return <NavLink to={`/dispatcher/hardware-about/${id}/${tab.to}`} key={key}
+                        className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}
+                    >
+                        {tab.name}
+                    </NavLink>
+                })}
             </div>
 
             <div className="space-y-6 min-h-[60vh] mb-10">
@@ -90,7 +83,31 @@ export const EquipmentAbout = observer(() => {
                     </div>
                 </div>
 
-                <Outlet />
+                {tab == "passport" && <HardwarePassport
+                    model={model}
+                    getInfoNodeInfoAll={getInfoNodeInfoAll}
+                    documents={documents}
+                    сharacteristic={сharacteristic}
+                    commandsInfo={commandsInfo}
+
+                    incidentList={incidentList}
+                    status={status}
+                />}
+                {tab == "controll" && <HardwareControll
+
+                    commands={commands}
+                    switchIsCommand={switchIsCommand}
+                    changeCommands={changeCommands}
+                    isLoaderCommand={isLoaderCommand}
+                    isActiveCommand={isActiveCommand}
+                />}
+                {tab == "service" && <HardwareService
+                    getCommands={getCommands}
+                    servicesWeek={servicesWeek}
+                    checkedService={checkedService}
+                    servicesHistory={servicesHistory}
+                    serviceStatistic={serviceStatistic}
+                />}
 
             </div>
         </div>

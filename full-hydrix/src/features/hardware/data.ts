@@ -29,3 +29,19 @@ export const eventLog = [
         description: "Установлен расход 150 м³/ч"
     }
 ];
+
+
+export const tabsList: { to: string, name: string }[] = [
+    {
+        to: "passport",
+        name: "Паспорт"
+    },
+    {
+        to: "controll",
+        name: "Управление"
+    },
+    {
+        to: "service",
+        name: "Сервис"
+    },
+]

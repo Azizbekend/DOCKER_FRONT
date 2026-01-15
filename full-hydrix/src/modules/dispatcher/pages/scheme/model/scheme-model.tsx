@@ -4,8 +4,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import { SchemaCardInterface } from "@/entities/sensor/type";
 import { ApiSchemaCardAll } from "@/entities/sensor/api";
-import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/formatToTwoDecimalsSafe";
 import { statusCheck } from "@/entities/hardware/api";
+import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
 
 class SchemeModel {
 

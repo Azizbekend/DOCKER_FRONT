@@ -13,11 +13,12 @@ export const Search = (props: SearchType) => {
     };
 
     return (
-        <div className={`w-full flex gap-1 border bg-white pl-4 pr-3 py-1 border-solid border-[#C5CEE0] ${props.classNames.container}`}
+        <div className={`w-full flex gap-1  pl-4 pr-3 py-1 bg-white duration-200 ${props.classNames.container}`}
             style={{
-                borderColor: isFocused ? "#8F9BB3" : "#EFF4FA",
+                boxShadow: isFocused ? "rgb(74 133 246) 0px 0px 3px 0px" : "none",
                 ...props.style
             }}>
+
             <input
                 className={`w-full outline-none disabled:bg-zinc-200 text-[14px] ${props.classNames.input}`}
                 type="text"

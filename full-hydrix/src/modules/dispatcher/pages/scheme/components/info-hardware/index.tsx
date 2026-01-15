@@ -1,9 +1,6 @@
 import { Icon } from "@/shared/ui/icon";
 import { useEffect, useState } from 'react';
-import { HardwareReview } from "./tabs/hardware-review";
-import { HardwareControlle } from "./tabs/hardware-controlle";
 import accident from "@/app/static/img/accident.svg";
-import { HardwareServes } from "./tabs/hardware-serves";
 import { hardwareModel } from "@/features/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
@@ -12,29 +9,19 @@ import { Button } from "@/shared/ui/button";
 import { schemeModel } from "../../model/scheme-model";
 import { InfoCompType } from "../../types/type";
 import { eventLog } from "@/features/hardware/data";
+import { getStatusClass } from "@/shared/libs/hardware/functions/functions";
+import { HardwareControlle, HardwareReview, HardwareServes } from "@/shared/libs/hardware/tabs/panel-tabs";
+import { getHardwareStatus } from "@/shared/libs/hardware/components/hardware-status";
 
-export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
+export const HardwareCard = observer(({ className, id, onClick, handleSwitchImage, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
-  const { handleSwitchImage, focusHardwareStatus } = schemeModel
 
-  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll,
-    commandsInfo, documents, commands, changeCommands, isActiveCommand,
-    isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService
-  } = hardwareModel;
+  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
     init(id, true);
   }, [id]);
-
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'warning': return { badge: 'text-red-700 bg-red-100', border: '#f87171' };
-      case 'success': return { badge: 'text-green-700 bg-green-100', border: '#4ade80' };
-      case 'info': return { badge: 'text-blue-700 bg-blue-100', border: '#60a5fa' };
-      default: return { badge: 'text-gray-700 bg-gray-100', border: '#9ca3af' };
-    }
-  };
 
   return (
     <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : "overflow-auto"}>
@@ -75,8 +62,7 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
 
             <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              <div className={`w-3 h-3 rounded-full ${focusHardwareStatus ? "bg-gray-500" : "bg-green-500"}`}></div>
-              <span className="font-medium text-gray-800">{focusHardwareStatus ? "Ожидании" : "Работает"}</span>
+              {getHardwareStatus(focusHardwareStatus, incidentList.length)}
             </div>
 
             {incidentList.length > 0 && incidentList.map((incident, _) => {
@@ -125,7 +111,9 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                     position: model.position,
                     supplierName: model.supplierName,
                     developerName: model.developerName,
-                  }} />}
+                  }} />
+
+              }
 
               {mode === 1 &&
                 <HardwareControlle
@@ -136,7 +124,12 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
                   switchIsCommand={switchIsCommand}
                 />
               }
-              {mode === 2 && <HardwareServes getCommands={getCommands} servicesWeek={servicesWeek} checkedService={checkedService} />}
+              {mode === 2 &&
+                <HardwareServes
+                  getCommands={getCommands}
+                  servicesWeek={servicesWeek}
+                  checkedService={checkedService}
+                />}
             </div>
 
             <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">

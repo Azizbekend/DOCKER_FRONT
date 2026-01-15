@@ -1,6 +1,5 @@
-import { observer } from 'mobx-react-lite';
 import { Icon } from '../icon/index';
-import { Children, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 type Props = {
     children: React.ReactNode,
@@ -55,17 +54,24 @@ export const ButtonCheckList = (props: Props) => {
     };
 
     return (
-        <div ref={containerRef} className={`relative z-10 ${props.classNames?.container}`}>
-            <div 
-                className={`flex items-center cursor-pointer ${props.classNames?.button}`} 
+        <div ref={containerRef} className={`relative z-10 ${props.classNames?.container || ''}`}>
+            <button
+                type="button"
+                className={`flex items-center bg-white justify-between px-3 py-2 rounded-lg  transition-all duration-200 min-w-[120px] ${props.classNames?.button || ''}`}
                 onClick={handleButtonClick}
+                aria-expanded={open}
+                aria-haspopup="listbox"
             >
-                {props.name}
-                <Icon systemName="arrow-down" className={`ml-1 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
-            </div>
+                <span className="text-gray-700 font-medium truncate">{props.name}</span>
+                <Icon
+                    systemName="arrow-down"
+                    className={`ml-2 transition-transform duration-200 ease-in-out ${open ? "rotate-180" : ""} text-gray-500`}
+                />
+            </button>
             {open && (
-                <div 
-                    className={`flex flex-col gap-3 absolute top-6 right-0 px-[14px] py-[12px] bg-stone-50 rounded-lg max-h-[200px] overflow-y-auto shadow-md min-w-fit w-full no-scrollbar ${props.classNames?.body}`}
+                <div
+                    className={`absolute top-full left-[50%] translate-x-[-50%] mt-1 min-w-full w-max px-2 py-2 bg-white rounded-lg shadow-lg border border-gray-200 z-20  ${props.classNames?.body || ''}`}
+                    role="listbox"
                 >
                     {props.children}
                 </div>

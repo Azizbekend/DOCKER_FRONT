@@ -5,7 +5,7 @@ import { InputContainer } from "@/shared/ui/Inputs/input-container";
 import { Selector } from "@/shared/ui/Selector/selector";
 import { useService } from "../components/service/hook";
 import { ChangeEvent, useState } from "react";
-import { equipmentCreateModel } from "../model/equipment-form-model";
+import { equipmentCreateModel } from "../model/hardware-form-model";
 
 export const Scheme = observer(() => {
 

@@ -1,4 +1,4 @@
-export interface EquipmentCreateInterface {
+export interface HardwareCreateInterface {
     id?: number,
     fileId: string,
     name: string,
@@ -29,22 +29,7 @@ export interface CharacteristicsCreateInterface {
     value: string
 }
 
-export interface HardwareInterface {
-    id: number,
-    name: string,
-    category: string,
-    controlBlockId: number,
-    developerName: string,
-    opcDescription: string,
-    photoName: string,
-    position: string,
-    supplierName: string,
-    activatedAt?: string,
-    model: string,
-    createdAt?: string,
-    fileId?: number,
-    fileModel?: string,
-}
+
 
 
 export interface ControlBlockInterface {
@@ -54,19 +39,6 @@ export interface ControlBlockInterface {
 }
 
 
-export interface ModelHardwareOneInterface {
-    id: number,
-    name: string,
-    model?: string,
-    category?: string,
-    developerName: string,
-    supplierName: string,
-    photoName: string,
-    position: string,
-    opcDescription?: string,
-    controlBlockId: number
-    fileId?: number
-}
 
 export interface SchemaCreateType {
     name: string,

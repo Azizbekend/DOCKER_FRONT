@@ -1,6 +1,5 @@
 import imagePassport from "@imgs/passport.jpg"
 import imagePassport2 from "@imgs/IMG-20250917-WA0013.jpg"
-import { Value } from "sass"
 import Icons from "../../../components/ui-kits/Icons";
 
 export default function Passport() {
