@@ -60,10 +60,9 @@ export type InfoCompType = {
     key?: number,
     id?: number,
     className: string,
+    focusHardwareStatus: boolean,
     item?: InformationsComponentsType,
     onClick: (id: number, status: boolean) => void,
-    handleSwitchImage
-    focusHardwareStatus
 }
 
 export type CountersType = {

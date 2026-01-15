@@ -6,6 +6,8 @@ import { eventLog } from "@/features/hardware/data";
 import { getStatusClass, getValue } from "../../functions/functions";
 import { HardwarePassportProps } from "@/entities/hardware/type";
 import { getHardwareStatus } from "../../components/hardware-status";
+import accident from "@/app/static/img/accident.svg";
+import { Link } from "react-router-dom";
 
 export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents, сharacteristic, commandsInfo, isConnected, incidentList, status }: HardwarePassportProps) => {
 
@@ -19,7 +21,7 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
         <div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="rounded-2xl bg-white shadow-sm py-2 px-2">
-                    <div className="overflow-hidden mb-6 rounded-2xl bg-gray-100 p-2">
+                    <div className="relative overflow-hidden mb-6 rounded-2xl bg-gray-100 p-2">
                         <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${model?.fileId || ''}`} alt="Оборудование"
                             className="w-30 h-60 object-cover center mx-auto rounded-2xl"
                             onError={(e) => {
@@ -28,18 +30,38 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
                             }}
                         />
 
-                        <div className="text-center mb-2">
-                            <p className="text-sm text-gray-600 mb-2">Статус подключения к ИАС</p>
-
-                            {getHardwareStatus(status, incidentList.length)}
-
-                            {/* <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                <span className={`w-2 h-2 rounded-full mr-2 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
-                                {isConnected ? 'Подключено' : 'Не подключено'}
-                            </span> */}
-                        </div>
-
+                        {/* <div className="flex justify-between items-center gap-2"> */}
+                            {/* <p className="text-sm text-gray-600">Статус подключения к ИАС</p> */}
+                            <span className={`absolute right-4 top-4 inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${true ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                <span className={`w-2 h-2 rounded-full mr-2 ${true ? 'bg-green-500' : 'bg-red-500'}`}></span>
+                                {true ? 'Подключено' : 'Не подключено'}
+                            </span>
+                        {/* </div> */}
                     </div>
+
+                    {getHardwareStatus({
+                        status: status,
+                        incidentCount: incidentList.length,
+                        className: { container: "mb-5 py-3 px-6 justify-center  rounded-2xl !bg-gray-100" }
+                    })}
+
+                    {incidentList.length > 0 && incidentList.map((incident, _) => {
+                        return (
+                            <div key={incident.nodeId} className="mt-3">
+                                <div className="border border-red-300 bg-red-50 rounded-lg mb-5 p-4 flex items-start gap-3">
+                                    <img src={accident} alt="Авария" width={24} height={24} />
+                                    <div className="text-red-800 font-medium">
+                                        {incident.nodeName}
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-2 mb-4">
+                                    <div className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
+                                    <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
 
                 {(сharacteristic.length > 0 || commandsInfo.length > 0) && (

@@ -4,15 +4,11 @@ import { hardwareModel } from "@/features/hardware/model";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "@/shared/ui/loader/loader";
-import { Icon } from "@/shared/ui/icon";
-import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
-import { eventLog } from "@/features/hardware/data";
-import HardwareStatistics from "@/shared/libs/hardware/components/hardware-statistic";
 import { HardwarePassport } from "@/shared/libs/hardware/tabs/page-tabs";
 
 export const HardwareInformation = observer(() => {
     const { id } = useParams();
-    const { model, init, isLoading, getInfoNodeInfoAll, documents, сharacteristic, commandsInfo } = hardwareModel
+    const { model, init, status, isLoading, getInfoNodeInfoAll, documents, сharacteristic, incidentList, commandsInfo } = hardwareModel
 
     useEffect(() => {
         init(Number(id))
@@ -34,6 +30,8 @@ export const HardwareInformation = observer(() => {
                 documents={documents}
                 сharacteristic={сharacteristic}
                 commandsInfo={commandsInfo}
+                incidentList={incidentList}
+                status={status}
             />
         </div>
 });

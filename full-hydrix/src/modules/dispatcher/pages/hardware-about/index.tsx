@@ -89,12 +89,10 @@ export const HardwareAbout = observer(() => {
                     documents={documents}
                     сharacteristic={сharacteristic}
                     commandsInfo={commandsInfo}
-
                     incidentList={incidentList}
                     status={status}
                 />}
                 {tab == "controll" && <HardwareControll
-
                     commands={commands}
                     switchIsCommand={switchIsCommand}
                     changeCommands={changeCommands}

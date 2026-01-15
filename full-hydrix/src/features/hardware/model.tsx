@@ -1,4 +1,4 @@
-import { getInfoHardware, statusCheck } from "@/entities/hardware/api";
+import { getInfoHardware, statusHardwaresCheck } from "@/entities/hardware/api";
 import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getDocuments, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api-general";
 import { HardwareInterface } from "@/entities/hardware/type";
 
@@ -235,7 +235,7 @@ class HardwareModel {
                 })
 
 
-            await statusCheck({ ids: [this.model.id] })
+            await statusHardwaresCheck({ ids: [this.model.id] })
                 .then((res) => {
                     res.data.forEach(info => {
                         if (this.model.id == info.hardwareId) {
