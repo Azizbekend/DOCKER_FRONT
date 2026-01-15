@@ -1,4 +1,4 @@
-import { SchemaObjectType } from "@/entities/hardware/type"
+import { SchemaObjectType } from "@/entities/hardware/type-general"
 import { SchemaCardInterface } from "@/entities/sensor/type"
 
 export type InformationsComponentsType = {

@@ -1,5 +1,4 @@
 export function formatToTwoDecimalsSafe(value: string | number | null | undefined): number | null | string {
-
     if (value === null || value === undefined) return "—";
 
     let num: number;

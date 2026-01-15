@@ -1,10 +1,11 @@
-import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaCoordinatesCreateType, SchemaModelInterface } from "@/entities/hardware/type";
+import { CharacteristicsCreateInterface, EquipmentCreateInterface, SchemaCoordinatesCreateType, SchemaModelInterface } from "@/entities/hardware/type-general";
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createHardware, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, deleteInfoHardware, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, getInfoHardware, manyCharacteristic, schemaCoordinatesCreate, updateInfoHardware } from "@/entities/hardware/api";
+import { createCharacteristic, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, manyCharacteristic, schemaCoordinatesCreate } from "@/entities/hardware/api-general";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, } from "../components/control/type";
+import { createHardware, deleteInfoHardware, getInfoHardware, updateInfoHardware } from "@/entities/hardware/api";
 
 
 class EquipmentCreateModel {

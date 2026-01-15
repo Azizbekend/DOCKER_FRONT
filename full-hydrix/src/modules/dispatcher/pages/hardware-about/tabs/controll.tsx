@@ -1,4 +1,4 @@
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import { Icon } from "@/shared/ui/icon";
 import { Input } from "@/shared/ui/Inputs/input-text";
 import { SwitchButton } from "@/shared/ui/switch-button";
@@ -81,7 +81,7 @@ export const EquipmentControll = observer(() => {
                           }}
                         />
                       )}
-                      
+
                       <div className='px-2 min-w-[40px] py-2 bg-[var(--clr-accent)] rounded-lg hover:opacity-50 cursor-pointer duration-300 ml-4' onClick={() => isActiveCommand && setShow(true)}>
                         <Icon systemName='save-white' />
                       </div>

@@ -4,56 +4,28 @@ import { HardwareReview } from "./tabs/hardware-review";
 import { HardwareControlle } from "./tabs/hardware-controlle";
 import accident from "@/app/static/img/accident.svg";
 import { HardwareServes } from "./tabs/hardware-serves";
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
 import { schemeModel } from "../../model/scheme-model";
 import { InfoCompType } from "../../types/type";
+import { eventLog } from "@/features/hardware/data";
 
 export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
   const { handleSwitchImage, focusHardwareStatus } = schemeModel
 
-  const { init, model, isLoading, incidentList } = hardwareModel;
+  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll,
+    commandsInfo, documents, commands, changeCommands, isActiveCommand,
+    isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService
+  } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
     init(id, true);
   }, [id]);
-
-  const eventLog = [
-
-    {
-      timestamp: "08.12.2025 12:34",
-      action: "Отключение",
-
-      status: "warning",
-      description: "Аварийное отключение из-за превышения давления"
-    },
-    {
-      timestamp: "05.12.2025 12:36",
-      action: "Запуск",
-
-      status: "success",
-      description: "Ручной запуск после устранения неисправности"
-    },
-    {
-      timestamp: "05.12.2025 12:10",
-      action: "ТО1",
-
-      status: "info",
-      description: "Плановое техническое обслуживание (уровень 1)"
-    },
-    {
-      timestamp: "01.12.2025 09:22",
-      action: "Изменение параметра",
-
-      status: "neutral",
-      description: "Установлен расход 150 м³/ч"
-    }
-  ];
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -141,9 +113,30 @@ export const HardwareCard = observer(({ className, id, onClick }: InfoCompType) 
             </div>
 
             <div className="mb-6">
-              {mode === 0 && <HardwareReview />}
-              {mode === 1 && <HardwareControlle />}
-              {mode === 2 && <HardwareServes />}
+
+              {mode === 0 &&
+                <HardwareReview
+                  сharacteristic={сharacteristic}
+                  getInfoNodeInfoAll={getInfoNodeInfoAll}
+                  commandsInfo={commandsInfo}
+                  documents={documents}
+                  data={{
+                    model: model.model || "—",
+                    position: model.position,
+                    supplierName: model.supplierName,
+                    developerName: model.developerName,
+                  }} />}
+
+              {mode === 1 &&
+                <HardwareControlle
+                  commands={commandsInfo}
+                  changeCommands={changeCommands}
+                  isActiveCommand={isActiveCommand}
+                  isLoaderCommand={isLoaderCommand}
+                  switchIsCommand={switchIsCommand}
+                />
+              }
+              {mode === 2 && <HardwareServes getCommands={getCommands} servicesWeek={servicesWeek} checkedService={checkedService} />}
             </div>
 
             <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">

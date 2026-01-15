@@ -1,22 +1,6 @@
-export interface EquipmentCreateInterface {
-    id?: number,
-    fileId: string,
-    name: string,
-    category: string,
-    model: string,
-    developerName: string,
-    position: string,
-    opcDescription?: string,
-    controlBlockId?: number,
-    supplierName: string,
-}
-export interface SchemaModelInterface {
-    top: string,
-    left: string,
-    hieght: string,
-    width: string,
-    hardwareSchemaId: number,
-}
+import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
+import { ControlType, ServiceModelType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
+import { Documents } from "./api-general";
 
 export interface CreateHardwareInterface {
     id?: number,
@@ -32,105 +16,32 @@ export interface CreateHardwareInterface {
     controlBlockId?: number,
 }
 
-export interface CharacteristicsCreateManyInterface {
-    hardwareId: number,
-    characteristics: CharacteristicsCreateInterface[]
-}
 
-export interface CharacteristicsCreateInterface {
-    hardwareId: number,
-    name: string,
-    value: string
-}
+export interface HardwareReviewProps {
+    сharacteristic: Characteristic[],
+    commandsInfo: ControlType[],
+    documents: Documents[],
+    getInfoNodeInfoAll: () => void,
 
-export interface HardwareInterface {
-    id: number,
-    name: string,
-    category: string,
-    controlBlockId: number,
-    developerName: string,
-    opcDescription: string,
-    photoName: string,
-    position: string,
-    supplierName: string,
-    activatedAt?: string,
-    model: string,
-    createdAt?: string,
-    fileId?: number,
-    fileModel?: string,
+    data: {
+        model: string,
+        position: string,
+        supplierName: string,
+        developerName: string,
+    }
 }
 
 
-export interface ControlBlockInterface {
-    id: number,
-    name: string,
-    plcIpAdress: string,
+export interface HardwareControlleProps {
+    commands: ControlType[],
+    changeCommands: (value: string, id: string) => void,
+    isActiveCommand: boolean,
+    isLoaderCommand: boolean,
+    switchIsCommand: () => void,
 }
 
-
-export interface ModelHardwareOneInterface {
-    id: number,
-    name: string,
-    model?: string,
-    category?: string,
-    developerName: string,
-    supplierName: string,
-    photoName: string,
-    position: string,
-    opcDescription?: string,
-    controlBlockId: number
-    fileId?: number
-}
-
-export interface SchemaCreateType {
-    name: string,
-    schemaImage: string,
-    staticObjectInfoId: number
-    fileId: number | null,
-}
-
-export interface SchemaObjectType {
-    id: number,
-    top: string,
-    left: string,
-    height: string,
-    width: string,
-    hardwareSchemaId: number,
-    hardwareSchema: any,
-    fileId: number,
-    redFileId?: number,
-    greenFileId?: number,
-    focusFileId?: number,
-    file: any,
-    hardwareId: number,
-    status?: boolean,
-}
-
-export interface SchemaCoordinatesCreateType {
-    id?: number,
-    top: string,
-    left: string,
-    height: string,
-    width: string,
-    hardwareSchemaId?: number,
-    newSchemeId?: number,
-    fileId?: number,
-    redFileId?: number,
-    greenFileId?: number,
-    hardwareId?: number,
-}
-
-
-
-export interface ObjectInfoInterface {
-    name?: string,
-    adress?: string,
-    operatingOrganization?: string,
-    customerName?: string,
-    generalContractorName?: string,
-    projectEfficiency?: number,
-    latitude?: string,
-    longitude?: string,
-    photoName?: string,
-    fileId?: number,
+export interface HardwareServesProps {
+    getCommands: ServiceModelType[],
+    servicesWeek: ServiceModelType[],
+    checkedService: (id: string) => void,
 }

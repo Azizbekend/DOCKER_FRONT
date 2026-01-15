@@ -203,7 +203,40 @@ export const PassportDocumentation = observer(() => {
 
   return (
     <div className="mx-auto" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-      {/* <Button
+
+      {/* Инструментальная панель */}
+
+      <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <select
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
+                className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+              >
+                <option value="all">По всем разделам</option>
+                <option value="contracts">Договоры</option>
+                <option value="reports">Отчёты</option>
+                <option value="plans">Планы</option>
+              </select>
+              <Icon systemName="arrow-down" className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+            </div>
+
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+              />
+              <Icon systemName="search" className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button
               onClick={handleCreate}
               class="flex items-center gap-2 px-4 py-2 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors"
             >
@@ -227,7 +260,10 @@ export const PassportDocumentation = observer(() => {
             >
               <Icon systemName="refresh" />
               Обновить
-            </Button> */}
+            </Button>
+          </div>
+        </div>
+      </div>
 
       {/* Основной контент: таблица + просмотрщик */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

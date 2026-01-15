@@ -1,6 +1,7 @@
-import { activeHardware, createServiceApi, getAllHardware } from "@/entities/hardware/api";
-import { HardwareInterface } from "@/entities/hardware/type";
-import { makeAutoObservable, runInAction } from "mobx";
+import { activeHardware, getAllHardware } from "@/entities/hardware/api";
+import { createServiceApi } from "@/entities/hardware/api-general";
+import { HardwareInterface } from "@/entities/hardware/type-general";
+import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
 class HardwareListModel {

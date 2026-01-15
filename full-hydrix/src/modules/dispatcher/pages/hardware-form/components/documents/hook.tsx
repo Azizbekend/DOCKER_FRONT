@@ -1,5 +1,5 @@
 // hooks/useCharacteristics.ts
-import { Documents } from '@/entities/hardware/api';
+import { Documents } from '@/entities/hardware/api-general';
 import { useState } from 'react';
 
 export const useDocuments = () => {

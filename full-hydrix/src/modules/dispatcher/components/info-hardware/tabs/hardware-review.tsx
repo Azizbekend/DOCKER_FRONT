@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Icon } from "@/shared/ui/icon"
-import { hardwareModel } from '@/entities/hardware/model';
+import { hardwareModel } from '@/features/hardware/model';
 
 export const HardwareReview = observer(() => {
 

@@ -6,7 +6,7 @@ import { InfoObject } from '../components/info-object';
 import Tooltip from '@/shared/ui/tooltip';
 import InputCheckbox from '@/shared/ui/Inputs/input-checkbox';
 import { Link } from 'react-router-dom';
-import { hardwareModel } from '@/entities/hardware/model';
+import { hardwareModel } from '@/features/hardware/model';
 import { Modal } from '@/shared/ui/modal/modal';
 import { Button } from '@/shared/ui/button';
 import { useState } from 'react';

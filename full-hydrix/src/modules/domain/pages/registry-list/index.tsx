@@ -18,6 +18,5 @@ export const RegistryObjects = observer(({ list }: { list: DespetcherTest[] }) =
             data={list}
             onRowClick={handleRowClick}
         />
-
     );
 });

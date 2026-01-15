@@ -5,7 +5,7 @@ import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
 import { ButtonCheckList } from "@/shared/ui/button-check-list";
 import { Icon } from "@/shared/ui/icon";
 import { hardwareListModel } from "./model/hardware-list-model";
-import { HardwareInterface } from "@/entities/hardware/type";
+import { HardwareInterface } from "@/entities/hardware/type-general";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { ExportButton } from "./components/equipment-buttons";

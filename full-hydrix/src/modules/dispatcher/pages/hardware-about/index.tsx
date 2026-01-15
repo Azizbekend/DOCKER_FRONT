@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import Loader from "@/shared/ui/loader/loader";
 import { Icon } from "@/shared/ui/icon";
 import { Button } from "@/shared/ui/button";

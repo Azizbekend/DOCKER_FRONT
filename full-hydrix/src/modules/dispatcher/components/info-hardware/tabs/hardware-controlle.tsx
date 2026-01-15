@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { datainpt } from '../data/data';
 import { BlockSelect } from '../components/block-select';
-import { hardwareModel } from '@/entities/hardware/model';
+import { hardwareModel } from '@/features/hardware/model';
 
 export const HardwareControlle = observer(() => {
 

@@ -1,9 +1,9 @@
 import { Icon } from "@/shared/ui/icon";
 import { observer } from "mobx-react-lite";
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import EquipmentStatistics from "../components/equipment-statistic";
 import { eventLog, getStatusClass } from "../data/data";
-import { formatToTwoDecimalsSafe } from "@/shared/functions/formatToTwoDecimalsSafe";
+import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/formatToTwoDecimalsSafe";
 import { useEffect } from "react";
 
 export const EquipmentPassport = observer(() => {

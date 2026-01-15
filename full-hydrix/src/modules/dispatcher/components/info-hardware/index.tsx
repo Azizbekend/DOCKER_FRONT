@@ -5,7 +5,7 @@ import { HardwareControlle } from "./tabs/hardware-controlle";
 import { InfoCompType } from "../../pages/scheme/types/type";
 import accident from "@/app/static/img/accident.svg";
 import { HardwareServes } from "./tabs/hardware-serves";
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";

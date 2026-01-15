@@ -1,4 +1,4 @@
-import { HardwareInterface } from "@/entities/hardware/type";
+import { HardwareInterface } from "@/entities/hardware/type-general";
 import { TableColumn } from "@/shared/ui/table/types";
 import { getStatusBadge } from "./equipment-status";
 import { ActivateButton, EditButton } from "./equipment-buttons";

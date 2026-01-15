@@ -1,5 +1,7 @@
-import { checkedServiceApi, commandSend, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandCheck, getCommandDeactive, getDocuments, getHistoryRecordsServiceApi, getHStatusAll, getInfoHardware, getInfoNodeInfoAllCheck, getInfoNodeInfoOne, getInfoNodeInfos, getNodeInfoIncidentAll, getNodeInfoIncidentTotal, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api";
-import { ModelHardwareOneInterface } from "@/entities/hardware/type";
+import { getInfoHardware } from "@/entities/hardware/api";
+import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getDocuments, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api-general";
+
+import { ModelHardwareOneInterface } from "@/entities/hardware/type-general";
 import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
 import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
 import { makeAutoObservable } from "mobx";
@@ -212,7 +214,7 @@ class HardwareModel {
         await checkedServiceApi({ id: id }).then((res) => {
             this.servicesToday = this.servicesToday.filter(item => item.id !== Number(id));
             toast("Задача выполнена", { progressStyle: { background: "green" }, });
-        })
+        })  
     }
 
     async getInfoNodeInfoAll() {

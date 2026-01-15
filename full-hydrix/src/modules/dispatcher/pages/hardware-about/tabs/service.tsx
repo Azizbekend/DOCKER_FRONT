@@ -1,4 +1,4 @@
-import { hardwareModel } from "@/entities/hardware/model";
+import { hardwareModel } from "@/features/hardware/model";
 import { Icon } from "@/shared/ui/icon";
 import { InfoObject } from "../../scheme/components/info-hardware/components/info-object";
 import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";

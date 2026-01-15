@@ -4,15 +4,12 @@ import { Input } from '@/shared/ui/Inputs/input-text';
 import { SwitchButton } from '@/shared/ui/switch-button';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { hardwareModel } from '@/entities/hardware/model';
 import { ConfirmModal } from '@/shared/components/hardware-modal-confirms/modal-confirm';
 import { ModalCommanActive } from '@/shared/components/hardware-modal-confirms/modal-comman-active';
 import Loader from '@/shared/ui/loader/loader';
+import { HardwareControlleProps } from '@/entities/hardware/type';
 
-export const HardwareControlle = observer(() => {
-
-
-    const { commands, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand } = hardwareModel
+export const HardwareControlle = observer(({ commands, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand }: HardwareControlleProps) => {
 
     const [btnCount, setBtnCount] = useState<number>(3);
     const [show, setShow] = useState<boolean>(false);
@@ -20,8 +17,6 @@ export const HardwareControlle = observer(() => {
 
     const confirm = () => { setShowAvtive(false); switchIsCommand() }
     const cancle = () => { setShowAvtive(false) }
-
-
 
     return (
         <>
