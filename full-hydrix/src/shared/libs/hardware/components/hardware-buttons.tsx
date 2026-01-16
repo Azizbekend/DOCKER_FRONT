@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { hardwareListModel } from "../../../../modules/dispatcher/pages/hardware-list/model/hardware-list-model";
 import { Icon } from "@/shared/ui/icon";
 
@@ -16,19 +16,17 @@ export const ActivateButton = ({ id }: { id: number }) => (
 
 
 // Кнопка редактирования
-export const EditButton = ({ id }: { id: number }) => {
-    const navigate = useNavigate();
+export const EditButton = ({ to }: { to: string }) => {
     return (
         <button
-            onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/dispatcher/equipment/form/${id}`);
-            }}
-            className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
             title="Редактировать"
+            onClick={(e) => e.stopPropagation()}
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
         >
-            <Icon systemName="edit" className="w-4 h-4" />
-        </button>
+            <Link to={to} >
+                <Icon systemName="edit" className="w-4 h-4" />
+            </Link>
+        </button >
     );
 };
 

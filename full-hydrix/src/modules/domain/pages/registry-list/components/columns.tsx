@@ -33,7 +33,7 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Организация",
+        header: "Эксплуатирующая организация",
         key: 'company',
         cell: ({ company }) => {
             return (
@@ -60,7 +60,7 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Проектная произ., м³/сут",
+        header: "Проектная производительность, м³/сут",
         key: 'volumeProjec',
         cell: ({ volumeProjec }) => {
             return (
@@ -69,8 +69,9 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Производительность., м³/сут",
+        header: "Сред.суточная производительность, м³/сут",
         key: 'dayEfficiency',
+        width: '0.8fr',
         cell: ({ dayEfficiency }) => {
             return (
                 <div className='flex items-center justify-center gap-2 font-medium text-lg text-red-600'>
@@ -81,7 +82,7 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Реальная почасовая производительность, м³/ч",
+        header: "Часовая производительность, м³/ч",
         key: 'hourEfficiency',
         cell: ({ hourEfficiency }) => {
             return (

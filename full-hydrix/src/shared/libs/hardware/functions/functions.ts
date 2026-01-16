@@ -23,6 +23,31 @@ export const getValue = (name: string, value: string) => {
             return (value == "0" || value == "False") ? "Норма" : "Авария"
         case "Сработал автомат защиты вентилятор":
             return (value == "0" || value == "False") ? "Норма" : "Авария"
+        case "Авария концевых выключателей":
+            return (value == "0" || value == "False") ? "Норма" : "Авария"
+        case "Активна блокировка":
+            return (value == "0" || value == "False") ? "Нет" : "Да"
+        case "Другая авария":
+            return (value == "0" || value == "False") ? "Норма" : "Авария"
+        case "Момент превышен":
+            return (value == "0" || value == "False") ? "Нет" : "Да"
+        case "Направление хода":
+            switch (value) {
+                case "0":
+                    return "Закрыт"
+                case "1":
+                    return "Открыт"
+                case "2":
+                    return "Промежуточное"
+                case "3":
+                    return "Неопределённое"
+                default:
+                    return "—"
+            }
+        case "Невыполнение команды":
+            return (value == "0" || value == "False") ? "Нет" : "Да"
+        case "Ошибка выполнения команды запуска вентилятор":
+            return (value == "0" || value == "False") ? "Норма" : "Авария"
 
         default:
             return formatToTwoDecimalsSafe(value)

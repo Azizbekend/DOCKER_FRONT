@@ -1,9 +1,11 @@
+import { getDocuments } from "@/entities/documents/api";
+import { DocumentsType } from "@/entities/documents/type";
 import { getInfoHardware, statusHardwaresCheck } from "@/entities/hardware/api";
-import { checkedServiceApi, Documents, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getDocuments, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api-general";
+import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/entities/hardware/api-general";
 import { HardwareInterface } from "@/entities/hardware/type";
+import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/shared/libs/hardware-form/components/control/type";
+import { Characteristic } from "@/shared/libs/hardware-form/components/documents/type";
 
-import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
-import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
@@ -35,7 +37,7 @@ class HardwareModel {
     servicesWeek: ServiceModelType[] | any = []
     servicesHistory: ServiceHistoryType[] | any = []
     serviceStatistic: ServiceStatisticType[] | any = []
-    documents: Documents[] | any = []
+    documents: DocumentsType[] | any = []
 
     incidentList: { nodeId: number, nodeName: string }[] = []
 

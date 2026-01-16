@@ -1,0 +1,14 @@
+          {/* <Button
+                // onClick={() => window.open(selectedDocument.fileUrl, '_blank')}
+                class="flex items-center gap-2 px-4 py-2 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors"
+              >
+                <Icon systemName="download" />
+                Скачать
+              </Button>
+              <Button
+                onClick={() => window.print()}
+                class="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                <Icon systemName="print" />
+                Печать
+              </Button> */}

@@ -30,7 +30,7 @@ export const PassportObject = observer(() => {
         </div>
       </div>
 
-      <div className="relative top-[15px] mb-20">
+      <div className="relative top-[15px] mb-20 min-h-[60vh]">
 
         <div className="absolute top-[-37px] left-[30px] flex gap-2">
           {tabLinks.map((link, key) => {

@@ -2,10 +2,12 @@ import { CharacteristicsCreateInterface, HardwareCreateInterface, SchemaCoordina
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, Documents, getCharacteristicAll, getCommandAll, getCommandAllInfo, getDocuments, manyCharacteristic, schemaCoordinatesCreate } from "@/entities/hardware/api-general";
+import { createCharacteristic, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, getCharacteristicAll, getCommandAll, getCommandAllInfo, manyCharacteristic, schemaCoordinatesCreate } from "@/entities/hardware/api-general";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, } from "../components/control/type";
 import { createHardware, deleteInfoHardware, getInfoHardware, updateInfoHardware } from "@/entities/hardware/api";
+import { DocumentsModelType } from "@/entities/documents/type";
+import { getDocuments } from "@/entities/documents/api";
 
 
 class HardwareCreateModel {
@@ -34,7 +36,7 @@ class HardwareCreateModel {
     listController: ControlType[] = [];
     listCharacters: Characteristic[] = [];
 
-    listDocuments: Documents[] = [];
+    listDocuments: DocumentsModelType[] = [];
 
     isLoading = false;
     preview: string = "";
@@ -450,13 +452,15 @@ class HardwareCreateModel {
 
     async deleteCharacter(id: string) {
         await deleteCharacteristiс({ id: Number(id) }).then(() => {
+            this.listCharacters = this.listCharacters.filter(item => item.id !== id)
+
             toast.success("Характеристика удалена", { progressStyle: { background: "green" } })
         })
     }
 
     async deleteCommand(id: string) {
         await deleteCommandApi({ id: Number(id) }).then(() => {
-            this.listController = this.listController.filter(item => item.id !== Number(id))
+            this.listController = this.listController.filter(item => item.id !== id)
             toast.success("Управление удалена", { progressStyle: { background: "green" } })
         })
     }

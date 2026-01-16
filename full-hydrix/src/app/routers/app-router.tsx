@@ -220,12 +220,26 @@ export const AppRouter = createBrowserRouter([
                                     },
                                     {
                                         path: ":id",
-                                        async lazy() {
-                                            const { HardwareInformation } = await import("@/modules/domain/pages/passport/pages/hardware")
-                                            return {
-                                                Component: HardwareInformation
-                                            }
-                                        },
+                                        children: [
+                                            {
+                                                index: true,
+                                                async lazy() {
+                                                    const { HardwareInformation } = await import("@/modules/domain/pages/passport/pages/hardware")
+                                                    return {
+                                                        Component: HardwareInformation
+                                                    }
+                                                },
+                                            },
+                                            {
+                                                path: "form",
+                                                async lazy() {
+                                                    const { HardwareForm } = await import("@/modules/domain/pages/passport/pages/hardware-form")
+                                                    return {
+                                                        Component: HardwareForm
+                                                    }
+                                                },
+                                            },
+                                        ]
                                     },
                                 ]
                             },
@@ -308,9 +322,9 @@ export const AppRouter = createBrowserRouter([
                     {
                         path: "hardware/form/:id?",
                         async lazy() {
-                            const { HardwareCreate } = await import("@/modules/dispatcher/pages/hardware-form")
+                            const { HardwareForm } = await import("@/modules/dispatcher/pages/hardware-form")
                             return {
-                                Component: HardwareCreate
+                                Component: HardwareForm
                             }
                         },
                     },

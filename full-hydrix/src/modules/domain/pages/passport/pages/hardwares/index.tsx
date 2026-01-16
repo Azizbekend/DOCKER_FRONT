@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
 import { HardwareInterface } from "@/entities/hardware/type";
-import { columns } from "@/shared/libs/hardware/columns/columns";
+import { domainHardwariesColumns } from "@/shared/libs/hardware/columns/columns";
 
 export const HardwareRegistry = observer(() => {
 
@@ -32,14 +32,14 @@ export const HardwareRegistry = observer(() => {
           onChange={setSearch}
           placeholder="Поиск..."
           classNames={{
-            container: "!w-[420px] rounded-lg h-11",
+            container: "!w-[420px] rounded-lg h-11 border-[1.5px]",
             input: "text-gray-800",
           }}
         />
 
         <ButtonCheckList
           name="Состояние"
-          classNames={{ button: "text-sm" }}
+          classNames={{ button: "text-sm border-[1.5px]" }}
           children={["Работает", "В ожидании", "Авария"].map((value, key) => (
             <label key={key} className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
               <input type="checkbox" className="rounded text-[#4A85F6]" />
@@ -61,7 +61,7 @@ export const HardwareRegistry = observer(() => {
       <Table
         id="hardware"
         countActive
-        columns={columns}
+        columns={domainHardwariesColumns}
         data={results.length > 0 ? results : []}
         onRowClick={(row) => navigate(`/domain/passport/hardwares/${row.id}`)}
       />

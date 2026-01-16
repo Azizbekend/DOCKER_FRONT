@@ -24,7 +24,6 @@ export const Incident = () => {
             <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />
             <FilterButton name='Критичные' isActive={filterBtn == "critical"} onClick={() => setFilterBtn("critical")} />
             <FilterButton name='Важные' isActive={filterBtn == "important"} onClick={() => setFilterBtn("important")} />
-            <FilterButton name='Плановые' isActive={filterBtn == "planned"} onClick={() => setFilterBtn("planned")} />
         </div>
 
         <Table

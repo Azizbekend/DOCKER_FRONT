@@ -32,7 +32,7 @@ export const getHistoryRecordsServiceApi = (params: { id: number }) => {
     return reserchInstance.get(Service.historyRecords, { params })
 }
 
-export const checkedServiceApi = (params: { id: number }) => {
+export const checkedServiceApi = (params: { id: number | string }) => {
     return reserchInstance.put(Service.completeRequest, params)
 }
 
@@ -80,7 +80,7 @@ export const getCommandAll = (params: { id: number }) => {
 }
 export const getCommandAllInfo = (params: { id: number }) => {
     return reserchInstance.get(Control.allInfo, { params })
-}   
+}
 
 //! В методе написано info/delete,а есть command/delete ????
 export const deleteCommandApi = (params: { id: number }) => {
@@ -128,22 +128,8 @@ export const controlBlockCreate = (params: { name: string, plcIpAdress: string, 
     return reserchInstance.post(ControlBlock.create, params)
 }
 
-export interface Documents {
-    title: string,
-    hardwareId?: number,
-    file?: File | null,
-    fileName?: string | null,
-    id?: number | string,
-    downloadUrl?: string,
-}
 
 
-export const createDocuments = (params: Documents) => {
-    return reserchInstance.post(Documents.upload, { params })
-}
-export const getDocuments = (params: { id: number }) => {
-    return reserchInstance.get(Documents.hardware, { params })
-}
 
 export const getCommandCheck = (params: { hardwareId: number }) => {
     return reserchInstance.get(Command.check, { params })

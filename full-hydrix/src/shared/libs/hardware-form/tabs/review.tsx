@@ -92,8 +92,8 @@ export const Review = observer(() => {
                         {/* Кнопка удаления */}
                         <div
                             className={`border-2 rounded-lg w-[45px] h-[45px] cursor-pointer hover:opacity-50 duration-300 mb-1 flex items-center justify-center transition-all border-[var(--clr-accent)] hover:bg-red-50`}
-                            onClick={() => characteristics.length > 1 && handleRemoveCharacteristic(characteristic.id)}
-                            title={characteristics.length <= 1 ? "Нельзя удалить последнюю характеристику" : "Удалить характеристику"}
+                            onClick={() => handleRemoveCharacteristic(characteristic.id)}
+                            title={"Удалить характеристику"}
                         >
                             <Icon systemName="trash-blue" />
                         </div>
@@ -150,8 +150,8 @@ export const Review = observer(() => {
                             {/* Кнопка удаления */}
                             <div
                                 className={`border-2 rounded-lg w-[45px] h-[45px] cursor-pointer hover:opacity-50 duration-300 mb-1 flex items-center justify-center transition-all border-[var(--clr-accent)] hover:bg-red-50`}
-                                onClick={() => characteristics.length > 1 && deleteCharacter(characteristic.id)}
-                                title={characteristics.length <= 1 ? "Нельзя удалить последнюю характеристику" : "Удалить характеристику"}
+                                onClick={() => deleteCharacter(characteristic.id)}
+                                title={"Удалить характеристику"}
                             >
                                 <Icon systemName="trash-blue" />
                             </div>
