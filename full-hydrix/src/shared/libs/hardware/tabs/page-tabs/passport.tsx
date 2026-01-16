@@ -9,7 +9,7 @@ import accident from "@/app/static/img/accident.svg";
 import { Link } from "react-router-dom";
 import { PassportBlockContainer } from "../../components/passport-block-container";
 
-export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents, сharacteristic, commandsInfo, isConnected, incidentList, status }: HardwarePassportProps) => {
+export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents, сharacteristic, commandsInfo, incidentList, status }: HardwarePassportProps) => {
 
     useEffect(() => {
         getInfoNodeInfoAll();
@@ -20,7 +20,7 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
     return (
         <div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div className="space-4">
+                <div className="space-y-4">
                     <PassportBlockContainer
                         className="p-3"
                         children={
@@ -69,78 +69,76 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
                             </>
                         }
                     />
-                    <div className="space-y-4">
-                        <PassportBlockContainer
-                            className="p-6"
-                            children={
-                                <>
-                                    <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
-                                    <div className="space-y-4">
-                                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                            <div className="info-comp__title">Модель</div>
-                                            <div className="info-comp__description">{model.model || '—'}</div>
-                                        </div>
-                                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                            <div className="info-comp__title">Поставщик</div>
-                                            <div className="info-comp__description">{model.supplierName || '—'}</div>
-                                        </div>
-                                        <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
-                                            <div className="info-comp__title">Производитель</div>
-                                            <div className="info-comp__description">{model.developerName || '—'}</div>
-                                        </div>
+                    <PassportBlockContainer
+                        className="p-6"
+                        children={
+                            <>
+                                <h2 className=" pb-6 text-xl font-bold text-gray-800">{model.name || '—'}</h2>
+                                <div className="space-y-4">
+                                    <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                        <div className="info-comp__title">Модель</div>
+                                        <div className="info-comp__description">{model.model || '—'}</div>
                                     </div>
-                                </>
-                            }
-                        />
-
-                        {documents.length > 0 &&
-                            <PassportBlockContainer
-                                title="Документация"
-                                className="p-6"
-                                children={
-                                    <div className="space-y-2">
-                                        {documents.map((item, key) => (
-                                            <a key={key} href={"https://triapi.ru/research/api/FileStorage/document/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
-                                                <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                                    <Icon systemName="docs" className="text-blue-700" />
-                                                </div>
-                                                <span className="text-gray-800 font-medium">{item.title}</span>
-                                            </a>
-                                        ))}
+                                    <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                        <div className="info-comp__title">Поставщик</div>
+                                        <div className="info-comp__description">{model.supplierName || '—'}</div>
                                     </div>
-                                }
-                            />
+                                    <div className={`info-comp__item border-b border-gray-300 pb-4 `}>
+                                        <div className="info-comp__title">Производитель</div>
+                                        <div className="info-comp__description">{model.developerName || '—'}</div>
+                                    </div>
+                                </div>
+                            </>
                         }
+                    />
+
+                    {documents.length > 0 &&
                         <PassportBlockContainer
-                            title="Журнал событий"
+                            title="Документация"
                             className="p-6"
                             children={
-                                <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2">
-                                    {eventLog.map((event, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="border bg-white p-3 rounded-lg border-l-4"
-                                            style={{
-                                                borderLeftColor: event.status === 'warning' ? '#f87171' :
-                                                    event.status === 'success' ? '#4ade80' :
-                                                        event.status === 'info' ? '#60a5fa' : '#9ca3af'
-                                            }}
-                                        >
-                                            <div className="flex justify-between items-start mb-1">
-                                                <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
-                                                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusClass(event.status).badge
-                                                    } ${getStatusClass(event.status).border}`}>
-                                                    {event.action}
-                                                </span>
+                                <div className="space-y-2">
+                                    {documents.map((item, key) => (
+                                        <a key={key} href={"https://triapi.ru/research/api/FileStorage/document/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
+                                            <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                <Icon systemName="docs" className="text-blue-700" />
                                             </div>
-                                            <p className="text-sm text-gray-700 mt-1">{event.description}</p>
-                                            <p className="text-xs text-gray-500 mt-1">Инициатор: {event.initiator}</p>
-                                        </div>
+                                            <span className="text-gray-800 font-medium">{item.title}</span>
+                                        </a>
                                     ))}
                                 </div>
                             }
                         />
-                    </div>
+                    }
+                    <PassportBlockContainer
+                        title="Журнал событий"
+                        className="p-6"
+                        children={
+                            <div className="space-y-3 max-h-[280px] overflow-y-auto pr-2">
+                                {eventLog.map((event, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="border bg-white p-3 rounded-lg border-l-4"
+                                        style={{
+                                            borderLeftColor: event.status === 'warning' ? '#f87171' :
+                                                event.status === 'success' ? '#4ade80' :
+                                                    event.status === 'info' ? '#60a5fa' : '#9ca3af'
+                                        }}
+                                    >
+                                        <div className="flex justify-between items-start mb-1">
+                                            <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
+                                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusClass(event.status).badge
+                                                } ${getStatusClass(event.status).border}`}>
+                                                {event.action}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm text-gray-700 mt-1">{event.description}</p>
+                                        <p className="text-xs text-gray-500 mt-1">Инициатор: {event.initiator}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        }
+                    />
                 </div>
 
                 <div className="space-4">

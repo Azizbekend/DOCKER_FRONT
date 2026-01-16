@@ -72,7 +72,6 @@ export interface HardwarePassportProps {
     documents: Documents[],
     сharacteristic: Characteristic[],
     commandsInfo: ControlType[],
-    isConnected?: boolean,
     status: boolean,
     incidentList: { nodeId: number, nodeName: string }[],
 }
