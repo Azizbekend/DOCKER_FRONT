@@ -80,7 +80,7 @@ export const getCommandAll = (params: { id: number }) => {
 }
 export const getCommandAllInfo = (params: { id: number }) => {
     return reserchInstance.get(Control.allInfo, { params })
-}
+}   
 
 //! В методе написано info/delete,а есть command/delete ????
 export const deleteCommandApi = (params: { id: number }) => {

@@ -32,9 +32,14 @@ export const HardwareControlle = observer(({ commands, changeCommands, isActiveC
                 {isLoaderCommand ? <Loader /> :
                     <div className={` duration-200 ${!isActiveCommand ? "opacity-50" : "opacity-100"}`}>
                         <div className="flex justify-between mb-5 border-b pb-5 gap-3">
-                            <Button onClick={() => { isActiveCommand && setBtnCount(0) }} class={`border-2 w-full justify-center ${btnCount == 0 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Пуск</Button>
-                            <Button onClick={() => { isActiveCommand && setBtnCount(1) }} class={`border-2 w-full justify-center ${btnCount == 1 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Стоп</Button>
-                            <Button onClick={() => { isActiveCommand && setBtnCount(2) }} class={`border-2 w-full justify-center ${btnCount == 2 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Cброс аварии</Button>
+                            {commands.map((item, key) => {
+                                return (item.name == "Стоп" || item.name == "Пуск" || item.name == "Cброс аварии") && (
+                                    <Button onClick={() => { changeCommands(e.target.value, item.id) }} class={`border-2 w-full justify-center ${btnCount == 0 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>{item.name}</Button>
+                                )
+                            })}
+
+                            {/* <Button onClick={() => { isActiveCommand && setBtnCount(1) }} class={`border-2 w-full justify-center ${btnCount == 1 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Стоп</Button> */}
+                            {/* <Button onClick={() => { isActiveCommand && setBtnCount(2) }} class={`border-2 w-full justify-center ${btnCount == 2 ? "border-[var(--clr-accent)] text-[var(--clr-accent)]" : "border-[var(--clr-border-gray)] text-[var(--clr-gray-dark)]"}`}>Cброс аварии</Button> */}
                         </div>
 
                         {commands.map((item, key) => {

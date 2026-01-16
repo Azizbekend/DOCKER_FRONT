@@ -20,7 +20,6 @@ export const Scheme = observer(() => {
   return (
     <div className="informations-dispatch__scheme scheme-dispatch relative mt-8" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
-
         {tabs.map((tab) => (
           <button
             key={tab.id}

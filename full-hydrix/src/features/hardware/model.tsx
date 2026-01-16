@@ -220,6 +220,11 @@ class HardwareModel {
 
     async getInfoNodeInfoAll() {
         try {
+            // const [] = await Promise.all([
+            //     getInfoNodeInfos(JSON.stringify({ listId: this.ids })),
+            //     statusCheck({ ids: [this.model.id] })
+            // ]);
+
             await getInfoNodeInfos(JSON.stringify({ listId: this.ids }))
                 .then(res => {
                     for (const key in res.data.indecatesGroup) {
@@ -233,7 +238,6 @@ class HardwareModel {
                         });
                     }
                 })
-
 
             await statusCheck({ ids: [this.model.id] })
                 .then((res) => {
