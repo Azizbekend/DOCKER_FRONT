@@ -45,11 +45,11 @@ export const Scheme = observer(() => {
         />
         {focusHardware !== 0 && (
           <HardwareCard
-            focusHardwareStatus={focusHardwareStatus}
+            id={focusHardware}
             key={focusHardware}
             className={`panel-scheme__info`}
-            id={focusHardware}
             onClick={setFocusHardware}
+            focusHardwareStatus={focusHardwareStatus}
           />
         )}
         {focusSchemeObject !== 0 && (

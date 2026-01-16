@@ -15,7 +15,7 @@ import { getHardwareStatus } from "@/shared/libs/hardware/components/hardware-st
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
 
-  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
+  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -118,7 +118,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
 
               {mode === 1 &&
                 <HardwareControlle
-                  commands={commandsInfo}
+                  commands={commands}
                   changeCommands={changeCommands}
                   isActiveCommand={isActiveCommand}
                   isLoaderCommand={isLoaderCommand}

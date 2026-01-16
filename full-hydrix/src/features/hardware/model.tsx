@@ -109,6 +109,9 @@ class HardwareModel {
 
             this.model = info.data;
             this.commands = commands.data;
+
+
+
             this.commandsInfo = commandsInfo.data;
             for (let i = 0; i < commandsInfo.data.length; i++) { this.ids.push(commandsInfo.data[i].id) }
 

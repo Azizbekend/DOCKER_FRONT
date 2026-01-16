@@ -1,9 +1,6 @@
 import { formatToTwoDecimalsSafe } from "./formatToTwoDecimalsSafe"
 
 export const getValue = (name: string, value: string) => {
-
-    console.log(name)
-
     switch (name) {
         case "Режим управления":
             return (value == "0" || value == "False") ? "Ручной" : "Автоматический"

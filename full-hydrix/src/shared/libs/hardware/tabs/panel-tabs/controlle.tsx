@@ -3,7 +3,7 @@ import { Icon } from '@/shared/ui/icon';
 import { Input } from '@/shared/ui/Inputs/input-text';
 import { SwitchButton } from '@/shared/ui/switch-button';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfirmModal } from '@/shared/components/hardware-modal-confirms/modal-confirm';
 import { ModalCommanActive } from '@/shared/components/hardware-modal-confirms/modal-comman-active';
 import Loader from '@/shared/ui/loader/loader';
@@ -17,6 +17,8 @@ export const HardwareControlle = observer(({ commands, changeCommands, isActiveC
 
     const confirm = () => { setShowAvtive(false); switchIsCommand() }
     const cancle = () => { setShowAvtive(false) }
+
+
 
     return (
         <>
