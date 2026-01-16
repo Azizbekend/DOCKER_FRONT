@@ -6,14 +6,13 @@ import { observer } from "mobx-react-lite";
 import Loader from "@/shared/ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
-import { schemeModel } from "../../model/scheme-model";
 import { InfoCompType } from "../../types/type";
 import { eventLog } from "@/features/hardware/data";
 import { getStatusClass } from "@/shared/libs/hardware/functions/functions";
 import { HardwareControlle, HardwareReview, HardwareServes } from "@/shared/libs/hardware/tabs/panel-tabs";
 import { getHardwareStatus } from "@/shared/libs/hardware/components/hardware-status";
 
-export const HardwareCard = observer(({ className, id, onClick, handleSwitchImage, focusHardwareStatus }: InfoCompType) => {
+export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
 
   const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
@@ -61,9 +60,11 @@ export const HardwareCard = observer(({ className, id, onClick, handleSwitchImag
               <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
             </div>
 
-            <div className="flex items-center gap-2 mb-5 p-3 bg-gray-50 rounded-lg border border-gray-200">
-              {getHardwareStatus(focusHardwareStatus, incidentList.length)}
-            </div>
+            {getHardwareStatus({
+              status: focusHardwareStatus,
+              incidentCount: incidentList.length,
+              className: { container: "mb-5 p-3 bg-gray-50 border border-gray-200" }
+            })}
 
             {incidentList.length > 0 && incidentList.map((incident, _) => {
               return (
@@ -76,7 +77,7 @@ export const HardwareCard = observer(({ className, id, onClick, handleSwitchImag
                   </div>
 
                   <div className="flex gap-2 mb-4">
-                    <div onClick={() => handleSwitchImage()} className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
+                    <div className="w-full py-2 text-center rounded-lg bg-green-500 text-white hover:opacity-50 duration-300 cursor-pointer">Устранено</div>
                     <Link to={'/dispatcher/orders/create/form'} className="w-full py-2 text-center rounded-lg bg-gray-500 text-white hover:opacity-50 duration-300 cursor-pointer">Создать заявку</Link>
                   </div>
                 </div>

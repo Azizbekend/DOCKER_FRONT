@@ -16,24 +16,36 @@ export const getStatusBadge = (activatedAt: string) => {
   );
 };
 
+export const getHardwareStatus = ({ status, incidentCount, className }: {
+  status: boolean,
+  incidentCount: number,
+  className?: {
+    container?: string,
+  }
+}) => {
+  let typeStatus: string = "";
+  if (incidentCount > 0) typeStatus = "incident"
+  else if (status) typeStatus = "waiting"
+  else typeStatus = "works"
+  
+  const dataStatus: { color: string, text: string } = getStatusData(typeStatus)
+
+  return (
+    <div className={`flex items-center gap-2 rounded-lg ${className?.container}`}>
+      <div className={`w-3 h-3 rounded-full  ${dataStatus?.color}`}></div>
+      <span className="font-medium text-gray-800">{dataStatus?.text}</span>
+    </div>
+  )
+}
 
 
-
-export const getHardwareStatus = (status: boolean, incidentCount: number) => {
-  if (incidentCount > 0) {
-    return (
-      <>
-        <div className={`w-3 h-3 rounded-full bg-red-500`}></div>
-        <span className="font-medium text-gray-800">Авария</span>
-      </>
-    )
-    return
-  } else {
-    return (
-      <>
-        <div className={`w-3 h-3 rounded-full ${status ? "bg-gray-500" : "bg-green-500"}`}></div>
-        <span className="font-medium text-gray-800">{status ? "Ожидании" : "Работает"}</span>
-      </>
-    )
+const getStatusData = (status: string): { color: string; text: string } => {
+  switch (status) {
+    case "incident":
+      return { color: "bg-red-500", text: "Авария" }
+    case "works":
+      return { color: "bg-green-500", text: "Работает" }
+    default:
+      return { color: "bg-gray-500", text: "Ожидании" };
   }
 }

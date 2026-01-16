@@ -26,6 +26,6 @@ export const activeHardware = (params: { id: number }) => {
     return reserchInstance.post(Hardware.active, params)
 }
 
-export const statusCheck = (params: { ids: number[] }) => {
-    return reserchInstance.post(Hardware.statusCheck, params)
+export const statusHardwaresCheck = (params: { ids: number[] }) => {
+    return reserchInstance.post(Hardware.statusHardwaresCheck, params)
 }

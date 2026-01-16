@@ -4,7 +4,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 import { SchemaCardInterface } from "@/entities/sensor/type";
 import { ApiSchemaCardAll } from "@/entities/sensor/api";
-import { statusCheck } from "@/entities/hardware/api";
+import { statusHardwaresCheck } from "@/entities/hardware/api";
 import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
 
 class SchemeModel {
@@ -118,10 +118,6 @@ class SchemeModel {
         this.focusSchemeObjectData = null;
     }
 
-    handleSwitchImage() {
-        this.switchColo = !this.switchColo
-        toast.success("Авария устранена", { progressStyle: { background: "green" } })
-    }
     // async 
     timesFunctions() {
         this.checkIncidents()
@@ -143,7 +139,7 @@ class SchemeModel {
     }
 
     async checkIncidents() {
-        await statusCheck({ ids: this.idska })
+        await statusHardwaresCheck({ ids: this.idska })
             .then((res) => {
                 res.data.forEach(info => {
                     for (let i = 0; i < this.model.length; i++) {

@@ -12,7 +12,7 @@ import { useAuth } from '@/entities/user/context';
 import { SchemaCardInterface } from '@/entities/sensor/type';
 
 
-export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabScheme, setSchemeObjectData, switchColo, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
+export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabScheme, setSchemeObjectData, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
     const { containerRef, imgRef, scale, offset, onWheel, onMouseDown, onMouseMove, onMouseUp, lockScroll, unlockScroll, getPhoto, onTouchStart, onTouchMove, onTouchEnd } = useScheme(1);
     const { user } = useAuth()
 

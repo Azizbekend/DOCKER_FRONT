@@ -9,7 +9,7 @@ import { SchemeViewer } from "./components/scheme-viewer/ViewScheme.js";
 import { FormSchemaSensore } from "./components/form-schema-sensore.js";
 
 export const Scheme = observer(() => {
-  const { handleSwitchImage, focusHardwareStatus, init, list, focusHardware, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData, timesFunctions, model } = schemeModel;
+  const { focusHardwareStatus, init, list, focusHardware, listSensore, focusSchemeObject, switchColo, focusSchemeSensore, setFocusHardware, setSchemeObjectData, setSchemeSensoreData, timesFunctions, model } = schemeModel;
   const [tabScheme, setTabScheme] = useState<number>(6);
 
 
@@ -45,7 +45,6 @@ export const Scheme = observer(() => {
         />
         {focusHardware !== 0 && (
           <HardwareCard
-            handleSwitchImage={handleSwitchImage}
             focusHardwareStatus={focusHardwareStatus}
             key={focusHardware}
             className={`panel-scheme__info`}
