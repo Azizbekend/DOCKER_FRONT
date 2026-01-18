@@ -1,14 +1,14 @@
-import { Icon } from "@/shared/ui/icon"
-import { InputContainer } from "@/shared/ui/Inputs/input-container"
-import { Input } from "@/shared/ui/Inputs/input-text"
+import { Icon } from "@/packages/shared-ui/icon"
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container"
+import { Input } from "@/packages/shared-ui/Inputs/input-text"
 import { observer } from "mobx-react-lite"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/packages/shared-ui/button"
 import { useEffect } from "react"
-import { Selector } from "@/shared/ui/Selector/selector"
-import Loader from "@/shared/ui/loader/loader"
+import { Selector } from "@/packages/shared-ui/Selector/selector"
+import Loader from "@/packages/shared-ui/loader/loader"
 import { sensoreModel } from "./model/form-sensor"
-import { SelectorSearch } from "@/shared/ui/Selector/selector-search"
+import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search"
 
 
 export const SensorForm = observer(() => {

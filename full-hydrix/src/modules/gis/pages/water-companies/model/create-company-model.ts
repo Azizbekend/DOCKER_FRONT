@@ -1,5 +1,5 @@
-import { Municipality } from "@/entities/municipality/type";
-import { CreateCompanyRequest, WaterCompany } from "@/entities/water-company/types";
+import { Municipality } from "@/packages/entities/municipality/type";
+import { CreateCompanyRequest, WaterCompany } from "@/packages/entities/water-company/types";
 import { makeAutoObservable } from "mobx";
 
 export class CreateCompanyModel {

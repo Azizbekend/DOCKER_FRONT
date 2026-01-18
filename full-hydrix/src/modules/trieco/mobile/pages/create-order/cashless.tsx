@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import headerStore from "../../kernel/helper/header-store";
-import createOrderModel from "./entities/create-order-model";
+import createOrderModel from "./packages/entities/create-order-model";
 import mobileModel from "../../kernel/model/mobile-model";
 import { Button, Input } from "@/app/cores/core-trieco/UIKit";
 import adminModel from "@/modules/admin/kernel/model/admin-model";

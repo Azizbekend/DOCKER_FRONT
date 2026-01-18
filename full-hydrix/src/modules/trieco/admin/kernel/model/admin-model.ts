@@ -2,7 +2,7 @@ import { Meta } from "@/app/api/meta";
 import { WsRoute } from "@/app/cores/core-gis/network/api-routes";
 import { GetUserById, getUserCompany } from "@/app/cores/core-trieco/network/user/user";
 import WebSocketClient from "@/app/cores/core-trieco/network/ws/ws-client";
-import { User } from "@/entities/user/type";
+import { User } from "@/packages/entities/user/type";
 import { makeAutoObservable } from "mobx";
 
 export class AdminModel {

@@ -4,7 +4,7 @@ import mapPl from './assets/map-pl.png';
 import mmrgl from 'mmr-gl';
 import 'mmr-gl/dist/mmr-gl.css';
 import { useNavigate } from "react-router-dom";
-import { Table } from '@/shared/ui/table/index';
+import { Table } from '@/packages/shared-ui/table/index';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { chartData, chartDataInic, incidents } from './data/data';
 import { columns } from './components/columns';

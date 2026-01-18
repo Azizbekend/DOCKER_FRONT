@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 import { memo, useCallback, useRef } from "react";
 
 interface ChatInputProps {

@@ -1,9 +1,9 @@
 
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { Icon } from "@/shared/ui/icon"
+import { Icon } from "@/packages/shared-ui/icon"
 import { useEffect } from "react";
-import { passportModel } from "../../../../features/object/model";
-import { tabLinks } from "../../../../entities/object/config";
+import { passportModel } from "../../features/object/model";
+import { tabLinks } from "../../../../packages/entities/object/config";
 import { observer } from "mobx-react-lite";
 
 export const PassportObject = observer(() => {

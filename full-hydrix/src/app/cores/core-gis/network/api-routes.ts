@@ -92,5 +92,5 @@ export const ClientCompanyRoutes = {
   GetByWaterCompany: "/Users/clientcompany/by/watercompany",
 };
 
-export const WsRoute = `wss://${import.meta.env.VITE_WEBSOCKET_HOST
-  }/socket/notifications`;
+export const WsRoute = `wss://${import.meta.env.VITE_WEBSOCKET_HOST}/socket/notifications`;
+

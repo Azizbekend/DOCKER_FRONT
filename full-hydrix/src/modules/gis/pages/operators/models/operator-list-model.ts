@@ -1,8 +1,8 @@
-import { Operator } from "@/entities/operator/type";
+import { Operator } from "@/packages/entities/operator/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 import operatorModel from "./operator-model";
-import { getWaterCompanyOperators } from "@/entities/water-company/api";
+import { getWaterCompanyOperators } from "@/packages/entities/water-company/api";
 
 export class OperatorListModel {
 

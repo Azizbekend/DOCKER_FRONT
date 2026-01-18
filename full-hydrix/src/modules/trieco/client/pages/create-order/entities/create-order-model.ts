@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction, toJS } from "mobx";
 import { createOrder, createOrderByPoint } from "../service/order";
 import Cookies from 'universal-cookie';
-import { getAllPointsByUser } from "@/entities/point/api";
-import { Point } from "@/entities/point/type";
+import { getAllPointsByUser } from "@/packages/entities/point/api";
+import { Point } from "@/packages/entities/point/type";
 
 
 const code = "24928587-9095-4b8a-a99e-6eabfc05b2cd"

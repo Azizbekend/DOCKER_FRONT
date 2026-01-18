@@ -10,10 +10,10 @@ import { SewerInfoModal } from "./component/sewer-info-modal"
 import { getTank } from "./utils/getTank"
 import { Link, useLocation, useParams } from "react-router-dom"
 import { ExtendedColumnDef, Table } from "@/app/cores/core-trieco/UIKit/table"
-import { Button } from "@/shared/ui/button"
-import { Icon } from "@/shared/ui/icon"
-import { Input } from "@/shared/ui/GIS"
-import { useAuth } from "@/entities/user/context"
+import { Button } from "@/packages/shared-ui/button"
+import { Icon } from "@/packages/shared-ui/icon"
+import { Input } from "@/packages/shared-ui/GIS"
+import { useAuth } from "@/packages/entities/user/context"
 
 const columns: ExtendedColumnDef<any, any>[] = [
     {

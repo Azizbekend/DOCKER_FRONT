@@ -1,12 +1,12 @@
-import { Icon } from "@/shared/ui/icon"
+import { Icon } from "@/packages/shared-ui/icon"
 import { useEffect } from 'react';
 import { observer } from "mobx-react-lite";
 import { schemeObjectModel } from "../model/scheme-object-model";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Selector } from "@/shared/ui/Selector/selector";
-import { Button } from "@/shared/ui/button";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Selector } from "@/packages/shared-ui/Selector/selector";
+import { Button } from "@/packages/shared-ui/button";
 import { schemeModel } from "../model/scheme-model";
-import Loader from "@/shared/ui/loader/loader";
+import Loader from "@/packages/shared-ui/loader/loader";
 
 
 

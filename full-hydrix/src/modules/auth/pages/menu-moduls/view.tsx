@@ -3,8 +3,8 @@ import authModulsModel from "./models/menu-moduls-model";
 import { cartLinks, cartLinksCompany } from "./utils/items-links";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { useAuth } from "@/entities/user/context";
-import { Role } from "@/entities/user/role";
+import { useAuth } from "@/packages/entities/user/context";
+import { Role } from "@/packages/entities/user/role";
 
 export const MenuModulsView = observer(() => {
     const { init, itemsInformations } = authModulsModel;

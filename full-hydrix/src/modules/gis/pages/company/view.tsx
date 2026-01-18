@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/ui/GIS/icon"
+import { Icon } from "@/packages/shared-ui/GIS/icon"
 import { Card } from "./components/card"
 import { useNavigate, useParams } from "react-router-dom"
 import { DrainStations } from "./components/drain-stations/drain-stations"
@@ -6,9 +6,9 @@ import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import waterCompanyModel from "./model/water-company-model"
 import { Meta } from "@/app/cores/core-gis/network/meta"
-import { Button, Input } from "@/shared/ui/GIS/"
-import { useAuth } from "@/entities/user/context"
-import { Role } from "@/entities/user/role"
+import { Button, Input } from "@/packages/shared-ui/GIS/"
+import { useAuth } from "@/packages/entities/user/context"
+import { Role } from "@/packages/entities/user/role"
 
 export const WaterCompanyView = observer(() => {
     const navigate = useNavigate();

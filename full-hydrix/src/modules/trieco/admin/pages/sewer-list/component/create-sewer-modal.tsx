@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import createSewerModel from "../models/creat-sewer-model";
 import sewerListModel from "../models/sewer-list-model";
-import { Button } from "@/shared/ui/button";
-import { useAuth } from "@/entities/user/context";
-import { Icon } from "@/shared/ui/GIS/icon";
-import { Input } from "@/shared/ui/GIS";
+import { Button } from "@/packages/shared-ui/button";
+import { useAuth } from "@/packages/entities/user/context";
+import { Icon } from "@/packages/shared-ui/GIS/icon";
+import { Input } from "@/packages/shared-ui/GIS";
 
 
 type Props = {

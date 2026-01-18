@@ -1,5 +1,5 @@
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
+import { Button } from "@/packages/shared-ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
 import { Link, useNavigate } from "react-router-dom"
 
 type Props = {

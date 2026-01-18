@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { asdGetByIdWaterCompany, getTableMunicipalities, getTableOrders, getTablePlants, MunicipalitiesResult, MunicipalityStats, OrdersStats, PlantsStats, OrdersStatsResult, PlantsStatsResult } from "../services/stats";
 import { toast } from "react-toastify";
-import { OrderStatus } from "@/entities/order/order-status";
+import { OrderStatus } from "@/packages/entities/order/order-status";
 
 
 export class StatsModel {

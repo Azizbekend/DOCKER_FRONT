@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import createSewerModel from "../models/create-sewer-model";
 import sewerListModel from "../models/sewer-list-model";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 
 type Props = {

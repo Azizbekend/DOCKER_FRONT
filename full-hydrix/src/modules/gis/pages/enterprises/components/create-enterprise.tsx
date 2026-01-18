@@ -1,9 +1,9 @@
 
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { Modal } from "@/shared/ui/modal/modal";
+import { Button } from "@/packages/shared-ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { createCompaniesModel, CreateCompaniesModel } from "../models/create-company-model";
 

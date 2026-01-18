@@ -1,5 +1,5 @@
-import { getAllSewers, getByWaterCompany } from "@/entities/sewer/api";
-import { Sewer } from "@/entities/sewer/type";
+import { getAllSewers, getByWaterCompany } from "@/packages/entities/sewer/api";
+import { Sewer } from "@/packages/entities/sewer/type";
 import { makeAutoObservable, runInAction } from "mobx";
 
 export class SewerListModel {

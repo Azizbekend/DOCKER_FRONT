@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/ui/icon"
+import { Icon } from "@/packages/shared-ui/icon"
 
 export const NoStations = () => {
     return (

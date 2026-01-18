@@ -1,15 +1,15 @@
-import { Table } from "@/shared/ui/table/index";
+import { Table } from "@/packages/shared-ui/table/index";
 import { Link, useNavigate } from "react-router-dom";
-import { Search } from "@/shared/ui/Inputs/input-search";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { ButtonCheckList } from "@/shared/ui/button-check-list";
-import { Icon } from "@/shared/ui/icon";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
+import { Icon } from "@/packages/shared-ui/icon";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
-import { HardwareInterface } from "@/entities/hardware/type";
-import { domainHardwariesColumns } from "@/shared/libs/hardware/columns/columns";
+import { HardwareInterface } from "@/packages/entities/hardware/type";
+import { domainHardwariesColumns } from "@/packages/shared/libs/hardware/columns/columns";
 
 export const HardwareRegistry = observer(() => {
 

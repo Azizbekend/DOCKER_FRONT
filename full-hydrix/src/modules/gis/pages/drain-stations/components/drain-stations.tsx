@@ -1,8 +1,8 @@
-import { Plant } from "@/entities/plants/types";
+import { Plant } from "@/packages/entities/plants/types";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { MoreBtn } from "./components/more-btns";
-import Tooltip from "@/shared/ui/tooltip";
+import Tooltip from "@/packages/shared-ui/tooltip";
 import { plantsListModel } from "../model/drain-stations-model";
 
 

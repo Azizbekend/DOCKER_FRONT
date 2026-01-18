@@ -4,10 +4,10 @@ import orderListModel from "../orders/model/order-list-model";
 import { useEffect, useRef } from "react";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 import { OrderCard } from "../../layout/oder-card";
 import { Points } from "../../layout/points/points";
-import useOrderStatus from "@/entities/order/useOrderStatus";
+import useOrderStatus from "@/packages/entities/order/useOrderStatus";
 
 export const MainView = observer(() => {
   const { user } = useAuth();

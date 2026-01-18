@@ -1,15 +1,15 @@
-import { Table } from "@/shared/ui/table/index";
+import { Table } from "@/packages/shared-ui/table/index";
 import { Link, useNavigate } from "react-router-dom";
-import { Search } from "@/shared/ui/Inputs/input-search";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { ButtonCheckList } from "@/shared/ui/button-check-list";
-import { Icon } from "@/shared/ui/icon";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
+import { Icon } from "@/packages/shared-ui/icon";
 import { hardwareListModel } from "./model/hardware-list-model";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { ExportButton } from "../../../../shared/libs/hardware/components/hardware-buttons";
-import { columns } from "../../../../shared/libs/hardware/columns/columns";
-import { HardwareInterface } from "@/entities/hardware/type";
+import { ExportButton } from "../../../../packages/shared/libs/hardware/components/hardware-buttons";
+import { columns } from "../../../../packages/shared/libs/hardware/columns/columns";
+import { HardwareInterface } from "@/packages/entities/hardware/type";
 
 
 export const HardwareRegistry = observer(() => {

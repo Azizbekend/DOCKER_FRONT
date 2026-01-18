@@ -1,23 +1,23 @@
 import { observer } from "mobx-react-lite"
 import orderListModel from "./model/list-model";
-import { Search } from "@/shared/ui/Inputs/input-search";
-import { ButtonCheckList } from "@/shared/ui/button-check-list";
-import { volumes } from "@/entities/volume/data";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
+import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
+import { volumes } from "@/packages/entities/volume/data";
 import { useEffect, useState } from "react";
-import { OrderStatus } from "@/entities/order/order-status";
-import useOrderStatus from "@/entities/order/useOrderStatus";
-import { TableColumn } from "@/shared/ui/table/types";
-import { Order } from "@/entities/order/type";
-import { Icon } from "@/shared/ui/icon";
+import { OrderStatus } from "@/packages/entities/order/order-status";
+import useOrderStatus from "@/packages/entities/order/useOrderStatus";
+import { TableColumn } from "@/packages/shared-ui/table/types";
+import { Order } from "@/packages/entities/order/type";
+import { Icon } from "@/packages/shared-ui/icon";
 // import { format, parseISO } from "date-fns";
 // import { ru } from "date-fns/locale";
-import { formatAddress } from "@/shared/ui/format-adress";
+import { formatAddress } from "@/packages/shared-ui/format-adress";
 import { OrderModal } from "./components/order-modal";
-import { Table } from "@/shared/ui/table/index";
-import { ModalDelete } from "@/shared/ui/modal/modal-delete";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
-import { useAuth } from "@/entities/user/context";
+import { Table } from "@/packages/shared-ui/table/index";
+import { ModalDelete } from "@/packages/shared-ui/modal/modal-delete";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
+import { useAuth } from "@/packages/entities/user/context";
 import { format, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 

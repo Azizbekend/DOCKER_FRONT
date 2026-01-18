@@ -6,8 +6,8 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import '../styles/remove-icon-calendar.css'
 import '../styles/date-filter.css'
 import statsModel from "../models/stats-model";
-import { Icon } from "@/shared/ui/icon";
-import { Input } from "@/shared/ui/Inputs/input-text";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
 
 type DateFilterProps = {
     // onApply: (startDate: Date | null; endDate: Date | null) => void;

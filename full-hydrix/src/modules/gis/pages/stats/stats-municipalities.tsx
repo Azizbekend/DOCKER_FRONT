@@ -2,8 +2,8 @@ import { ColumnDef } from "@tanstack/react-table"
 import { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import statsModel from "./models/stats-model"
-import { Table } from "@/shared/ui/table/index"
-import { TableColumn } from "@/shared/ui/table/setting/types"
+import { Table } from "@/packages/shared-ui/table/index"
+import { TableColumn } from "@/packages/shared-ui/table/setting/types"
 import { MunicipalityStats, OrdersStats, PlantsStats } from "./services/stats"
 
 const columns: TableColumn<MunicipalityStats>[] = [

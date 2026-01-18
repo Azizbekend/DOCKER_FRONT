@@ -4,8 +4,8 @@ import { useEffect } from "react"
 import { observer } from "mobx-react-lite"
 import recyclingStatsModel from "./recycling-stats-model"
 import { getLineData } from "./helper/getData"
-import { Icon } from "@/shared/ui/icon"
-import { Button } from "@/shared/ui/button"
+import { Icon } from "@/packages/shared-ui/icon"
+import { Button } from "@/packages/shared-ui/button"
 import statsModel from "../../layout/model/stats-model"
 
 export const RecyclingStatsView = observer(() => {

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Icon } from '@/shared/ui/icon';
-import { Button } from '@/shared/ui/button';
-import { Table } from '@/shared/ui/table/index';
-import { TableColumn } from '@/shared/ui/table/types';
+import { Icon } from '@/packages/shared-ui/icon';
+import { Button } from '@/packages/shared-ui/button';
+import { Table } from '@/packages/shared-ui/table/index';
+import { TableColumn } from '@/packages/shared-ui/table/types';
 
 // Данные для таблицы
 const documents = [

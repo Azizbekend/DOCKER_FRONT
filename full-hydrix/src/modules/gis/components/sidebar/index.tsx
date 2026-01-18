@@ -1,9 +1,9 @@
-import { useAuth } from '@/entities/user/context';
-import { SidebarItem } from '../../../../shared/components/sidebar-item'
+import { useAuth } from '@/packages/entities/user/context';
+import { SidebarItem } from '../../../../packages/shared/components/sidebar-item'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom'
-import { Role } from '@/entities/user/role';
+import { Role } from '@/packages/entities/user/role';
 
 
 export const Sidebar = observer(() => {

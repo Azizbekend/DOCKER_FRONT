@@ -2,9 +2,9 @@ import sewerMapModel from "../models/sewer-map-model";
 import { observer } from "mobx-react-lite";
 import { useLayoutEffect, useRef } from "react";
 import mmrgl from 'mmr-gl';
-import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
+import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
 import { Modal } from "@/app/cores/core-trieco/UIKit";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const SewerMapModal = observer(() => {
     const { isShow, setShow, unsubscribe } = sewerMapModel;

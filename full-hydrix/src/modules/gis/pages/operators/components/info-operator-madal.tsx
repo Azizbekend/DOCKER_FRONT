@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
 import operatorListModel from "../models/operator-list-model";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { Modal } from "@/shared/ui/modal/modal";
-import { OperatorRole, operatorRole } from "@/entities/user/hooks";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { Modal } from "@/packages/shared-ui/modal/modal";
+import { OperatorRole, operatorRole } from "@/packages/entities/user/hooks";
 
 export const OperatorInfoModal = observer(() => {
 

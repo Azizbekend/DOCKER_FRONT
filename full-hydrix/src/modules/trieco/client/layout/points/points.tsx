@@ -3,7 +3,7 @@ import { PickupPoint } from "./point";
 import { observer } from "mobx-react-lite";
 import pointsModel from "./model/point-model";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const Points = observer(() => {
   const { init, model } = pointsModel;

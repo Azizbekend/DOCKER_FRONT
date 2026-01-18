@@ -1,7 +1,7 @@
 import { Button, Input } from '@/app/cores/core-trieco/UIKit'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from 'react-router-dom'
-import authModel from './entities/auth-model'
+import authModel from './packages/entities/auth-model'
 import mobileModel from '../../kernel/model/mobile-model'
 import { Password } from '@/app/cores/core-trieco/UIKit/password-input'
 import { SelectionComponent } from '../../components/selection'

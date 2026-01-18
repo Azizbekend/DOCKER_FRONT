@@ -1,11 +1,11 @@
-import { getInfoNodeInfos, getSchemaObjects, NodeInfoSingle } from "@/entities/hardware/api-general";
-import { SchemaObjectType } from "@/entities/hardware/type-general";
+import { getInfoNodeInfos, getSchemaObjects, NodeInfoSingle } from "@/packages/entities/hardware/api-general";
+import { SchemaObjectType } from "@/packages/entities/hardware/type-general";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
-import { SchemaCardInterface } from "@/entities/sensor/type";
-import { ApiSchemaCardAll } from "@/entities/sensor/api";
-import { statusHardwaresCheck } from "@/entities/hardware/api";
-import { formatToTwoDecimalsSafe } from "@/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
+import { SchemaCardInterface } from "@/packages/entities/sensor/type";
+import { ApiSchemaCardAll } from "@/packages/entities/sensor/api";
+import { statusHardwaresCheck } from "@/packages/entities/hardware/api";
+import { formatToTwoDecimalsSafe } from "@/packages/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
 
 class SchemeModel {
 

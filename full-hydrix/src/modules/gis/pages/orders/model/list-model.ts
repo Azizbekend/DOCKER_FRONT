@@ -1,7 +1,7 @@
-import { getAllMunicipalities } from "@/entities/municipality/api";
-import { Municipality } from "@/entities/municipality/type";
-import { getAllOrders, getOrdersByIdWaterCompany } from "@/entities/order/api";
-import { Order } from "@/entities/order/type";
+import { getAllMunicipalities } from "@/packages/entities/municipality/api";
+import { Municipality } from "@/packages/entities/municipality/type";
+import { getAllOrders, getOrdersByIdWaterCompany } from "@/packages/entities/order/api";
+import { Order } from "@/packages/entities/order/type";
 import { makeAutoObservable } from "mobx";
 
 export class OrderListModel {

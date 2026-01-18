@@ -1,6 +1,6 @@
 import { Meta } from "@/app/api/meta";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
-import { User } from "@/entities/user/type";
+import { User } from "@/packages/entities/user/type";
 import { makeAutoObservable } from "mobx";
 
 export class ClientModel {

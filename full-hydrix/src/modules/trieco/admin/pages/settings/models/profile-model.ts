@@ -4,7 +4,7 @@ import { updateUser } from "../services/user";
 import { ValidationResult } from "@/app/cores/core-trieco/UIKit";
 import { emailApprove, emailConfirm } from "@/app/cores/core-trieco/network/user/user";
 import { toast } from "react-toastify";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export class ProfileModel {
   constructor() {

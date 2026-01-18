@@ -7,9 +7,9 @@ import { observer } from "mobx-react-lite";
 import { useScheme } from './hooks/useScheme';
 import { SchemeViewerType } from '../../types/type';
 import { useEffect, useRef, useState } from 'react';
-import { Role } from '@/entities/user/role';
-import { useAuth } from '@/entities/user/context';
-import { SchemaCardInterface } from '@/entities/sensor/type';
+import { Role } from '@/packages/entities/user/role';
+import { useAuth } from '@/packages/entities/user/context';
+import { SchemaCardInterface } from '@/packages/entities/sensor/type';
 
 
 export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabScheme, setSchemeObjectData, listSensore, setSchemeSensoreData }: SchemeViewerType) => {

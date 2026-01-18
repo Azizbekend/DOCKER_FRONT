@@ -6,9 +6,9 @@ import { useLocation, useNavigate, useParams, useSearchParams } from "react-rout
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import YandexMapComponent from "./add-adderss";
-import { createOrderModel } from "./entities/create-order-model";
-import { useAuth } from "@/entities/user/context";
-import { getAdressCoordinates } from "@/shared/ui/mapVK/mapVk-functions";
+import { createOrderModel } from "./packages/entities/create-order-model";
+import { useAuth } from "@/packages/entities/user/context";
+import { getAdressCoordinates } from "@/packages/shared-ui/mapVK/mapVk-functions";
 import Cookies from "universal-cookie";
 
 export const CreateOrder = observer(() => {

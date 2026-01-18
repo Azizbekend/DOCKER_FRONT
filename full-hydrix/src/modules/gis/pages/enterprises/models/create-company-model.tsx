@@ -1,4 +1,4 @@
-import { ClientCompany } from "@/entities/company/type";
+import { ClientCompany } from "@/packages/entities/company/type";
 import { makeAutoObservable } from "mobx";
 
 export class CreateCompaniesModel {

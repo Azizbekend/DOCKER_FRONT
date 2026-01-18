@@ -1,18 +1,18 @@
-import { Operator } from "@/entities/operator/type";
-import { Button } from "@/shared/ui/button";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { Search } from "@/shared/ui/Inputs/input-search";
+import { Operator } from "@/packages/entities/operator/type";
+import { Button } from "@/packages/shared-ui/button";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import operatorListModel from "./models/operator-list-model";
-import { Table } from "@/shared/ui/table/index";
-import { TableColumn } from "@/shared/ui/table/types";
-import { Icon } from "@/shared/ui/icon";
-import { OperatorRole, operatorRole } from "@/entities/user/hooks";
+import { Table } from "@/packages/shared-ui/table/index";
+import { TableColumn } from "@/packages/shared-ui/table/types";
+import { Icon } from "@/packages/shared-ui/icon";
+import { OperatorRole, operatorRole } from "@/packages/entities/user/hooks";
 import { OperatorInfoModal } from "./components/info-operator-madal";
 import { OperatorModal } from "./components/operator-modal";
 import operatorModel from "./models/operator-model";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 
 const columns: TableColumn<Operator>[] = [

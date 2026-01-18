@@ -6,7 +6,7 @@ import { calendarModel } from "./models/calendar-model"
 import { getMonthName } from "./utils/monthNames"
 import { OrdersLinsPanel } from "./components/orders-lins-panel"
 import adminModel from "../../kernel/model/admin-model"
-import { useAuth } from "@/entities/user/context"
+import { useAuth } from "@/packages/entities/user/context"
 
 export const CalendarView = observer(() => {
 

@@ -4,7 +4,7 @@ import { SidebarItem } from './sidebar-item'
 import { observer } from 'mobx-react-lite'
 import { useLocation } from 'react-router-dom'
 import adminModel from '../kernel/model/admin-model'
-import { useAuth } from '@/entities/user/context'
+import { useAuth } from '@/packages/entities/user/context'
 
 export const Sidebar = observer(() => {
     let location = useLocation();

@@ -1,5 +1,5 @@
-import { DespetcherTest } from '@/entities/despetcher-test/type';
-import { Table } from '@/shared/ui/table/index';
+import { DespetcherTest } from '@/packages/entities/despetcher-test/type';
+import { Table } from '@/packages/shared-ui/table/index';
 import { observer } from 'mobx-react-lite';
 import { columns } from './components/columns';
 

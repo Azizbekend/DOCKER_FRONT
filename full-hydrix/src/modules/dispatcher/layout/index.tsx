@@ -1,10 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { Header } from "@/shared/components/header/header";
-import { Icon } from '@/shared/ui/icon';
+import { Header } from "@/packages/shared/components/header/header";
+import { Icon } from '@/packages/shared-ui/icon';
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/packages/shared-ui/button";
 
 export const Layout = observer(() => {
 

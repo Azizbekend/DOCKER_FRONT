@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import editPointModel from "./model/edit-point-model";
 import { observer } from "mobx-react-lite";
 
-import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from "@/shared/ui/mapVK/mapVk-functions";
+import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from "@/packages/shared-ui/mapVK/mapVk-functions";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
-import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
-import { Input } from "@/shared/ui/GIS";
-import { Button } from "@/shared/ui/button";
+import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
+import { Input } from "@/packages/shared-ui/GIS";
+import { Button } from "@/packages/shared-ui/button";
 
 export const EditPointView = observer(() => {
     const { isAddress, changeAddress, model, edit, changeWasteVolume } = editPointModel;

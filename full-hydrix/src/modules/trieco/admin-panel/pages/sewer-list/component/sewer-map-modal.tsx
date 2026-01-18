@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import mapVKModel from "@/app/cores/core-trieco/UIKit/mapVK/model/mapVK-model";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
 import { getAdressCoordinates } from "@/app/cores/core-trieco/UIKit/mapVK/mapVk-functions";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const SewerMapModal = observer(() => {
     const { isShow, setShow, longitude, latitude, unsubscribe, handleCoordinates } = sewerMapModel

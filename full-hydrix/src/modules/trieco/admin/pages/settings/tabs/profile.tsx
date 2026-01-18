@@ -7,7 +7,7 @@ import { EditPasswordModal } from "../components/modals/edit-password-modal"
 import { EditLoginModal } from "../components/modals/edit-login-modal"
 import { EmailValidation } from "@/app/cores/core-trieco/UIKit/validation"
 import { EmailConfirmModal } from "../components/modals/email-confirm-modal"
-import { useAuth } from "@/entities/user/context"
+import { useAuth } from "@/packages/entities/user/context"
 
 export const Profile = observer(() => {
     const [isPasswordEditModalShow, setPasswordEditModalShow] = useState(false);

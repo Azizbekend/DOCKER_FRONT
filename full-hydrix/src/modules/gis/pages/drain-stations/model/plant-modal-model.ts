@@ -1,5 +1,5 @@
-import { Municipality } from "@/entities/municipality/type";
-import { Plant } from "@/entities/plants/types";
+import { Municipality } from "@/packages/entities/municipality/type";
+import { Plant } from "@/packages/entities/plants/types";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 

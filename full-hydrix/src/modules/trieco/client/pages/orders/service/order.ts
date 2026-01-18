@@ -1,6 +1,6 @@
 import { OrderRoutes } from "@/app/api/api-router"
 import { instance } from "@/app/api/instances"
-import { OrderStatus } from "@/entities/order/order-status"
+import { OrderStatus } from "@/packages/entities/order/order-status"
 
 export const getAllOrders = (params: GetAllOrdersRequest) => {
     return instance.get(OrderRoutes.GetByUserId, { params })

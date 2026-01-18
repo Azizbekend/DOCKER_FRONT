@@ -1,4 +1,4 @@
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/packages/shared-ui/button";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Error404 = () => {

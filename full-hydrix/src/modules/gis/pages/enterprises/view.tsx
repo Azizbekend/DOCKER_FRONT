@@ -1,13 +1,13 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import clientCompaniesModel, { TypeInfoType } from "./models/client-company-model";
-import { Table } from "@/shared/ui/table/index";
-import { ClientCompany } from "@/entities/company/type";
-import { Button } from "@/shared/ui/button";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { Search } from "@/shared/ui/Inputs/input-search";
+import { Table } from "@/packages/shared-ui/table/index";
+import { ClientCompany } from "@/packages/entities/company/type";
+import { Button } from "@/packages/shared-ui/button";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { CreateEnterprice } from "./components/create-enterprise";
-import { TableColumn } from "@/shared/ui/table/types";
+import { TableColumn } from "@/packages/shared-ui/table/types";
 
 const columns: TableColumn<ClientCompany>[] = [
     {

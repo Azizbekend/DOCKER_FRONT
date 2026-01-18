@@ -1,16 +1,16 @@
-import { Icon } from '@/shared/ui/icon';
-import { useSearch } from '@/shared/ui/Inputs/hooks/hook-search';
-import { Search } from '@/shared/ui/Inputs/input-search';
+import { Icon } from '@/packages/shared-ui/icon';
+import { useSearch } from '@/packages/shared-ui/Inputs/hooks/hook-search';
+import { Search } from '@/packages/shared-ui/Inputs/input-search';
 import { observer } from 'mobx-react-lite';
 import { Link, NavLink, useParams } from 'react-router-dom';
-import { SwitchButton } from '@/shared/ui/switch-button';
+import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
-import { DespetcherTest } from '@/entities/despetcher-test/type';
+import { DespetcherTest } from '@/packages/entities/despetcher-test/type';
 import { registryModel } from './model/registry-model';
 import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/packages/shared-ui/button';
 import { ObjectsForm } from '../objects-form';
 
 export const RegistryObjectsLayout = observer(() => {

@@ -1,11 +1,11 @@
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
-import { Modal } from "@/shared/ui/modal/modal";
+import { Button } from "@/packages/shared-ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { createCompanyModel } from "../../../../../../../features/participant/model-create";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { SwitchButton } from "@/shared/ui/switch-button";
+import { createCompanyModel } from "../../../../../features/participant/model-create";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { SwitchButton } from "@/packages/shared-ui/switch-button";
 
 export const CreateCompanyModal = observer(({ show, setShow }: {
   show: boolean;

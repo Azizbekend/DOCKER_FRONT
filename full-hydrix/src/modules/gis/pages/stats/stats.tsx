@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import statsModel from "./models/stats-model"
 import { useEffect } from "react"
-import { Role } from "@/entities/user/role"
+import { Role } from "@/packages/entities/user/role"
 import { InfoCards } from "./components/info-cards"
 import { StatsFilter } from "./components/filter"
 import { MunicipalitiesStats } from "./stats-municipalities"

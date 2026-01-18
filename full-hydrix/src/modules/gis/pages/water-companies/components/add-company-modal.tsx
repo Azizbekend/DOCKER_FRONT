@@ -2,11 +2,11 @@ import { observer } from "mobx-react-lite"
 import CreateCompanyModel from "../model/create-company-model"
 import { useEffect, useState } from "react"
 import listModel from "../model/list-model"
-import { Modal } from "@/shared/ui/modal/modal"
-import { Input } from "@/shared/ui/Inputs/input-text"
-import { Button } from "@/shared/ui/button"
-import { InputContainer } from "@/shared/ui/Inputs/input-container"
-import { Selector } from "@/shared/ui/Selector/selector"
+import { Modal } from "@/packages/shared-ui/modal/modal"
+import { Input } from "@/packages/shared-ui/Inputs/input-text"
+import { Button } from "@/packages/shared-ui/button"
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container"
+import { Selector } from "@/packages/shared-ui/Selector/selector"
 
 type Props = {
     show: boolean,

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { Icon } from '@/shared/ui/icon';
-import { Button } from '@/shared/ui/button';
+import { Icon } from '@/packages/shared-ui/icon';
+import { Button } from '@/packages/shared-ui/button';
 import { PassportHeaderPanel } from '../../components/header-panel';
-import { Input } from '@/shared/ui/Inputs/input-text';
-import { documentModel } from '@/features/document/model';
+import { Input } from '@/packages/shared-ui/Inputs/input-text';
+import { documentModel } from '@/modules/domain/features/document/model';
 
 // Данные для таблицы
 const documents = [

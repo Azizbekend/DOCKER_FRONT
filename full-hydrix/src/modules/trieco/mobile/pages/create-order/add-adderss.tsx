@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import createOrderModel from './entities/create-order-model';
+import createOrderModel from './packages/entities/create-order-model';
 import { Button, Input } from '@/app/cores/core-trieco/UIKit';
 import { observer } from 'mobx-react-lite';
 import mobileModel from '../../kernel/model/mobile-model';

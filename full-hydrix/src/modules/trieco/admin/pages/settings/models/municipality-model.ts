@@ -1,5 +1,5 @@
-import { getAllMunicipalities } from "@/entities/municipality/api";
-import { Municipality } from "@/entities/municipality/type";
+import { getAllMunicipalities } from "@/packages/entities/municipality/api";
+import { Municipality } from "@/packages/entities/municipality/type";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 

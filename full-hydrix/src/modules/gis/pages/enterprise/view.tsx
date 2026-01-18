@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MoreBtn } from "./components/more_btns";
 import { useState } from "react";
 import { EditEnterpriceMenu } from "./components/edit-enterprise-menu";
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 
 
 export const EnterpriseView = observer(() => {

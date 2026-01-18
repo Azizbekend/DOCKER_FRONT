@@ -1,9 +1,9 @@
-import { SchemaCoordinatesCreateType, SchemaObjectType } from "@/entities/hardware/type-general"
+import { SchemaCoordinatesCreateType, SchemaObjectType } from "@/packages/entities/hardware/type-general"
 import { makeAutoObservable } from "mobx"
 import { ChangeEvent } from "react"
 import { schemeModel } from "./scheme-model"
 
-import { deleteSchemaCoordinates, schemaCreate, updateSchemaCoordinatesCreate } from "@/entities/hardware/api-general"
+import { deleteSchemaCoordinates, schemaCreate, updateSchemaCoordinatesCreate } from "@/packages/entities/hardware/api-general"
 import { toast } from "react-toastify"
 
 class SchemeObjectModel {

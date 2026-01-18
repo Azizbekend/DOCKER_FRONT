@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 import notificationModel from "./model/notification-model"
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";

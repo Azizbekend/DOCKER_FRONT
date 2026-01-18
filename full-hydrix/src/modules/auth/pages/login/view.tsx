@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { observer } from "mobx-react-lite";
 
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { Password } from "@/shared/ui/Inputs/input-password";
-import { Button } from "@/shared/ui/button";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { Password } from "@/packages/shared-ui/Inputs/input-password";
+import { Button } from "@/packages/shared-ui/button";
 
 import loginModel from "./model/login-model";
 import { Registration } from "../registration";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 import { Link } from "react-router-dom";
 
 export const LoginView = observer(() => {

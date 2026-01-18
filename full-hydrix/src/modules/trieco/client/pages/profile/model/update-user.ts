@@ -1,4 +1,4 @@
-import { User } from "@/entities/user/type";
+import { User } from "@/packages/entities/user/type";
 import { UpdateUserEntity, updateUserService } from "../service/user";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";

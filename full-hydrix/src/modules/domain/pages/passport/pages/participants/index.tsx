@@ -1,11 +1,11 @@
-import { Icon } from '@/shared/ui/icon';
+import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { PassportHeaderPanel } from '../../components/header-panel';
 import { Button } from '@pbe/react-yandex-maps';
 import { AddEmployeeModal } from './components/add-employee';
 import { CreateCompanyModal } from './components/create-company-modal';
-import { participantsData } from '@/entities/object/data';
+import { participantsData } from '@/packages/entities/object/data';
 
 export const PassportParticipants = observer(() => {
     const [showAddEmployeeModal, setShowAddEmployeeModal] = useState<boolean>(false);

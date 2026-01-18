@@ -1,5 +1,5 @@
-import { getAllPointsByUser } from "@/entities/point/api";
-import { Point } from "@/entities/point/type";
+import { getAllPointsByUser } from "@/packages/entities/point/api";
+import { Point } from "@/packages/entities/point/type";
 import { makeAutoObservable } from "mobx";
 
 export class PointsModel {

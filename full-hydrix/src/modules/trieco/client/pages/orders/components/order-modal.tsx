@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { Icon } from "@/shared/ui/icon";
-import { Button } from "@/shared/ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Button } from "@/packages/shared-ui/button";
 import orderModel from "../model/order-model";
 import { format } from "date-fns";
 import orderListModel from "../model/order-list-model";

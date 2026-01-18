@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "@/entities/user/context"
-import { Role } from "@/entities/user/role"
+import { useAuth } from "@/packages/entities/user/context"
+import { Role } from "@/packages/entities/user/role"
 
 type Props = {
     roles: Role[]

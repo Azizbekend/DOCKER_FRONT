@@ -6,17 +6,17 @@ import ordersListModel from "./model/order-list-model";
 import { observer } from "mobx-react-lite";
 import { ru } from "date-fns/locale";
 import orderModel from "./model/order-model";
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 import { Order } from "./service/order";
-import { formatAddress } from "@/shared/ui/format-adress";
-import { OrderStatus } from "@/entities/order/order-status";
-import useOrderStatus from "@/entities/order/useOrderStatus";
+import { formatAddress } from "@/packages/shared-ui/format-adress";
+import { OrderStatus } from "@/packages/entities/order/order-status";
+import useOrderStatus from "@/packages/entities/order/useOrderStatus";
 import { OrderStatusText, StatusColor } from "@/app/cores/core-trieco/lib/order";
 import { OrderCard } from "../../layout/oder-card";
-import { Table } from "@/shared/ui/table/index";
-import { Button } from "@/shared/ui/button";
-import { TableColumn } from "@/shared/ui/table/types";
-import { useAuth } from '@/entities/user/context';
+import { Table } from "@/packages/shared-ui/table/index";
+import { Button } from "@/packages/shared-ui/button";
+import { TableColumn } from "@/packages/shared-ui/table/types";
+import { useAuth } from '@/packages/entities/user/context';
 import { OrderModal } from './components/order-modal';
 
 const columns: TableColumn<Order>[] = [

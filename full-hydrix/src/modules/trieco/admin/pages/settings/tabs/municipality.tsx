@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { municipalityModel } from "../models/municipality-model";
 import { Municipality } from "@/app/cores/core-trieco/network/company/municipality";
 import { updateMunicipalities, getUserCompany, deleteMunicipalities } from "@/app/cores/core-trieco/network/user/user";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const MunicipalityPanel = observer(() => {
     const [selectedMunicipalities, setSelectedMunicipalities] = useState<Municipality[]>([]);

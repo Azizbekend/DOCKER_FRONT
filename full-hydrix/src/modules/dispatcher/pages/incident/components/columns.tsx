@@ -1,5 +1,5 @@
 import { Incident } from "@/modules/domain/pages/registry-objects/data/data";
-import { TableColumn } from "@/shared/ui/table/types";
+import { TableColumn } from "@/packages/shared-ui/table/types";
 
 export const columns: TableColumn<Incident>[] = [
     {

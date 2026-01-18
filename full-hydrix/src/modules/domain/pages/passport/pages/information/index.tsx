@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import imagePassport from "./assets/passport.jpg";
-import { Icon } from '@/shared/ui/icon';
-import { coordinates, infoContacts, itemsInfo1 } from '../../../../../../entities/object/data';
-import { BlockContainer } from '../../../../../../shared/components/block-container';
+import { Icon } from '@/packages/shared-ui/icon';
+import { coordinates, infoContacts, itemsInfo1 } from '../../../../../../packages/entities/object/data';
+import { BlockContainer } from '../../../../../../packages/shared/components/block-container';
 import { TechSpecifications } from './components/tech-specifications';
 import mmrgl from 'mmr-gl';
 import mapPl from '../../../registry-map/assets/map-pl.png';
-import { passportModel } from '@/features/object/model';
+import { passportModel } from '@/modules/domain/features/object/model';
 import { PassportHeaderPanel } from '../../components/header-panel';
 import { Link } from 'react-router-dom';
 

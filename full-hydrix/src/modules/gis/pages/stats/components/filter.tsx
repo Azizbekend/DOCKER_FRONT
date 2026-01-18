@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite"
 import statsModel from "../models/stats-model"
 // import { DateFilter } from "./date-filter"
-import { Search } from "@/shared/ui/Inputs/input-search"
-import { Button } from "@/shared/ui/button"
+import { Search } from "@/packages/shared-ui/Inputs/input-search"
+import { Button } from "@/packages/shared-ui/button"
 import { DateFilter } from "./date-filter"
 
 type Props = {

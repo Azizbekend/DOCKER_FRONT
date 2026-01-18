@@ -2,9 +2,9 @@ import { Station } from "./components/station";
 import { NoStations } from "./components/no-stations";
 import { observer } from "mobx-react-lite";
 import { useState, useEffect } from "react";
-import { Plant } from "@/entities/plants/types";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { Search } from "@/shared/ui/Inputs/input-search";
+import { Plant } from "@/packages/entities/plants/types";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
 
 type Props = {
     plants: Plant[];

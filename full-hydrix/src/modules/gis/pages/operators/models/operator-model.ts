@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { operatorRole, OperatorRole } from "@/entities/user/hooks";
-import { Operator } from "@/entities/operator/type";
+import { operatorRole, OperatorRole } from "@/packages/entities/user/hooks";
+import { Operator } from "@/packages/entities/operator/type";
 import { Meta } from "@/app/api/meta";
-import { Plant } from "@/entities/plants/types";
+import { Plant } from "@/packages/entities/plants/types";
 
 class OperatorModel {
   operator: Operator = {

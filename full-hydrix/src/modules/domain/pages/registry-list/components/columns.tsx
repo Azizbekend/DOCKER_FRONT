@@ -1,7 +1,7 @@
-import { DespetcherTest } from "@/entities/despetcher-test/type";
-import { TableColumn } from "@/shared/ui/table/types";
+import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
+import { TableColumn } from "@/packages/shared-ui/table/types";
 import imageProfile from "../assets/stations.jpg"
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 
 export const columns: TableColumn<DespetcherTest>[] = [
     {

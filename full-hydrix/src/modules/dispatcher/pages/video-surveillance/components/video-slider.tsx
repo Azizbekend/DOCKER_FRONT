@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
+import { Button } from "@/packages/shared-ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
 import { CameraItem } from "./video-item";
 
 export const VideoSlider = ({ cameraSources, CameraSwitch }: { cameraSources: number[], CameraSwitch: (value: number) => void }) => {

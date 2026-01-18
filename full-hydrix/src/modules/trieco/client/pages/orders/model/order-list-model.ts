@@ -1,6 +1,6 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { getAllOrders, getOrderCode, Order } from "../service/order";
-import { OrderStatus } from "@/entities/order/order-status";
+import { OrderStatus } from "@/packages/entities/order/order-status";
 
 export class OrderListModel {
     constructor() {

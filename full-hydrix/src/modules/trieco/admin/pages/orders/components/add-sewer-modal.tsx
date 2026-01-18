@@ -4,7 +4,7 @@ import attachSewerModel from "../model/attach-sewer-model";
 import { useEffect, useState, useRef } from "react";
 import orderListModel from "../model/order-list-model";
 import { Sewer } from "../../sewer-list/services/sewers";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 type Props = {
     id: number | null;

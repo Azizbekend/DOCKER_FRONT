@@ -1,5 +1,5 @@
 // import { AddAddress } from "./add-address-2"
-import createOrderModel from "./entities/create-order-model"
+import createOrderModel from "./packages/entities/create-order-model"
 import { AddDetails } from "./add-details";
 import { observer } from "mobx-react-lite";
 import { Created } from "./created";

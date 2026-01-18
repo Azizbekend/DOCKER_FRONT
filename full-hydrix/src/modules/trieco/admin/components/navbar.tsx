@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Roles } from "./utils/getRoles"
-import { Icon } from "@/shared/ui/icon";
-import { useAuth } from "@/entities/user/context";
+import { Icon } from "@/packages/shared-ui/icon";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const Navbar = observer(() => {
 

@@ -1,7 +1,7 @@
-import { createCompanyModel } from "@/features/participant/model-create";
-import { Button } from "@/shared/ui/button";
-import { Icon } from "@/shared/ui/icon";
-import { Modal } from "@/shared/ui/modal/modal";
+import { createCompanyModel } from "@/modules/domain/features/participant/model-create";
+import { Button } from "@/packages/shared-ui/button";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { useState, useEffect, useRef } from "react";
 

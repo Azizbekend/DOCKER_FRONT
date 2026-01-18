@@ -288,3 +288,26 @@ export const NodeIndicates = {
   plcNodeOd: "/NodeIndicates/actual/plcNodeOd",
   hStatusAll: "/NodeIndicates/hStatus/all/byPlcNodeId",
 }
+
+
+export const ServiceRequests = {
+  all: "/ServiceRequests/services/all",
+  byObject: "/ServiceRequests/object/services/all",
+  byUser: "/ServiceRequests/services/user/all",
+
+  create: "/ServiceRequests/mainEngineer/commonService/InitialCreate",
+  createIncident: "/ServiceRequests/mainEngineer/incidentService/InitialCreate",
+
+  complete: "/ServiceRequests/mainEngineer/commonService/complete",
+  cancel: "/ServiceRequests/mainEngineer/commonService/Cancel",
+};
+
+export const ServiceStageRequests = {
+  all: "/ServiceRequests/stage/services/all",
+  create: "/ServiceRequests/mainEngineer/serviceStage/create",
+  completeCommon: "/ServiceRequests/common/serviceStage/complete",
+  complete: "/ServiceRequests/mainIngineer/serviceStage/complete",
+  cancel: "/ServiceRequests/mainEngineer/serviceStage/Cancel",
+};
+
+

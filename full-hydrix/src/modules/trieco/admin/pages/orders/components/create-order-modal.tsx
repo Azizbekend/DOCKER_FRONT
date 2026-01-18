@@ -9,9 +9,9 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import orderListModel from "../model/order-list-model";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
-import { useAuth } from "@/entities/user/context";
-import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
-import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/shared/ui/mapVK/mapVk-functions";
+import { useAuth } from "@/packages/entities/user/context";
+import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
+import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/packages/shared-ui/mapVK/mapVk-functions";
 
 type Props = {
     onClose: () => void;

@@ -1,4 +1,4 @@
-import { ObjectCreateType } from "@/entities/despetcher-test/type";
+import { ObjectCreateType } from "@/packages/entities/despetcher-test/type";
 import { makeAutoObservable } from "mobx";
 
 

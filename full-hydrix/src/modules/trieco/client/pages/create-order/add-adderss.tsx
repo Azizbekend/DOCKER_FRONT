@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import clientModel from '../../kernel/model/client-model';
 import { observer } from 'mobx-react-lite';
 import mmrgl from 'mmr-gl';
-import mapVKModel from '@/shared/ui/mapVK/model/mapVK-model';
-import { createOrderModel } from './entities/create-order-model';
-import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from '@/shared/ui/mapVK/mapVk-functions';
-import { Input } from '@/shared/ui/Inputs/input-text';
-import { InputContainer } from '@/shared/ui/Inputs/input-container';
-import { Button } from '@/shared/ui/button';
+import mapVKModel from '@/packages/shared-ui/mapVK/model/mapVK-model';
+import { createOrderModel } from './packages/entities/create-order-model';
+import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from '@/packages/shared-ui/mapVK/mapVk-functions';
+import { Input } from '@/packages/shared-ui/Inputs/input-text';
+import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
+import { Button } from '@/packages/shared-ui/button';
 
 const YandexMapComponent = observer(({ getPage }: { getPage: () => void }) => {
   const { user } = clientModel;

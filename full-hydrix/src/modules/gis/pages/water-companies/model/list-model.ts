@@ -1,7 +1,7 @@
-import { getAllClientCompanies } from "@/entities/company/api";
-import { getAllMunicipalities } from "@/entities/municipality/api";
-import { Municipality } from "@/entities/municipality/type";
-import { WaterCompany } from "@/entities/water-company/types";
+import { getAllClientCompanies } from "@/packages/entities/company/api";
+import { getAllMunicipalities } from "@/packages/entities/municipality/api";
+import { Municipality } from "@/packages/entities/municipality/type";
+import { WaterCompany } from "@/packages/entities/water-company/types";
 import { makeAutoObservable, runInAction } from "mobx";
 
 export class ListModel {

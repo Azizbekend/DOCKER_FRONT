@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Role } from "@/app/cores/core-trieco/enums/role";
 import { EmailValidation } from "@/app/cores/core-trieco/UIKit/validation";
 import clientModel from "@/modules/trieco/client/kernel/model/client-model";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 type Props = {
     show: boolean;

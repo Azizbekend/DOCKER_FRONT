@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import paymentModel from "../models/payments-model"
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const Requisites = observer(() => {
 

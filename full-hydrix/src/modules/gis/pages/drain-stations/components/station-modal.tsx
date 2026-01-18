@@ -1,14 +1,14 @@
 import { observer } from "mobx-react-lite";
 import { plantsListModel } from "../model/drain-stations-model";
-import { Modal } from "@/shared/ui/modal/modal";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/Inputs/input-text";
+import { Modal } from "@/packages/shared-ui/modal/modal";
+import { Button } from "@/packages/shared-ui/button";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { useEffect } from "react";
 import { editPlantModel } from "../model/plant-modal-model";
 import { toast } from "react-toastify";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Icon } from "@/shared/ui/icon";
-import { Selector } from "@/shared/ui/Selector/selector";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Selector } from "@/packages/shared-ui/Selector/selector";
 
 export const StationModal = observer(() => {
     const { showModalInfo, setShowModalInfo, typeModal, setTypeModal, focusedPlant, push, updatePlant } = plantsListModel;

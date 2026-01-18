@@ -1,5 +1,5 @@
 import image from "../assets/info-cart.png";
-import { Icon } from "@/shared/ui/icon"
+import { Icon } from "@/packages/shared-ui/icon"
 import { Link } from "react-router-dom";
 
 

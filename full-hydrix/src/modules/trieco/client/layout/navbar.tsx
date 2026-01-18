@@ -3,8 +3,8 @@ import { NavbarItem } from "./navbar-item";
 import notificationModel from "./notifications/model/notification-model";
 import { NotificationList } from "./notifications/notification";
 import { Roles } from "./utils/getRoles";
-import { Icon } from "@/shared/ui/icon";
-import { useAuth } from "@/entities/user/context";
+import { Icon } from "@/packages/shared-ui/icon";
+import { useAuth } from "@/packages/entities/user/context";
 import { observer } from "mobx-react-lite";
 
 export const Navbar = observer(() => {

@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite"
 import { Table } from "@/app/cores/core-trieco/UIKit/table"
 import statModel from "./models/stat-model"
 import { getLineData } from "@/app/cores/core-trieco/lib/getData"
-import { useAuth } from "@/entities/user/context"
+import { useAuth } from "@/packages/entities/user/context"
 
 export const StatsView = observer(() => {
     const [view, setView] = useState(StatsVariants[0].value)

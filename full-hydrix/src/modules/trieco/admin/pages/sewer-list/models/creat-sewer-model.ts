@@ -8,7 +8,7 @@ import {
   Sewer,
 } from "../services/sewers";
 import { toast } from "react-toastify";
-import { Role } from "@/entities/user/role";
+import { Role } from "@/packages/entities/user/role";
 
 export class CreateSewerModel {
   constructor() {

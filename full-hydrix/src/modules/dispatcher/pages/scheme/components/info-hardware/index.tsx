@@ -1,16 +1,16 @@
-import { Icon } from "@/shared/ui/icon";
+import { Icon } from "@/packages/shared-ui/icon";
 import { useEffect, useState } from 'react';
 import accident from "@/app/static/img/accident.svg";
-import { hardwareModel } from "@/features/hardware/model";
+import { hardwareModel } from "@/modules/domain/features/hardware/model";
 import { observer } from "mobx-react-lite";
-import Loader from "@/shared/ui/loader/loader";
+import Loader from "@/packages/shared-ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/packages/shared-ui/button";
 import { InfoCompType } from "../../types/type";
-import { eventLog } from "@/features/hardware/data";
-import { getStatusClass } from "@/shared/libs/hardware/functions/functions";
-import { HardwareControlle, HardwareReview, HardwareServes } from "@/shared/libs/hardware/tabs/panel-tabs";
-import { getHardwareStatus } from "@/shared/libs/hardware/components/hardware-status";
+import { eventLog } from "@/modules/domain/features/hardware/data";
+import { getStatusClass } from "@/packages/shared/libs/hardware/functions/functions";
+import { HardwareControlle, HardwareReview, HardwareServes } from "@/packages/shared/libs/hardware/tabs/panel-tabs";
+import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/hardware-status";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);

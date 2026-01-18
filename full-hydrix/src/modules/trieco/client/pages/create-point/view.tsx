@@ -3,11 +3,11 @@ import createPointModel from "./model/create-point-model";
 import { observer } from "mobx-react-lite";
 
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
-import mapVKModel from "@/shared/ui/mapVK/model/mapVK-model";
-import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/shared/ui/mapVK/mapVk-functions";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/GIS";
-import { useAuth } from "@/entities/user/context";
+import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
+import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/packages/shared-ui/mapVK/mapVk-functions";
+import { Button } from "@/packages/shared-ui/button";
+import { Input } from "@/packages/shared-ui/GIS";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const CreatePointView = observer(() => {
     const { canCreate: isAddress, changeAddress, model, create, changeWasteVolume } = createPointModel;

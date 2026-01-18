@@ -1,5 +1,5 @@
-import { ApiSchemaCardDelete, ApiSchemaCardUpdate } from "@/entities/sensor/api"
-import { SchemaCardInterface } from "@/entities/sensor/type"
+import { ApiSchemaCardDelete, ApiSchemaCardUpdate } from "@/packages/entities/sensor/api"
+import { SchemaCardInterface } from "@/packages/entities/sensor/type"
 import { makeAutoObservable } from "mobx"
 import { toast } from "react-toastify"
 import { schemeModel } from "./scheme-model"

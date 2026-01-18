@@ -1,4 +1,4 @@
-import { Header } from "@/shared/components/header/header";
+import { Header } from "@/packages/shared/components/header/header";
 import { Outlet } from "react-router-dom";
 
 export const Layout = () => {

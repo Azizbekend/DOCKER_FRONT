@@ -1,8 +1,8 @@
-import { OrderStatus } from "@/entities/order/order-status";
-import { Order } from "@/entities/order/type";
-import useOrderStatus from "@/entities/order/useOrderStatus";
-import { Icon } from "@/shared/ui/icon";
-import { Modal } from "@/shared/ui/modal/modal";
+import { OrderStatus } from "@/packages/entities/order/order-status";
+import { Order } from "@/packages/entities/order/type";
+import useOrderStatus from "@/packages/entities/order/useOrderStatus";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Modal } from "@/packages/shared-ui/modal/modal";
 import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";

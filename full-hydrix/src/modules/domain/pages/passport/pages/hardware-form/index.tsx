@@ -1,4 +1,4 @@
-import { HardwareCreate } from "@/shared/libs/hardware-form";
+import { HardwareCreate } from "@/packages/shared/libs/hardware-form";
 import { PassportHeaderPanel } from "../../components/header-panel";
 
 export const HardwareForm = () => {

@@ -1,20 +1,20 @@
 import { observer } from "mobx-react-lite"
-import { Icon } from "@/shared/ui/icon";
-import { Search } from "@/shared/ui/Inputs/input-search";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import sewerListModel from "./models/sewer-list-model";
-import { ButtonCheckList } from "@/shared/ui/button-check-list";
-import { Table } from "@/shared/ui/table/index";
+import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
+import { Table } from "@/packages/shared-ui/table/index";
 import { useEffect, useState } from "react";
-import { Sewer } from "@/entities/sewer/type";
-import { TableColumn } from "@/shared/ui/table/types";
-import { Button } from "@/shared/ui/button";
+import { Sewer } from "@/packages/entities/sewer/type";
+import { TableColumn } from "@/packages/shared-ui/table/types";
+import { Button } from "@/packages/shared-ui/button";
 import { SewerInfoModal } from "./component/sewer-info-modal";
 import sewerMapModel from "./models/sewer-map-model";
-import { volumes } from "@/entities/volume/data";
+import { volumes } from "@/packages/entities/volume/data";
 import { AccidentReportModal } from "./component/accident-report-modal";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { useAuth } from "@/entities/user/context";
-import InputCheckbox from "@/shared/ui/Inputs/input-checkbox";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { useAuth } from "@/packages/entities/user/context";
+import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 
 const columns: TableColumn<Sewer>[] = [
     {

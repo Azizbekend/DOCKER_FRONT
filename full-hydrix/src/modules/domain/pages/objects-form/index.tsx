@@ -1,8 +1,8 @@
-import { InputContainer } from '@/shared/ui/Inputs/input-container';
+import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { createObjectModel } from './models/create-model';
-import { Input } from '@/shared/ui/Inputs/input-text';
+import { Input } from '@/packages/shared-ui/Inputs/input-text';
 
 export const ObjectsForm = observer(() => {
 

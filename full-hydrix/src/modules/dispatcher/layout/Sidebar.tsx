@@ -1,9 +1,9 @@
-import { Icon } from '@/shared/ui/icon';
-import { SidebarItem } from '../../../shared/components/sidebar-item'
+import { Icon } from '@/packages/shared-ui/icon';
+import { SidebarItem } from '../../../packages/shared/components/sidebar-item'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '@/entities/user/context';
+import { useAuth } from '@/packages/entities/user/context';
 
 
 export const Sidebar = observer(() => {
@@ -59,6 +59,7 @@ export const Sidebar = observer(() => {
                     <SidebarItem link={`/dispatcher/video-surveillance`} icon='video-surveillance' title='Видеонаблюдение' isActive={location.pathname.includes('/dispatcher/video-surveillance')} />
                     <SidebarItem link={`/dispatcher/hardware`} icon='wrench' title='Оборудование' isActive={location.pathname.includes('/dispatcher/hardware')} />
                     <SidebarItem link={`/dispatcher/orders`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/orders')} />
+                    <SidebarItem link={`/dispatcher/tasks`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/tasks')} />
                     <SidebarItem link={`/dispatcher/incident`} icon='incident' title='Аварии' isActive={location.pathname.includes('/dispatcher/incident')} />
                 </div>
                 <div>

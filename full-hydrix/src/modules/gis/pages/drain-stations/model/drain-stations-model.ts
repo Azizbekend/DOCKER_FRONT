@@ -1,6 +1,6 @@
 import { Meta } from "@/app/api/meta";
-import { getWaterCompanyPlants } from "@/entities/plants/api";
-import { Plant } from "@/entities/plants/types";
+import { getWaterCompanyPlants } from "@/packages/entities/plants/api";
+import { Plant } from "@/packages/entities/plants/types";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
 

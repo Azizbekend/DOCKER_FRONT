@@ -1,4 +1,4 @@
-import Tooltip from "@/shared/ui/tooltip";
+import Tooltip from "@/packages/shared-ui/tooltip";
 import { useState } from "react";
 
 type Props = {

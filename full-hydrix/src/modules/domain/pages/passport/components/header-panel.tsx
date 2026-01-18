@@ -1,4 +1,4 @@
-import { Icon } from '@/shared/ui/icon';
+import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 

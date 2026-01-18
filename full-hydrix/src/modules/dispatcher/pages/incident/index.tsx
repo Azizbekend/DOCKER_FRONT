@@ -1,4 +1,4 @@
-import { Table } from "@/shared/ui/table-old"
+import { Table } from "@/packages/shared-ui/table-old"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { columns } from "./components/columns";

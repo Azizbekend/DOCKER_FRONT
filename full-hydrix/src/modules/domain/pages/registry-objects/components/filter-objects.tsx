@@ -1,5 +1,5 @@
-import { Icon } from '@/shared/ui/icon';
-import { Selector } from '@/shared/ui/Selector/selector';
+import { Icon } from '@/packages/shared-ui/icon';
+import { Selector } from '@/packages/shared-ui/Selector/selector';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 export const FilterObjects = observer(() => {

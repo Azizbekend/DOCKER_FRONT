@@ -1,6 +1,6 @@
 import { Meta } from "@/app/api/meta";
-import { getAllClientCompanies } from "@/entities/company/api";
-import { ClientCompany } from "@/entities/company/type";
+import { getAllClientCompanies } from "@/packages/entities/company/api";
+import { ClientCompany } from "@/packages/entities/company/type";
 import { makeAutoObservable } from "mobx";
 
 

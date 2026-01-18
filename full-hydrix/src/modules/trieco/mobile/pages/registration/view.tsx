@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import mobileModel from '../../kernel/model/mobile-model'
 import { SelectionComponent } from '../../components/selection'
 import { useNavigate } from 'react-router-dom'
-import registrationModel from './entities/registration-model'
+import registrationModel from './packages/entities/registration-model'
 import { Password } from '@/app/cores/core-trieco/UIKit/password-input'
 import emailConfirmModel from '../emal-confirm/models/confirm-model'
 

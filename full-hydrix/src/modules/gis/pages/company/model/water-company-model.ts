@@ -1,7 +1,7 @@
 import { Meta } from "@/app/cores/core-gis/network/meta";
 import { getWaterCompany } from "@/app/cores/core-gis/network/water-company/type";
-import { getWaterCompanyPlants } from "@/entities/plants/api";
-import { WaterCompany } from "@/entities/water-company/types";
+import { getWaterCompanyPlants } from "@/packages/entities/plants/api";
+import { WaterCompany } from "@/packages/entities/water-company/types";
 import { makeAutoObservable } from "mobx";
 export class WaterCompanyModel {
     constructor() {

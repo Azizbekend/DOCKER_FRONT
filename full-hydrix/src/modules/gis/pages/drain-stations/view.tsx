@@ -1,16 +1,16 @@
 import { observer } from "mobx-react-lite";
 import { plantsListModel } from "./model/drain-stations-model";
 import { useEffect } from "react";
-import { Button } from "@/shared/ui/button";
-import { Search } from "@/shared/ui/Inputs/input-search";
+import { Button } from "@/packages/shared-ui/button";
+import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { NoStations } from "./components/no-stations";
 import { StationModal } from "./components/station-modal";
 import { Station } from "./components/drain-stations";
-import { ModalDelete } from "@/shared/ui/modal/modal-delete";
-import { useSearch } from "@/shared/ui/Inputs/hooks/hook-search";
-import { Plant } from "@/entities/plants/types";
+import { ModalDelete } from "@/packages/shared-ui/modal/modal-delete";
+import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
+import { Plant } from "@/packages/entities/plants/types";
 import { Contact } from "./components/contact-information";
-import { useAuth } from "@/entities/user/context";
+import { useAuth } from "@/packages/entities/user/context";
 
 
 export const StationsListView = observer(() => {

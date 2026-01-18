@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { Sewer } from "@/entities/sewer/type";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { Modal } from "@/shared/ui/modal/modal";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
+import { Sewer } from "@/packages/entities/sewer/type";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { Modal } from "@/packages/shared-ui/modal/modal";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 
 type Props = {
     show: boolean,

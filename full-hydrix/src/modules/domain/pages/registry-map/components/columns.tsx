@@ -1,4 +1,4 @@
-import { TableColumn } from "@/shared/ui/table/types";
+import { TableColumn } from "@/packages/shared-ui/table/types";
 import { Incident } from "../../registry-objects/data/data";
 
 export const columns: TableColumn<Incident>[] = [

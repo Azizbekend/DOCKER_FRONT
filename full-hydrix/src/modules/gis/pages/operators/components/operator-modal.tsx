@@ -2,10 +2,10 @@ import { observer } from "mobx-react-lite";
 import operatorModel from "../models/operator-model";
 import operatorListModel from "../models/operator-list-model";
 import { useEffect } from "react";
-import { Button } from "@/shared/ui/button";
-import { Modal } from "@/shared/ui/modal/modal";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Input } from "@/shared/ui/Inputs/input-text";
+import { Button } from "@/packages/shared-ui/button";
+import { Modal } from "@/packages/shared-ui/modal/modal";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
 
 export const OperatorModal = observer(() => {
 

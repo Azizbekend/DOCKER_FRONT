@@ -2,11 +2,11 @@ import clientModel from "../../kernel/model/client-model";
 import updateUserModel from "./model/update-user";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { Input } from "@/shared/ui/Inputs/input-text";
-import { InputContainer } from "@/shared/ui/Inputs/input-container";
-import { Icon } from "@/shared/ui/icon";
-import { Button } from "@/shared/ui/button";
-import { useAuth } from "@/entities/user/context";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Button } from "@/packages/shared-ui/button";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const ProfileView = observer(() => {
   const { model, init, changeEmail, changeFirstName, changeLastName, changeMiddleName, changePhone, update, isValid } = updateUserModel;

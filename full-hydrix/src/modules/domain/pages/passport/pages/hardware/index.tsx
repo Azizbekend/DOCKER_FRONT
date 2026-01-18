@@ -1,10 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
-import { hardwareModel } from "@/features/hardware/model";
+import { hardwareModel } from "@/modules/domain/features/hardware/model";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Loader from "@/shared/ui/loader/loader";
-import { HardwarePassport } from "@/shared/libs/hardware/tabs/page-tabs";
+import Loader from "@/packages/shared-ui/loader/loader";
+import { HardwarePassport } from "@/packages/shared/libs/hardware/tabs/page-tabs";
 
 export const HardwareInformation = observer(() => {
     const { id } = useParams();

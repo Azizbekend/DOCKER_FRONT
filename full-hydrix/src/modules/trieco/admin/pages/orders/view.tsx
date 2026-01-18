@@ -15,7 +15,7 @@ import { Button } from "@/app/cores/core-trieco/UIKit"
 import { formatAddress } from "@/app/cores/core-trieco/UIKit/format-adress"
 import { CreateOrderModal } from "./components/create-order-modal"
 import adminModel from "../../kernel/model/admin-model"
-import { useAuth } from "@/entities/user/context"
+import { useAuth } from "@/packages/entities/user/context"
 
 const columns: ExtendedColumnDef<any, any>[] = [
     {

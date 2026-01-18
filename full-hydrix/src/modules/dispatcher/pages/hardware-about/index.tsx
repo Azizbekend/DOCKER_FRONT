@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { hardwareModel } from "@/features/hardware/model";
-import Loader from "@/shared/ui/loader/loader";
-import { Icon } from "@/shared/ui/icon";
-import { Button } from "@/shared/ui/button";
+import { hardwareModel } from "@/modules/domain/features/hardware/model";
+import Loader from "@/packages/shared-ui/loader/loader";
+import { Icon } from "@/packages/shared-ui/icon";
+import { Button } from "@/packages/shared-ui/button";
 import { hardwareListModel } from "../hardware-list/model/hardware-list-model";
-import { ModalServiceCreate } from "../../../../shared/libs/hardware/components/modal-service-create";
-import { tabsList } from "@/features/hardware/data";
-import { HardwareControll, HardwarePassport, HardwareService } from "@/shared/libs/hardware/tabs/page-tabs";
+import { ModalServiceCreate } from "../../../../packages/shared/libs/hardware/components/modal-service-create";
+import { tabsList } from "@/modules/domain/features/hardware/data";
+import { HardwareControll, HardwarePassport, HardwareService } from "@/packages/shared/libs/hardware/tabs/page-tabs";
 
 export const HardwareAbout = observer(() => {
     const { id, tab } = useParams();

@@ -1,8 +1,8 @@
-import { getAllHardware } from "@/entities/hardware/api"
-import { getCommandAllInfo, schemaAll } from "@/entities/hardware/api-general"
-import { ApiSchemaCardCreate } from "@/entities/sensor/api"
-import { SchemaCardInterface } from "@/entities/sensor/type"
-import { SeletectItemInterface } from "@/shared/ui/Selector/type"
+import { getAllHardware } from "@/packages/entities/hardware/api"
+import { getCommandAllInfo, schemaAll } from "@/packages/entities/hardware/api-general"
+import { ApiSchemaCardCreate } from "@/packages/entities/sensor/api"
+import { SchemaCardInterface } from "@/packages/entities/sensor/type"
+import { SeletectItemInterface } from "@/packages/shared-ui/Selector/type"
 import { makeAutoObservable } from "mobx"
 import { toast } from "react-toastify"
 

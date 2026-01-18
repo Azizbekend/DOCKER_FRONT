@@ -1,6 +1,6 @@
 import { Modal } from "@/app/cores/core-trieco/UIKit"
-import { Button } from "@/shared/ui/button"
-import { Input } from "@/shared/ui/GIS"
+import { Button } from "@/packages/shared-ui/button"
+import { Input } from "@/packages/shared-ui/GIS"
 
 type Props = {
     show: boolean,

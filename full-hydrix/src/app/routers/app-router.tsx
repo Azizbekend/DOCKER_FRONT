@@ -1,4 +1,4 @@
-import { Role } from "@/entities/user/role";
+import { Role } from "@/packages/entities/user/role";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RoleGuard } from "@/app/features/role-guard";
 
@@ -340,7 +340,7 @@ export const AppRouter = createBrowserRouter([
                     {
                         path: "orders",
                         async lazy() {
-                            const { RequestRegistry } = await import("@/modules/dispatcher/pages/orders")
+                            const { RequestRegistry } = await import("@/modules/dispatcher/pages/orders/layout")
                             return {
                                 Component: RequestRegistry
                             }
@@ -349,67 +349,20 @@ export const AppRouter = createBrowserRouter([
                             {
                                 index: true,
                                 async lazy() {
-                                    const { RequestRegistryList } = await import("@/modules/dispatcher/pages/orders/tabs/list")
+                                    const { RequestRegistryList } = await import("@/modules/dispatcher/pages/orders/orders-list")
                                     return {
                                         Component: RequestRegistryList
                                     }
                                 },
                             },
                             {
-                                path: "create",
+                                path: "form",
                                 async lazy() {
-                                    const { RequestRegistryForm } = await import("@/modules/dispatcher/pages/orders/tabs/form")
+                                    const { RequestRegistryForm } = await import("@/modules/dispatcher/pages/orders/orders-form")
                                     return {
                                         Component: RequestRegistryForm
                                     }
                                 },
-                                children: [
-                                    {
-                                        path: "form",
-                                        async lazy() {
-                                            const { RequestForm } = await import("@/modules/dispatcher/pages/orders/tabs/form/tabs/request-form")
-                                            return {
-                                                Component: RequestForm
-                                            }
-                                        },
-                                    },
-                                    {
-                                        path: "information",
-                                        async lazy() {
-                                            const { RequestForm } = await import("@/modules/dispatcher/pages/orders/tabs/form/tabs/request-form")
-                                            return {
-                                                Component: RequestForm
-                                            }
-                                        },
-                                    },
-                                    {
-                                        path: "tasks",
-                                        async lazy() {
-                                            const { RequestForm } = await import("@/modules/dispatcher/pages/orders/tabs/form/tabs/request-form")
-                                            return {
-                                                Component: RequestForm
-                                            }
-                                        },
-                                    },
-                                    {
-                                        path: "journal",
-                                        async lazy() {
-                                            const { RequestForm } = await import("@/modules/dispatcher/pages/orders/tabs/form/tabs/request-form")
-                                            return {
-                                                Component: RequestForm
-                                            }
-                                        },
-                                    },
-                                    {
-                                        path: "history",
-                                        async lazy() {
-                                            const { RequestHistory } = await import("@/modules/dispatcher/pages/orders/tabs/form/tabs/request-history")
-                                            return {
-                                                Component: RequestHistory
-                                            }
-                                        },
-                                    },
-                                ]
                             }
                         ]
                     },
