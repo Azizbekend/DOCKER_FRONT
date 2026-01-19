@@ -1,40 +1,42 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import { Incident } from "../../registry-objects/data/data";
+import { ServiceType } from "@/packages/entities/service-requests/type";
+import { getDate } from "@/packages/hook/get-date";
 
-export const columns: TableColumn<Incident>[] = [
+export const columnsIncidents: TableColumn<Incident>[] = [
     {
         header: "Объект",
-        key: 'nameMinin',
-        cell: ({ object }) => {
+        key: 'objectId',
+        cell: ({ objectId }) => {
             return (
-                <div className='font-semibold text-sm text-left'>{object}</div>
+                <div className='font-semibold text-sm text-left'>{objectId}</div>
             )
         },
     },
     {
         header: "Оборудование",
-        key: 'hardware',
-        cell: ({ hardware }) => {
+        key: 'hardwareName',
+        cell: ({ hardwareName }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{hardware}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{hardwareName}</div>
             );
         },
     },
     {
         header: "Авария",
-        key: 'issue',
-        cell: ({ issue }) => {
+        key: 'discription',
+        cell: ({ discription }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{issue || '—'}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{discription || '—'}</div>
             );
         },
     },
     {
         header: "Время",
-        key: 'time',
-        cell: ({ time }) => {
+        key: 'createdAt',
+        cell: ({ createdAt }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{time}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{getDate(createdAt)}</div>
             );
         },
     },
@@ -50,9 +52,9 @@ export const columns: TableColumn<Incident>[] = [
     {
         header: "Исполнитель",
         key: 'responsible',
-        cell: ({ responsible }) => {
+        cell: ({ serviceUserId }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{responsible}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{serviceUserId}</div>
             );
         },
     },
@@ -63,11 +65,78 @@ export const columns: TableColumn<Incident>[] = [
             return (
                 <div className="flex justify-center">
                     <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold 
-                        ${status == "Новый" && "bg-red-100 text-red-800 border border-red-200"}
+                        ${status == "New" && "bg-red-100 text-red-800 border border-red-200"}
                         ${status == "В работе" && "bg-blue-100 text-blue-800 border border-blue-200"}
                         ${status == "Завершён" && "bg-green-100 text-green-800 border border-green-200"}
                     `}>
-                        {status}
+                        {status == "New" && "Новая"}
+                    </div>
+                </div >
+            );
+        },
+    },
+];
+
+export const columnsService: TableColumn<ServiceType>[] = [
+    {
+        header: "Оборудование",
+        key: 'hardwareName',
+        cell: ({ hardwareName }) => {
+            return (
+                <div className='font-semibold text-sm text-left'>{hardwareName}</div>
+            )
+        },
+    },
+    {
+        header: "Наименование",
+        key: 'title',
+        cell: ({ title }) => {
+            return (
+                <div className='font-semibold text-sm text-left'>{title}</div>
+            )
+        },
+    },
+    {
+        header: "Дата создания",
+        key: 'createdAt',
+        cell: ({ createdAt }) => {
+            return (
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{getDate(createdAt)}</div>
+            );
+        },
+    },
+    {
+        header: "Дата завершения",
+        key: 'closedAt',
+        cell: ({ closedAt }) => {
+            return (
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{getDate(closedAt)}</div>
+            );
+        },
+    },
+    {
+        header: "Ответственный исполнитель",
+        key: 'creatorId',
+        cell: ({ creatorId }) => {
+            return (
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{creatorId}</div>
+            );
+        },
+    },
+    {
+        header: "Статус работы",
+        key: 'status',
+        cell: ({ status }) => {
+            return (
+                <div className="flex justify-center">
+                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold 
+                        ${status == "New" && "bg-blue-100 text-blue-800 border border-blue-200"}
+                        ${status == "Completed" && "bg-green-100 text-green-800 border border-green-200"}
+                        ${status == "Canceled" && "bg-red-100 text-red-800 border border-red-200"}
+                    `}>
+                        {status == "New" && "Новый"}
+                        {status == "Completed" && "Завершён"}
+                        {status == "Canceled" && "Отменён"}
                     </div>
                 </div >
             );

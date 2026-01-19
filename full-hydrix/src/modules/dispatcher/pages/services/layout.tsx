@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from "react-router-dom"
-import { tabs } from "../../features/orders/config";
+import { tabs } from "../../features/service-request/config";
+
 
 
 export const RequestRegistry = () => {

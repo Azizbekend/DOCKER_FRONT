@@ -1,0 +1,127 @@
+import { getInfoHardware } from "@/packages/entities/hardware/api";
+import { getAllIncedent } from "@/packages/entities/incident/api";
+import { getServiceRequestsAll } from "@/packages/entities/service-requests/api";
+import { ServiceType } from "@/packages/entities/service-requests/type";
+import { makeAutoObservable } from "mobx";
+import { Incident } from "../../pages/registry-objects/data/data";
+
+class ServicesMapModel {
+    services: ServiceType[] = [];
+    incidents: Incident[] = [];
+
+    isLoaded: boolean = true;
+
+    isPanel: boolean = true;
+    serviceId: number = 0
+
+    constructor() {
+        makeAutoObservable(this, {}, { autoBind: true });
+    }
+
+    setIsPanel(value: boolean, id = 0) {
+        this.serviceId = id;
+        this.isPanel = value;
+    }
+
+    async init() {
+        try {
+            this.isLoaded = true;
+            this.initService()
+            this.initIncident()
+
+        } catch (error) {
+            console.error('Ошибка инициализации сервисов:', error);
+            throw error;
+        } finally {
+            this.isLoaded = false;
+        }
+    }
+
+    async initService() {
+
+        const serviceResponse = await getServiceRequestsAll();
+        const services = serviceResponse.data;
+
+        const hardwareIds = new Set<number>();
+        services.forEach(service => {
+            if (service.hardwareId) {
+                hardwareIds.add(service.hardwareId);
+            }
+        });
+
+        const hardwarePromises = Array.from(hardwareIds).map(async (hardwareId) => {
+            try {
+                const hardwareResponse = await getInfoHardware({ id: hardwareId });
+                return {
+                    hardwareId,
+                    hardwareName: hardwareResponse.data?.name || 'Неизвестно'
+                };
+            } catch (error) {
+                console.error(`Ошибка загрузки hardware ${hardwareId}:`, error);
+                return {
+                    hardwareId,
+                    hardwareName: 'Ошибка загрузки'
+                };
+            }
+        });
+
+        const hardwareInfoArray = await Promise.all(hardwarePromises);
+
+        const hardwareMap = new Map<number, string>();
+        hardwareInfoArray.forEach(info => {
+            hardwareMap.set(info.hardwareId, info.hardwareName);
+        });
+
+        const enrichedServices = services.map(service => ({
+            ...service,
+            hardwareName: service.hardwareId ? hardwareMap.get(service.hardwareId) || 'Неизвестно' : null
+        }));
+
+        this.services = enrichedServices;
+
+    }
+
+    async initIncident() {
+        const incidentResponse = await getAllIncedent();
+        this.incidents = incidentResponse.data;
+
+        const hardwareIds = new Set<number>();
+        this.incidents.forEach(incident => {
+            if (incident.hardwareId) {
+                hardwareIds.add(incident.hardwareId);
+            }
+        });
+
+        const hardwarePromises = Array.from(hardwareIds).map(async (hardwareId) => {
+            try {
+                const hardwareResponse = await getInfoHardware({ id: hardwareId });
+                return {
+                    hardwareId,
+                    hardwareName: hardwareResponse.data?.name || 'Неизвестно'
+                };
+            } catch (error) {
+                console.error(`Ошибка загрузки hardware ${hardwareId}:`, error);
+                return {
+                    hardwareId,
+                    hardwareName: 'Ошибка загрузки'
+                };
+            }
+        });
+
+        const hardwareInfoArray = await Promise.all(hardwarePromises);
+
+        const hardwareMap = new Map<number, string>();
+        hardwareInfoArray.forEach(info => {
+            hardwareMap.set(info.hardwareId, info.hardwareName);
+        });
+
+        const enrichedIncidents = this.incidents.map(incident => ({
+            ...incident,
+            hardwareName: incident.hardwareId ? hardwareMap.get(incident.hardwareId) || 'Неизвестно' : null
+        }));
+
+        this.incidents = enrichedIncidents;
+    }
+}
+
+export const servicesMapModel = new ServicesMapModel();

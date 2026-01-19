@@ -338,9 +338,9 @@ export const AppRouter = createBrowserRouter([
                         },
                     },
                     {
-                        path: "orders",
+                        path: "services",
                         async lazy() {
-                            const { RequestRegistry } = await import("@/modules/dispatcher/pages/orders/layout")
+                            const { RequestRegistry } = await import("@/modules/dispatcher/pages/services/layout")
                             return {
                                 Component: RequestRegistry
                             }
@@ -349,7 +349,7 @@ export const AppRouter = createBrowserRouter([
                             {
                                 index: true,
                                 async lazy() {
-                                    const { RequestRegistryList } = await import("@/modules/dispatcher/pages/orders/orders-list")
+                                    const { RequestRegistryList } = await import("@/modules/dispatcher/pages/services/services-list")
                                     return {
                                         Component: RequestRegistryList
                                     }
@@ -358,13 +358,22 @@ export const AppRouter = createBrowserRouter([
                             {
                                 path: "form",
                                 async lazy() {
-                                    const { RequestRegistryForm } = await import("@/modules/dispatcher/pages/orders/orders-form")
+                                    const { RequestRegistryForm } = await import("@/modules/dispatcher/pages/services/service-form")
                                     return {
                                         Component: RequestRegistryForm
                                     }
                                 },
                             }
                         ]
+                    },
+                    {
+                        path: "stages",
+                        async lazy() {
+                            const { Stages } = await import("@/modules/dispatcher/pages/stages")
+                            return {
+                                Component: Stages
+                            }
+                        },
                     },
                     {
                         path: "incident",

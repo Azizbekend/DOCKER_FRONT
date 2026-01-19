@@ -58,8 +58,8 @@ export const Sidebar = observer(() => {
                     <SidebarItem link={`/dispatcher/timmodel`} icon='cube' title='3D модель' isActive={location.pathname.includes('/dispatcher/timmodel')} />
                     <SidebarItem link={`/dispatcher/video-surveillance`} icon='video-surveillance' title='Видеонаблюдение' isActive={location.pathname.includes('/dispatcher/video-surveillance')} />
                     <SidebarItem link={`/dispatcher/hardware`} icon='wrench' title='Оборудование' isActive={location.pathname.includes('/dispatcher/hardware')} />
-                    <SidebarItem link={`/dispatcher/orders`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/orders')} />
-                    <SidebarItem link={`/dispatcher/tasks`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/tasks')} />
+                    <SidebarItem link={`/dispatcher/services`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/services')} />
+                    <SidebarItem link={`/dispatcher/stages`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/stages')} />
                     <SidebarItem link={`/dispatcher/incident`} icon='incident' title='Аварии' isActive={location.pathname.includes('/dispatcher/incident')} />
                 </div>
                 <div>

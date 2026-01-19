@@ -8,8 +8,9 @@ export type ServiceType = {
     cancelDiscription: string,
     creatorId: number,
     implementerId: number,
+    objectId: number,
     hardwareId: number,
-    objectId: number
+    hardwareName?: string
 }
 
 
@@ -53,9 +54,14 @@ export type CancelStageType = {
 }
 
 export type ServiceStageType = {
+    id: number,
     discription: string,
     stageType: string,
+    cancelDiscription?: string,
     serviceId: number,
     creatorId: number,
-    implementerId: number
+    implementerId: number,
+    currentStatus?: string,
+    closedAt?: Date | null,
+    createdAt?: Date,
 }

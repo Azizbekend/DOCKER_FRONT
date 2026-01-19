@@ -32,13 +32,17 @@ export const objects = [
 
 export interface Incident {
     id: number,
-    object: string,
-    hardware: string,
-    issue: string,
+    nodeName: string,
+    discription: null,
     status: string,
-    time: string,
-    duration: string,
-    responsible: string,
+    isClosed: boolean,
+    createdAt: string,
+    closedAt: string,
+    hardwareId: number,
+    hardwareName?: string,
+    controlBlockId: number,
+    objectId: number,
+    serviceUserId: number
 }
 
 

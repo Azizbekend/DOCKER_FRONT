@@ -6,15 +6,22 @@ import 'mmr-gl/dist/mmr-gl.css';
 import { useNavigate } from "react-router-dom";
 import { Table } from '@/packages/shared-ui/table/index';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { chartData, chartDataInic, incidents } from './data/data';
-import { columns } from './components/columns';
+import { chartData, chartDataInic } from './data/data';
+import { columnsIncidents, columnsService } from './components/columns';
+import { servicesMapModel } from '../../features/service-request/services-map-model';
+import { ServiceStagesPanel } from '../../features/service-stage/ui/stages-panel';
 
 
 
 export const MapObjects = observer(() => {
 
+  const { init, services, incidents, setIsPanel, isPanel, serviceId } = servicesMapModel
+
+
 
   useEffect(() => {
+    init();
+
     const getImage = document.createElement('img');
     getImage.src = mapPl;
     getImage.onclick = () => { navigate("/domain/passport/information") }
@@ -40,19 +47,23 @@ export const MapObjects = observer(() => {
 
   const navigate = useNavigate();
 
-  const [typeTable, setTypeTable] = useState<"orders" | "incident">("orders");
+  const [typeTable, setTypeTable] = useState<"services" | "incident">("services");
   const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
-  const handleRow = () => {
-    navigate("/domain/passport/information")
+  const handleRow = (row: any) => {
+    if (typeTable == "services") {
+      setIsPanel(true, row.serviceId);
+    }
   }
 
   return (
-    <div
-      className="w-full gap-6 relative"
-      style={{ fontFamily: "'Open Sans', sans-serif" }}
-    >
+    <div className="w-full gap-6 relative">
+      <ServiceStagesPanel
+        show={isPanel}
+        onClose={() => setIsPanel(false, 0)}
+        serviceId={serviceId}
+      />
       <div className='min-h-[50vh] flex gap-5 mb-10'>
         <div className="w-[75%] col-start-1 col-end-4">
           <div id="map" className="w-full h-full rounded-xl shadow-sm" />
@@ -123,21 +134,19 @@ export const MapObjects = observer(() => {
 
 
         <div className='flex items-center gap-3'>
-          <TypeButton name='Заявки' isActive={typeTable == "orders"} onClick={() => setTypeTable("orders")} />
+          <TypeButton name='Заявки' isActive={typeTable == "services"} onClick={() => setTypeTable("services")} />
           <TypeButton name='Аварии' isActive={typeTable == "incident"} onClick={() => setTypeTable("incident")} />
         </div>
       </div>
 
       <Table
-        classNames={{
-          body: "",
-          thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200",
-        }}
+        classNames={{ thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200" }}
         onRowClick={handleRow}
-        columns={columns}
+        columns={typeTable == "services" ? columnsService : columnsIncidents}
         countActive
-        data={incidents}
+        data={typeTable == "services" ? services : incidents}
       />
+
 
     </div>
   );

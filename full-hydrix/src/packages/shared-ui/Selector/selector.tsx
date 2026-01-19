@@ -62,7 +62,7 @@ export const Selector = observer(({ placeholder, items, onSelect, className, cla
                     }} />}
             </div>
 
-            <div className={`absolute left-0 top-[110%] rounded-lg flex flex-col gap-2 w-full bg-white border-[1px] ${isOpen ? "min-w-full overflow-y-scroll z-[1]" : "hidden border-0 overflow-hidden"} ${className}`}>
+            <div className={`absolute left-0 top-[110%] rounded-lg flex flex-col gap-2 w-full bg-white border-[1px] ${isOpen ? "min-w-full max-h-[120px] overflow-y-scroll z-[1]" : "hidden border-0 overflow-hidden"} ${className}`}>
                 {items.map(item => (
                     <div className="hover:bg-[#e2e2e2] py-3 px-2" onClick={() => { onChange(item.title); onSelect && onSelect(item) }}>
                         <span className="">{item.title}</span>

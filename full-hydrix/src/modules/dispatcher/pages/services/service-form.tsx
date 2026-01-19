@@ -1,15 +1,17 @@
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { Button } from "@/packages/shared-ui/button";
-import { createRequestModel } from "../../features/orders/form/create-request-model";
+import { createRequestModel } from "../../features/service-request/form/create-request-model";
 import { useEffect } from "react";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { Textarea } from "@/packages/shared-ui/textarea";
 import { observer } from "mobx-react-lite";
+import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search";
+import { Link } from "react-router-dom";
 
 export const RequestRegistryForm = observer(() => {
 
-    const { model, setTitle, setDiscription, setType, setHardwareId, init } = createRequestModel
+    const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create } = createRequestModel
 
     useEffect(() => {
         init()
@@ -39,9 +41,8 @@ export const RequestRegistryForm = observer(() => {
                         placeholder="Тип заявки"
                         classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
                         items={[
-                            { value: 1, title: "АО «ВКС»" },
-                            { value: 2, title: "АО «УКС»" },
-                            { value: 3, title: "ГБУ «СЭТИК»" },
+                            { value: 'Общая', title: "Общая" },
+                            { value: 'Поставочная', title: "Поставочная" },
                         ]}
                         onSelect={(item) => { setType(item.value.toString()) }}
                         icon="arrow-down"
@@ -49,16 +50,13 @@ export const RequestRegistryForm = observer(() => {
                 </InputContainer>
 
                 <InputContainer headerText="Оборудование">
-                    <Selector
+                    <SelectorSearch
                         placeholder="Оборудование"
                         classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
-                        items={[
-                            { value: 1, title: "АО «ВКС»" },
-                            { value: 2, title: "АО «УКС»" },
-                            { value: 3, title: "ГБУ «СЭТИК»" },
-                        ]}
-                        onSelect={(item) => { setType(item.value.toString()) }}
+                        items={hardwareList}
+                        onSelect={(item) => { setHardwareId(Number(item.value)) }}
                         icon="arrow-down"
+                        isLoader={isLodaderHardwares}
                     />
                 </InputContainer>
 
@@ -73,12 +71,12 @@ export const RequestRegistryForm = observer(() => {
                 </InputContainer>
 
                 <div className="flex gap-4">
-                    <Button class="bg-[#4A85F6] text-white px-6 py-2.5 rounded-lg hover:opacity-50 duration-300">
+                    <Button class="bg-[#4A85F6] text-white px-6 py-2.5 rounded-lg hover:opacity-50 duration-300" onClick={create}>
                         Отправить заявку
                     </Button>
-                    <Button class="text-[var(--clr-accent)] px-6 py-2.5 rounded-lg border border-[var(--clr-accent)] hover:bg-[var(--clr-accent)] hover:text-white duration-300">
+                    <Link to="/dispatcher/orders" className="text-[var(--clr-accent)] px-6 py-2.5 rounded-lg border border-[var(--clr-accent)] hover:bg-[var(--clr-accent)] hover:text-white duration-300">
                         Отменить
-                    </Button>
+                    </Link>
                 </div>
             </div>
         </>

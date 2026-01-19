@@ -3,11 +3,11 @@ export const tabs: {
     label: string,
 }[] = [
         {
-            to: "/dispatcher/orders",
+            to: "/dispatcher/services",
             label: "Заявки",
         },
         {
-            to: "/dispatcher/orders/form",
+            to: "/dispatcher/services/form",
             label: "Создание заявки",
         }
     ]
