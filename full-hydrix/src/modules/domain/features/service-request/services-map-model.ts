@@ -97,8 +97,6 @@ class ServicesMapModel {
 
 
 
-
-
         this.services = enrichedServices;
 
     }
