@@ -85,7 +85,7 @@ export const Cashless = observer(() => {
 
                 <Input
                     type="email"
-                    headerText="E-mail для квитанции" isRequired
+                    headerText="Электронная почта для квитанции" isRequired
                     onChange={changeEmail}
                     value={modelPay.email} class="text-[13px]" headerTextStyle="!text-[13px]"
                     underlineTextStyle="!text-[#CB0D0D]"

@@ -11,20 +11,19 @@ import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
 import { ServiceStagesPanel } from '../../features/service-stage/ui/stages-panel';
 
-
-
 export const MapObjects = observer(() => {
+  const { init, services, incidents, setIsPanel, isPanel, serviceId } = servicesMapModel;
+  const navigate = useNavigate();
 
-  const { init, services, incidents, setIsPanel, isPanel, serviceId } = servicesMapModel
-
-
+  const [typeTable, setTypeTable] = useState<"services" | "incident">("services");
+  const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
   useEffect(() => {
     init();
 
     const getImage = document.createElement('img');
     getImage.src = mapPl;
-    getImage.onclick = () => { navigate("/domain/passport/information") }
+    getImage.onclick = () => { navigate("/domain/passport/information") };
 
     mmrgl.accessToken = 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814';
 
@@ -33,7 +32,7 @@ export const MapObjects = observer(() => {
       zoom: 10,
       center: [49.349157, 55.858397],
       style: 'mmr://api/styles/main_style.json',
-    })
+    });
 
     var marker = new mmrgl.Marker({
       element: getImage,
@@ -41,21 +40,13 @@ export const MapObjects = observer(() => {
     })
       .setLngLat([49.495274, 55.957421])
       .addTo(map);
-  }, [])
-
-
-
-  const navigate = useNavigate();
-
-  const [typeTable, setTypeTable] = useState<"services" | "incident">("services");
-  const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
-
+  }, []);
 
   const handleRow = (id: number) => {
-    if (typeTable == "services") {
+    if (typeTable === "services") {
       setIsPanel(true, id);
     }
-  }
+  };
 
   return (
     <div className="w-full gap-6 relative">
@@ -65,32 +56,43 @@ export const MapObjects = observer(() => {
         serviceId={serviceId}
         key={serviceId}
       />
-      <div className='min-h-[50vh] flex gap-5 mb-10'>
-        <div className="w-[75%] col-start-1 col-end-4">
-          <div id="map" className="w-full h-full rounded-xl shadow-sm" />
+      
+      {/* Адаптивная сетка: карта + панель */}
+      <div className="flex flex-col lg:flex-row gap-5 mb-10">
+        {/* Карта - фиксированная высота на всех устройствах */}
+        <div className="lg:w-[75%] w-full">
+          <div id="map" className="w-full h-[610px] rounded-xl shadow-sm" />
         </div>
 
-        <div className=" bg-white/90 backdrop-blur-lg rounded-xl shadow-sm p-5 flex-1">
-
+        {/* Панель информации */}
+        <div className="lg:w-[25%] w-full bg-white/90 backdrop-blur-lg rounded-xl shadow-sm p-5">
           <div className="text-gray-900 text-sm font-semibold border-b-2 border-gray-200 mb-6 pb-3 flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             Объектов онлайн <span className="text-gray-600 font-normal">1 из 1</span>
           </div>
 
           {chartDataInic.map((item, index) => (
-            <div className={`${item.color == "red" ? "bg-red-50" : "bg-blue-50"} p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
+            <div 
+              key={index}
+              className={`${item.color === "red" ? "bg-red-50" : "bg-blue-50"} p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}
+            >
               <div className="mb-1">{item.name}</div>
-              <div className={`font-semibold ${item.color == "red" ? 'text-red-600' : 'text-blue-600'}`}>{item.value}</div>
+              <div className={`font-semibold ${item.color === "red" ? 'text-red-600' : 'text-blue-600'}`}>
+                {item.value}
+              </div>
             </div>
           ))}
 
-          <div className=" p-2 rounded-xl text-[14px] font-medium mb-4 flex items-center justify-between">
+          <div className="p-2 rounded-xl text-[14px] font-medium mb-4 flex items-center justify-between">
             <div className="mb-1"></div>
             <div className='text-blue-600'></div>
           </div>
 
           {chartData.map((item, index) => (
-            <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+            <div 
+              key={index}
+              className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'
+            >
               <span>{item.name}</span>
               <div className='flex flex-col'>
                 <span className='font-bold text-sm'>{item.value + "%"}</span>
@@ -99,8 +101,7 @@ export const MapObjects = observer(() => {
             </div>
           ))}
 
-
-          <div style={{ width: '100%', height: 300 }}>
+          <div style={{ width: '100%', height: 200 }}>
             <ResponsiveContainer>
               <PieChart>
                 <Pie
@@ -109,7 +110,7 @@ export const MapObjects = observer(() => {
                   cy="50%"
                   labelLine={false}
                   label
-                  outerRadius={80}
+                  outerRadius={60}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -121,44 +122,86 @@ export const MapObjects = observer(() => {
               </PieChart>
             </ResponsiveContainer>
           </div>
-
         </div>
       </div>
 
-      <div className='flex items-center justify-between mb-7 bg-white p-5 rounded-lg'>
-        <div className='flex gap-3'>
-          <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />
-          <FilterButton name='Критичные' isActive={filterBtn == "critical"} onClick={() => setFilterBtn("critical")} />
-          <FilterButton name='Важные' isActive={filterBtn == "important"} onClick={() => setFilterBtn("important")} />
-          <FilterButton name='Плановые' isActive={filterBtn == "planned"} onClick={() => setFilterBtn("planned")} />
+      {/* Фильтры и переключатели */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 bg-white p-4 sm:p-5 rounded-lg">
+        <div className="flex flex-wrap gap-2">
+          <FilterButton 
+            name='Все' 
+            isActive={filterBtn === "all"} 
+            onClick={() => setFilterBtn("all")} 
+          />
+          <FilterButton 
+            name='Критичные' 
+            isActive={filterBtn === "critical"} 
+            onClick={() => setFilterBtn("critical")} 
+          />
+          <FilterButton 
+            name='Важные' 
+            isActive={filterBtn === "important"} 
+            onClick={() => setFilterBtn("important")} 
+          />
+          <FilterButton 
+            name='Плановые' 
+            isActive={filterBtn === "planned"} 
+            onClick={() => setFilterBtn("planned")} 
+          />
         </div>
 
-
-        <div className='flex items-center gap-3'>
-          <TypeButton name='Заявки' isActive={typeTable == "services"} onClick={() => setTypeTable("services")} />
-          <TypeButton name='Аварии' isActive={typeTable == "incident"} onClick={() => setTypeTable("incident")} />
+        <div className="flex flex-wrap gap-2">
+          <TypeButton 
+            name='Заявки' 
+            isActive={typeTable === "services"} 
+            onClick={() => setTypeTable("services")} 
+          />
+          <TypeButton 
+            name='Аварии' 
+            isActive={typeTable === "incident"} 
+            onClick={() => setTypeTable("incident")} 
+          />
         </div>
       </div>
 
+      {/* Таблица */}
       <Table
         classNames={{ thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200" }}
         onRowClick={(row) => handleRow(row.id)}
-        columns={typeTable == "services" ? columnsService : columnsIncidents}
+        columns={typeTable === "services" ? columnsService : columnsIncidents}
         countActive
-        data={typeTable == "services" ? services : incidents}
+        data={typeTable === "services" ? services : incidents}
       />
-
-
     </div>
   );
 });
 
+const TypeButton = ({ name, isActive, onClick }: { name: string; isActive: boolean; onClick: () => void }) => {
+  return (
+    <button 
+      onClick={onClick} 
+      className={`py-1.5 px-3 sm:px-4 rounded-lg duration-300 font-semibold text-sm whitespace-nowrap ${
+        isActive 
+          ? "bg-[#4A85F6] text-white" 
+          : "hover:bg-gray-300 bg-gray-200 text-gray-600"
+      }`}
+    >
+      {name}
+    </button>
+  );
+};
 
-const TypeButton = ({ name, isActive, onClick }: { name: string, isActive: boolean, onClick: () => void }) => {
-  return <button onClick={onClick} className={`py-1 px-4 rounded-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
-}
-
-
-const FilterButton = ({ name, isActive, onClick }: { name: string, isActive: boolean, onClick: () => void }) => {
-  return <button onClick={onClick} className={`py-1 px-4 rounded-lg duration-300 font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : " hover:bg-gray-300 bg-gray-200 text-gray-600"}`}>{name}</button>
-}
+const FilterButton = ({ name, isActive, onClick }: { name: string; isActive: boolean; onClick: () => void }) => {
+  return (
+    <button 
+      onClick={onClick} 
+      className={`py-1.5 px-3 sm:px-4 rounded-lg duration-300 font-semibold text-sm whitespace-nowrap ${
+        isActive 
+          ? "bg-[#4A85F6] text-white" 
+          : "hover:bg-gray-300 bg-gray-200 text-gray-600"
+      }`}
+    >
+      {name}
+    </button>
+  );
+};

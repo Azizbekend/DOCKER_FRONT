@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import logo from './static/img/logo-3.png';
 import { useEffect } from 'react';
 
-
 export const Layout = () => {
   useEffect(() => {
     const style = document.createElement('style');
@@ -42,10 +41,6 @@ export const Layout = () => {
     };
   }, []);
 
-
-
-
-
   return (
     <>
       {/* Water-themed background */}
@@ -66,12 +61,10 @@ export const Layout = () => {
         <div className="absolute top-2/3 left-2/3 w-24 h-24 border-2 border-white/20 rounded-full opacity-30 animate-ping delay-500"></div>
       </div>
 
-      <div className="flex w-full min-h-screen z-10 relative">
-
-
-        {/* Left engaging section */}
-        <div className="w-[48%] min-h-screen bg-gradient-to-b relative overflow-hidden flex flex-col" id='selector'>
-          {/* Decorative background elements */}
+      {/* Адаптивная основная сетка */}
+      <div className="flex flex-col lg:flex-row min-h-screen z-10 relative">
+        {/* Левая секция (десктоп) / Верхняя секция (мобильная) */}
+        <div className="lg:w-[48%] w-full min-h-[400px] lg:min-h-screen bg-gradient-to-b relative overflow-hidden flex flex-col" id='selector'>
           <div className="absolute top-0 left-0 w-full h-full">
             <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
             <div className="absolute bottom-20 right-20 w-48 h-48 bg-white/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
@@ -79,30 +72,27 @@ export const Layout = () => {
             <div className="absolute bottom-1/3 right-32 w-16 h-16 bg-white/20 rounded-full blur-md animate-pulse delay-1500"></div>
           </div>
 
-          {/* Centered content */}
-          <div className="flex flex-col items-center justify-center text-center relative z-10 flex-1 px-12">
-            {/* Logo and main title */}
-            <div className="flex flex-col items-center gap-6 mb-8 max-w-2xl">
-              <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/30 transform hover:scale-105 transition-transform duration-300">
-                <img className='h-16 w-auto' src={logo} alt="Логотип" />
+          <div className="flex flex-col items-center justify-center text-center relative z-10 flex-1 p-6 lg:p-12">
+            {/* Логотип и заголовок */}
+            <div className="flex flex-col items-center gap-4 lg:gap-6 mb-6 lg:mb-8 max-w-2xl">
+              <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 lg:p-6 shadow-2xl border border-white/30 transform hover:scale-105 transition-transform duration-300">
+                <img className='h-12 lg:h-16 w-auto' src={logo} alt="Логотип" />
               </div>
-              <h1 className='font-bold text-white text-3xl md:text-4xl leading-tight'>
+              <h1 className='font-bold text-white text-2xl lg:text-3xl xl:text-4xl leading-tight px-2'>
                 ИАС «ЦИФРОВОЙ ВОДОКАНАЛ»
               </h1>
             </div>
 
-            {/* Main description */}
-            <div className="relative z-10 mb-8 max-w-2xl">
-              <p className="text-white/95 text-lg leading-relaxed px-4">
+            {/* Описание */}
+            <div className="relative z-10 mb-6 lg:mb-8 max-w-2xl">
+              <p className="text-white/95 text-base lg:text-lg leading-relaxed px-2 lg:px-4">
                 Комплексная интеллектуальная система управления, объединяющая в единый цифровой контур все процессы водоснабжения и водоотведения для обеспечения их надежности, управляемости и экономической эффективности.
               </p>
             </div>
 
-            {/* Регистрация в Реестре ПО — красиво и официально */}
-            <div className="relative z-10 p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 max-w-lg">
-              <div className="flex items-start gap-3">
-
-                {/* Текст */}
+            {/* Реестр ПО */}
+            <div className="relative z-10 p-4 lg:p-5 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 max-w-lg">
+              {/* Текст */}
                 <div>
                   <p className="text-white/90 text-sm leading-relaxed mb-2">
                     Программное обеспечение зарегистрировано в Реестре российского ПО&nbsp;
@@ -132,23 +122,22 @@ export const Layout = () => {
                     </p>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Right content section */}
-        <div className="max-w-[52vw] w-full min-h-full flex justify-center flex-col px-[52px] relative">
-          <div className='flex justify-center items-center max-w-full h-full'>
+        {/* Правая секция (десктоп) / Нижняя секция (мобильная) */}
+        <div className="lg:max-w-[52vw] w-full flex justify-center flex-col px-4 lg:px-[52px] py-8 lg:py-0">
+          <div className='flex justify-center items-center w-full h-full'>
             <Outlet />
           </div>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 z-20 bg-white/10 backdrop-blur-sm border-t border-white/20 text-white/80 text-sm">
-        <div className="flex items-center justify-between w-full px-6 py-3">
-          <div className="text-left">
+      {/* Адаптивный футер */}
+      <footer className="lg:fixed lg:bottom-0 lg:left-0 lg:right-0 z-20 bg-white/10 backdrop-blur-sm border-t border-white/20 text-white/80 text-xs lg:text-sm">
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full px-4 lg:px-6 py-3 gap-2 lg:gap-0">
+          <div className="text-center lg:text-left w-full lg:w-auto">
             <a
               href="https://elseti-rt.ru/"
               target="_blank"
@@ -158,7 +147,7 @@ export const Layout = () => {
               © Государственное унитарное предприятие Республики Татарстан «Электрические сети»
             </a>
           </div>
-          <div className="text-center font-medium">
+          <div className="text-center w-full lg:w-auto font-medium">
             <a
               href="https://smkhydrig.ru/"
               target="_blank"
@@ -168,7 +157,7 @@ export const Layout = () => {
               Разработано: ООО "СМК-ГИДРИКС"
             </a>
           </div>
-          <div className="text-right">
+          <div className="text-center lg:text-right w-full lg:w-auto">
             <a
               href="/privacy-policy"
               className="hover:text-white hover:underline transition-colors duration-200"

@@ -52,7 +52,7 @@ export const EditProfileView = observer(() => {
                     </div>
                 </div>
                 <div className="w-[100%] leading-none">
-                    <p className='mb-2 text-[#7D7D7D] text-sm'>E-mail</p>
+                    <p className='mb-2 text-[#7D7D7D] text-sm'>Электронная почта</p>
                     <Input type="email" onChange={changeEmail} value={model?.email} notAllBorder={true} class="border-b rounded-none border-[#E9E9E9] pl-0" />
                 </div>
 

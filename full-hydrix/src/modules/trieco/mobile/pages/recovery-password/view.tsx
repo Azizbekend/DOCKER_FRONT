@@ -19,7 +19,7 @@ export const PasswordRecoveryView = () => {
                     <span className='text-center font-bold text-[22px]'>Забыли пароль?</span>
                     <span className='text-center font-semibold text-[16px]'>Введите адрес электронной почты, с которым вы зарегистрированы.</span>
                     <Input
-                        headerText='E-mail'
+                        headerText='Электронная почта'
                         isRequired
                         placeholder=''
                         class='h-[56px] rounded-[10px] pl-[14px]' />

@@ -36,81 +36,122 @@ export const RegistryObjectsLayout = observer(() => {
         </Link>
 
         <div>
-          <h1 className="font-bold text-gray-800 text-4xl">Единый реестр объектов</h1>
-          <div className="w-28 h-1 bg-[#4A85F6] rounded-full mt-1"></div>
+          <h1 className="font-bold text-gray-800 text-2xl sm:text-3xl md:text-4xl">Единый реестр объектов</h1>
+          <div className="w-24 sm:w-28 h-0.5 sm:h-1 bg-[#4A85F6] rounded-full mt-1"></div>
         </div>
       </div>
 
       {/* Панель управления */}
-      <div className="mb-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="mb-6 sm:mb-8 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {/* Левая часть: поиск и фильтры */}
-          <div className="flex flex-cols items-center gap-4">
-
-            {page == "list" && <>
-              <Search
-                placeholder="Поиск по названию или организации..."
-                value={search}
-                onChange={setSearch}
-                classNames={{
-                  container: "!w-[420px] bg-gray-50 rounded-lg h-11",
-                  input: "bg-gray-50 px-4 text-gray-800",
-                }}
-              />
-
-              <FilterObjects />
-
-              {/* Переключатели с метками */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-
-                  <SwitchButton
-                    label=""
-                    onChange={() => { console.log() }}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
+            {page === "list" && (
+              <>
+                {/* Поиск */}
+                <div className="flex w-60 sm:w-[320px]">
+                  <Search
+                    placeholder="Поиск по названию или организации..."
+                    value={search}
+                    onChange={setSearch}
                     classNames={{
-                      container: "ml-7 gap-3",
-                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                      container: "bg-gray-50 rounded-lg h-11",
+                      input: "bg-gray-50 px-4 text-gray-800 text-sm",
                     }}
                   />
-                  <span className="text-sm text-gray-700 font-medium">Диспетчерская</span>
-                  <SwitchButton
-                    label=""
-                    onChange={() => { console.log() }}
-                    classNames={{
-                      container: "ml-7 gap-3",
-                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                    }}
-                  />
-                  <span className="text-sm text-gray-700 font-medium">Управление ЖБО</span>
+<div className="flex items-center gap-2 ">
+                <FilterObjects />
                 </div>
-              </div>
-            </>}
+                </div>
 
-          </div>
-
-          {/* Правая часть: переключение вида */}
-          <NavLink to={page == "list" ? "/domain/map" : "/domain/list"}
-            className="ml-auto flex items-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors"
-          >
-            {page == "list" ? (
-              <>
-                <Icon systemName="map" className="text-gray-600" />
-                <span>Объекты на карте</span>
-              </>
-
-            ) : (
-              <>
-                <Icon systemName="list" className="text-gray-600" />
-                <span>Реестр объектов</span>
+                {/* Переключатели */}
+                <div className="hidden sm:flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <SwitchButton
+                      label=""
+                      onChange={() => { console.log() }}
+                      classNames={{
+                        container: "gap-3",
+                        button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                        circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                      }}
+                    />
+                    <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Диспетчерская</span>
+                    
+                    <SwitchButton
+                      label=""
+                      onChange={() => { console.log() }}
+                      classNames={{
+                        container: "gap-3",
+                        button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                        circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                      }}
+                    />
+                    <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Управление ЖБО</span>
+                  </div>
+                </div>
               </>
             )}
-          </NavLink>
+          </div>
 
-          <NavLink to={"/domain/form-add"} className='px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm'>+ Создать объект</NavLink>
+          {/* Правая часть: кнопки */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <NavLink 
+              to={page === "list" ? "/domain/map" : "/domain/list"}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors w-full sm:w-auto"
+            >
+              {page === "list" ? (
+                <>
+                  <Icon systemName="map" className="text-gray-600 w-4 h-4" />
+                  <span className="text-sm sm:text-base">Объекты на карте</span>
+                </>
+              ) : (
+                <>
+                  <Icon systemName="list" className="text-gray-600 w-4 h-4" />
+                  <span className="text-sm sm:text-base">Реестр объектов</span>
+                </>
+              )}
+            </NavLink>
 
+            <NavLink 
+              to={"/domain/form-add"} 
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm w-full sm:w-auto"
+            >
+              <Icon systemName="plus-white" className="w-4 h-4" />
+              <span className="text-sm sm:text-base">Создать объект</span>
+            </NavLink>
+          </div>
         </div>
+
+        {/* Переключатели на мобильных */}
+{page === "list" && (
+  <div className="sm:hidden mt-4 pt-4 border-t border-gray-200">
+    <div className="flex items-center gap-2">
+      
+      <SwitchButton
+        label=""
+        onChange={() => { console.log() }}
+        classNames={{
+          container: "gap-1",
+          button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+          circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+        }}
+      />
+      <span className="text-sm text-gray-700 ">Диспетчерская</span>
+      
+      <SwitchButton
+        label=""
+        onChange={() => { console.log() }}
+        classNames={{
+          container: "gap-1",
+          button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+          circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+        }}
+      />
+      <span className="text-sm text-gray-700 ">Управление ЖБО</span>
+    </div>
+  </div>
+)}
       </div>
 
       {/* Основной контент */}

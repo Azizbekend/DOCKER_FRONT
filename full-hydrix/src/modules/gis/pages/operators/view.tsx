@@ -44,7 +44,7 @@ const columns: TableColumn<Operator>[] = [
         },
     },
     {
-        header: "E-mail",
+        header: "Электронная почта",
         key: 'email',
         cell: ({ email }) => {
             return (

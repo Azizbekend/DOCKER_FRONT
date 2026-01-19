@@ -100,7 +100,7 @@ export const ProfileView = observer(() => {
                 />
               </InputContainer>
               
-              <InputContainer headerText="E-mail" isRequired>
+              <InputContainer headerText="Электронная почта" isRequired>
                 <Input
                   type="email"
                   placeholder="ivanovivan@gmail.com"

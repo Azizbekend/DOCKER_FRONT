@@ -210,7 +210,7 @@ export const CreateModal = observer(({ show, setShow }: Props) => {
                                         <div></div>
 
                                         <div className="font-semibold leading-none">
-                                            <p className='mb-[9px]'>E-mail <span className='text-[#D31313]'>* </span></p>
+                                            <p className='mb-[9px]'>Электронная почта <span className='text-[#D31313]'>* </span></p>
                                             <Input
                                                 value={model.email}
                                                 onChange={changeEmail}

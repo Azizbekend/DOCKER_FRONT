@@ -13,7 +13,7 @@ export const FilterObjects = observer(() => {
     }
 
     return (
-        <div className='flex gap-4 ml-5 cursor-pointer relative' onMouseMove={funcFocus} onMouseLeave={funcBlur}>
+        <div className='flex gap-4 ml-4 cursor-pointer relative' onMouseMove={funcFocus} onMouseLeave={funcBlur}>
             <div className="">
                 <Icon systemName='filter' />
             </div>

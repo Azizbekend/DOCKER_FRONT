@@ -33,7 +33,7 @@ export const UsersView = observer(() => {
             },
         },
         {
-            header: 'E-mail',
+            header: 'Электронная почта',
             accessorKey: 'email',
             // size: 100,
             cell: info => {

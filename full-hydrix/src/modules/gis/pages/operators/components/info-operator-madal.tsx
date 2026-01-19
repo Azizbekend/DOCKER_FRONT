@@ -65,7 +65,7 @@ export const OperatorInfoModal = observer(() => {
                             />
                         </InputContainer>
                         <InputContainer classNames={{ wrapper: "font-semibold leading-none", header: "flex-row-reverse" }}
-                            headerText="E-mail"
+                            headerText="Электронная почта"
                         >
                             <Input
                                 type='text'

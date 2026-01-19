@@ -74,11 +74,11 @@ export const RegistrationView = observer(({ show, onClose }: RegistrationModalPr
                             wrapper: "w-full",
                             header: "text-sm font-medium text-gray-700 mb-2"
                         }}
-                        headerText="E-mail"
+                        headerText="Электронная почта"
                         isRequired
                     >
                         <Input
-                            placeholder="Введите E-mail"
+                            placeholder="Введите электронную почту"
                             className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-all duration-200"
                             value={model.email}
                             onChange={setEmail}

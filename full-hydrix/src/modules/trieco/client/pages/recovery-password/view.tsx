@@ -30,7 +30,7 @@ export const PasswordRecoveryView = observer(() => {
                             onChange={(v) => changeEmail(v)}
                             value={email}
                             type='email'
-                            headerText='E-mail'
+                            headerText='Электронная почта'
                             isRequired
                             placeholder=''
                             class='h-[56px] !w-full block' />

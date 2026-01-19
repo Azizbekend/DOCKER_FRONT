@@ -72,7 +72,7 @@ export const RegistrationView = observer(() => {
                             wrapperClass='w-full'
                             type='email'
                             isRequired
-                            headerText='E-mail'
+                            headerText='Электронная почта'
                             placeholder=''
                             value={model.email}
                             onChange={(value) => changeEmail(value)}

@@ -213,7 +213,7 @@ export const RegistrationModal = observer(({ show, setShow }: Props) => {
                                                 <div className="w-[calc(100%/3-30px)] overflow-hidden">
                                                     <Input
                                                         wrapperClass="w-full"
-                                                        headerText="E-mail"
+                                                        headerText="Электронная почта"
                                                         value={model.email}
                                                         onChange={changeEmail}
                                                         isRequired

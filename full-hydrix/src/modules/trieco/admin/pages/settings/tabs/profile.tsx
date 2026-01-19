@@ -74,7 +74,7 @@ export const Profile = observer(() => {
                 <div className="flex flex-row gap-6">
                     <Input
                         wrapperClass="w-[250px]"
-                        headerText="E-mail"
+                        headerText="Электронная почта"
                         type="email"
                         placeholder="ivanov@mail.ru"
                         value={user?.email}

@@ -84,11 +84,11 @@ export const OperatorModal = observer(() => {
                         />
                     </InputContainer>
                     <InputContainer classNames={{ wrapper: "font-semibold leading-none", header: "flex-row-reverse" }}
-                        headerText="E-mail"
+                        headerText="Электронная почта"
                         isRequired
                     >
                         <Input
-                            placeholder="E-mail"
+                            placeholder="Электронная почта"
                             className="border-[1.5px] px-3 py-2.5 rounded-md mt-2 text-[14px]"
                             value={operator.email}
                             onChange={setEmail}

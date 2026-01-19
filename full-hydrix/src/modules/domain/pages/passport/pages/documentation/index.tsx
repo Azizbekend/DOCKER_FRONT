@@ -98,56 +98,77 @@ const documents = [
   }
 ];
 
-
 export const PassportDocumentation = observer(() => {
-
   const { reset, onChange, setDocumentName, isValue, getData } = documentModel;
 
   useEffect(() => {
-    reset()
-  }, [])
+    reset();
+  }, []);
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto px-4">
       <PassportHeaderPanel title="Документация" />
-      <div className="grid grid-cols-2 gap-4">
-        <div className='bg-white rounded-2xl shadow-xl p-8 mb-8 border border-gray-100 h-min'>
+      
+      {/* Адаптивная сетка */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Загрузка документа */}
+        <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 mb-8 border border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Загрузить документ</h2>
-          <label className="bg-gray-50 rounded-xl shadow-sm h-[350px]  block flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300">
-            <input type="file" onChange={onChange} className='hidden' />
-
-            <Icon systemName={isValue ? "docs" : "checkmate"} className="text-gray-400 mb-4" width={30} height={30} />
-            <h3 className="text-lg font-semibold text-gray-700">{isValue ? "Загрузить файл" : "Файл загружен"}</h3>
-            <p className='text-sm text-green-600 font-medium mt-3'>{getData.fileName}</p>
+          
+          <label className="bg-gray-50 rounded-xl shadow-sm h-64 lg:h-[350px] block flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors">
+            <input type="file" onChange={onChange} className="hidden" />
+            
+            <Icon 
+              systemName={isValue ? "docs" : "checkmate"} 
+              className="text-gray-400 mb-3 lg:mb-4" 
+              width={24} 
+              height={24} 
+            />
+            <h3 className="text-base lg:text-lg font-semibold text-gray-700">
+              {isValue ? "Перетащите файл или нажмите" : "Файл загружен"}
+            </h3>
+            {isValue && (
+              <p className="text-sm text-green-600 font-medium mt-2 lg:mt-3">
+                {getData.fileName}
+              </p>
+            )}
           </label>
 
-          <Input type='text' placeholder='Неименование' value={getData.documentName} onChange={setDocumentName}
-            className="border border-gray-300 px-4 py-3 mt-5 rounded-lg text-gray-900  transition-all duration-200"
+          <Input 
+            type="text" 
+            placeholder="Наименование документа" 
+            value={getData.documentName} 
+            onChange={setDocumentName}
+            className="border border-gray-300 px-3 py-2.5 lg:px-4 lg:py-3 mt-4 lg:mt-5 rounded-lg text-gray-900 transition-all duration-200 w-full"
           />
 
-          <Button class="mt-10 rounded-lg w-full justify-center bg-[var(--clr-accent)] text-white hover:opacity-50" >Добавить</Button>
+          <Button class="mt-6 lg:mt-10 rounded-lg w-full justify-center bg-[#4A85F6] text-white hover:bg-[#3a6bc9] transition-colors py-2.5 lg:py-3">
+            Добавить
+          </Button>
         </div>
 
-        <div className='bg-white rounded-2xl shadow-xl p-8 mb-8 border border-gray-100'>
+        {/* Список документов */}
+        <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 mb-8 border border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Документы</h2>
 
-          <div className="flex flex-col gap-10">
-            {documents.map((doc, key) => {
-              return (
-                <div key={key} className='flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow hover:shadow-lg duration-300 cursor-pointer' >
-                  <div className='flex items-center gap-4 text-lg'>
-                    <Icon systemName="docs-blue" className="text-gray-400" width={30} />
-                    <div className='font-semibold'>{doc.name}</div>
-                  </div>
-                  <Button>
-                    <Icon systemName='delete-red' />
-                  </Button>
+          <div className="space-y-3 lg:space-y-4">
+            {documents.map((doc, key) => (
+              <div 
+                key={key} 
+                className="flex items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
+              >
+                <div className="flex items-center gap-3 lg:gap-4">
+                  <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
+                  <div className="font-medium text-gray-800 text-sm lg:text-base">{doc.name}</div>
                 </div>
-              )
-            })}
+                <Button class="p-1.5 lg:p-2 hover:bg-red-50 rounded-full">
+                  <Icon systemName="delete-red" className="w-4 h-4 lg:w-5 lg:h-5" />
+                </Button>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 });
