@@ -1,29 +1,29 @@
 import { observer } from 'mobx-react-lite';
-import { stageJobModel } from '../../features/service-stage/models/job-model';
+import { stageJobModel } from '../../features/service-stage/models/task-model';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { useEffect } from 'react';
 import { useAuth } from '@/packages/entities/user/context';
-import { StageCard } from '@/packages/shared-components/stage-card';
+import { StageTaskCard } from '@/packages/shared-components/stage-task-card';
 
 export const Stages = observer(() => {
 
-    const { model, isLoaded, init } = stageJobModel;
-    const { user } = useAuth();
+  const { model, isLoaded, init, completeCommon } = stageJobModel;
+  const { user } = useAuth();
 
-    useEffect(() => {
-        init(6);
-    }, [])
+  useEffect(() => {
+    init(user!.id);
+  }, [])
 
-    return (
-        <div className="informations-dispatch__requestregistry">
+  return (
+    <div className="informations-dispatch__requestregistry">
 
       {/* Основной контент */}
       <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-7">
- {/* Заголовок */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Задачи</h1>
-        <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
-      </div>
+        {/* Заголовок */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Задачи</h1>
+          <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
+        </div>
 
         {isLoaded ? (
           <div className="flex items-center justify-center py-12">
@@ -31,9 +31,7 @@ export const Stages = observer(() => {
           </div>
         ) : model.length > 0 ? (
           <div className="space-y-6">
-            {model.map((stage) => (
-              <StageCard key={stage.id} stage={stage} />
-            ))}
+            {model.map((stage) => (stage.currentStatus === "New" && <StageTaskCard key={stage.id} stage={stage} completeCommon={completeCommon} />))}
           </div>
         ) : (
           <div className="text-center py-12">
@@ -47,7 +45,7 @@ export const Stages = observer(() => {
           </div>
         )}
       </div>
-            
-        </div>
-    )
+
+    </div>
+  )
 })

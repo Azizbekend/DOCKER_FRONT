@@ -34,6 +34,16 @@ class ServiceStagesFormModel {
     setStageType(value: string) {
         this.model.stageType = value
     }
+
+    clear() {
+        this.model = {
+            discription: '',
+            stageType: '',
+            serviceId: 0,
+            creatorId: 0,
+            implementerId: 0
+        }
+    }
 }
 
 

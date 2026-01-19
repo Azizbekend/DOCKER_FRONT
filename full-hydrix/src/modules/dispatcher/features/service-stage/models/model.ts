@@ -40,15 +40,23 @@ class ServiceStagesModel {
     async completeCommon(data: CompleteCommonStageType) {
         await completeCommonServiceStageRequests(data)
             .then(() => {
-                toast.success("Этап успешно завершен", { progressStyle: { background: "green" } })
+                toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
             })
             .catch(() => {
-                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+                toast.error("Ошибка при отмене", { progressStyle: { background: "red" } })
             })
     }
     async completeEngineer(data: CompleteEngineerStageType) {
         await completeServiceStageRequests(data)
             .then(() => {
+
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Completed"
+                    }
+                    return item
+                })
+
                 toast.success("Этап успешно завершен", { progressStyle: { background: "green" } })
             })
             .catch(() => {
@@ -58,7 +66,15 @@ class ServiceStagesModel {
     async cancelEngineer(data: CancelStageType) {
         await cancelServiceStageRequests(data)
             .then(() => {
-                toast.success("Заявка успешно отменён", { progressStyle: { background: "green" } })
+
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Canceled"
+                    }
+                    return item
+                })
+
+                toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
             })
             .catch(() => {
                 toast.error("Ошибка при отмене заявки", { progressStyle: { background: "red" } })

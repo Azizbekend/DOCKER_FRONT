@@ -1,9 +1,10 @@
 import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { getAllIncedent } from "@/packages/entities/incident/api";
-import { getServiceRequestsAll } from "@/packages/entities/service-requests/api";
-import { ServiceType } from "@/packages/entities/service-requests/type";
+import { cancelServiceRequests, completeServiceRequests, getServiceRequestsAll } from "@/packages/entities/service-requests/api";
+import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { makeAutoObservable } from "mobx";
 import { Incident } from "../../pages/registry-objects/data/data";
+import { toast } from "react-toastify";
 
 class ServicesMapModel {
     services: ServiceType[] = [];
@@ -11,16 +12,24 @@ class ServicesMapModel {
 
     isLoaded: boolean = true;
 
-    isPanel: boolean = true;
+    isPanel: boolean = false;
     serviceId: number = 0
+
+    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null } = { id: 0, status: null }
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    setIsPanel(value: boolean, id = 0) {
-        this.serviceId = id;
+    setIsPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null) {
         this.isPanel = value;
+
+        this.isService = {
+            id: id,
+            status: status
+        }
+
     }
 
     async init() {
@@ -141,6 +150,27 @@ class ServicesMapModel {
         }));
 
         this.incidents = enrichedIncidents;
+    }
+
+
+    async completeService(data: CompleteCancelType) {
+        await completeServiceRequests(data)
+            .then(() => {
+                toast.success("Заявка успешно завершен", { progressStyle: { background: "green" } })
+            })
+            .catch(() => {
+                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            })
+    }
+
+    async cancelService(data: CompleteCancelType) {
+        await cancelServiceRequests(data)
+            .then(() => {
+                toast.success("Заявка успешно завершен", { progressStyle: { background: "green" } })
+            })
+            .catch(() => {
+                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            })
     }
 }
 

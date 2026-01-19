@@ -9,7 +9,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { chartData, chartDataInic } from './data/data';
 import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
-import { ServiceStagesPanel } from '../../features/service-stage/ui/stages-panel';
+import { ServiceStagesPanel } from '@/packages/shared/libs/stage-panel/stages-panel';
 
 export const MapObjects = observer(() => {
   const { init, services, incidents, setIsPanel, isPanel, serviceId } = servicesMapModel;
@@ -51,10 +51,11 @@ export const MapObjects = observer(() => {
   return (
     <div className="w-full gap-6 relative">
       <ServiceStagesPanel
+        completeService={completeService}
+        cancelService={cancelService}
         show={isPanel}
-        onClose={() => setIsPanel(false, 0)}
-        serviceId={serviceId}
-        key={serviceId}
+        onClose={() => setIsPanel(false, 0, null)}
+        isService={isService}
       />
       
       {/* Адаптивная сетка: карта + панель */}

@@ -47,7 +47,7 @@ export const Selector = observer(({ placeholder, items, onSelect, className, cla
 
     return (
         <div ref={containerRef} className={`flex flex-col cursor-pointer relative rounded-lg ${classWripper}`} onClick={handleButtonClick}>
-            <div className={`w-full outline-none disabled:bg-zinc-200 flex items-center ${icon && "justify-between"} ${titleClass}`}
+            <div className={`w-full outline-none disabled:bg-zinc-200 flex items-center border p-2 rounded-lg py-3 ${icon && "justify-between"} ${titleClass}`}
                 style={{
                     borderColor: isOpen ? "var(--clr-accent)" : (isOpen ? "var(--clr-error)" : "var(--clr-border-gray)"),
                 }}
