@@ -51,9 +51,9 @@ export const MapObjects = observer(() => {
   const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
-  const handleRow = (row: any) => {
+  const handleRow = (id: number) => {
     if (typeTable == "services") {
-      setIsPanel(true, row.serviceId);
+      setIsPanel(true, id);
     }
   }
 
@@ -63,6 +63,7 @@ export const MapObjects = observer(() => {
         show={isPanel}
         onClose={() => setIsPanel(false, 0)}
         serviceId={serviceId}
+        key={serviceId}
       />
       <div className='min-h-[50vh] flex gap-5 mb-10'>
         <div className="w-[75%] col-start-1 col-end-4">
@@ -141,7 +142,7 @@ export const MapObjects = observer(() => {
 
       <Table
         classNames={{ thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200" }}
-        onRowClick={handleRow}
+        onRowClick={(row) => handleRow(row.id)}
         columns={typeTable == "services" ? columnsService : columnsIncidents}
         countActive
         data={typeTable == "services" ? services : incidents}

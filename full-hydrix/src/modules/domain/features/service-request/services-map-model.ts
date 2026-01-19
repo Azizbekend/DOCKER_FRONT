@@ -43,10 +43,10 @@ class ServicesMapModel {
         const services = serviceResponse.data;
 
         const hardwareIds = new Set<number>();
+        const creatorIds = new Set<number>();
         services.forEach(service => {
-            if (service.hardwareId) {
-                hardwareIds.add(service.hardwareId);
-            }
+            hardwareIds.add(service.hardwareId);
+            creatorIds.add(service.creatorId);
         });
 
         const hardwarePromises = Array.from(hardwareIds).map(async (hardwareId) => {
@@ -67,6 +67,24 @@ class ServicesMapModel {
 
         const hardwareInfoArray = await Promise.all(hardwarePromises);
 
+        // const creatorPromises = Array.from(creatorIds).map(async (creatorId) => {
+        //     try {
+        //         const creatorResponse = await getInfoHardware({ id: creatorId });
+        //         return {
+        //             creatorId,
+        //             hardwareName: creatorResponse.data?.name || 'Неизвестно'
+        //         };
+        //     } catch (error) {
+        //         console.error(`Ошибка загрузки hardware ${creatorId}:`, error);
+        //         return {
+        //             creatorId,
+        //             createdName: 'Ошибка загрузки'
+        //         };
+        //     }
+        // });
+
+        // const creatorInfoArray = await Promise.all(creatorPromises);
+
         const hardwareMap = new Map<number, string>();
         hardwareInfoArray.forEach(info => {
             hardwareMap.set(info.hardwareId, info.hardwareName);
@@ -76,6 +94,10 @@ class ServicesMapModel {
             ...service,
             hardwareName: service.hardwareId ? hardwareMap.get(service.hardwareId) || 'Неизвестно' : null
         }));
+
+
+
+
 
         this.services = enrichedServices;
 
