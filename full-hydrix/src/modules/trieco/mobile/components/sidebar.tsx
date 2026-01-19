@@ -3,7 +3,7 @@ import { Icon } from "@/app/cores/core-trieco/UIKit/icon"
 import { observer } from "mobx-react-lite"
 import mobileModel from "../kernel/model/mobile-model"
 import { useLocation, useNavigate } from "react-router-dom"
-import createOrderModel from "../viewports/create-order/packages/entities/create-order-model"
+import createOrderModel from "../pages/create-order/entities/create-order-model"
 
 export const Sidebar = observer(() => {
     const { logout } = mobileModel;

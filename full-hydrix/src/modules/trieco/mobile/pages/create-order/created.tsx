@@ -1,8 +1,8 @@
 import { Button } from "@/app/cores/core-trieco/UIKit"
 import { Icon } from "@/app/cores/core-trieco/UIKit/icon"
 import { useNavigate } from "react-router-dom"
-import createOrderModel from "./packages/entities/create-order-model"
 import { PageCount } from "./components/page-count"
+import createOrderModel from "./entities/create-order-model"
 
 export const Created = () => {
     const { clearData, pageCounter } = createOrderModel;

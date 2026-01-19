@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { createOrderModel } from "./packages/entities/create-order-model";
 import { Icon } from "@/packages/shared-ui/icon";
 import { Button } from "@/packages/shared-ui/button";
+import { createOrderModel } from "./entities/create-order-model";
 
 export const Created = ({ getPage }: { getPage: () => void }) => {
   const navigate = useNavigate();

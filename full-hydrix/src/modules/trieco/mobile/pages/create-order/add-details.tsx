@@ -1,5 +1,4 @@
 import { Button, Input } from "@/app/cores/core-trieco/UIKit"
-import createOrderModel from "./packages/entities/create-order-model"
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import mobileModel from "../../kernel/model/mobile-model";
@@ -8,13 +7,13 @@ import headerStore from "../../kernel/helper/header-store";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { SelectionComponent } from "../../components/selection";
-import { WasteList } from "./packages/entities/selections";
-import adminModel from "@/modules/admin/kernel/model/admin-model";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import dayjs, { Dayjs } from 'dayjs';
 import { PageCount } from "./components/page-count";
-import Cookies from 'js-cookie';
 import { Guid } from "guid-typescript";
+import createOrderModel from "./entities/create-order-model";
+import { WasteList } from "./entities/selections";
+import Cookies from "universal-cookie";
 
 export const AddDetails = observer(() => {
     const navigate = useNavigate();

@@ -1,5 +1,4 @@
 // import { AddAddress } from "./add-address-2"
-import createOrderModel from "./packages/entities/create-order-model"
 import { AddDetails } from "./add-details";
 import { observer } from "mobx-react-lite";
 import { Created } from "./created";
@@ -7,9 +6,10 @@ import YandexMapComponent from "./add-adderss";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Cashless } from "./cashless";
-import clientModel from "@/modules/client/kernel/model/client-model";
-import adminModel from "@/modules/admin/kernel/model/admin-model";
 import { toast } from "react-toastify";
+import createOrderModel from "./entities/create-order-model";
+import clientModel from "@/modules/trieco/client/kernel/model/client-model";
+import adminModel from "@/modules/trieco/admin/kernel/model/admin-model";
 
 export const CreateOrder = observer(() => {
     const { pageCounter, setPage } = createOrderModel;
