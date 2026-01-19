@@ -37,7 +37,7 @@ export const Sidebar = observer(() => {
 
     return (
         <div ref={sidebarRef}
-            className={"pt-5 pl-8 pr-6 bg-white min-h-full flex-shrink-0 gap-10 flex flex-col rounded-r-0 lg:static fixed top-0 left-full  lg:rounded-r-lg z-[10] w-full"}
+            className={"pt-5 pl-8 pr-6 bg-white min-h-full flex-shrink-0 gap-10 flex flex-col rounded-r-0 rounded-r-lg "}
         >
             <div className={`flex flex-col justify-between transition-all duration-300 sticky top-10 ${isSticky ? 'h-[95vh] pb-7' : 'h-[85vh] pb-7 '}`}>
                 <div className='flex gap-4 flex-col w-full'>
