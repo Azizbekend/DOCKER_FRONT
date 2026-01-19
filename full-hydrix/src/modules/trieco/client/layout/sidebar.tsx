@@ -2,9 +2,9 @@ import { observer } from "mobx-react-lite";
 import { useLocation } from "react-router-dom";
 import { Icon } from "@/packages/shared-ui/icon";
 import { Button } from "@/packages/shared-ui/button";
-import { createOrderModel } from "../pages/create-order/packages/entities/create-order-model";
 import logo from "./static/logo-3.png";
 import { useAuth } from "@/packages/entities/user/context";
+import { createOrderModel } from "../pages/create-order/entities/create-order-model";
 
 export const Sidebar = observer(() => {
   const { logout } = useAuth();

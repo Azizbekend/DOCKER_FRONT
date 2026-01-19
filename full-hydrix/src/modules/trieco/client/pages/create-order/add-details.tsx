@@ -1,7 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { PaymentTypeList, WasteList } from "./packages/entities/selections";
 import { useEffect, useState } from "react";
-import { createOrderModel } from "./packages/entities/create-order-model";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { SelectionComponent } from "../../layout/selection";
@@ -9,6 +7,7 @@ import { Button } from "@/packages/shared-ui/button";
 import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 import { useAuth } from "@/packages/entities/user/context";
 import dayjs from 'dayjs';
+import { createOrderModel } from "./entities/create-order-model";
 
 export const AddDetails = observer(({ getPage }: { getPage: () => void }) => {
   const { user } = useAuth();
