@@ -1,5 +1,5 @@
 import { reserchInstance } from "@/app/api/instances"
-import { CancelStageType, CompleteCancelType, CompleteCommonStageType, CompleteEngineerStageType, FormCommonServiceModelType, FormIncidentServiceModelType, GetOrderCustomerRequest, ServiceStageType } from "./type"
+import { CancelStageType, CompleteCancelType, CompleteCommonStageType, CompleteEngineerStageType, FormCommonServiceModelType, FormIncidentServiceModelType, ServiceStageType } from "./type"
 import { ServiceRequests, ServiceStageRequests } from "@/app/api/api-router"
 
 
@@ -9,9 +9,6 @@ export const getServiceRequestsAll = () => {
 }
 export const getByObjectServiceRequests = (params: { id: number }) => {
     return reserchInstance.post(ServiceRequests.byObject, params)
-}
-export const getByUserServiceRequests = (params: { id: number }) => {
-    return reserchInstance.post(ServiceRequests.byUser, params)
 }
 export const createServiceRequests = (params: FormCommonServiceModelType) => {
     return reserchInstance.post(ServiceRequests.create, params)
@@ -29,6 +26,9 @@ export const cancelServiceRequests = (params: CompleteCancelType) => {
 // ServiceStageRequests
 export const getServiceStageRequestsAll = (params: { id: number }) => {
     return reserchInstance.post(ServiceStageRequests.all, params)
+}
+export const getByUserStageRequests = (params: { id: number }) => {
+    return reserchInstance.get(ServiceStageRequests.byUser, { params })
 }
 export const createServiceStageRequests = (params: ServiceStageType) => {
     return reserchInstance.post(ServiceStageRequests.create, params)

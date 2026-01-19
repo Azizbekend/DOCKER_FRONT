@@ -9,13 +9,15 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { chartData, chartDataInic } from './data/data';
 import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
-import { ServiceStagesPanel } from '../../features/service-stage/ui/stages-panel';
+import { ServiceStagesPanel } from '@/packages/shared/libs/stage-panel/stages-panel';
 
 
 
 export const MapObjects = observer(() => {
 
-  const { init, services, incidents, setIsPanel, isPanel, serviceId } = servicesMapModel
+  const { init, services, incidents, setIsPanel, isPanel, serviceId, isService, completeService, cancelService
+
+  } = servicesMapModel
 
 
 
@@ -51,20 +53,18 @@ export const MapObjects = observer(() => {
   const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
-  const handleRow = (id: number) => {
-    if (typeTable == "services") {
-      setIsPanel(true, id);
-    }
-  }
 
   return (
     <div className="w-full gap-6 relative">
       <ServiceStagesPanel
+        completeService={completeService}
+        cancelService={cancelService}
         show={isPanel}
-        onClose={() => setIsPanel(false, 0)}
-        serviceId={serviceId}
-        key={serviceId}
+        onClose={() => setIsPanel(false, 0, null)}
+        isService={isService}
       />
+
+
       <div className='min-h-[50vh] flex gap-5 mb-10'>
         <div className="w-[75%] col-start-1 col-end-4">
           <div id="map" className="w-full h-full rounded-xl shadow-sm" />
@@ -142,9 +142,9 @@ export const MapObjects = observer(() => {
 
       <Table
         classNames={{ thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200" }}
-        onRowClick={(row) => handleRow(row.id)}
+        onRowClick={(row) => setIsPanel(true, row.id, row.status)}
         columns={typeTable == "services" ? columnsService : columnsIncidents}
-        countActive
+        countActive 
         data={typeTable == "services" ? services : incidents}
       />
 

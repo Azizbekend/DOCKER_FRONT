@@ -293,7 +293,6 @@ export const NodeIndicates = {
 export const ServiceRequests = {
   all: "/ServiceRequests/services/all",
   byObject: "/ServiceRequests/object/services/all",
-  byUser: "/ServiceRequests/services/user/all",
 
   create: "/ServiceRequests/mainEngineer/commonService/InitialCreate",
   createIncident: "/ServiceRequests/mainEngineer/incidentService/InitialCreate",
@@ -304,10 +303,9 @@ export const ServiceRequests = {
 
 export const ServiceStageRequests = {
   all: "/ServiceRequests/stage/services/all",
+  byUser: "/ServiceRequests/services/stages/user/all",
   create: "/ServiceRequests/mainEngineer/serviceStage/create",
   completeCommon: "/ServiceRequests/common/serviceStage/complete",
   complete: "/ServiceRequests/mainIngineer/serviceStage/complete",
   cancel: "/ServiceRequests/mainEngineer/serviceStage/Cancel",
 };
-
-

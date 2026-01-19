@@ -1,8 +1,9 @@
+
 export type ServiceType = {
     id: number,
     title: string,
     type: string,
-    status: 'New' | 'Completed' | 'Canceled',
+    status:'New' | 'Completed' | 'Canceled',
     createdAt: Date,
     closedAt: Date,
     cancelDiscription: string,
@@ -47,14 +48,13 @@ export type CompleteEngineerStageType = {
     stageId: number,
     engineerId: number
 }
-
 export type CancelStageType = {
     stageId: number,
     cancelDiscriprion: string
 }
 
 export type ServiceStageType = {
-    id: number,
+    id?: number,
     discription: string,
     stageType: string,
     cancelDiscription?: string,
