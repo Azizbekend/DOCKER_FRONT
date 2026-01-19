@@ -15,9 +15,13 @@ export const Layout = observer(() => {
     return (
         <>
             <div className="bg-[#F5F5F5] flex flex-col min-h-screen w-full">
+                 
+                
                 <Header />
 
                 <div className='flex items-center  gap-[28px] my-[30px] lg:pl-[40px] lg:pr-[40px] pr-[20px] pl-[20px] '>
+
+                    
                     <Link
                         to="/domain/list"
                         className="flex items-center justify-center lg:w-10 lg:h-10 w-8 h-8 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
