@@ -83,7 +83,6 @@ export class UserModel {
         this._error = null;
 
         try {
-
             if (userId === "99999") {
                 this.setUser({
                     id: 99999,

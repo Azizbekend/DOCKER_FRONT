@@ -1,5 +1,5 @@
 import { authorizationInstance } from "@/app/api/instances/instance-authorization"
-import { UserRoutes } from "@/app/routers/api-router"
+import { User, UserRoutes } from "@/app/routers/api-router"
 
 export const getUserById = (params: { id: number }) => {
     return authorizationInstance.get(UserRoutes.getById, { params })
@@ -7,4 +7,8 @@ export const getUserById = (params: { id: number }) => {
 
 export const getUserByCompany = (params: { id: number }) => {
     return authorizationInstance.get(UserRoutes.getCompany, { params })
+}
+
+export const authoriseDespetcher = (params: { login: string, password: string, }) => {
+    return authorizationInstance.post(User.authorise, params)
 }

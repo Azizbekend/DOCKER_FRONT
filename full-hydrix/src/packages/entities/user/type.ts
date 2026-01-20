@@ -24,6 +24,7 @@ export type UserType = {
     adress: string,
     isEmailApproved: boolean,
     baseRoleId: number
+    baseRole?: null
 }
 
 export type UpdateMunicipalitiesRequest = {

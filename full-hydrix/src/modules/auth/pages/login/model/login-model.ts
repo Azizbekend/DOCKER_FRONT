@@ -6,7 +6,7 @@ import { Role } from "@/packages/entities/user/enums";
 import { getWaterCompanyByUserId } from "@/app/cores/core-gis/network/water-company/type";
 import { InitTriecoCompanyInterface, WaterCompany } from "@/packages/entities/water-company/types";
 import { getUserCompany } from "@/app/cores/core-trieco/network/user/user";
-import { getRoleText } from "@/packages/entities/user/enums";
+import { authoriseDespetcher } from "@/packages/entities/user/api";
 
 class LoginModel {
     model: AuthEntity = { username: "", password: "" };
@@ -77,7 +77,6 @@ class LoginModel {
     public async login(initUser: () => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
 
         if (this.model.username == "guest") {
-
             await authAdmin({
                 username: "aovks",
                 password: "ffggrr",
@@ -96,7 +95,11 @@ class LoginModel {
 
             })
 
-        } else {
+        } else if (this.model.username == "ruslam@mail.ru" ||
+            this.model.username == "ggvp@mail.ru" ||
+            this.model.username == "minisrty" ||
+            this.model.username == "aovks"
+        ) {
             await authAdmin(this.model)
                 .then(response => {
 
@@ -138,37 +141,18 @@ class LoginModel {
                             break;
                     }
                 })
-        }
-    }
+        } else {
 
-    async logins() {
-
-        // window.location.href = "/menu-moduls";
-
-        if (this.validEmail(this.model.username) && this.validPassword(this.model.password)) {
-            this.isErrorStart = true;
-            this.incrementCapchaAttempts();
-            return;
-        }
-
-        // if (this.isCapcha) {
-        //     toast.warn("Подтвердите, что вы не робот.");
-        //     return;
-        // }
-
-        this.isLoading = true;
-        this.isErrorStart = false;
-
-        try {
-            // TODO: реализовать сетевой запрос авторизации после подключения API.
-            toast.info("Функция авторизации находится в разработке.");
-        } catch (error) {
-            this.incrementCapchaAttempts();
-            toast.error("Не удалось выполнить авторизацию. Повторите попытку позже.");
-        } finally {
-            setTimeout(() => {
-                this.isLoading = false;
-            }, 5000);
+            await authoriseDespetcher({
+                login: this.model.username,
+                password: this.model.password
+            })
+                .then(response => {
+                    window.localStorage.setItem("access_token", response.data['jwtToken'])
+                    window.localStorage.setItem("refresh_token", response.data['refreshToken'])
+                    window.localStorage.setItem("user_id", response.data['id'])
+                    initUser()
+                })
         }
     }
 }

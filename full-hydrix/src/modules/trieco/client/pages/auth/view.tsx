@@ -11,7 +11,7 @@ import { Password } from '@/app/cores/core-trieco/UIKit/password-input'
 import { useCallback, useState } from 'react'
 import { RegistrationModal } from "./components/registration-modal"
 import { InvisibleSmartCaptcha } from '@yandex/smart-captcha';
-import adminModel from '@/modules/admin/kernel/model/admin-model'
+import adminModel from '@/modules/trieco/admin/kernel/model/admin-model'
 
 const SMARTCAPTCHA_SERVER_KEY = "ysc1_IHj8ZJChzcyjm4fUnmagsKvkQhaCca9GbcS6D3RD979e1b86";
 
