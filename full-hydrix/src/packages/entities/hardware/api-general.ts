@@ -1,4 +1,4 @@
-import { Characteristics, Command, Control, ControlBlock, Documents, NodeIndicates, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/api/api-router"
+import { Characteristics, Command, Control, ControlBlock, Documents, NodeIndicates, PassportObject, Schema, SchemaCooradinate, Service } from "@/app/routers/api-router"
 
 import { reserchInstance } from "@/app/api/instances"
 

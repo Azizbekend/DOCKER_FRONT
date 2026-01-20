@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { MenuItemType } from "../services/menu-moduls-service";
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 
 export class MenuModulsModel {
 

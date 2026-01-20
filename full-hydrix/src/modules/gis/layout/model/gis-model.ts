@@ -1,7 +1,7 @@
 import { Meta } from "@/app/api/meta";
 import WebSocketClient from "@/app/cores/core-gis/network/ws/ws-client";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 import { User } from "@/packages/entities/user/type";
 import { WaterCompany } from "@/packages/entities/water-company/types";
 import { makeAutoObservable } from "mobx";

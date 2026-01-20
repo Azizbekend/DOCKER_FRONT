@@ -1,3 +1,4 @@
+
 export type User = {
     id: number,
     login: string,
@@ -9,6 +10,20 @@ export type User = {
     adress: string,
     companyId: number
     roleId: number,
+}
+
+export type UserType = {
+    id?: number,
+    login: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    patronymic: string,
+    email: string,
+    phoneNumber: string,
+    adress: string,
+    isEmailApproved: boolean,
+    baseRoleId: number
 }
 
 export type UpdateMunicipalitiesRequest = {

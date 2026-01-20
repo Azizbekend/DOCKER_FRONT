@@ -7,7 +7,7 @@ type Props = {
     disabled?: boolean
     type?: "button" | "submit" | "reset"
     style?: React.CSSProperties;
-    styleColor?: "blue" | "red" | "green" | "blueOutline" | "redOutline"
+    styleColor?: "blue" | "red" | "green" | "blueOutline" | "redOutline" | "gray"
 }
 
 export const Button = (props: Props) => {
@@ -18,6 +18,7 @@ export const Button = (props: Props) => {
         red: "bg-red-500 hover:bg-red-700 text-white",
         blueOutline: "border border-red-500 hover:bg-red-700 text-white border-2",
         redOutline: "border border-red-500 text-red-500 hover:bg-red-500 hover:text-white border-2",
+        gray: "bg-gray-400 hover:bg-gray-700 text-white",
     } as const;
 
 

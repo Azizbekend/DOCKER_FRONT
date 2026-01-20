@@ -67,9 +67,14 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
         }
 
         {isСonfirm ?
-          <Button onClick={() => completeCommon({ stageId: Number(stage.id), discription: descr })} class="py-2.5 px-4" styleColor="green">
-            Подтвердить
-          </Button>
+          <div className="flex gap-4">
+            <Button onClick={() => completeCommon({ stageId: Number(stage.id), discription: descr })} class="py-2.5 px-4" styleColor="green">
+              Подтвердить
+            </Button>
+            <Button onClick={() => setConfirm(false)} class="py-2.5 px-4" styleColor="gray">
+              Отмена
+            </Button>
+          </div>
           :
           <Button onClick={() => setConfirm(true)} class="py-2.5 px-4" styleColor="blue">
             Выполнить

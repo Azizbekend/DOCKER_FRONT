@@ -1,4 +1,4 @@
-import { Incident } from "@/app/api/api-router"
+import { Incident } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 
 export const getAllIncedent = () => {

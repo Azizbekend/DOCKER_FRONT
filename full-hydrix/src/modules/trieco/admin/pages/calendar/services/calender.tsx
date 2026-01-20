@@ -1,4 +1,4 @@
-import { OrderRoutes } from "@/app/api/api-router"
+import { OrderRoutes } from "@/app/routers/api-router"
 import { instance } from "@/app/api/instances"
 
 export const getOrdersByIdTransporterCompany = (params: GetOrderTransporterCompanyId) => {

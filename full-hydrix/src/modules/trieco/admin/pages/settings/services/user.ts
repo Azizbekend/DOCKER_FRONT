@@ -1,4 +1,4 @@
-import { UserRoutes } from "@/app/api/api-router";
+import { UserRoutes } from "@/app/routers/api-router";
 import { instance } from "@/app/api/instances";
 import { User } from "@/packages/entities/user/type";
 

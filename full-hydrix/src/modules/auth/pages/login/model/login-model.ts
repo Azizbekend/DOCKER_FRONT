@@ -2,11 +2,11 @@ import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 import { authAdmin, AuthEntity } from "../services/login-service";
 import { testEmail } from "@/packages/shared-ui/Inputs/setting/input-valid-email";
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 import { getWaterCompanyByUserId } from "@/app/cores/core-gis/network/water-company/type";
 import { InitTriecoCompanyInterface, WaterCompany } from "@/packages/entities/water-company/types";
 import { getUserCompany } from "@/app/cores/core-trieco/network/user/user";
-import { getRoleText } from "@/packages/entities/user/hooks";
+import { getRoleText } from "@/packages/entities/user/enums";
 
 class LoginModel {
     model: AuthEntity = { username: "", password: "" };

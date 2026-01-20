@@ -1,4 +1,4 @@
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 import { MenuItemType } from "../services/menu-moduls-service";
 
 export const cartLinks: MenuItemType[] = [

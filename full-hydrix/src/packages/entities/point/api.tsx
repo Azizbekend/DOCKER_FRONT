@@ -1,4 +1,4 @@
-import { PickupPointRoutes } from "@/app/api/api-router"
+import { PickupPointRoutes } from "@/app/routers/api-router"
 import { instance } from "@/app/api/instances"
 import { GetAllPointRequest, Point, UpdatePointRequest } from "./type"
 

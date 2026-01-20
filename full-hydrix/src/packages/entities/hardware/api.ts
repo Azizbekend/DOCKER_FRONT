@@ -1,4 +1,4 @@
-import { Hardware } from "@/app/api/api-router"
+import { Hardware } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 import { CreateHardwareInterface } from "./type"
 

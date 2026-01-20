@@ -1,16 +1,28 @@
-import { createCompanyModel } from "@/modules/domain/features/participant/model-create";
 import { Button } from "@/packages/shared-ui/button";
 import { Icon } from "@/packages/shared-ui/icon";
 import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { useState, useEffect, useRef } from "react";
+import { createCompanyModel } from "../models/create-company-model";
+import { addParticipantsModel } from "../models/add-participants-model";
 
-export const AddEmployeeModal = observer(({ show, setShow }: { show: boolean, setShow: (value: boolean) => void }) => {
+
+type Props = {
+    show: boolean,
+    setShow: (value: boolean) => void,
+    companyId: number
+    updateList: (id: number) => void
+}
+
+export const AddParticipantsModal = observer(({ show, setShow, companyId, updateList }: Props) => {
+    const { init, allUsers, addUsers, pushUser, removeUser } = addParticipantsModel
     const [showList, setShowList] = useState(false);
     const dropdownRef = useRef(null);
-    const { userList, allUserList, addUser, removeUser } = createCompanyModel;
+
 
     useEffect(() => {
+        init(companyId);
+
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setShowList(false);
@@ -21,16 +33,8 @@ export const AddEmployeeModal = observer(({ show, setShow }: { show: boolean, se
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [companyId]);
 
-    const handleRemove = (e, id) => {
-        e.stopPropagation();
-        removeUser(id);
-    };
-
-    const availableUsers = allUserList.filter(
-        (user) => !userList.some((u) => u.id === user.id)
-    );
 
     return (
         <Modal
@@ -55,28 +59,26 @@ export const AddEmployeeModal = observer(({ show, setShow }: { show: boolean, se
                             className={`flex flex-wrap items-center gap-2 min-h-[48px] p-3 border rounded-xl transition-all duration-200 border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-200`}
                             onClick={() => setShowList(!showList)}
                         >
-                            {userList.length > 0 ? (
-                                userList.map((user, key) => (
-                                    <div
-                                        key={key}
-                                        className="flex items-center gap-1.5 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:bg-blue-200"
+                            {addUsers.length > 0 ? addUsers.map((user, key) => (
+                                <div
+                                    key={key}
+                                    onClick={() => removeUser(user.id)}
+                                    className="flex items-center gap-1.5 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:bg-blue-200"
+                                >
+                                    <span className="truncate max-w-[120px]">{user.name}</span>
+                                    <button
+                                        type="button"
+                                        className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-200 hover:bg-blue-300 transition-colors"
+                                        aria-label={`Удалить ${user.name}`}
                                     >
-                                        <span className="truncate max-w-[120px]">{user.name}</span>
-                                        <button
-                                            type="button"
-                                            onClick={(e) => handleRemove(e, user.id)}
-                                            className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-200 hover:bg-blue-300 transition-colors"
-                                            aria-label={`Удалить ${user.name}`}
-                                        >
-                                            <Icon
-                                                systemName="x"
-                                                className="text-blue-700"
-                                                width={14}
-                                            />
-                                        </button>
-                                    </div>
-                                ))
-                            ) : (
+                                        <Icon
+                                            systemName="x"
+                                            className="text-blue-700"
+                                            width={14}
+                                        />
+                                    </button>
+                                </div>
+                            )) : (
                                 <span className="text-gray-500 text-sm">Нет выбранных сотрудников</span>
                             )}
 
@@ -93,12 +95,12 @@ export const AddEmployeeModal = observer(({ show, setShow }: { show: boolean, se
                         {showList && (
                             <div className="absolute z-10 mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden animate-fadeIn">
                                 <div className="max-h-60 overflow-y-auto p-2">
-                                    {availableUsers.length > 0 ? (
-                                        availableUsers.map((user, key) => (
+                                    {allUsers.length > 0 ? (
+                                        allUsers.map((user, key) => (
                                             <button
                                                 key={key}
                                                 onClick={() => {
-                                                    addUser(user);
+                                                    pushUser(user);
                                                     setShowList(false);
                                                 }}
                                                 className="flex items-center w-full px-4 py-3 text-left hover:bg-gray-100 rounded-lg transition-colors group"

@@ -3,7 +3,7 @@ import operatorListModel from "../models/operator-list-model";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { Modal } from "@/packages/shared-ui/modal/modal";
-import { OperatorRole, operatorRole } from "@/packages/entities/user/hooks";
+import { OperatorRole, operatorRole } from "@/packages/entities/user/enums";
 
 export const OperatorInfoModal = observer(() => {
 

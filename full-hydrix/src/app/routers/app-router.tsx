@@ -1,6 +1,6 @@
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { RoleGuard } from "@/app/features/role-guard";
+import { RoleGuard } from "@/packages/features/user/role-guard";
 
 export const AppRouter = createBrowserRouter([
     {

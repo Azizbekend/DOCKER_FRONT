@@ -1,4 +1,4 @@
-import { NodeIndicates } from "@/app/api/api-router";
+import { NodeIndicates } from "@/app/routers/api-router";
 import { reserchInstance } from "@/app/api/instances";
 
 export const getTechnicalCharsShapshi = () => {

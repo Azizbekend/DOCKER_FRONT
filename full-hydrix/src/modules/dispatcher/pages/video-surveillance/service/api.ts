@@ -1,4 +1,4 @@
-import { Camery } from "@/app/api/api-router"
+import { Camery } from "@/app/routers/api-router"
 import { reserchCamera } from "@/app/api/instances"
 
 export const CameryConnectApi = (params: CameryConnect) => {

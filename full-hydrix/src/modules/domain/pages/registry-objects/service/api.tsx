@@ -1,4 +1,4 @@
-import { PassportObject } from "@/app/api/api-router"
+import { PassportObject } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 
 export const passportObject = () => {

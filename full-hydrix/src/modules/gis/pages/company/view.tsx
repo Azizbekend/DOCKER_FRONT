@@ -8,7 +8,7 @@ import waterCompanyModel from "./model/water-company-model"
 import { Meta } from "@/app/cores/core-gis/network/meta"
 import { Button, Input } from "@/packages/shared-ui/GIS/"
 import { useAuth } from "@/packages/entities/user/context"
-import { Role } from "@/packages/entities/user/role"
+import { Role } from "@/packages/entities/user/enums"
 
 export const WaterCompanyView = observer(() => {
     const navigate = useNavigate();

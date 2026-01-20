@@ -1,4 +1,3 @@
-import { OperatorRole } from "../user/hooks";
 
 export type Operator = {
     userId?: number,
@@ -13,4 +12,10 @@ export type Operator = {
     waterCompanyId?: number;
     plantId?: number;
     workplace?: string;
+}
+
+export enum OperatorRole {
+    WaterCompany = "WaterCompanyOperator",
+    Plant = "TreatmentPlantOperator",
+    WaterCompanyAdmin = "WaterCompanyAdmin",
 }

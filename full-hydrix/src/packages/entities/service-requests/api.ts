@@ -1,6 +1,6 @@
 import { reserchInstance } from "@/app/api/instances"
 import { CancelStageType, CompleteCancelType, CompleteCommonStageType, CompleteEngineerStageType, FormCommonServiceModelType, FormIncidentServiceModelType, ServiceStageType } from "./type"
-import { ServiceRequests, ServiceStageRequests } from "@/app/api/api-router"
+import { ServiceRequests, ServiceStageRequests } from "@/app/routers/api-router"
 
 
 // ServiceRequests

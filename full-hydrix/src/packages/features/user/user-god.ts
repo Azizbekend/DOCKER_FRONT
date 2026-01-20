@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
-import { User } from "./type";
-import { InitTriecoCompanyInterface, WaterCompany } from "../water-company/types";
-import { Role } from "./role";
+import { User } from "../../entities/user/type";
+import { InitTriecoCompanyInterface, WaterCompany } from "../../entities/water-company/types";
+import { Role } from "../../entities/user/enums";
 
 export class UserModel {
     private _user: User | null = null;

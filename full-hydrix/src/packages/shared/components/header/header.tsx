@@ -5,7 +5,7 @@ import { useAuth } from "@/packages/entities/user/context";
 import logo from "../../../../app/static/img/logo.png"
 import illyas from "./assets/iilyas.png"
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getRoleText } from "@/packages/entities/user/hooks";
+import { getRoleText } from "@/packages/entities/user/enums";
 
 export const Header = observer(() => {
     const navigate = useNavigate();

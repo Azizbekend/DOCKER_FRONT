@@ -1,11 +1,17 @@
-import { Role } from "./role";
+import { Role } from "./enums";
 
 export const getRoleText = (role: number) => {
     switch (role) {
         case Role.Client:
             return "Клиент";
         case Role.Sewer:
-            return "Сточная труба";
+            return "Ассенизатор";
+        case Role.TransporterCompany:
+            return "Траспортная компания";
+        case Role.Participant:
+            return "Участник";
+
+
         case Role.CompanyOperator:
             return "Перевозчик за триеко";
         case Role.WaterCompany:
@@ -26,25 +32,5 @@ export const getRoleText = (role: number) => {
             return "Админ";
         case Role.Plant:
             return "Оператор ОС";
-    }
-}
-
-
-export enum OperatorRole {
-    WaterCompany = "WaterCompanyOperator",
-    Plant = "TreatmentPlantOperator",
-    WaterCompanyAdmin = "WaterCompanyAdmin",
-}
-
-export const operatorRole = (roleName: OperatorRole) => {
-    switch (roleName) {
-        case OperatorRole.Plant:
-            return "Оператор ОС"
-        case OperatorRole.WaterCompany:
-            return "Оператор Водоканала"
-        case OperatorRole.WaterCompanyAdmin:
-            return "Представитель Водоканала"
-        default:
-            return ""
     }
 }

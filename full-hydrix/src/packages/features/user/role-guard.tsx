@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
 import { useAuth } from "@/packages/entities/user/context"
-import { Role } from "@/packages/entities/user/role"
+import { Role } from "@/packages/entities/user/enums"
 
 type Props = {
     roles: Role[]

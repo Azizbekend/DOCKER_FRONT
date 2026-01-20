@@ -1,4 +1,4 @@
-import { PlantRoutes } from "@/app/api/api-router";
+import { PlantRoutes } from "@/app/routers/api-router";
 import { instance } from "@/app/api/instances";
 import { GetWaterCompanyPlantsRequest } from "./types";
 

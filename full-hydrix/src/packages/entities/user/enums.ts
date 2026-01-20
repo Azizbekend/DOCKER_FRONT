@@ -1,6 +1,4 @@
 export enum Role {
-    Client = 1, //Обычный клиент
-    Sewer = 2, // Сточная труба
     CompanyOperator = 3, // Перевозчик за триеко
     WaterCompany = 4, // Водоканал
     CompanytClient = 5, // Предприятие
@@ -11,4 +9,11 @@ export enum Role {
     TreatmentPlantOperator = 8, // Оператор очистного сооружения
     Admin = 9, // Админ
     Guest = 99999, // Гость
+
+
+    // BASE ROLES - базовые роли
+    Client = 1, //Обычный клиент
+    Sewer = 2, // Ассенизатор
+    TransporterCompany = 3, // Траспортная компания
+    Participant = 4 // Участник
 }

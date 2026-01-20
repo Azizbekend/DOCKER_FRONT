@@ -1,4 +1,4 @@
-import { OrderRoutes, UserRoutes } from "@/app/api/api-router";
+import { OrderRoutes, UserRoutes } from "@/app/routers/api-router";
 import { instance } from "@/app/api/instances";
 import { MunicipalityRoutes } from "@/app/cores/core-gis/network/api-routes";
 

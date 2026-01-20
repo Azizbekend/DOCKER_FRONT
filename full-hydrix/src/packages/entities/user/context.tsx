@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, ReactNode } from "react";
-import { userModel } from "./user";
+import { userModel } from "../../features/user/user-god";
 import { User } from "./type";
 import { InitTriecoCompanyInterface, WaterCompany } from "../water-company/types";
 

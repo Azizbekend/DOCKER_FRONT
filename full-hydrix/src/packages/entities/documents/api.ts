@@ -1,4 +1,4 @@
-import { Documents } from "@/app/api/api-router"
+import { Documents } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 import { DocumentsType } from "./type"
 

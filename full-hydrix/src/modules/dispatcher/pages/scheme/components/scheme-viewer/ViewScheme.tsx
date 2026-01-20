@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { useScheme } from './hooks/useScheme';
 import { SchemeViewerType } from '../../types/type';
 import { useEffect, useRef, useState } from 'react';
-import { Role } from '@/packages/entities/user/role';
+import { Role } from '@/packages/entities/user/enums';
 import { useAuth } from '@/packages/entities/user/context';
 import { SchemaCardInterface } from '@/packages/entities/sensor/type';
 

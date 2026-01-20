@@ -4,7 +4,7 @@ import { cartLinks, cartLinksCompany } from "./utils/items-links";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useAuth } from "@/packages/entities/user/context";
-import { Role } from "@/packages/entities/user/role";
+import { Role } from "@/packages/entities/user/enums";
 
 export const MenuModulsView = observer(() => {
     const { init, itemsInformations } = authModulsModel;

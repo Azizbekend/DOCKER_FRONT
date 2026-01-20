@@ -1,4 +1,4 @@
-import { SchemaCard } from "@/app/api/api-router"
+import { SchemaCard } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 import { SchemaCardInterface, SchemaCardUpdateInterface } from "./type"
 

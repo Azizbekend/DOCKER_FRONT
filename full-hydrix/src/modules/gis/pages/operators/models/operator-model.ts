@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { operatorRole, OperatorRole } from "@/packages/entities/user/hooks";
+import { operatorRole, OperatorRole } from "@/packages/entities/user/enums";
 import { Operator } from "@/packages/entities/operator/type";
 import { Meta } from "@/app/api/meta";
 import { Plant } from "@/packages/entities/plants/types";
