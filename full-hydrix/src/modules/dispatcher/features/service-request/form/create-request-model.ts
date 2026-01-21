@@ -110,12 +110,10 @@ class CreateRequestModel {
         let ids: number[] = []
         attachUsersRes.data.forEach(element => { ids.push(element.userId) });
 
-        this.userList = allUsers
-            .filter(user => ids.includes(user.id))
-            .map(user => ({
-                value: user.id,
-                title: user.lastName + " " + user.firstName + " " + user.patronymic
-            }));
+        this.userList = allUsers.filter(user => ids.includes(user.id)).map(user => ({
+            value: user.id,
+            title: user.lastName + " " + user.firstName + " " + user.patronymic
+        }));
     }
 
     async create(id: number) {
@@ -133,7 +131,7 @@ class CreateRequestModel {
 
 
 
-            
+
         })
             .then((res) => {
                 this.clear()

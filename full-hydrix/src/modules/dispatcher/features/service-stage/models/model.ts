@@ -14,6 +14,9 @@ class ServiceStagesModel {
     async init(id: number) {
         await getServiceStageRequestsAll({ id: id })
             .then((res) => {
+
+                console.log(res.data)
+
                 this.model = res.data
             })
             .catch((err) => {
@@ -46,6 +49,7 @@ class ServiceStagesModel {
                 toast.error("Ошибка при отмене", { progressStyle: { background: "red" } })
             })
     }
+
     async completeEngineer(data: CompleteEngineerStageType) {
         await completeServiceStageRequests(data)
             .then(() => {
@@ -63,6 +67,7 @@ class ServiceStagesModel {
                 toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
             })
     }
+
     async cancelEngineer(data: CancelStageType) {
         await cancelServiceStageRequests(data)
             .then(() => {

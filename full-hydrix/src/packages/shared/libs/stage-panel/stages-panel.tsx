@@ -15,7 +15,7 @@ import { CompleteCancelType } from "@/packages/entities/service-requests/type";
 interface ServiceStagesPanelProps {
   show: boolean;
   onClose: () => void;
-  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' }
+  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null }
   completeService: (data: CompleteCancelType) => void
   cancelService: (data: CompleteCancelType) => void
 }
@@ -31,13 +31,9 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
   useEffect(() => {
     clear()
-
     init(isService.id)
-
-    setServiceId(isService.id)
-    setCreatorId(user!.id)
-    setImplementerId(user!.id)
     setStageType('Общий')
+
   }, [isService.id])
 
   return (
@@ -71,7 +67,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               key={stage.id}
               number={key + 1}
               stage={stage}
-              footerBlock={model.length == key + 1}
+              footerBlock={user?.id == stage.implementerId}
               completeEngineer={completeEngineer}
               cancelEngineer={cancelEngineer}
             />

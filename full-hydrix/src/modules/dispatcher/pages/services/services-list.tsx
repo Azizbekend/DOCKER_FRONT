@@ -14,7 +14,8 @@ export const RequestRegistryList = observer(() => {
   const { model, isLoader, init, isStagesPanel, setIsStagesPanel, isService, completeService, cancelService } = listRequestModel;
 
   useEffect(() => {
-    init(14);
+    const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
+    init(objectId);
   }, []);
 
   // Фильтрация заявок

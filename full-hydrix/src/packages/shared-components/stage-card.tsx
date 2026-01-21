@@ -61,6 +61,11 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
         </div>
 
+        <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
+          <p className="mb-1 text-gray-600">Описание:</p>
+          {stage.discription}
+        </div>
+
 
         {stage.cancelDiscription != null || stage.cancelDiscription != "" && (
           <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">

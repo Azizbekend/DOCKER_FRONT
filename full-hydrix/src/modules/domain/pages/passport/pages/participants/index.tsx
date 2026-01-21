@@ -19,7 +19,8 @@ export const PassportParticipants = observer(() => {
   const [showAddModalCompany, setShowAddModalCompany] = useState(false);
 
   useEffect(() => {
-    init(0)
+    const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
+    init(objectId)
   }, [])
 
   return isLoading ? <Loader /> : <>
