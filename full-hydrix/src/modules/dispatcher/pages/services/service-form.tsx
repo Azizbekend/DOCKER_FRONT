@@ -29,7 +29,7 @@ export const RequestRegistryForm = observer(() => {
                 <InputContainer headerText="Наименование заявки" >
                     <Input
                         placeholder="Наименование"
-                        className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                        className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
                         value={model.title}
                         onChange={setTitle}
                         type="text"
@@ -38,8 +38,9 @@ export const RequestRegistryForm = observer(() => {
 
                 <InputContainer headerText="Тип заявки">
                     <Selector
+                        className="px-4 py-3"
                         placeholder="Тип заявки"
-                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                        classWripper="w-full"
                         items={[
                             { value: 'Общая', title: "Общая" },
                             { value: 'Поставочная', title: "Поставочная" },
@@ -52,12 +53,22 @@ export const RequestRegistryForm = observer(() => {
                 <InputContainer headerText="Оборудование">
                     <SelectorSearch
                         placeholder="Оборудование"
-                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700"
                         items={hardwareList}
                         onSelect={(item) => { setHardwareId(Number(item.value)) }}
                         icon="arrow-down"
                         isLoader={isLodaderHardwares}
                     />
+                </InputContainer>
+
+                <InputContainer headerText="Описание" >
+                    <Textarea
+                        className="h-[116px]"
+                        placeholder="Описание"
+                        value={model.discription}
+                        onChange={setDiscription}
+                    />
+
                 </InputContainer>
 
                 <InputContainer headerText="Описание" >

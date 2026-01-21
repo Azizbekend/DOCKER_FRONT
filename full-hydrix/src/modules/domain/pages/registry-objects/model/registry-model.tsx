@@ -15,7 +15,7 @@ class RegistryModel {
     async init() {
 
         await getTechnicalCharsShapshi()
-            .then((res) => {
+        .then((res) => {
                 const data = res.data;
                 this.model[0] = {
                     img: "stations.jpg",

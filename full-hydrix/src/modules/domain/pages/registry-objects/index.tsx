@@ -59,9 +59,9 @@ export const RegistryObjectsLayout = observer(() => {
                       input: "bg-gray-50 px-4 text-gray-800 text-sm",
                     }}
                   />
-<div className="flex items-center gap-2 ">
-                <FilterObjects />
-                </div>
+                  <div className="flex items-center gap-2 ">
+                    <FilterObjects />
+                  </div>
                 </div>
 
                 {/* Переключатели */}
@@ -77,7 +77,7 @@ export const RegistryObjectsLayout = observer(() => {
                       }}
                     />
                     <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Диспетчерская</span>
-                    
+
                     <SwitchButton
                       label=""
                       onChange={() => { console.log() }}
@@ -96,7 +96,7 @@ export const RegistryObjectsLayout = observer(() => {
 
           {/* Правая часть: кнопки */}
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <NavLink 
+            <NavLink
               to={page === "list" ? "/domain/map" : "/domain/list"}
               className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors w-full sm:w-auto"
             >
@@ -113,8 +113,8 @@ export const RegistryObjectsLayout = observer(() => {
               )}
             </NavLink>
 
-            <NavLink 
-              to={"/domain/form-add"} 
+            <NavLink
+              to={"/domain/form-add"}
               className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm w-full sm:w-auto"
             >
               <Icon systemName="plus-white" className="w-4 h-4" />
@@ -124,34 +124,34 @@ export const RegistryObjectsLayout = observer(() => {
         </div>
 
         {/* Переключатели на мобильных */}
-{page === "list" && (
-  <div className="sm:hidden mt-4 pt-4 border-t border-gray-200">
-    <div className="flex items-center gap-2">
-      
-      <SwitchButton
-        label=""
-        onChange={() => { console.log() }}
-        classNames={{
-          container: "gap-1",
-          button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-          circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-        }}
-      />
-      <span className="text-sm text-gray-700 ">Диспетчерская</span>
-      
-      <SwitchButton
-        label=""
-        onChange={() => { console.log() }}
-        classNames={{
-          container: "gap-1",
-          button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-          circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-        }}
-      />
-      <span className="text-sm text-gray-700 ">Управление ЖБО</span>
-    </div>
-  </div>
-)}
+        {page === "list" && (
+          <div className="sm:hidden mt-4 pt-4 border-t border-gray-200">
+            <div className="flex items-center gap-2">
+
+              <SwitchButton
+                label=""
+                onChange={() => { console.log() }}
+                classNames={{
+                  container: "gap-1",
+                  button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                  circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                }}
+              />
+              <span className="text-sm text-gray-700 ">Диспетчерская</span>
+
+              <SwitchButton
+                label=""
+                onChange={() => { console.log() }}
+                classNames={{
+                  container: "gap-1",
+                  button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                  circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                }}
+              />
+              <span className="text-sm text-gray-700 ">Управление ЖБО</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Основной контент */}
