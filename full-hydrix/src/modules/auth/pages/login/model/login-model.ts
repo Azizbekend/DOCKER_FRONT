@@ -95,10 +95,11 @@ class LoginModel {
 
             })
 
-        } else if (this.model.username == "ruslam@mail.ru" ||
-            this.model.username == "ggvp@mail.ru" ||
-            this.model.username == "minisrty" ||
-            this.model.username == "aovks"
+        } else if (false
+            // this.model.username == "ruslam@mail.ru" ||
+            // this.model.username == "ggvp@mail.ru" ||
+            // this.model.username == "minisrty" ||
+            // this.model.username == "aovks"
         ) {
             await authAdmin(this.model)
                 .then(response => {
@@ -151,7 +152,6 @@ class LoginModel {
                     window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                     window.localStorage.setItem("user_id", response.data['id'])
                     initUser()
-
                     switch (response.data.baseRoleId) {
                         case Role.Client:
                             setTimeout(() => {
