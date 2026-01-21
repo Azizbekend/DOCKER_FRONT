@@ -24,7 +24,7 @@ export const PassportParticipants = observer(() => {
 
   return isLoading ? <Loader /> : <>
     {showModalCompany && <CreateCompanyModal show={showModalCompany} setShow={setShowModalCompany} />}
-    {showModalParticipants && <CreateParticipantsModal show={showModalParticipants} setShow={setShowModalParticipants} companyId={openCompanyId} />}
+    {showModalParticipants && <CreateParticipantsModal show={showModalParticipants} setShow={setShowModalParticipants} companyData={openCompanyId} />}
     {showAddModalCompany && <AddCompanyModal show={showAddModalCompany} setShow={setShowAddModalCompany} objectId={14} pushParticipants={pushParticipants} />}
     {showAddModalParticipants && <AddParticipantsModal show={showAddModalParticipants} setShow={setShowAddModalParticipants} companyId={openCompanyId} updateList={updateList} />}
 

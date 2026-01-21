@@ -39,7 +39,7 @@ export const AppRouter = createBrowserRouter([
         ]
     },
     {
-        element: <RoleGuard roles={[Role.Admin, Role.Guest, Role.Client, Role.CompanyOperator, Role.Ministry, Role.WaterCompany]} />,
+        element: <RoleGuard roles={[Role.Admin, Role.Guest, Role.Client, Role.CompanyOperator, Role.Ministry, Role.WaterCompany, Role.Sewer, Role.TransporterCompany, Role.Participant]} />,
         children: [
             {
                 path: '/gis',

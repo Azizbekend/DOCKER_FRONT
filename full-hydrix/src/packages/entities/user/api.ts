@@ -9,6 +9,10 @@ export const getUserByCompany = (params: { id: number }) => {
     return authorizationInstance.get(UserRoutes.getCompany, { params })
 }
 
+export const getByUser = (params: { id: number }) => {
+    return authorizationInstance.get(User.byOne, { params })
+}
+
 export const authoriseDespetcher = (params: { login: string, password: string, }) => {
     return authorizationInstance.post(User.authorise, params)
 }

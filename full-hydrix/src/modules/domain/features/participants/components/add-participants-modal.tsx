@@ -11,14 +11,13 @@ type Props = {
     show: boolean,
     setShow: (value: boolean) => void,
     companyId: number
-    updateList: (id: number) => void
+    updateList: (companyId: number, data: any) => void
 }
 
 export const AddParticipantsModal = observer(({ show, setShow, companyId, updateList }: Props) => {
-    const { init, allUsers, addUsers, pushUser, removeUser } = addParticipantsModel
+    const { init, allUsers, attachUsers, pushUser, removeUser, getUpdateList, attachUsersIds } = addParticipantsModel
     const [showList, setShowList] = useState(false);
     const dropdownRef = useRef(null);
-
 
     useEffect(() => {
         init(companyId);
@@ -33,7 +32,13 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [companyId]);
+    }, []);
+
+
+    const onSetShow = (value: boolean) => {
+        getUpdateList(updateList);
+        setShow(value);
+    }
 
 
     return (
@@ -41,7 +46,7 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
             wrapperId="addEmployeeModal"
             type="center"
             show={show}
-            setShow={setShow}
+            setShow={onSetShow}
             title={"Добавление сотрудников"}
             classNames={{
                 panel: "max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200",
@@ -56,20 +61,18 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
 
                     <div className="relative" ref={dropdownRef}>
                         <div
-                            className={`flex flex-wrap items-center gap-2 min-h-[48px] p-3 border rounded-xl transition-all duration-200 border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-200`}
                             onClick={() => setShowList(!showList)}
-                        >
-                            {addUsers.length > 0 ? addUsers.map((user, key) => (
+                            className={`flex flex-wrap items-center gap-2 min-h-[48px] p-3 border rounded-xl transition-all duration-200 border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-200`}>
+                            {attachUsers.length > 0 ? attachUsers.map((user, key) => (
                                 <div
                                     key={key}
                                     onClick={() => removeUser(user.id)}
                                     className="flex items-center gap-1.5 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:bg-blue-200"
                                 >
-                                    <span className="truncate max-w-[120px]">{user.name}</span>
-                                    <button
-                                        type="button"
+                                    <span className="truncate max-w-[120px]">{user.lastName + " " + user.firstName + " " + user.patronymic}</span>
+                                    <button type="button"
                                         className="flex items-center justify-center w-5 h-5 rounded-full bg-blue-200 hover:bg-blue-300 transition-colors"
-                                        aria-label={`Удалить ${user.name}`}
+                                        aria-label={`Удалить ${user.lastName + " " + user.firstName + " " + user.patronymic}`}
                                     >
                                         <Icon
                                             systemName="x"
@@ -95,32 +98,30 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
                         {showList && (
                             <div className="absolute z-10 mt-2 w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden animate-fadeIn">
                                 <div className="max-h-60 overflow-y-auto p-2">
-                                    {allUsers.length > 0 ? (
-                                        allUsers.map((user, key) => (
-                                            <button
-                                                key={key}
-                                                onClick={() => {
-                                                    pushUser(user);
-                                                    setShowList(false);
-                                                }}
-                                                className="flex items-center w-full px-4 py-3 text-left hover:bg-gray-100 rounded-lg transition-colors group"
-                                            >
-                                                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200">
-                                                    <Icon systemName="user" className="text-gray-600" width={16} />
-                                                </div>
-                                                <span className="ml-3 text-gray-700 group-hover:text-gray-900 font-medium">
-                                                    {user.name}
-                                                </span>
-                                                <div className="ml-auto">
-                                                    <Icon
-                                                        systemName="plus"
-                                                        className="text-gray-400 group-hover:text-gray-600"
-                                                        width={18}
-                                                    />
-                                                </div>
-                                            </button>
-                                        ))
-                                    ) : (
+                                    {allUsers.length > 0 ? (allUsers.map((user, key) => (!attachUsersIds.includes(user.id) &&
+                                        <button
+                                            key={key}
+                                            onClick={() => {
+                                                pushUser(user);
+                                                setShowList(false);
+                                            }}
+                                            className="flex items-center w-full px-4 py-3 text-left hover:bg-gray-100 rounded-lg transition-colors group"
+                                        >
+                                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-200">
+                                                <Icon systemName="user" className="text-gray-600" width={16} />
+                                            </div>
+                                            <span className="ml-3 text-gray-700 group-hover:text-gray-900 font-medium">
+                                                {user.lastName + " " + user.firstName + " " + user.patronymic}
+                                            </span>
+                                            <div className="ml-auto">
+                                                <Icon
+                                                    systemName="plus"
+                                                    className="text-gray-400 group-hover:text-gray-600"
+                                                    width={18}
+                                                />
+                                            </div>
+                                        </button>
+                                    ))) : (
                                         <div className="px-4 py-3 text-center text-gray-500">
                                             Все сотрудники уже добавлены
                                         </div>
@@ -143,23 +144,23 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
             }
             footerSlot={
-                <div className="flex gap-3">
+                <div className="flex gap-3" >
                     <Button
-                        onClick={() => setShow(false)}
+                        onClick={() => onSetShow(false)}
                         class="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                     >
-                        Отменить
+                        Закрыть
                     </Button>
-                    <Button
-                        onClick={() => setShow(false)}
+                    {/* <Button
+                        onClick={() => onSetShow(false)}
                         class="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                     >
 
                         Добавить
-                    </Button>
+                    </Button> */}
                 </div>
             }
         />

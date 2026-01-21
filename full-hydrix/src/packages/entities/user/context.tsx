@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, ReactNode } from "react";
 import { userModel } from "../../features/user/user-god";
-import { User } from "./type";
+import { User, UserType } from "./type";
 import { InitTriecoCompanyInterface, WaterCompany } from "../water-company/types";
 
 interface AuthContextType {
     // Данные пользователя
-    user: User | null;
+    user: User | UserType | null;
     waterCompany: WaterCompany | null;
     isLoading: boolean;
     error: string | null;
@@ -13,8 +13,8 @@ interface AuthContextType {
     triecoCompanyId: number | null;
 
     // Методы
-    setUser: (user: User) => void;
-    updateUser: (updates: Partial<User>) => void;
+    setUser: (user: User | UserType) => void;
+    updateUser: (updates: Partial<User | UserType>) => void;
     initUser: () => Promise<void>;
     initCompany: (data: WaterCompany) => void;
     initTriecoCompany: (data: InitTriecoCompanyInterface) => void;

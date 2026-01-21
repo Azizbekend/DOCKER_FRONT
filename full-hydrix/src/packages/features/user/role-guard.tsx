@@ -17,7 +17,7 @@ export const RoleGuard = ({ roles }: Props) => {
         return <Navigate to="/" replace />
     }
 
-    if (!roles.includes(user.roleId)) {
+    if (!roles.includes(user.baseRoleId)) {
         return <Navigate to="/error/403" replace />
     }
 

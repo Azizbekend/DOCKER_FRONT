@@ -1,4 +1,4 @@
-import { userAttachCompany, participantCreate, attachCompany, attachUser } from "@/packages/entities/participants/api";
+import { userAttachCompany, participantCreate, attachCompany, attachUser, getCompanyObjectLinkId } from "@/packages/entities/participants/api";
 import { CreateParticipantType } from "@/packages/entities/participants/type";
 import { Role } from "@/packages/entities/user/enums";
 import { makeAutoObservable } from "mobx";
@@ -73,23 +73,16 @@ class CreateParticipantsModel {
                 companyId: data.companyId
             });
 
-            const result2 = await attachCompany({
-                objectId: 14,
+            const result2 = await getCompanyObjectLinkId({
                 companyId: data.companyId,
-                companyName: data.companyName,
-                companyRole: data.companyRole,
+                objectId: 14
             });
-
-            const result3 = await attachUser({
-                objectCompanyLinkId: result.data.id,
-                userId: dataUser.data.id
-            });
-
-            toast.success("Соединение 1", { progressStyle: { background: "green" } });
-            toast.success("Соединение 2", { progressStyle: { background: "green" } });
 
             onAction();
             this.reset();
+
+            toast.success("Соединение 1", { progressStyle: { background: "green" } });
+            toast.success("Соединение 2", { progressStyle: { background: "green" } });
             toast.success("Участник создан", { progressStyle: { background: "green" } });
 
         } catch (error) {

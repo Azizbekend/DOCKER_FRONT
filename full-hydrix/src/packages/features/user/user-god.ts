@@ -1,11 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
-import { User } from "../../entities/user/type";
+import { User, UserType } from "../../entities/user/type";
 import { InitTriecoCompanyInterface, WaterCompany } from "../../entities/water-company/types";
 import { Role } from "../../entities/user/enums";
+import { authoriseDespetcher, getByUser } from "@/packages/entities/user/api";
 
 export class UserModel {
-    private _user: User | null = null;
+    private _user: User | UserType | null = null;
     private _waterCompany: WaterCompany | null = null;
     private _isLoading = false;
     private _error: string | null = null;
@@ -56,14 +57,13 @@ export class UserModel {
         }
     }
 
-    setUser(user: User) {
+    setUser(user: User | UserType) {
         this._user = user;
         this._error = null;
         localStorage.setItem("user", JSON.stringify(user));
-        console.log(user)
     }
 
-    updateUser(updates: Partial<User>) {
+    updateUser(updates: Partial<User | UserType>) {
         if (this._user) {
             this._user = { ...this._user, ...updates };
             localStorage.setItem("user", JSON.stringify(this._user));
@@ -97,7 +97,8 @@ export class UserModel {
                     roleId: Role.Guest
                 })
             } else {
-                const userResp = await GetUserById({ id: Number(userId) });
+                // const userResp = await GetUserById({ id: Number(userId) });
+                const userResp = await getByUser({ id: Number(userId) })
                 this.setUser(userResp.data);
             }
         } catch (error) {

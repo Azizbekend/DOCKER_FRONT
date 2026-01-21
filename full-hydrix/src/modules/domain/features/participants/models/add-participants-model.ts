@@ -1,82 +1,108 @@
-import { getByCompany } from "@/packages/entities/participants/api";
-import { getUserByCompany, getUserById } from "@/packages/entities/user/api";
+import { attachUser, deleteUserFromObject, getBjCompDataId, getCompanyObjectLinkId, getCompanyUsers, getUserCompanyObjectLinkId } from "@/packages/entities/participants/api";
 import { makeAutoObservable } from "mobx";
 
 class AddParticipantsModel {
 
     allUsers: any[] = []
-    addUsers: any[] = []
-
+    attachUsers: any[] = []
     listLoader: boolean = true
+
+    companyId: number = 0
+    attachUsersIds: number[] = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
 
-    pushUser(user: any) {
-        this.addUsers.push(user)
+    async pushUser(user: any) {
+        // Добавляем пользователя в список прикреплённых
+
+        this.attachUsersIds.push(user.id)
+        this.attachUsers.push(user)
+
+        // Получаем id привязки companyObjectLink
+        const companyObjectLinkData = await getCompanyObjectLinkId({
+            companyId: this.companyId,
+            objectId: 14
+        });
+
+        // Прикрепляем пользователя к объекту
+        const attachUserDate = await attachUser({
+            objectCompanyLinkId: companyObjectLinkData.data.id,
+            userId: user.id
+        });
+
+
+
     }
-    removeUser(id: number) {
-        this.addUsers = this.addUsers.filter((item) => {
-            return item.id !== id
-        })
+
+    async removeUser(id_user: number) {
+        try {
+            const companyObjectLinkData = await getCompanyObjectLinkId({
+                companyId: this.companyId,
+                objectId: 14
+            });
+
+            const deleteUser = await deleteUserFromObject({ userId: id_user, objectCompanyLinkId: companyObjectLinkData.data.id })
+
+            this.attachUsers = this.attachUsers.filter((item) => {
+                return item.id !== id_user
+            })
+
+            this.attachUsersIds = this.attachUsers.map((item) => {
+                return item.id
+            })
+
+        } catch (error) {
+            console.error('Ошибка при загрузке пользователей:', error);
+        }
+
     }
 
     reset() {
         this.allUsers = []
-        this.addUsers = []
+        this.attachUsers = []
         this.listLoader = true
+        this.companyId = 0
     }
 
     async init(id: number) {
 
         this.reset()
-
+        this.companyId = id
 
         try {
-            const usersRes = await getByCompany({ id: id })
-            const usersAll = usersRes.data
+            const [usersRes, companyObjectLinkRes] = await Promise.all([
+                getCompanyUsers({ id }),
+                getCompanyObjectLinkId({ companyId: id, objectId: 14 })
+            ]);
 
+            // Список всех пользователей в компании
+            this.allUsers = usersRes.data;
 
-            for (const user of usersAll) {
-                if (!user.userId) continue;
+            // Метод для получения id привязанных пользователей
+            const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
 
-                try {
-                    const userRes = await getUserById({ id: user.userId });
-                    if (userRes.data) {
-                        this.allUsers.push(userRes.data);
-                    }
-                } catch (userError) {
-                    console.error(
-                        `Ошибка получения пользователя ${user.userId}`,
-                        userError
-                    );
-                }
-            }
+            // получаю список ids
+            attachUsersRes.data.forEach(element => { this.attachUsersIds.push(element.userId) });
+            // Прохожу и получаю подкреплённых
+            this.attachUsers = this.allUsers.filter(user =>
+                this.attachUsersIds.includes(user.id)
+            );
 
-            const usersAddsRes = await getUserByCompany({ id: id })
-            const usersAdds = usersAddsRes.data
+            console.log('Все пользователи:', this.allUsers);
+            console.log('Прикрепленные пользователи:', this.attachUsers);
 
-            let ids: number[] = []
-
-            usersAdds.forEach(element => {
-                if (element.userId) {
-                    ids.push(element.userId)
-                }
-            });
-
-
-            this.addUsers = this.allUsers.filter((item: any) => {
-                if (ids.find((user: any) => user.id === item.id)) {
-                    return item
-                }
-            })
         } catch (error) {
-            console.log(error)
+            console.error('Ошибка при загрузке пользователей:', error);
         }
     }
 
+
+    async getUpdateList(updateList: (companyId: number, data: any) => void) {
+        updateList(this.companyId, this.attachUsers)
+    }
 }
 
 export const addParticipantsModel = new AddParticipantsModel()

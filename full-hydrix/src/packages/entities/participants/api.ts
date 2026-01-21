@@ -1,5 +1,5 @@
 import { authorizationInstance } from "@/app/api/instances/instance-authorization"
-import { PassportObject, User } from "@/app/routers/api-router"
+import { PassportObject, User, UserRoutes } from "@/app/routers/api-router"
 import { UserAttachCompanyType, CreateParticipantType, AttachCompanyType } from "./type"
 import { reserchInstance } from "@/app/api/instances"
 
@@ -23,4 +23,24 @@ export const attachCompany = (params: AttachCompanyType) => {
 
 export const attachUser = (params: { objectCompanyLinkId: number, userId: number }) => {
     return reserchInstance.post(PassportObject.attachUser, params)
+}
+
+export const getCompanyObjectLinkId = (params: { companyId: number, objectId: number }) => {
+    return reserchInstance.post(PassportObject.getCompanyObjectLinkId, params)
+}
+
+export const getBjCompDataId = (params: { objCompLinkId: number }) => {
+    return reserchInstance.get(PassportObject.getbjCompDataId, { params })
+}
+
+export const deleteUserFromObject = (params: { userId: number, objectCompanyLinkId: number }) => {
+    return reserchInstance.post(PassportObject.deleteUserFromObject, params)
+}
+
+export const getUserCompanyObjectLinkId = (params: { companyId: number, objectId: number }) => {
+    return reserchInstance.post(PassportObject.getUserCompanyObjectLinkId, params)
+}
+
+export const getCompanyUsers = (params: { id: number }) => {
+    return authorizationInstance.get(UserRoutes.getCompany, { params })
 }

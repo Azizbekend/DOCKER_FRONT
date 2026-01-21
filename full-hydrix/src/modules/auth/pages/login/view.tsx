@@ -28,10 +28,10 @@ export const LoginView = observer(() => {
   return (
     <>
       <Registration show={isregister} onClose={() => setIsRegister(false)} />
-      
+
       {/* Адаптивная обертка */}
       <div className="flex flex-col items-center justify-center p-4">
-        <div 
+        <div
           className="bg-white flex flex-col w-full max-w-[500px] rounded-2xl shadow-[0px_8px_32px_0px_rgba(0,0,0,0.12)] border border-gray-100"
           style={{ fontFamily: "'Open Sans', sans-serif" }}
         >

@@ -9,10 +9,10 @@ import { createParticipantsModel } from '../models/create-participants-model';
 interface CreateParticipantsModalProps {
     show: boolean;
     setShow: (show: boolean) => void;
-    companyId: any;
+    companyData: any;
 }
 
-export const CreateParticipantsModal = observer(({ show, setShow, companyId }: CreateParticipantsModalProps) => {
+export const CreateParticipantsModal = observer(({ show, setShow, companyData }: CreateParticipantsModalProps) => {
 
     const { model, setLogin, setPassword, setFirstName, setLastName, setPatronymic, setEmail, setPhoneNumber, setAdress, reset, create } = createParticipantsModel
     useEffect(() => {
@@ -20,7 +20,7 @@ export const CreateParticipantsModal = observer(({ show, setShow, companyId }: C
     }, [])
 
     const onSubmit = () => {
-        create(() => setShow(false), companyId)
+        create(() => setShow(false), companyData)
     }
 
     return (

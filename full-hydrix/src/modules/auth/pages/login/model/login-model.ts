@@ -142,7 +142,6 @@ class LoginModel {
                     }
                 })
         } else {
-
             await authoriseDespetcher({
                 login: this.model.username,
                 password: this.model.password
@@ -152,6 +151,29 @@ class LoginModel {
                     window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                     window.localStorage.setItem("user_id", response.data['id'])
                     initUser()
+
+                    switch (response.data.baseRoleId) {
+                        case Role.Client:
+                            setTimeout(() => {
+                                window.location.href = '/trieco/client'
+                            }, 1000)
+                            break;
+                        case Role.Sewer:
+                            setTimeout(() => {
+                                window.location.href = '/menu-moduls'
+                            }, 1000)
+                            break;
+                        case Role.TransporterCompany:
+                            setTimeout(() => {
+                                window.location.href = '/menu-moduls'
+                            }, 1000)
+                            break;
+                        case Role.Participant:
+                            setTimeout(() => {
+                                window.location.href = '/menu-moduls'
+                            }, 1000)
+                            break;
+                    }
                 })
         }
     }

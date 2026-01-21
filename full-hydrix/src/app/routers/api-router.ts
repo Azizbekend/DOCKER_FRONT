@@ -162,7 +162,12 @@ export const PassportObject = {
   byUsers: "/Passport/object/company/users",
   attachCompany: "/Passport/object/company/attach",
   attachUser: "/Passport/object/company/user/attach",
+  getCompanyObjectLinkId: "/Passport/object/company/getCompanyObjectLink",
+  getUserCompanyObjectLinkId: "/Passport/object/company/user/getUserCompanyLink",
+  getbjCompDataId: "/Passport/object/company/user/getUsers/objCompId",
+  deleteUserFromObject: "/Passport/object/company/user/deleteUserFromObject",
 }
+
 
 
 export const Camery = {

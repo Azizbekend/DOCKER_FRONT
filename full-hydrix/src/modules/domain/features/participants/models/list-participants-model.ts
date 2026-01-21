@@ -1,5 +1,5 @@
 import { getCompanyByObject } from "@/packages/entities/company/api";
-import { getByCompany } from "@/packages/entities/participants/api";
+import { getBjCompDataId, getByCompany, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
 import { getUserById } from "@/packages/entities/user/api";
 import { makeAutoObservable } from "mobx";
 
@@ -32,53 +32,31 @@ class ListParticipantsModel {
         })
     }
 
-    async updateList(id: number) {
+    async updateList(companyId: number, data: any) {
+        const listParticipantsCompanyListUpdate = this.listParticipants.map(participant => {
+            console.log(participant.company?.companyId)
+            if (participant.company?.companyId === companyId) {
 
-        const foundCompany = this.listParticipants.find(item => item.company.companyId === id)?.company;
-        const companyItem = {
-            company: foundCompany,
-            users: []
-        };
+                console.log({ ...participant, users: data })
 
-        try {
-            const usersRes = await getByCompany({ id: companyItem.companyId });
-            const users = usersRes.data ?? [];
-
-            for (const user of users) {
-                if (!user.userId) continue;
-
-                try {
-                    const userRes = await getUserById({ id: user.userId });
-                    if (userRes.data) {
-                        companyItem.users.push(userRes.data);
-                    }
-                } catch (userError) {
-                    console.error(
-                        `Ошибка получения пользователя ${user.userId}`,
-                        userError
-                    );
-                }
+                return {
+                    ...participant,
+                    users: data
+                };
             }
+            return participant;
+        });
+        this.listParticipants = listParticipantsCompanyListUpdate;
 
-            const index = this.listParticipants.findIndex(item => item.company.companyId === id);
 
-            this.listParticipants[index] = companyItem
 
-        } catch (companyError) {
-            console.error(
-                `Ошибка получения пользователей компании ${companyItem.companyId}`,
-                companyError
-            );
-        }
     }
 
     async init(id: number) {
         try {
             this.isLoading = true;
-
             const res = await getCompanyByObject({ id: 14 });
             const companyList = res.data ?? [];
-
             const fullData: Array<{ company: any; users: any[] }> = [];
 
             for (const company of companyList) {
@@ -87,26 +65,21 @@ class ListParticipantsModel {
                     users: []
                 };
 
+
                 try {
-                    const usersRes = await getByCompany({ id: company.companyId });
-                    const users = usersRes.data ?? [];
 
-                    for (const user of users) {
-                        if (!user.userId) continue;
+                    const [usersRes, companyObjectLinkRes] = await Promise.all([
+                        getCompanyUsers({ id: companyItem.company.companyId }),
+                        getCompanyObjectLinkId({ companyId: companyItem.company.companyId, objectId: 14 })
+                    ]);
 
-                        try {
-                            const userRes = await getUserById({ id: user.userId });
-                            if (userRes.data) {
-                                companyItem.users.push(userRes.data);
-                            }
-                        } catch (userError) {
-                            console.error(
-                                `Ошибка получения пользователя ${user.userId}`,
-                                userError
-                            );
-                        }
-                    }
+                    const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
 
+                    let attachUsersIds: number[] = []
+
+                    // Прохожу и получаю подкреплённых
+                    attachUsersRes.data.forEach(element => { attachUsersIds.push(element.userId) });
+                    companyItem.users = usersRes.data.filter(user => attachUsersIds.includes(user.id));
                 } catch (companyError) {
                     console.error(
                         `Ошибка получения пользователей компании ${company.companyId}`,
@@ -116,9 +89,8 @@ class ListParticipantsModel {
 
                 fullData.push(companyItem);
             }
-            this.listParticipants = fullData;
-            console.log(this.listParticipants)
 
+            this.listParticipants = fullData;
         } catch (err) {
             console.error('Error in init:', err);
         } finally {
