@@ -8,11 +8,11 @@ import operatorListModel from "./models/operator-list-model";
 import { Table } from "@/packages/shared-ui/table/index";
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import { Icon } from "@/packages/shared-ui/icon";
-import { OperatorRole, operatorRole } from "@/packages/entities/user/enums";
 import { OperatorInfoModal } from "./components/info-operator-madal";
 import { OperatorModal } from "./components/operator-modal";
 import operatorModel from "./models/operator-model";
 import { useAuth } from "@/packages/entities/user/context";
+import { operatorRole } from "@/packages/entities/operator/utils";
 
 
 const columns: TableColumn<Operator>[] = [
