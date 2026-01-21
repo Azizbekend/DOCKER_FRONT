@@ -14,6 +14,7 @@ class CreateRequestModel {
         type: "",
         creatorId: 0,
         implementerId: 0,
+        implementersCompanyId: 0,
         hardwareId: 0,
         objectId: 0,
         companyId: 0
@@ -30,7 +31,6 @@ class CreateRequestModel {
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
-
 
     setTitle(value: string) {
         this.model.title = value
@@ -119,6 +119,8 @@ class CreateRequestModel {
     async create(id: number) {
         this.model.creatorId = id
 
+        
+
         createServiceRequests({
             title: this.model.title,
             discription: this.model.discription,
@@ -128,10 +130,7 @@ class CreateRequestModel {
             hardwareId: this.model.hardwareId,
             objectId: this.model.objectId,
             companyId: this.model.companyId,
-
-
-
-
+            implementersCompanyId: this.model.companyId,
         })
             .then((res) => {
                 this.clear()

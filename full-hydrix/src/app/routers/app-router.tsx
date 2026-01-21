@@ -220,26 +220,21 @@ export const AppRouter = createBrowserRouter([
                                     },
                                     {
                                         path: ":id",
-                                        children: [
-                                            {
-                                                index: true,
-                                                async lazy() {
-                                                    const { HardwareInformation } = await import("@/modules/domain/pages/passport/pages/hardware")
-                                                    return {
-                                                        Component: HardwareInformation
-                                                    }
-                                                },
-                                            },
-                                            {
-                                                path: "form",
-                                                async lazy() {
-                                                    const { HardwareForm } = await import("@/modules/domain/pages/passport/pages/hardware-form")
-                                                    return {
-                                                        Component: HardwareForm
-                                                    }
-                                                },
-                                            },
-                                        ]
+                                        async lazy() {
+                                            const { HardwareInformation } = await import("@/modules/domain/pages/passport/pages/hardware")
+                                            return {
+                                                Component: HardwareInformation
+                                            }
+                                        },
+                                    },
+                                    {
+                                        path: "form",
+                                        async lazy() {
+                                            const { HardwareForm } = await import("@/modules/domain/pages/passport/pages/hardware-form")
+                                            return {
+                                                Component: HardwareForm
+                                            }
+                                        },
                                     },
                                 ]
                             },

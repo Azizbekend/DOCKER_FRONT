@@ -25,6 +25,19 @@ class ListRequestModel {
     async init(id: number) {
         await getByObjectServiceRequests({ id: id })
             .then((res) => {
+
+                const idsUsers = res.data.map((item) => {
+                    return {
+                        id: item.id,
+                        creatorId: item.creatorId,
+                        implements: item.implementerId,
+                        company: item.implementerId
+                    }
+                })
+
+                console.log(res.data)
+                // await getByUser({ id: })
+
                 this.model = res.data
             })
             .catch((err) => {

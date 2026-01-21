@@ -21,6 +21,7 @@ export type FormCommonServiceModelType = {
     type: string,
     creatorId: number,
     implementerId: number,
+    implementersCompanyId?: number,
     hardwareId: number,
     objectId: number
     companyId?: number

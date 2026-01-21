@@ -91,6 +91,8 @@ class ListParticipantsModel {
             }
 
             this.listParticipants = fullData;
+
+            console.log(this.listParticipants)
         } catch (err) {
             console.error('Error in init:', err);
         } finally {

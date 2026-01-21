@@ -1,4 +1,20 @@
+
+
 export interface PassportModelType {
+    id: number,
+    name: string,
+    latitude: string,
+    longitude: string,
+    adress: string,
+    operatingOrganization: string,
+    customerName: string,
+    generalContractorName: string,
+    projectEfficiency: number,
+    fileId: number
+}
+
+
+export interface PassportModelIndicatorType {
     designPerformance: {
         name: string,
         value: string,

@@ -8,12 +8,13 @@ import { listParticipantsModel } from '@/modules/domain/features/participants/mo
 import Loader from '@/packages/shared-ui/loader/loader';
 import { CreateParticipantsModal } from '@/modules/domain/features/participants/components/create-participants-modal';
 import { AddCompanyModal } from '@/modules/domain/features/participants/components/add-company-modal';
-import { hardwareModel } from '@/modules/domain/features/hardware/model';
 import { AddParticipantsModal } from '@/modules/domain/features/participants/components/add-participants-modal';
 
 export const PassportParticipants = observer(() => {
 
   const { isLoading, init, openCompanyId, showModalParticipants, setShowModalParticipants, listParticipants, pushParticipants, showAddModalParticipants, setShowAddModalParticipants, updateList } = listParticipantsModel
+
+  
 
   const [showModalCompany, setShowModalCompany] = useState(false);
   const [showAddModalCompany, setShowAddModalCompany] = useState(false);

@@ -5,9 +5,12 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { HardwarePassport } from "@/packages/shared/libs/hardware/tabs/page-tabs";
+import { getObjectId } from "@/packages/hook/objectData/getObjectData";
 
 export const HardwareInformation = observer(() => {
     const { id } = useParams();
+    const objectId = getObjectId()
+
     const { model, init, status, isLoading, getInfoNodeInfoAll, documents, сharacteristic, incidentList, commandsInfo } = hardwareModel
 
     useEffect(() => {
@@ -22,7 +25,7 @@ export const HardwareInformation = observer(() => {
 
     return isLoading ? <Loader /> :
         <div>
-            <PassportHeaderPanel to={"/domain/passport/hardwares"} title={model.name || '—'} />
+            <PassportHeaderPanel to={`/domain/passport/${objectId}/hardwares`} title={model.name || '—'} />
 
             <HardwarePassport
                 model={model}

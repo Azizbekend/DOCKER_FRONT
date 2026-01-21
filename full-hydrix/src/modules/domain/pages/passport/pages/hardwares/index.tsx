@@ -4,20 +4,22 @@ import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
 import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
 import { Icon } from "@/packages/shared-ui/icon";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { domainHardwariesColumns } from "@/packages/shared/libs/hardware/columns/columns";
+import { getObjectId } from "@/packages/hook/objectData/getObjectData";
 
 export const HardwareRegistry = observer(() => {
   const { list, init } = hardwareListModel;
   const navigate = useNavigate();
+  const objectId = getObjectId()
 
-  const { search, setSearch, results } = useSearch<HardwareInterface>({ 
-    data: list, 
-    searchFields: ['name', 'position', 'opcDescription'] 
+  const { search, setSearch, results } = useSearch<HardwareInterface>({
+    data: list,
+    searchFields: ['name', 'position', 'opcDescription']
   });
 
   useEffect(() => {
@@ -58,8 +60,8 @@ export const HardwareRegistry = observer(() => {
         </div>
 
         {/* Кнопка добавления */}
-        <Link 
-          to="/dispatcher/equipment/form"
+        <Link
+          to={`/domain/passport/${objectId}/hardwares/form`}
           className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 w-full sm:w-auto rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm whitespace-nowrap"
         >
           <Icon systemName="plus-white" className="w-4 h-4" />
@@ -73,7 +75,7 @@ export const HardwareRegistry = observer(() => {
         countActive
         columns={domainHardwariesColumns}
         data={results.length > 0 ? results : []}
-        onRowClick={(row) => navigate(`/domain/passport/hardwares/${row.id}`)}
+        onRowClick={(row) => navigate(`/domain/passport/${objectId}/hardwares/${row.id}`)}
       />
     </>
   );

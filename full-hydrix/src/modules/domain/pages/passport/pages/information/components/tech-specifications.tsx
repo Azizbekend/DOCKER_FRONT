@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import { BlockContainer } from "../../../../../../../packages/shared/components/block-container";
-import { PassportModelType } from "@/packages/entities/object/type";
+import { PassportModelIndicatorType } from "@/packages/entities/object/type";
 
-export const TechSpecifications = observer(({ data }: { data: PassportModelType }) => {
+export const TechSpecifications = observer(({ data }: { data: PassportModelIndicatorType }) => {
     return (
         <BlockContainer title="Технические характеристики" >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
