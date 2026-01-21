@@ -188,7 +188,7 @@ export const RequestRegistryList = observer(() => {
                     </div>
                     <div className="min-w-0">
                       <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
-                      <div className="font-medium text-gray-800 truncate">{item.creatorId || 'Не указан'}</div>
+                      <div className="font-medium text-gray-800 truncate">{item.creatorId}</div>
                     </div>
                   </div>
 
@@ -201,7 +201,7 @@ export const RequestRegistryList = observer(() => {
                     </div>
                     <div className="min-w-0">
                       <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
-                      <div className="font-medium text-gray-800 truncate">{item.implementerId || 'Не назначен'}</div>
+                      <div className="font-medium text-gray-800 truncate">{item.implementerId}</div>
                     </div>
                   </div>
                 </div>

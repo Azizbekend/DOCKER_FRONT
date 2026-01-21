@@ -50,6 +50,7 @@ class CreateRequestModel {
 
     setImplementerId(value: number) {
         this.model.implementerId = value
+        console.log(this.model.implementerId)
     }
 
     clear() {
@@ -115,15 +116,25 @@ class CreateRequestModel {
                 value: user.id,
                 title: user.lastName + " " + user.firstName + " " + user.patronymic
             }));
-
-        console.log(this.userList)
-
     }
 
     async create(id: number) {
         this.model.creatorId = id
 
-        createServiceRequests(this.model)
+        createServiceRequests({
+            title: this.model.title,
+            discription: this.model.discription,
+            type: this.model.type,
+            creatorId: this.model.creatorId,
+            implementerId: this.model.implementerId,
+            hardwareId: this.model.hardwareId,
+            objectId: this.model.objectId,
+            companyId: this.model.companyId,
+
+
+
+            
+        })
             .then((res) => {
                 this.clear()
                 toast.success("Заявка создана", { progressStyle: { background: "green" } })
