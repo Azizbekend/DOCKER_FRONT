@@ -39,7 +39,8 @@ export const PassportObject = observer(() => {
               {tabLinks.map((link, key) => (
                 <NavLink
                   key={key}
-                  to={link.to}
+
+                  to={"/domain/passport/" + objectId + "/" + link.to}
                   className={({ isActive }) =>
                     `whitespace-nowrap px-3 py-2 sm:px-4 sm:py-2.5 rounded-t-lg font-semibold text-sm sm:text-base transition-colors duration-300 ${isActive
                       ? "bg-[#4A85F6] text-white shadow-sm"

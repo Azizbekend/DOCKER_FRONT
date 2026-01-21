@@ -3,23 +3,23 @@ export const tabLinks: {
     name: string,
 }[] = [
         {
-            to: "/domain/passport/information",
+            to: "information",
             name: "Паспорт",
         },
         {
-            to: "/domain/passport/participants",
+            to: "participants",
             name: "Участники",
         },
         {
-            to: "/domain/passport/hardwares",
+            to: "hardwares",
             name: "Оборудования",
         },
         {
-            to: "/domain/passport/incident",
+            to: "incident",
             name: "Аварии",
         },
         {
-            to: "/domain/passport/documentation",
+            to: "documentation",
             name: "Документация",
         },
     ]

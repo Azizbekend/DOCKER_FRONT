@@ -44,3 +44,7 @@ export const getUserCompanyObjectLinkId = (params: { companyId: number, objectId
 export const getCompanyUsers = (params: { id: number }) => {
     return authorizationInstance.get(UserRoutes.getCompany, { params })
 }
+
+export const getCompanybyObject = (params: { id: number }) => {
+    return reserchInstance.get(PassportObject.byObject, { params })
+}

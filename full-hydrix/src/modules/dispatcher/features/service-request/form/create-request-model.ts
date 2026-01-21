@@ -1,5 +1,6 @@
 import { getAllHardware } from "@/packages/entities/hardware/api";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
+import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
 import { createServiceRequests } from "@/packages/entities/service-requests/api";
 import { FormCommonServiceModelType } from "@/packages/entities/service-requests/type";
 import { makeAutoObservable } from "mobx";
@@ -15,10 +16,16 @@ class CreateRequestModel {
         implementerId: 0,
         hardwareId: 0,
         objectId: 0,
+        companyId: 0
     }
 
     hardwareList: { value: number, title: string }[] = []
+    companyList: { value: number, title: string }[] = []
+    userList: { value: number, title: string }[] = []
+
     isLodaderHardwares: boolean = true
+
+    objectId: number = 0
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -28,14 +35,21 @@ class CreateRequestModel {
     setTitle(value: string) {
         this.model.title = value
     }
+
     setDiscription(value: string) {
         this.model.discription = value
     }
+
     setType(value: string) {
         this.model.type = value
     }
+
     setHardwareId(value: number) {
         this.model.hardwareId = value
+    }
+
+    setImplementerId(value: number) {
+        this.model.implementerId = value
     }
 
     clear() {
@@ -50,29 +64,64 @@ class CreateRequestModel {
         }
     }
 
-    async init() {
+    async init(id: number) {
         this.clear()
+        try {
+            const [allHardwareRes, allCompanies] = await Promise.all([
+                getAllHardware(),
+                getCompanybyObject({ id: id })
+            ])
 
-        await getAllHardware()
-            .then((res) => {
-                this.hardwareList = res.data.map((item: HardwareInterface) => ({
-                    value: item.id,
-                    title: item.name
-                }))
+            this.hardwareList = allHardwareRes.data.map((item: HardwareInterface) => ({
+                value: item.id,
+                title: item.name
+            }))
+
+            this.companyList = allCompanies.data.map((item: any) => {
+                return {
+                    value: item.companyId,
+                    title: item.companyName
+                }
             })
-            .catch((err) => {
-                console.log(err)
-            })
-            .finally(() => {
-                this.isLodaderHardwares = false
-            })
+
+            this.model.objectId = id
+        } catch (error) {
+            console.log(error)
+        } finally {
+            this.isLodaderHardwares = false
+
+        }
     }
 
-    async create() {
 
-        this.model.objectId = 14
-        this.model.creatorId = 400
-        this.model.implementerId = 400
+    async getUserList(id: number) {
+
+        this.model.companyId = id
+
+        const [usersRes, companyObjectLinkRes] = await Promise.all([
+            getCompanyUsers({ id }),
+            getCompanyObjectLinkId({ companyId: id, objectId: this.model.objectId })
+        ]);
+
+        const allUsers = usersRes.data;
+        const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
+
+        let ids: number[] = []
+        attachUsersRes.data.forEach(element => { ids.push(element.userId) });
+
+        this.userList = allUsers
+            .filter(user => ids.includes(user.id))
+            .map(user => ({
+                value: user.id,
+                title: user.lastName + " " + user.firstName + " " + user.patronymic
+            }));
+
+        console.log(this.userList)
+
+    }
+
+    async create(id: number) {
+        this.model.creatorId = id
 
         createServiceRequests(this.model)
             .then((res) => {

@@ -8,15 +8,21 @@ import { Textarea } from "@/packages/shared-ui/textarea";
 import { observer } from "mobx-react-lite";
 import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const RequestRegistryForm = observer(() => {
 
-    const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create } = createRequestModel
+    const { user } = useAuth()
+    const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create, companyList, setImplementerId, getUserList, userList } = createRequestModel
 
     useEffect(() => {
-        init()
+        const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
+        init(objectId)
     }, [])
 
+    const onSubmit = () => {
+        create(user!.id)
+    }
 
     return (
         <>
@@ -50,7 +56,7 @@ export const RequestRegistryForm = observer(() => {
                     />
                 </InputContainer>
 
-                <InputContainer headerText="Пользователь">
+                <InputContainer headerText="Выберете оборудование">
                     <SelectorSearch
                         placeholder="Оборудование"
                         classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700"
@@ -61,26 +67,30 @@ export const RequestRegistryForm = observer(() => {
                     />
                 </InputContainer>
 
-                <InputContainer headerText="Оборудование">
-                    <SelectorSearch
-                        placeholder="Оборудование"
-                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700"
-                        items={hardwareList}
-                        onSelect={(item) => { setHardwareId(Number(item.value)) }}
+                <InputContainer headerText="Выберете компанию">
+                    <Selector
+                        placeholder="Выберете компанию"
+                        classWripper="w-full"
+                        items={companyList}
+                        onSelect={(item) => { getUserList(Number(item.value)) }}
                         icon="arrow-down"
-                        isLoader={isLodaderHardwares}
                     />
                 </InputContainer>
 
-                <InputContainer headerText="Описание" >
-                    <Textarea
-                        className="h-[116px]"
-                        placeholder="Описание"
-                        value={model.discription}
-                        onChange={setDiscription}
-                    />
 
-                </InputContainer>
+                {model.companyId != 0 && (userList.length > 0 ?
+                    <InputContainer headerText="Выберете ответственное лицо">
+                        <Selector
+                            placeholder="Выберете ответственное лицо"
+                            classWripper="w-full"
+                            items={userList}
+                            onSelect={(item) => { setImplementerId(Number(item.value)) }}
+                            icon="arrow-down"
+                        />
+                    </InputContainer>
+                    : <div>У компании отсутвствуют ответственные лица </div>)
+                }
+
 
                 <InputContainer headerText="Описание" >
                     <Textarea
@@ -93,7 +103,7 @@ export const RequestRegistryForm = observer(() => {
                 </InputContainer>
 
                 <div className="flex gap-4">
-                    <Button class="bg-[#4A85F6] text-white px-6 py-2.5 rounded-lg hover:opacity-50 duration-300" onClick={create}>
+                    <Button class="bg-[#4A85F6] text-white px-6 py-2.5 rounded-lg hover:opacity-50 duration-300" onClick={onSubmit}>
                         Отправить заявку
                     </Button>
                     <Link to="/dispatcher/orders" className="text-[var(--clr-accent)] px-6 py-2.5 rounded-lg border border-[var(--clr-accent)] hover:bg-[var(--clr-accent)] hover:text-white duration-300">

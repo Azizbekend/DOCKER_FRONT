@@ -6,11 +6,12 @@ import logo from "../../../../app/static/img/logo.png"
 import illyas from "./assets/iilyas.png"
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getRoleText } from "@/packages/entities/user/enums";
+import { Button } from "@/packages/shared-ui/button";
 
 export const Header = observer(() => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
 
     return (
@@ -36,7 +37,7 @@ export const Header = observer(() => {
                 <div className="flex items-center justify-center min-w-[50px]">
                     <Icon systemName="bell" />
                 </div>
-                <div className="flex flex-row">
+                <div className="flex flex-row items-center gap-4">
                     <div className="h-full w-[1px] bg-[#C2C2C2]" />
                     <div className="bg-[#C2C2C2] rounded-full w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] lg:ml-6 ml-3" />
                     {user && false &&
@@ -45,6 +46,10 @@ export const Header = observer(() => {
                             <span className="text-[12px]">{getRoleText(user?.roleId)}</span>
                         </div>
                     }
+
+                    <Button onClick={logout} class="w-[40px] h-[40px] !rounded-full" styleColor="blue">
+                        <Icon systemName="exit" width={25} />
+                    </Button>
                 </div>
             </div>
         </div>

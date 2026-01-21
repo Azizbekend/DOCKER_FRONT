@@ -3,7 +3,7 @@ export type ServiceType = {
     id: number,
     title: string,
     type: string,
-    status:'New' | 'Completed' | 'Canceled',
+    status: 'New' | 'Completed' | 'Canceled',
     createdAt: Date,
     closedAt: Date,
     cancelDiscription: string,
@@ -23,6 +23,7 @@ export type FormCommonServiceModelType = {
     implementerId: number,
     hardwareId: number,
     objectId: number
+    companyId?: number
 }
 
 export type FormIncidentServiceModelType = {

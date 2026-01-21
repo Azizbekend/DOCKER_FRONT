@@ -155,7 +155,6 @@ export const PassportObject = {
 
   all: "/Passport/all",
   single: "/Passport/single",
-  naem: "/Passport/object/companies",
   byObject: "/Passport/object/companies",
 
   byUsers: "/Passport/object/company/users",
