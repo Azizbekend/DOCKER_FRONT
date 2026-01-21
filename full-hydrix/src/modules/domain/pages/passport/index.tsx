@@ -1,5 +1,5 @@
 
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import { Icon } from "@/packages/shared-ui/icon"
 import { useEffect } from "react";
 import { passportModel } from "../../features/object/model";
@@ -8,10 +8,11 @@ import { observer } from "mobx-react-lite";
 
 export const PassportObject = observer(() => {
 
-  const { init: passportInit } = passportModel;
+  const { objectId } = useParams();
+  const { init } = passportModel;
 
   useEffect(() => {
-    passportInit()
+    init(objectId)
   }, [])
 
   return (
@@ -36,14 +37,13 @@ export const PassportObject = observer(() => {
           <div className="flex overflow-x-auto hide-scrollbar">
             <div className="flex gap-2 min-w-max">
               {tabLinks.map((link, key) => (
-                <NavLink 
+                <NavLink
                   key={key}
                   to={link.to}
-                  className={({ isActive }) => 
-                    `whitespace-nowrap px-3 py-2 sm:px-4 sm:py-2.5 rounded-t-lg font-semibold text-sm sm:text-base transition-colors duration-300 ${
-                      isActive 
-                        ? "bg-[#4A85F6] text-white shadow-sm" 
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  className={({ isActive }) =>
+                    `whitespace-nowrap px-3 py-2 sm:px-4 sm:py-2.5 rounded-t-lg font-semibold text-sm sm:text-base transition-colors duration-300 ${isActive
+                      ? "bg-[#4A85F6] text-white shadow-sm"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     }`
                   }
                 >

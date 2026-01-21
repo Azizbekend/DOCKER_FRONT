@@ -1,7 +1,7 @@
 import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
 import { makeAutoObservable } from "mobx";
 import { passportObject } from "../service/api";
-import { getTechnicalCharsShapshi } from "@/packages/entities/object/api";
+import { getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 
 
 
@@ -12,25 +12,45 @@ class RegistryModel {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    async init() {
+    async init(userId: number) {
+        try {
+            const [objectsRes, charsShapshiRes] = await Promise.all([
+                getAllUserObjects({ userId: userId }),
+                getTechnicalCharsShapshi()
+            ])
 
-        await getTechnicalCharsShapshi()
-        .then((res) => {
-                const data = res.data;
-                this.model[0] = {
-                    img: "stations.jpg",
-                    nameMinin: "Очистные сооружения в с. Шапши",
-                    company: "АО “ВКС”",
+            this.model = objectsRes.data.map((data, _) => {
+                if (data.id == 14) {
+                    return {
+                        id: data.id,
+                        img: data.fileId,
+                        nameMinin: data.name,
+                        company: data.operatingOrganization,
+                        statusСonnection: true,
+                        volumeProjec: data.projectEfficiency,
+                        dayEfficiency: charsShapshiRes.data.dayEfficiency,
+                        hourEfficiency: charsShapshiRes.data.hourEfficiency,
+                        dispetcher: true,
+                    }
+                }
+
+                return {
+                    id: data.id,
+                    img: data.fileId,
+                    nameMinin: data.name,
+                    company: data.operatingOrganization,
                     statusСonnection: true,
-                    volumeProjec: 250,
-                    dayEfficiency: data.dayEfficiency,
-                    hourEfficiency: data.hourEfficiency,
-                    dispetcher: true
+                    volumeProjec: data.projectEfficiency,
+                    dayEfficiency: "0",
+                    hourEfficiency: "0",
+                    dispetcher: true,
                 }
             })
-            .catch((err) => {
-                console.log(err)
-            })
+
+
+        } catch (error) {
+            console.log(error)
+        }
 
 
     }

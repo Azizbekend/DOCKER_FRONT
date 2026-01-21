@@ -10,17 +10,19 @@ import { DespetcherTest } from '@/packages/entities/despetcher-test/type';
 import { registryModel } from './model/registry-model';
 import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
-import { Button } from '@/packages/shared-ui/button';
 import { ObjectsForm } from '../objects-form';
+import { useAuth } from '@/packages/entities/user/context';
 
 export const RegistryObjectsLayout = observer(() => {
+
+  const { user } = useAuth()
+
   const { page } = useParams();
   const { model, init } = registryModel;
-
   const { search, setSearch, results } = useSearch<DespetcherTest>({ data: model, searchFields: ["nameMinin", "company"] });
 
   useEffect(() => {
-    init();
+    init(user!.id);
   }, []);
 
 

@@ -50,6 +50,17 @@ export const RequestRegistryForm = observer(() => {
                     />
                 </InputContainer>
 
+                <InputContainer headerText="Пользователь">
+                    <SelectorSearch
+                        placeholder="Оборудование"
+                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700"
+                        items={hardwareList}
+                        onSelect={(item) => { setHardwareId(Number(item.value)) }}
+                        icon="arrow-down"
+                        isLoader={isLodaderHardwares}
+                    />
+                </InputContainer>
+
                 <InputContainer headerText="Оборудование">
                     <SelectorSearch
                         placeholder="Оборудование"

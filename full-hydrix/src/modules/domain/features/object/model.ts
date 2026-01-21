@@ -1,4 +1,4 @@
-import { getTechnicalCharsShapshi } from "@/packages/entities/object/api";
+import { getOneData, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 import { PassportModelType } from "@/packages/entities/object/type";
 import { makeAutoObservable } from "mobx";
 
@@ -31,18 +31,19 @@ class PassportModel {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    async init() {
-        await getTechnicalCharsShapshi()
-            .then((res) => {
-                const data = res.data;
-                this.model.hourEfficiency.value = data.hourEfficiency + " м³/ч";
-                this.model.dayEfficiency.value = data.dayEfficiency + " м³/сут";
-                this.model.electroConsumption.value = data.electroConsumption + " кВт/ч";
-                this.model.waterConsumption.value = data.waterConsumption + " м³";
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+    async init(id: number) {
+
+        const [data, shapshiChars] = await Promise.all([
+            getOneData({ id: id }),
+            getTechnicalCharsShapshi()
+        ])
+
+        localStorage.setItem("objectData", JSON.stringify(data.data))
+
+        this.model.hourEfficiency.value = shapshiChars.data.hourEfficiency + " м³/ч";
+        this.model.dayEfficiency.value = shapshiChars.data.dayEfficiency + " м³/сут";
+        this.model.electroConsumption.value = shapshiChars.data.electroConsumption + " кВт/ч";
+        this.model.waterConsumption.value = shapshiChars.data.waterConsumption + " м³";
     }
 }
 

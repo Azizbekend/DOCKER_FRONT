@@ -1,5 +1,5 @@
 export type DespetcherTest = {
-    img?: string,
+    img?: string | number,
     nameMinin?: string,
     company?: string,
     statusСonnection?: boolean,

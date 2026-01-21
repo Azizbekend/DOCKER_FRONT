@@ -58,6 +58,7 @@ export const ClientCompanyRoutes = {
 export const ControlBlock = {
   all: "/ControlBlock/all",
   create: "/ControlBlock/create",
+  getOne: "/ControlBlock/all/passport",
 }
 export const Hardware = {
   all: "/Hardware/all",
@@ -69,13 +70,13 @@ export const Hardware = {
   active: "/Hardware/Activate",
   statusHardwaresCheck: "/Hardware/statusCheck/group",
 }
+
 export const Schema = {
   create: "/schemas/schema/create",
   all: "/schemas/schemas",
   CoordinatesCreate: "/schemas/schema/coordinates/create",
   getCoordinates: "/schemas/schemas/coordinates",
 }
-
 
 export const SchemaCard = {
   create: "schemas/card/create",
@@ -114,8 +115,6 @@ export const Command = {
   deactive: "/Comand/hardware/remoreControl/Deactivate",
   send: "/Comand/send/command/string",
 }
-
-
 
 export const Incident = {
   allIncedent: "/Incidents/incidents/all", // Получаем все все аварии
@@ -166,8 +165,9 @@ export const PassportObject = {
   getUserCompanyObjectLinkId: "/Passport/object/company/user/getUserCompanyLink",
   getbjCompDataId: "/Passport/object/company/user/getUsers/objCompId",
   deleteUserFromObject: "/Passport/object/company/user/deleteUserFromObject",
+  getUserObjectsLink: "/Passport/object/company/user/getUserCompanyLink",
+  getAllUserObjects: "Passport/getAllUserObjects",
 }
-
 
 
 export const Camery = {

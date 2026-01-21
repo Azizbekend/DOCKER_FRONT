@@ -180,7 +180,7 @@ export const AppRouter = createBrowserRouter([
                         },
                     },
                     {
-                        path: "passport",
+                        path: "passport/:objectId",
                         async lazy() {
                             const { PassportObject } = await import("@/modules/domain/pages/passport")
                             return {
