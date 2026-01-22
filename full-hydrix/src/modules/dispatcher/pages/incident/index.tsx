@@ -12,6 +12,10 @@ export const Incident = () => {
     const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
+
+    
+
+
     const handleRow = () => {
         navigate("/domain/passport/information")
     }
@@ -31,6 +35,7 @@ export const Incident = () => {
             countActive
             data={incidents}
         />
+
     </>)
 }
 

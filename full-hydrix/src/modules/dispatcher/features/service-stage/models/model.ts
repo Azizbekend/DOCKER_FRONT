@@ -141,7 +141,6 @@ class ServiceStagesModel {
     async cancelEngineer(data: CancelStageType) {
         await cancelServiceStageRequests(data)
             .then(() => {
-
                 this.model = this.model.map((item) => {
                     if (item.id === data.stageId) {
                         item.currentStatus = "Canceled"

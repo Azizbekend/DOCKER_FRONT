@@ -39,12 +39,17 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
     formInit()
   }, [isService.id])
 
+  const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
 
   const onSubmit = () => {
     create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId,)
+    setIsOpenForm(false)
   }
 
-  const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
+  useEffect(() => {
+    setIsOpenForm(false)
+  }, [])
+
 
 
   return (

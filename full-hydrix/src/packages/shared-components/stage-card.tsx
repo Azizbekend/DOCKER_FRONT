@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useInsertionEffect, useState } from "react";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "../entities/service-requests/type";
 import { getDate } from "../hook/get-date";
 import { Button } from "../shared-ui/button";
@@ -26,11 +26,10 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-500", Canceled: "bg-red-500" }
   const userDD = getDostup()
 
-
   const { user } = useAuth()
 
   const onComplete = () => {
-    userDD.isCommandsEnabled ? cancelEngineer({ stageId: Number(stage.id), cancelDiscriprion: descr }) : completeCommon({ stageId: Number(stage.id), discription: descr })
+    userDD.isCommandsEnabled ? completeEngineer({ stageId: Number(stage.id), engineerId: user.id }) : completeCommon({ stageId: Number(stage.id), discription: descr })
   }
 
 
@@ -112,10 +111,10 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
 
 
-          {stage.cancelDiscription?.length < 1 && (
+          {stage.cancelDiscriprion && (
             <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
               <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
-              <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
+              <p className="text-red-800 text-sm">{stage.cancelDiscriprion}</p>
             </div>
           )}
         </div>
@@ -137,7 +136,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           <div className="flex gap-2">
             {isCanc ?
               <>
-                <Button onClick={() => cancelEngineer({ stageId: Number(stage.id), cancelDiscriprion: descr })} class="py-2.5 px-4" styleColor="red">
+                <Button onClick={() => cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })} class="py-2.5 px-4" styleColor="red">
                   Подтвердить
                 </Button>
                 <Button onClick={() => setIsCanc(false)} styleColor="redOutline" class="py-2.5 px-4">
@@ -149,7 +148,6 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                 <Button onClick={onComplete} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">
                   Завершить этап
                 </Button>
-
                 <Button onClick={() => setIsCanc(true)} class="flex-2 py-2.5 px-4 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors">
                   Отменить этап
                 </Button>
