@@ -96,7 +96,6 @@ class ServiceStagesModel {
             }
 
             this.model = results;
-
         } catch (error) {
             console.log(error)
         } finally {
@@ -144,6 +143,7 @@ class ServiceStagesModel {
                 this.model = this.model.map((item) => {
                     if (item.id === data.stageId) {
                         item.currentStatus = "Canceled"
+                        item.cancelDiscription = data.cancelDiscriprion
                     }
                     return item
                 })

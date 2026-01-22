@@ -37,7 +37,7 @@ export const Modal = ({ show, title, setShow, children, footerSlot, classNames, 
 
     return (
         <PortalModal wrapperId={wrapperId}>
-            <div className={`fixed inset-0 z-[60] bg-[#192038]/40 backdrop-blur-[1px] ${classOverlay}`}>
+            <div className={`fixed inset-0 z-[60] bg-[#192038]/40 backdrop-blur-[1px] ${classOverlay}`} onClick={handleClose}>
                 <div className={`w-full flex ${classContainer}`}>
                     <div className={`w-full overflow-hidden flex flex-col bg-white shadow-[0_20px_50px_rgba(16,24,40,0.25)] ${classPanel}`}
                         role="dialog"

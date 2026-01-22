@@ -18,7 +18,7 @@ interface StageCardProps {
   completeCommon: (data: CompleteCommonStageType) => void
 }
 
-export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon }: StageCardProps) => {
+export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon, }: StageCardProps) => {
 
   const [descr, setDescr] = useState<string>("")
   const [isCanc, setIsCanc] = useState<boolean>(false)
@@ -30,6 +30,14 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
 
   const onComplete = () => {
     userDD.isCommandsEnabled ? completeEngineer({ stageId: Number(stage.id), engineerId: user.id }) : completeCommon({ stageId: Number(stage.id), discription: descr })
+
+    
+
+  }
+
+
+  const needCancel = () => {
+    cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })
   }
 
 
@@ -111,10 +119,10 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
 
 
-          {stage.cancelDiscriprion && (
+          {(stage.cancelDiscription?.length > 0 && stage.cancelDiscription !== "None") && (
             <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
               <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
-              <p className="text-red-800 text-sm">{stage.cancelDiscriprion}</p>
+              <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
             </div>
           )}
         </div>
@@ -136,7 +144,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           <div className="flex gap-2">
             {isCanc ?
               <>
-                <Button onClick={() => cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })} class="py-2.5 px-4" styleColor="red">
+                <Button onClick={needCancel} class="py-2.5 px-4" styleColor="red">
                   Подтвердить
                 </Button>
                 <Button onClick={() => setIsCanc(false)} styleColor="redOutline" class="py-2.5 px-4">
