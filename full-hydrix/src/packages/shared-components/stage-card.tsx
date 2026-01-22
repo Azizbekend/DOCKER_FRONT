@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { CancelStageType, CompleteEngineerStageType, ServiceStageType } from "../entities/service-requests/type";
+import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "../entities/service-requests/type";
 import { getDate } from "../hook/get-date";
 import { Button } from "../shared-ui/button";
 import { InputContainer } from "../shared-ui/Inputs/input-container";
 import { Textarea } from "../shared-ui/textarea";
 import { useAuth } from "../entities/user/context";
-import { getGoodName } from "../hook/user/get-good-name";
+import { Role } from "../entities/user/enums";
 
 
 interface StageCardProps {
@@ -14,9 +14,10 @@ interface StageCardProps {
   number: number,
   completeEngineer: (data: CompleteEngineerStageType) => void
   cancelEngineer: (data: CancelStageType) => void,
+  completeCommon: (data: CompleteCommonStageType) => void
 }
 
-export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer }: StageCardProps) => {
+export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon }: StageCardProps) => {
 
   const [descr, setDescr] = useState<string>("")
   const [isCanc, setIsCanc] = useState<boolean>(false)
@@ -25,6 +26,12 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
 
 
   const { user } = useAuth()
+
+  const onComplete = () => {
+    user.baseRoleId == Role.Participant && completeCommon({ stageId: Number(stage.id), discription: descr })
+    user.baseRoleId == "Инженер" && cancelEngineer({ stageId: Number(stage.id), cancelDiscriprion: descr })
+  }
+
 
   return (
     <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
@@ -60,7 +67,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
               </div>
               <div className="min-w-0">
                 <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
-                <div className="font-medium text-gray-800 truncate">{stage.creator ? getGoodName(stage.creator) : "—"}</div>
+                <div className="font-medium text-gray-800 truncate">{stage.creator ? stage.creator : "—"}</div>
               </div>
             </div>
 
@@ -84,7 +91,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
               </div>
               <div className="min-w-0">
                 <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
-                <div className="font-medium text-gray-800 truncate">{stage.creator ? getGoodName(stage.creator) : "—"}</div>
+                <div className="font-medium text-gray-800 truncate">{stage.implementer ? stage.implementer : "—"}</div>
               </div>
             </div>
 
@@ -99,12 +106,12 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
 
           <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
-            <p className="mb-1 text-gray-600">Описание:</p>
+            <p className="mb-1 text-gray-600">{stage.stageType == "Общая" ? "Описание:" : "Требования к поставке"}</p>
             {stage.discription}
           </div>
 
 
-          {stage.cancelDiscription != null || stage.cancelDiscription != "" && (
+          {stage.cancelDiscription?.length < 1 && (
             <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
               <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
               <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
@@ -138,7 +145,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
               </>
               :
               <>
-                <Button onClick={() => completeEngineer({ stageId: Number(stage.id), engineerId: user!.id })} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">
+                <Button onClick={onComplete} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">
                   Завершить этап
                 </Button>
 

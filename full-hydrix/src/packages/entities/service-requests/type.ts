@@ -73,9 +73,24 @@ export type ServiceStageType = {
     closedAt?: Date | null,
     createdAt?: Date,
 
+    implementersCompanyId?: number,
+    creatorsCompanyId?: number,
     creatorsCompany?: any,
     implementersCompany?: any,
     creator?: any,
     implementer?: any,
     hardware?: any,
+    requiredCount?: number,
+}
+
+
+export type SupplyRequestType = {
+    creatorId: number,
+    currentImplementerId: number,
+    currentImplementerCompanyId: number,
+    productName: string,
+    requiredCount: number,
+    hardwareId: number,
+    objectId: number,
+    serviceId: number
 }

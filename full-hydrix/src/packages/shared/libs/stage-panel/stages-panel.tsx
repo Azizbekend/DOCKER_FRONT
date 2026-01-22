@@ -11,19 +11,22 @@ import { StageCard } from "@/packages/shared-components/stage-card";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { useAuth } from "@/packages/entities/user/context";
 import { CompleteCancelType } from "@/packages/entities/service-requests/type";
+import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search";
+import { getObjectId } from "@/packages/hook/objectData/getObjectData";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
 
 interface ServiceStagesPanelProps {
   show: boolean;
   onClose: () => void;
-  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null }
+  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number }
   completeService: (data: CompleteCancelType) => void
-  cancelService: (data: CompleteCancelType) => void
+  cancelService: (data: CompleteCancelType) => void,
 }
 
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
 
-  const { model, isLoaded, init, create, completeEngineer, cancelEngineer } = serviceStagesModel
-  const { model: formModel, setServiceId, setCreatorId, setImplementerId, setDiscription, setStageType, clear } = serviceStagesFormModel
+  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon } = serviceStagesModel
+  const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, setImplementerId, setDiscription, setStageType, clear, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const [panelSwitch, setPanelSwitch] = useState<"list" | "form">("list");
   const btnHeader: { value: "list" | "form"; name: string }[] = [{ value: "list", name: "Этапы" }, { value: "form", name: "Форма" }]
@@ -32,9 +35,14 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   useEffect(() => {
     clear()
     init(isService.id)
-    setStageType('Общий')
+    formInit()
 
   }, [isService.id])
+
+
+  const onSubmit = () => {
+    create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId,)
+  }
 
   return (
     <Modal
@@ -54,22 +62,23 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
       }
 
       classNames={{
-        panel: "max-w-2xl w-full rounded-l-2xl",
+        panel: "max-w-2xl w-full rounded-l-2xl h-full",
         header: "border-b border-gray-200",
         footer: "bg-gray-50 p-6 border-t border-gray-200"
       }}
 
       children={isLoaded ? <Loader /> :
-        <div className="flex flex-col gap-2  overflow-y-auto p-6">
+        <div className="flex flex-col gap-2 p-6">
 
           {panelSwitch == "list" ? (model.length > 0 ? (model.map((stage, key) =>
             <StageCard
               key={stage.id}
               number={key + 1}
               stage={stage}
-              footerBlock={user?.id == stage.implementerId}
+              footerBlock={user!.id == stage.implementerId || true}
               completeEngineer={completeEngineer}
               cancelEngineer={cancelEngineer}
+              completeCommon={completeCommon}
             />
           ))
             :
@@ -81,16 +90,28 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               </div>
               <p>Нет этапов для отображения</p>
             </div>
+
+
+
           ) : <>
-            <InputContainer headerText="Назначить исполнителя">
-              <Selector placeholder="Выберите исполнителя"
+
+
+            <InputContainer headerText="Тип этапа">
+              <Selector
+                className="px-4 py-3"
+                placeholder="Тип этапа"
                 classWripper="w-full"
-                onSelect={(item) => { setImplementerId(Number(item.value)) }}
-                items={[{ value: user!.id, title: "user" }]}
+                items={[
+                  { value: 'Общая', title: "Общая" },
+                  { value: 'Поставочная', title: "Поставочная" },
+                  { value: 'Аварийная', title: "Аварийная" },
+                ]}
+                onSelect={(item) => { setStageType(item.value.toString()) }}
+                icon="arrow-down"
               />
             </InputContainer>
 
-            <InputContainer headerText="Описание нового этапа">
+            <InputContainer headerText={formModel.stageType === "Общая" ? "Описание нового этапа" : "Что требуется для поставки"}>
               <Textarea
                 placeholder="Введите описание этапа..."
                 value={formModel.discription}
@@ -99,6 +120,43 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               />
             </InputContainer>
 
+            {formModel.stageType === "Поставочная" &&
+              <InputContainer headerText={"Введите требующееся кол-во"}>
+                <Input
+                  type="number"
+                  placeholder="Введите требующееся кол-во"
+                  value={formModel.requiredCount === 0 ? "" : formModel.requiredCount}
+                  onChange={(e) => { setRequiredCount(Number(e)) }}
+                  className="w-full outline-none disabled:bg-zinc-200 flex items-center border p-2 rounded-lg py-3"
+                />
+              </InputContainer>
+            }
+
+
+            <InputContainer headerText="Выберете компанию">
+              <Selector
+                placeholder="Выберете компанию"
+                classWripper="w-full"
+                items={companyList}
+                onSelect={(item) => { getUserList(Number(item.value)) }}
+                icon="arrow-down"
+              />
+            </InputContainer>
+
+
+            {implementersCompaneId != 0 && (userList.length > 0 ?
+              <InputContainer headerText="Выберете ответственное лицо">
+                <Selector
+                  placeholder="Выберете ответственное лицо"
+                  classWripper="w-full"
+                  items={userList}
+                  onSelect={(item) => { setImplementerId(Number(item.value)) }}
+                  icon="arrow-down"
+                />
+              </InputContainer>
+              : <div>У компании отсутвствуют ответственные лица </div>)
+            }
+
           </>}
 
         </div>
@@ -106,7 +164,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
       footerSlot={isService.status == "New" && (
         panelSwitch == "form" ?
-          <Button onClick={() => create(formModel)} styleColor="blue" class="w-full py-2">
+          <Button onClick={onSubmit} styleColor="blue" class="w-full py-2">
             Создать этап
           </Button>
           :

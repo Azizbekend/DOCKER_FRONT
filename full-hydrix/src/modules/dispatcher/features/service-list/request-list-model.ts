@@ -12,17 +12,18 @@ class ListRequestModel {
     model: ServiceType[] = []
     isLoader: boolean = true
     isStagesPanel: boolean = false
-    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null } = { id: 0, status: null }
+    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number } = { id: 0, status: null, hardwareId: 0 }
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    setIsStagesPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null) {
+    setIsStagesPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number) {
         this.isStagesPanel = value
         this.isService = {
             id: id,
-            status: status
+            status: status,
+            hardwareId: hardwareId
         }
     }
 

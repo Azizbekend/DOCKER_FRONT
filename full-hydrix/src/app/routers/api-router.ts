@@ -204,6 +204,9 @@ export const ServiceStageRequests = {
   cancel: "/ServiceRequests/mainEngineer/serviceStage/Cancel",
 };
 
+export const SupplyRequest = {
+  createStage: "/SupplyRequest/mainEngineer/supplyRequest/stage/create",
+}
 
 export const Company = {
   getOne: "/Company/companies/company/id",

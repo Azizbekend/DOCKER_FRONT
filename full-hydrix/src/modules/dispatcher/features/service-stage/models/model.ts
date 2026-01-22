@@ -74,9 +74,7 @@ class ServiceStagesModel {
                             }
 
                             enrichedItem[key] =
-                                key === 'implementer'
-                                    ? getGoodName(response.value.data)
-                                    : response.value.data;
+                                (key === 'implementer' || key === 'creator') ? getGoodName(response.value.data) : response.value.data;
                         }
                     });
 
@@ -91,7 +89,6 @@ class ServiceStagesModel {
             }
 
             this.model = results;
-            console.log(results)
 
         } catch (error) {
             console.log(error)
@@ -100,25 +97,19 @@ class ServiceStagesModel {
         }
     }
 
-    async create(data: ServiceStageType) {
-        if (data.discription === '' || data.stageType === '') return
-
-        await createServiceStageRequests(data)
-            .then((res) => {
-                this.model.push(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     async completeCommon(data: CompleteCommonStageType) {
         await completeCommonServiceStageRequests(data)
             .then(() => {
-                toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Completed"
+                    }
+                    return item
+                })
+                toast.success("Заявка успешно завершена", { progressStyle: { background: "green" } })
             })
             .catch(() => {
-                toast.error("Ошибка при отмене", { progressStyle: { background: "red" } })
+                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
             })
     }
 
@@ -156,6 +147,10 @@ class ServiceStagesModel {
             .catch(() => {
                 toast.error("Ошибка при отмене заявки", { progressStyle: { background: "red" } })
             })
+    }
+
+    pushStage(data: ServiceStageType) {
+        this.model.push(data)
     }
 }
 

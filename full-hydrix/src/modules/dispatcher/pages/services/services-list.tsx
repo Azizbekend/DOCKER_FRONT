@@ -45,7 +45,6 @@ export const RequestRegistryList = observer(() => {
         show={isStagesPanel}
         onClose={() => setIsStagesPanel(false, 0, null)}
         isService={isService}
-        serviceStatus={isService!.status}
       />
 
       <div className="mb-8">
@@ -129,7 +128,7 @@ export const RequestRegistryList = observer(() => {
           filteredRequests.map((item) => (
             <div
               key={item.id}
-              onClick={() => setIsStagesPanel(true, item.id, item.status)}
+              onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId)}
               className="cursor-pointer border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors duration-200 hover:shadow-md"
             >
               {/* Заголовок заявки */}
