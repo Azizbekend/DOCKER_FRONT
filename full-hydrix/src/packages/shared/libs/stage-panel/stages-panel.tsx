@@ -37,7 +37,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
     clear()
     init(isService.id, userDD)
     formInit()
-
   }, [isService.id])
 
 

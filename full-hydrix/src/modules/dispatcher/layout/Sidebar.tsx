@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '@/packages/entities/user/context';
+import { getDostup } from '@/packages/entities/user/utils';
 
 
 export const Sidebar = observer(() => {
@@ -35,6 +36,9 @@ export const Sidebar = observer(() => {
         };
     }, []);
 
+    const userDD = getDostup()
+
+
     return (
         <div ref={sidebarRef}
             className={"pt-5 pl-8 pr-6 bg-white min-h-full flex-shrink-0 gap-10 flex flex-col rounded-r-0 rounded-r-lg "}
@@ -58,8 +62,13 @@ export const Sidebar = observer(() => {
                     <SidebarItem link={`/dispatcher/timmodel`} icon='cube' title='3D модель' isActive={location.pathname.includes('/dispatcher/timmodel')} />
                     <SidebarItem link={`/dispatcher/video-surveillance`} icon='video-surveillance' title='Видеонаблюдение' isActive={location.pathname.includes('/dispatcher/video-surveillance')} />
                     <SidebarItem link={`/dispatcher/hardware`} icon='wrench' title='Оборудование' isActive={location.pathname.includes('/dispatcher/hardware')} />
-                    <SidebarItem link={`/dispatcher/services`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/services')} />
-                    <SidebarItem link={`/dispatcher/stages`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/stages')} />
+                    {userDD.isCommandsEnabled &&
+                        <SidebarItem link={`/dispatcher/services`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/services')} />
+                    }
+                    {!userDD.isCommandsEnabled &&
+                        <SidebarItem link={`/dispatcher/stages`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/stages')} />
+                    }
+
                     <SidebarItem link={`/dispatcher/incident`} icon='incident' title='Аварии' isActive={location.pathname.includes('/dispatcher/incident')} />
                 </div>
                 <div>
