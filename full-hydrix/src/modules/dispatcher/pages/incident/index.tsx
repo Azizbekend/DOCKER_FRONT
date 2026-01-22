@@ -18,8 +18,6 @@ export const Incident = () => {
 
 
     return (<>
-
-
         <div className='flex items-center gap-3 mb-7'>
             <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />
             <FilterButton name='Критичные' isActive={filterBtn == "critical"} onClick={() => setFilterBtn("critical")} />
@@ -33,7 +31,6 @@ export const Incident = () => {
             countActive
             data={incidents}
         />
-
     </>)
 }
 

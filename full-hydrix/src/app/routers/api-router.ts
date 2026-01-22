@@ -129,7 +129,14 @@ export const Incident = {
   // - Для каждого узла проверяет последний статус
   // - Возвращает список активных аварий (только те, где статус "True") с их ID и названиями
   allCheck: "/NodeInfo/nodes/incident/all_check", //
+
+  allFull: "/Incidents/incidents/all",
+  byObject: "/Incidents/incidents/object",
+  forTableByObject: "/Incidents/object/forTable",
+  forTableAllFull: "/Incidents/all/forTable",
+  byHardware: "/Incidents/hardware/all",
 }
+
 
 
 export const Documents = {

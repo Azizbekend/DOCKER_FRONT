@@ -11,11 +11,18 @@ class ServiceStagesModel {
     model: ServiceStageType[] = []
     isLoaded: boolean = true
 
+    isEngener: boolean = false
+
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    async init(id: number) {
+    async init(id: number, userDD: any) {
+
+
+        this.isEngener = userDD.isCommandsEnabled
+
+
 
         try {
             const serviceRes = await getServiceStageRequestsAll({ id });

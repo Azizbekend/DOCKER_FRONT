@@ -6,6 +6,7 @@ import { InputContainer } from "../shared-ui/Inputs/input-container";
 import { Textarea } from "../shared-ui/textarea";
 import { useAuth } from "../entities/user/context";
 import { Role } from "../entities/user/enums";
+import { getDostup } from "../entities/user/utils";
 
 
 interface StageCardProps {
@@ -23,13 +24,13 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const [isCanc, setIsCanc] = useState<boolean>(false)
   const statusStage = { New: "Новый", Completed: "Завершен", Canceled: "Отменен" }
   const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-500", Canceled: "bg-red-500" }
+  const userDD = getDostup()
 
 
   const { user } = useAuth()
 
   const onComplete = () => {
-    user.baseRoleId == Role.Participant && completeCommon({ stageId: Number(stage.id), discription: descr })
-    user.baseRoleId == "Инженер" && cancelEngineer({ stageId: Number(stage.id), cancelDiscriprion: descr })
+    userDD.isCommandsEnabled ? cancelEngineer({ stageId: Number(stage.id), cancelDiscriprion: descr }) : completeCommon({ stageId: Number(stage.id), discription: descr })
   }
 
 

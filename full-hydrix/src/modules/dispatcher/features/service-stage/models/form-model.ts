@@ -1,5 +1,3 @@
-import { getAllHardware } from "@/packages/entities/hardware/api";
-import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
 import { createServiceStageRequests, supplyRequestCreateStage } from "@/packages/entities/service-requests/api";
 import { ServiceStageType } from "@/packages/entities/service-requests/type";
@@ -10,7 +8,7 @@ import { toast } from "react-toastify";
 class ServiceStagesFormModel {
     model: ServiceStageType = {
         discription: '',
-        stageType: '',
+        stageType: 'Общая',
         serviceId: 0,
         creatorId: 0,
         implementerId: 0,
@@ -115,7 +113,10 @@ class ServiceStagesFormModel {
 
 
     async create(data: ServiceStageType, pushStage: (data: any) => void, serviceId: number, userId: number, userCompanyId: number, objectId: number, hardwareId: number) {
-        if (data.discription === '' || data.stageType === '') return
+        if (data.discription === '' || data.stageType === '') {
+            toast.error("Заполните все поля", { progressStyle: { background: "red" } })
+            return
+        }
 
         try {
             let createRes: any = null
@@ -147,7 +148,10 @@ class ServiceStagesFormModel {
 
             pushStage(createRes.data)
             toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
+
+            this.clear()
         } catch (error) {
+            toast.error("Ошибка при создании этапа", { progressStyle: { background: "red" } })
             console.log(error)
         }
     }

@@ -34,3 +34,9 @@ export const getRoleText = (role: number) => {
             return "Оператор ОС";
     }
 }
+
+
+
+export function getDostup() {
+    return JSON.parse(localStorage.getItem("userDostup"))
+}

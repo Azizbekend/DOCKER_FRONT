@@ -83,7 +83,6 @@ class AddParticipantsModel {
 
             // Метод для получения id привязанных пользователей
             const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
-
             // получаю список ids
             attachUsersRes.data.forEach(element => { this.attachUsersIds.push(element.userId) });
             // Прохожу и получаю подкреплённых

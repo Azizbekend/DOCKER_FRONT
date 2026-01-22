@@ -12,7 +12,7 @@ export const Statistics = ({ all, inWork, awaiting, completed, critical, totalCo
         <>
             {all &&
                 <div className={`bg-blue-100 text-blue-800 statistic-item rounded-xl p-5`}>
-                    <div className="text-sm mb-1">Общее кол-во  заявок</div>
+                    <div className="text-sm mb-1">Всего заявок</div>
                     <div className="text-xl font-bold ">{all}</div>
                 </div>
             }

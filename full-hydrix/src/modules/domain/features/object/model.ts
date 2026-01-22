@@ -52,6 +52,7 @@ class PassportModel {
     async init(id: number) {
 
 
+
         try {
 
             const [data, shapshiChars] = await Promise.all([

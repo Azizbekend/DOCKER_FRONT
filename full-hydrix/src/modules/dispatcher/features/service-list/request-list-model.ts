@@ -32,7 +32,6 @@ class ListRequestModel {
         try {
             this.isLoader = true;
             const serviceRes = await getByObjectServiceRequests({ id });
-
             const results = [];
 
             for (const item of serviceRes.data) {
@@ -102,6 +101,7 @@ class ListRequestModel {
             }
 
             this.model = results;
+            console.log(results)
         } catch (error) {
             console.error('Error in init:', error);
             this.model = [];

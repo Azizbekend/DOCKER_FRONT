@@ -69,7 +69,7 @@ export const CalendarView = observer(() => {
                                     {day?.orders ?
                                         <div className="bg-[#0095FF]  rounded text-white font-semibold py-[10px] pl-[3px] pr-[7px] cursor-pointer gap-[20px]" onClick={(e) => handleRowClick(day?.orders, e)}>
                                             <div className="flex items-center justify-center xl:gap-3 gap-2">
-                                                <p className="text-right text-[10px] 2xl:text-[12px] xl:text-[10px]">Общее кол-во заявок</p>
+                                                <p className="text-right text-[10px] 2xl:text-[12px] xl:text-[10px]">Всего заявок</p>
                                                 <span className="text-white text-[25px] 2xl:text-[40px] xl:text-[30px]  leading-[27px] 2xl:leading-auto">{day.orders?.length}</span>
                                             </div>
                                             <div className="flex items-center justify-center xl:gap-3 gap-2 mt-2">

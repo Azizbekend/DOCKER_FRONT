@@ -29,12 +29,12 @@ export const RequestRegistryList = observer(() => {
   });
 
   // Статистика
-  const totalRequests = filteredRequests.length;
-  const inWork = filteredRequests.filter(r => r.status === 'New').length;
-  const awaiting = filteredRequests.filter(r => r.status === 'Completed').length;
-  const completed = filteredRequests.filter(r => r.status === 'Canceled').length;
-  const critical = filteredRequests.filter(r => r.type === 'Аварийная').length;
-  const totalCost = filteredRequests.reduce((sum, r) => sum + (r.cost || 0), 0);
+  const totalRequests = model.length;
+  const inWork = model.filter(r => r.status === 'New').length;
+  const awaiting = model.filter(r => r.status === 'Completed').length;
+  const completed = model.filter(r => r.status === 'Canceled').length;
+  const critical = model.filter(r => r.type === 'Аварийная').length;
+  const totalCost = model.reduce((sum, r) => sum + (r.cost || 0), 0);
 
   return isLoader ? <Loader /> : (
     <>
@@ -81,7 +81,7 @@ export const RequestRegistryList = observer(() => {
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
         >
-          Общая ({filteredRequests.filter(r => r.type === 'Общая').length})
+          Общая ({model.filter(r => r.type === 'Общая').length})
         </button>
         <button
           onClick={() => setActiveFilter('supply')}
@@ -90,7 +90,7 @@ export const RequestRegistryList = observer(() => {
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
         >
-          Поставочная ({filteredRequests.filter(r => r.type === 'Поставочная').length})
+          Поставочная ({model.filter(r => r.type === 'Поставочная').length})
         </button>
         <button
           onClick={() => setActiveFilter('emergency')}
@@ -99,7 +99,7 @@ export const RequestRegistryList = observer(() => {
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
         >
-          Аварийная ({filteredRequests.filter(r => r.type === 'Аварийная').length})
+          Аварийная ({model.filter(r => r.type === 'Аварийная').length})
         </button>
       </div>
 
