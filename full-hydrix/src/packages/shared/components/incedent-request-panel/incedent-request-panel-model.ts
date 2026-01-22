@@ -136,7 +136,7 @@ class IncedentRequestPanelModel {
 
             let result: any = null;
 
-            if (this.model.type == "Общая") {
+            if (this.model.type == "Общий") {
                 result = await createServiceRequests({
                     title: this.model.title,
                     discription: this.model.discription,

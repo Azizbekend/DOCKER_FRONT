@@ -121,7 +121,7 @@ class ServiceStagesFormModel {
         try {
             let createRes: any = null
 
-            if (this.model.stageType == "Общая") {
+            if (this.model.stageType == "Общий") {
                 createRes = await createServiceStageRequests({
                     discription: this.model.discription,
                     stageType: this.model.stageType,

@@ -13,16 +13,20 @@ class ServiceStagesModel {
 
     isEngener: boolean = false
 
+    isActiveRequest: boolean = false
+
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
+    setIsActiveRequest(value: boolean){
+        this.isActiveRequest = value
+    }
+
+
     async init(id: number, userDD: any) {
 
-
         this.isEngener = userDD.isCommandsEnabled
-
-
 
         try {
             const serviceRes = await getServiceStageRequestsAll({ id });
@@ -122,7 +126,6 @@ class ServiceStagesModel {
     async completeEngineer(data: CompleteEngineerStageType) {
         await completeServiceStageRequests(data)
             .then(() => {
-
                 this.model = this.model.map((item) => {
                     if (item.id === data.stageId) {
                         item.currentStatus = "Completed"

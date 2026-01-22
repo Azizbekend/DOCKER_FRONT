@@ -27,10 +27,7 @@ interface ServiceStagesPanelProps {
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
 
 
-  const [isCanc, setIsCanc] = useState<boolean>(false)
-
-
-  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon } = serviceStagesModel
+  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest } = serviceStagesModel
   const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, setImplementerId, setDiscription, setStageType, clear, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const { user } = useAuth()
@@ -41,9 +38,17 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
     clear()
     init(isService.id, userDD)
     formInit()
+
+    setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
+
+
+
   }, [isService.id])
 
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
+
+
+
 
   const onSubmit = () => {
     create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId,)
@@ -82,7 +87,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               key={stage.id}
               number={key + 1}
               stage={stage}
-              footerBlock={user!.id == stage.implementerId || true}
+              footerBlock={isActiveRequest && (user!.id == stage.implementerId || true)}
               completeEngineer={completeEngineer}
               cancelEngineer={cancelEngineer}
               completeCommon={completeCommon}
@@ -100,7 +105,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
           )}
 
-          {userDD.isCommandsEnabled && (isOpenForm ?
+          {isActiveRequest && (isOpenForm ?
 
             <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
 
@@ -120,7 +125,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                     placeholder="Тип этапа"
                     classWripper="w-full"
                     items={[
-                      { value: 'Общая', title: "Общая" },
+                      { value: 'Общая', title: "Общий" },
                       { value: 'Поставочная', title: "Поставочная" },
                       { value: 'Аварийная', title: "Аварийная" },
                     ]}
@@ -129,7 +134,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   />
                 </InputContainer>
 
-                <InputContainer headerText={formModel.stageType === "Общая" ? "Описание нового этапа" : "Что требуется для поставки"}>
+                <InputContainer headerText={(formModel.stageType === "Общий") ? "Описание нового этапа" : "Что требуется для поставки"}>
                   <Textarea
                     placeholder="Введите описание этапа..."
                     value={formModel.discription}
@@ -202,7 +207,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
       footerSlot={
         <div className="flex gap-5" >
-          {userDD.isCommandsEnabled &&
+          {isActiveRequest &&
             <>
               <Button onClick={() => completeService({ requestId: isService.id, implementerId: user!.id, })} styleColor="blue" class="w-full py-2">
                 Завершить заявку

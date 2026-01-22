@@ -100,10 +100,10 @@ class StageJobModel {
         await completeCommonServiceStageRequests(data)
             .then(() => {
                 this.model = this.model.filter((item) => { if (item.id !== data.stageId) return item })
-                toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
+                toast.success("Успешно отправлена", { progressStyle: { background: "green" } })
             })
             .catch(() => {
-                toast.error("Ошибка при отмене", { progressStyle: { background: "red" } })
+                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
             })
     }
 }

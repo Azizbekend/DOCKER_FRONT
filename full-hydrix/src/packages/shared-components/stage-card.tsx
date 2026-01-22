@@ -123,7 +123,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
 
           <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
-            <p className="mb-1 text-gray-600">{stage.stageType == "Общая" ? "Описание:" : "Требования к поставке"}</p>
+            <p className="mb-1 text-gray-600">{stage.stageType == "Общий" ? "Описание:" : "Требования к поставке"}</p>
             {stage.discription}
           </div>
 
