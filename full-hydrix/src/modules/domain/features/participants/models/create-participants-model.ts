@@ -73,10 +73,6 @@ class CreateParticipantsModel {
                 companyId: data.companyId
             });
 
-            const result2 = await getCompanyObjectLinkId({
-                companyId: data.companyId,
-                objectId: 14
-            });
 
             onAction();
             this.reset();

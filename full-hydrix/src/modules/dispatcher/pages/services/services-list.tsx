@@ -10,7 +10,6 @@ import { getGoodName } from "@/packages/hook/user/get-good-name";
 import { Link } from "react-router-dom";
 
 export const RequestRegistryList = observer(() => {
-  const [isLook, setIsLook] = useState<boolean>(false);
   const [activeFilter, setActiveFilter] = useState<string>('all'); // 'all', 'general', 'supply', 'emergency'
 
   const { model, isLoader, init, isStagesPanel, setIsStagesPanel, isService, completeService, cancelService } = listRequestModel;
@@ -51,18 +50,6 @@ export const RequestRegistryList = observer(() => {
         <h1 className="text-3xl font-bold text-gray-800">Реестр заявок</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
-
-      {isLook && (
-        <div className="bg-gray-50 rounded-xl p-4 mb-8 max-w-md">
-          <h3 className="font-semibold text-gray-800 mb-2">Отладочная информация</h3>
-          <div className="text-sm text-gray-600 space-y-1">
-            <p><b>ID:</b> {model[0]?.id}</p>
-            <p><b>Тип:</b> {model[0]?.type}</p>
-            <p><b>Статус:</b> {model[0]?.status}</p>
-            <p><b>Создано:</b> {getDate(model[0]?.createdAt)}</p>
-          </div>
-        </div>
-      )}
 
       {/* Статистика */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
