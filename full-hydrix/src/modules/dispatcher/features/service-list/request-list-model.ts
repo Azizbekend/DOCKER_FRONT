@@ -1,5 +1,9 @@
+import { getCompanyOne } from "@/packages/entities/company/api";
+import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceRequests, completeServiceRequests, getByObjectServiceRequests } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
+import { getByUser } from "@/packages/entities/user/api";
+import { getGoodName } from "@/packages/hook/user/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
@@ -22,31 +26,92 @@ class ListRequestModel {
         }
     }
 
+
     async init(id: number) {
-        await getByObjectServiceRequests({ id: id })
-            .then((res) => {
+        try {
+            this.isLoader = true;
+            const serviceRes = await getByObjectServiceRequests({ id });
 
-                const idsUsers = res.data.map((item) => {
-                    return {
-                        id: item.id,
-                        creatorId: item.creatorId,
-                        implements: item.implementerId,
-                        company: item.implementerId
+            const results = [];
+
+            for (const item of serviceRes.data) {
+                try {
+                    const requests: { key: string; promise: Promise<any> }[] = [];
+
+                    if (item.creatorsCompanyId) {
+                        requests.push({
+                            key: 'creatorsCompany',
+                            promise: getCompanyOne({ id: item.creatorsCompanyId })
+                        });
                     }
-                })
 
-                console.log(res.data)
-                // await getByUser({ id: })
+                    if (item.implementersCompanyId) {
+                        requests.push({
+                            key: 'implementersCompany',
+                            promise: getCompanyOne({ id: item.implementersCompanyId })
+                        });
+                    }
 
-                this.model = res.data
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-            .finally(() => {
-                this.isLoader = false
-            })
+                    if (item.creatorId) {
+                        requests.push({
+                            key: 'creator',
+                            promise: getByUser({ id: item.creatorId })
+                        });
+                    }
+
+                    if (item.implementerId) {
+                        requests.push({
+                            key: 'implementer',
+                            promise: getByUser({ id: item.implementerId })
+                        });
+                    }
+
+                    if (item.hardwareId) {
+                        requests.push({
+                            key: 'hardware',
+                            promise: getInfoHardware({ id: item.hardwareId })
+                        });
+                    }
+                    const responses = await Promise.allSettled(
+                        requests.map(r => r.promise)
+                    );
+
+                    const enrichedItem = { ...item };
+
+                    responses.forEach((response, index) => {
+                        if (response.status === 'fulfilled') {
+                            const key = requests[index].key;
+
+                            if (key == "hardwareId") {
+                                console.log(response.value.data)
+                            }
+
+                            enrichedItem[key] =
+                                key === 'implementer'
+                                    ? getGoodName(response.value.data)
+                                    : response.value.data;
+                        }
+                    });
+
+                    results.push(enrichedItem);
+                } catch (error) {
+                    console.error(`Error processing item ${item.id}:`, error);
+                    results.push({
+                        ...item,
+                        error: true
+                    });
+                }
+            }
+
+            this.model = results;
+        } catch (error) {
+            console.error('Error in init:', error);
+            this.model = [];
+        } finally {
+            this.isLoader = false;
+        }
     }
+
 
     async completeService(data: CompleteCancelType) {
         await completeServiceRequests(data)

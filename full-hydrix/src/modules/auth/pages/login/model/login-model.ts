@@ -74,7 +74,7 @@ class LoginModel {
         // this.setCapchaCount(this.capchaCount + 1);
     }
 
-    public async login(initUser: () => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
+    public async login(initUser: (data: any) => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
 
         if (this.model.username == "guest") {
             await authAdmin({
@@ -148,10 +148,14 @@ class LoginModel {
                 password: this.model.password
             })
                 .then(response => {
-                    window.localStorage.setItem("access_token", response.data['jwtToken'])
-                    window.localStorage.setItem("refresh_token", response.data['refreshToken'])
-                    window.localStorage.setItem("user_id", response.data['id'])
-                    initUser()
+
+                    // window.localStorage.setItem("access_token", response.data['jwtToken'])
+                    // window.localStorage.setItem("refresh_token", response.data['refreshToken'])
+
+                    console.log({ ...response.data, id: response.data.id })
+                    window.localStorage.setItem("user", JSON.stringify({ ...response.data, id: response.data.userId }))
+                    initUser({ ...response.data, id: response.data.userId })
+
                     switch (response.data.baseRoleId) {
                         case Role.Client:
                             setTimeout(() => {

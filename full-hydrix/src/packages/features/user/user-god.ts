@@ -3,7 +3,7 @@ import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
 import { User, UserType } from "../../entities/user/type";
 import { InitTriecoCompanyInterface, WaterCompany } from "../../entities/water-company/types";
 import { Role } from "../../entities/user/enums";
-import { authoriseDespetcher, getByUser } from "@/packages/entities/user/api";
+import { getByUser } from "@/packages/entities/user/api";
 
 export class UserModel {
     private _user: User | UserType | null = null;

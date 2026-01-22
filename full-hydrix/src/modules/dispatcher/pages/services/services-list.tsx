@@ -6,6 +6,8 @@ import { Statistics } from "./components/statistics";
 import { getStatusColor } from "../../widgets/service-request/functions";
 import { ServiceStagesPanel } from "../../../../packages/shared/libs/stage-panel/stages-panel";
 import { listRequestModel } from "../../features/service-list/request-list-model";
+import { getGoodName } from "@/packages/hook/user/get-good-name";
+import { Link } from "react-router-dom";
 
 export const RequestRegistryList = observer(() => {
   const [isLook, setIsLook] = useState<boolean>(false);
@@ -144,7 +146,6 @@ export const RequestRegistryList = observer(() => {
                       </span>
                     )}
                   </div>
-                  <div className="text-sm text-gray-600 font-mono">ID: {item.id}</div>
                 </div>
 
                 <div className="flex-shrink-0">
@@ -156,14 +157,17 @@ export const RequestRegistryList = observer(() => {
               <div className="flex items-start justify-between gap-4 mb-4">
                 {/* Оборудование и стоимость */}
                 <div className="space-y-2">
-                  {item.hardwareId && (
-                    <div className="flex items-center gap-2 text-sm text-gray-700">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span>{item.hardwareId}</span>
-                    </div>
+                  {item.hardware && (
+                    <Link to={`/dispatcher/hardware-about/${item.hardware.id}/passport/`} onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <div className="text-xs text-gray-500 font-medium">Оборудование</div>
+                      </div>
+                      <div>{item.hardware.name}</div>
+                    </Link>
                   )}
 
                 </div>
@@ -179,32 +183,57 @@ export const RequestRegistryList = observer(() => {
 
               {/* Участники заявки */}
               <div className="pt-4 border-t border-gray-100">
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-col gap-4">
                   {/* Создатель */}
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
+                  <div className="flex item-start gap-5">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
+                        <div className="font-medium text-gray-800 truncate">{item.creator ? getGoodName(item.creator) : "—"}</div>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
-                      <div className="font-medium text-gray-800 truncate">{item.creatorId}</div>
-                    </div>
+
+                    {item.creatorsCompany &&
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="min-w-0">
+                          <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
+                          <div className="font-medium text-gray-800 truncate">{item.creatorsCompany.companyName}</div>
+                        </div>
+                      </div>
+                    }
                   </div>
 
                   {/* Исполнитель */}
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                  <div className="flex item-start gap-5">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
+                        <div className="font-medium text-gray-800 truncate">{item.creator ? getGoodName(item.creator) : "—"}</div>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
-                      <div className="font-medium text-gray-800 truncate">{item.implementerId}</div>
-                    </div>
+
+                    {item.implementersCompany &&
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="min-w-0">
+                          <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
+                          <div className="font-medium text-gray-800 truncate">{item.implementersCompany.companyName}</div>
+                        </div>
+                      </div>
+                    }
                   </div>
+
+
+
                 </div>
               </div>
             </div>

@@ -8,8 +8,8 @@ export const getAllClientCompanies = () => {
     return instance.get(WaterCompanyRoutes.GetAll)
 }
 
-export const getCompanyOne = () => {
-    return authorizationInstance.get(Company.getOne)
+export const getCompanyOne = (params: {id: number}) => {
+    return authorizationInstance.get(Company.getOne, {params})
 }
 
 export const getCompanyByName = () => {

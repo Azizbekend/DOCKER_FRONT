@@ -21,7 +21,7 @@ export const RequestRegistryForm = observer(() => {
     }, [])
 
     const onSubmit = () => {
-        create(user!.id)
+        create(user!.id, user!.companyId)
     }
 
     return (
@@ -78,7 +78,7 @@ export const RequestRegistryForm = observer(() => {
                 </InputContainer>
 
 
-                {model.companyId != 0 && (userList.length > 0 ?
+                {model.implementersCompaneId != 0 && (userList.length > 0 ?
                     <InputContainer headerText="Выберете ответственное лицо">
                         <Selector
                             placeholder="Выберете ответственное лицо"

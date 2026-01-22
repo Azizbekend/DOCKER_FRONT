@@ -12,6 +12,12 @@ export type ServiceType = {
     objectId: number,
     hardwareId: number,
     hardwareName?: string
+
+    creatorsCompany?: any,
+    implementersCompany?: any,
+    creator?: any,
+    implementer?: any,
+    hardware?: any,
 }
 
 
@@ -20,11 +26,11 @@ export type FormCommonServiceModelType = {
     discription: string,
     type: string,
     creatorId: number,
+    creatorsCompanyId?: number,
     implementerId: number,
-    implementersCompanyId?: number,
+    implementersCompaneId?: number,
     hardwareId: number,
     objectId: number
-    companyId?: number
 }
 
 export type FormIncidentServiceModelType = {
@@ -66,4 +72,10 @@ export type ServiceStageType = {
     currentStatus?: string,
     closedAt?: Date | null,
     createdAt?: Date,
+
+    creatorsCompany?: any,
+    implementersCompany?: any,
+    creator?: any,
+    implementer?: any,
+    hardware?: any,
 }

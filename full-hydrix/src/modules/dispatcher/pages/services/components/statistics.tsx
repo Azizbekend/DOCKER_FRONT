@@ -22,7 +22,7 @@ export const Statistics = ({ all, inWork, awaiting, completed, critical, totalCo
                     <div className="text-xl font-bold ">{inWork}</div>
                 </div>
             } */}
-            
+
             {completed !== undefined &&
                 <div className={`bg-green-100 text-green-800 statistic-item rounded-xl p-5`}>
                     <div className="text-sm mb-1">Завершено</div>

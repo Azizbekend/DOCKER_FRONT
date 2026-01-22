@@ -5,6 +5,7 @@ import { Button } from "../shared-ui/button";
 import { InputContainer } from "../shared-ui/Inputs/input-container";
 import { Textarea } from "../shared-ui/textarea";
 import { useAuth } from "../entities/user/context";
+import { getGoodName } from "../hook/user/get-good-name";
 
 
 interface StageCardProps {
@@ -48,31 +49,68 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
         </div>
 
-        <div className="space-y-3">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Создатель</div>
-              <p className="text-gray-800 font-mono text-sm">{stage.creatorId}</p>
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2">
+            <div className="flex items-center gap-3 min-w-0 text-xs">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
+                <div className="font-medium text-gray-800 truncate">{stage.creator ? getGoodName(stage.creator) : "—"}</div>
+              </div>
             </div>
-            <div>
-              <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Исполнитель</div>
-              <p className="text-gray-800 font-mono text-sm">{stage.implementerId}</p>
+
+            {stage.creatorsCompany &&
+              <div className="flex items-center gap-3 min-w-0 text-xs">
+                <div className="min-w-0">
+                  <div className="text-gray-500 uppercase tracking-wide">Компания</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div className="grid grid-cols-2">
+            {/* Исполнитель */}
+            <div className="flex items-center gap-3 min-w-0 text-xs">
+              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
+                <div className="font-medium text-gray-800 truncate">{stage.creator ? getGoodName(stage.creator) : "—"}</div>
+              </div>
             </div>
+
+            {stage.implementersCompany &&
+              <div className="flex items-center gap-3 min-w-0 text-xs">
+                <div className="min-w-0">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                </div>
+              </div>
+            }
           </div>
-        </div>
 
-        <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
-          <p className="mb-1 text-gray-600">Описание:</p>
-          {stage.discription}
-        </div>
-
-
-        {stage.cancelDiscription != null || stage.cancelDiscription != "" && (
-          <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
-            <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
-            <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
+          <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
+            <p className="mb-1 text-gray-600">Описание:</p>
+            {stage.discription}
           </div>
-        )}
+
+
+          {stage.cancelDiscription != null || stage.cancelDiscription != "" && (
+            <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
+              <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
+              <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
+            </div>
+          )}
+        </div>
 
         {stage.currentStatus === "New" && isCanc &&
           <InputContainer headerText="Назначить исполнителя" classNames={{ wrapper: "mt-5" }}>
