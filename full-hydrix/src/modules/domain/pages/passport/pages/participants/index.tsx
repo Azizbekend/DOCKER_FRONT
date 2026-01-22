@@ -63,7 +63,7 @@ export const PassportParticipants = observer(() => {
           </div>
 
           {participant.users && participant.users.length > 0 && participant.users.map((user, keyUser) => (
-            <div key={keyUser} className="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div key={keyUser} className={`flex flex-col sm:flex-row sm:items-start gap-4 ${keyUser == 0 && "border-t border-gray-300 mt-6 pt-6"} border-b border-gray-300 mb-6 pb-6`}>
               <div className="font-bold h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center text-white text-sm sm:text-base shadow-md bg-blue-500">
                 {user.firstName.split(' ').map(n => n[0]).join('').toUpperCase()}
               </div>
@@ -97,7 +97,8 @@ export const PassportParticipants = observer(() => {
             </div>
           ))}
 
-          <div className="mt-4 pt-4 border-t border-gray-200 flex gap-6">
+
+          <div className="mt-4 pt-4 flex gap-6">
             <div className="flex items-center gap-2 sm:gap-3 text-[#4A85F6] hover:text-[#3a6bc9] font-semibold text-sm sm:text-base transition-colors duration-200 cursor-pointer w-fit group"
               onClick={() => setShowAddModalParticipants(true, participant.company.companyId)}>
               <div className="bg-[#DBE7FD] h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center group-hover:bg-[#c2d8fc] transition-colors duration-200">
@@ -116,7 +117,7 @@ export const PassportParticipants = observer(() => {
           </div>
         </div>
       ))}
-    </div>
+    </div >
 
   </>
 });

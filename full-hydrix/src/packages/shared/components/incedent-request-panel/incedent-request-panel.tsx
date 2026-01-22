@@ -1,19 +1,18 @@
+import Loader from '@/packages/shared-ui/loader/loader';
 import { Modal } from '@/packages/shared-ui/modal/modal';
 import { observer } from 'mobx-react-lite';
 
 type IncedentRequestPanelType = {
-    idIncedent: number,
+    show: boolean,
+    onClose: (value: boolean) => void,
 
+    incidentId: number,
+    hardwareId: number,
+    objectId: number,
 }
 
 
-export const IncedentRequestPanel = observer(({ }: IncedentRequestPanelType) => {
-
-
-
-
-
-
+export const IncedentRequestPanel = observer(({ show, onClose, incidentId, hardwareId, objectId, }: IncedentRequestPanelType) => {
 
     return (
         <Modal
@@ -24,11 +23,7 @@ export const IncedentRequestPanel = observer(({ }: IncedentRequestPanelType) => 
 
             title={
                 <div className="flex gap-4">
-                    {btnHeader.map((btn) => {
-                        return (
-                            <button onClick={() => { setPanelSwitch(btn.value) }} className={`px-3 py-1 text-lg rounded-lg  ${panelSwitch == btn.value ? "bg-[var(--clr-accent)] text-white" : "bg-gray-300"} text-black`}>{btn.name}</button>
-                        )
-                    })}
+                    <p className='text-sm'>Создание аварийной заявки</p>
                 </div>
             }
 
@@ -38,10 +33,9 @@ export const IncedentRequestPanel = observer(({ }: IncedentRequestPanelType) => 
                 footer: "bg-gray-50 p-6 border-t border-gray-200"
             }}
 
-            children={isLoaded ? <Loader /> :
+            children={
                 <div className="flex flex-col gap-2 p-6">
                     <div
-                        key={item.id}
                         onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId)}
                         className="cursor-pointer border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors duration-200 hover:shadow-md"
                     >

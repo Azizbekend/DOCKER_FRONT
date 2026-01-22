@@ -77,8 +77,6 @@ class CreateParticipantsModel {
             onAction();
             this.reset();
 
-            toast.success("Соединение 1", { progressStyle: { background: "green" } });
-            toast.success("Соединение 2", { progressStyle: { background: "green" } });
             toast.success("Участник создан", { progressStyle: { background: "green" } });
 
         } catch (error) {

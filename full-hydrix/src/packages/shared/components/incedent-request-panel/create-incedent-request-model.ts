@@ -8,11 +8,15 @@ class IncedentRequestPanelModel {
     model: IncedentRequestType = {
         title: "",
         discription: "",
+        
         incidentId: 0,
+        
         creatorId: 0,
         creatorsCompanyId: 0,
+        
         implementerId: 0,
         implementersCompaneId: 0,
+
         hardwareId: 0,
         objectId: 0,
     }

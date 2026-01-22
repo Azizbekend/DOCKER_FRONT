@@ -26,6 +26,10 @@ interface ServiceStagesPanelProps {
 
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
 
+
+  const [isCanc, setIsCanc] = useState<boolean>(false)
+
+
   const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon } = serviceStagesModel
   const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, setImplementerId, setDiscription, setStageType, clear, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
@@ -49,7 +53,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   useEffect(() => {
     setIsOpenForm(false)
   }, [])
-
 
 
   return (
@@ -198,7 +201,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
       }
 
       footerSlot={
-        < div className="flex gap-5" >
+        <div className="flex gap-5" >
           {userDD.isCommandsEnabled &&
             <>
               <Button onClick={() => completeService({ requestId: isService.id, implementerId: user!.id, })} styleColor="blue" class="w-full py-2">

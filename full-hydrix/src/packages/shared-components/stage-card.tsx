@@ -22,6 +22,8 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
 
   const [descr, setDescr] = useState<string>("")
   const [isCanc, setIsCanc] = useState<boolean>(false)
+  const [isCancComplete, setIsCancComplete] = useState<boolean>(false)
+
   const statusStage = { New: "Новый", Completed: "Завершен", Canceled: "Отменен" }
   const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-500", Canceled: "bg-red-500" }
   const userDD = getDostup()
@@ -29,15 +31,22 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const { user } = useAuth()
 
   const onComplete = () => {
-    userDD.isCommandsEnabled ? completeEngineer({ stageId: Number(stage.id), engineerId: user.id }) : completeCommon({ stageId: Number(stage.id), discription: descr })
+    userDD.isCommandsEnabled ? setIsCancComplete(true) : completeCommon({ stageId: Number(stage.id), discription: descr })
+  }
 
-    
-
+  const NeedComplete = () => {
+    completeEngineer({ stageId: Number(stage.id), engineerId: user.id, discription: descr })
   }
 
 
   const needCancel = () => {
     cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })
+  }
+
+  const defultBack = () => {
+    setDescr("")
+    setIsCanc(false)
+    setIsCancComplete(false)
   }
 
 
@@ -128,9 +137,20 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
         </div>
 
         {stage.currentStatus === "New" && isCanc &&
-          <InputContainer headerText="Назначить исполнителя" classNames={{ wrapper: "mt-5" }}>
+          <InputContainer headerText="Описание" classNames={{ wrapper: "mt-5" }}>
             <Textarea
-              placeholder="Введите описание этапа..."
+              placeholder="Описание..."
+              value={descr}
+              onChange={setDescr}
+              className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none"
+            />
+          </InputContainer>
+        }
+
+        {stage.currentStatus === "New" && isCancComplete &&
+          <InputContainer headerText="Описание" classNames={{ wrapper: "mt-5" }}>
+            <Textarea
+              placeholder="Описание..."
               value={descr}
               onChange={setDescr}
               className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none"
@@ -142,14 +162,27 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
       {footerBlock && stage.currentStatus === "New" && (
         <div className="p-4 border-t border-gray-100 bg-gray-50">
           <div className="flex gap-2">
-            {isCanc ?
+            {(isCanc || isCancComplete) ?
               <>
-                <Button onClick={needCancel} class="py-2.5 px-4" styleColor="red">
-                  Подтвердить
-                </Button>
-                <Button onClick={() => setIsCanc(false)} styleColor="redOutline" class="py-2.5 px-4">
-                  Отмена
-                </Button>
+                {isCancComplete &&
+                  <>
+                    <Button onClick={NeedComplete} class="py-2.5 px-4" styleColor="green">
+                      Подтвердить
+                    </Button>
+                    <Button onClick={defultBack} styleColor="greenOutline" class="py-2.5 px-4">
+                      Отмена
+                    </Button>
+                  </>}
+
+                {isCanc &&
+                  <>
+                    <Button onClick={needCancel} class="py-2.5 px-4" styleColor="red">
+                      Подтвердить
+                    </Button>
+                    <Button onClick={defultBack} styleColor="redOutline" class="py-2.5 px-4">
+                      Отмена
+                    </Button>
+                  </>}
               </>
               :
               <>
@@ -161,9 +194,11 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                 </Button>
               </>
             }
+
           </div >
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };

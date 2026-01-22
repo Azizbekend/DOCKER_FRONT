@@ -10,7 +10,7 @@ interface StatisticsProps {
 export const Statistics = ({ all, inWork, awaiting, completed, critical, totalCost }: StatisticsProps) => {
     return (
         <>
-            {all &&
+            {all !== undefined &&
                 <div className={`bg-blue-100 text-blue-800 statistic-item rounded-xl p-5`}>
                     <div className="text-sm mb-1">Всего заявок</div>
                     <div className="text-xl font-bold ">{all}</div>

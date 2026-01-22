@@ -116,8 +116,8 @@ class ListRequestModel {
             .then(() => {
                 toast.success("Заявка успешно завершен", { progressStyle: { background: "green" } })
             })
-            .catch(() => {
-                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
             })
     }
 

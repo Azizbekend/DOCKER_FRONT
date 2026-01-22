@@ -70,7 +70,8 @@ export type CompleteCommonStageType = {
 }
 export type CompleteEngineerStageType = {
     stageId: number,
-    engineerId: number
+    engineerId: number,
+    discription: string,
 }
 export type CancelStageType = {
     stageId: number,

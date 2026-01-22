@@ -75,7 +75,7 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
                                         aria-label={`Удалить ${user.lastName + " " + user.firstName + " " + user.patronymic}`}
                                     >
                                         <Icon
-                                            systemName="x"
+                                            systemName="close"
                                             className="text-blue-700"
                                             width={14}
                                         />
