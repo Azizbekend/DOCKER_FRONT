@@ -205,6 +205,7 @@ export const ServiceStageRequests = {
 };
 
 export const SupplyRequest = {
+  create: "/SupplyRequest/mainEngineer/SupplyRequest/InitialCreate",
   createStage: "/SupplyRequest/mainEngineer/supplyRequest/stage/create",
 }
 

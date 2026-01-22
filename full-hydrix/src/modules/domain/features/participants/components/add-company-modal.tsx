@@ -7,6 +7,8 @@ import { addCompanyModel } from "../models/add-company-model";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { Icon } from "@/packages/shared-ui/icon";
 import { useEffect } from "react";
+import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
+import { Selector } from "@/packages/shared-ui/Selector/selector";
 
 export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticipants }: { show: boolean; setShow: (show: boolean) => void, objectId: number; pushParticipants: (value: any) => void }) => {
   const { innValue, setInnValue, stageModal, onSearchCompany, loaderSearch, model, openFullData, setOpenFullData, setStageModal, roleCompany, setRoleCompany, reset, addCompany } = addCompanyModel;
@@ -53,16 +55,21 @@ export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticip
           </div>
           }
 
-          {stageModal === 'xz' && <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Роль</label>
-            <Input
-              type="text"
-              placeholder="Укажите роль организации"
-              value={roleCompany}
-              onChange={setRoleCompany}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
-            />
-          </div >
+          {stageModal === 'xz' &&
+            <InputContainer headerText="Укажите роль организации">
+              <Selector
+                placeholder="Укажите роль организации"
+                classWripper="w-full"
+                items={[
+                  { value: "Заказчик", title: "Заказчик" },
+                  { value: "Генеральный подрядчик", title: "Генеральный подрядчик" },
+                  { value: "Эксплуатирующая организация", title: "Эксплуатирующая организация" },
+                  { value: "Подрядчик", title: "Подрядчик" },
+                ]}
+                onSelect={(item) => { setRoleCompany(item.value) }}
+                icon="arrow-down"
+              />
+            </InputContainer>
           }
 
           {loaderSearch ? <Loader /> : innValue.trim() && (

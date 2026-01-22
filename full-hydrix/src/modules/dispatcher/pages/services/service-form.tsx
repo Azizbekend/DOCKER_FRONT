@@ -13,7 +13,7 @@ import { useAuth } from "@/packages/entities/user/context";
 export const RequestRegistryForm = observer(() => {
 
     const { user } = useAuth()
-    const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create, companyList, setImplementerId, getUserList, userList } = createRequestModel
+    const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create, setRequiredCount, companyList, setImplementerId, getUserList, userList } = createRequestModel
 
     useEffect(() => {
         const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
@@ -32,15 +32,6 @@ export const RequestRegistryForm = observer(() => {
             </div>
 
             <div className="flex flex-col gap-4">
-                <InputContainer headerText="Наименование заявки" >
-                    <Input
-                        placeholder="Наименование"
-                        className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
-                        value={model.title}
-                        onChange={setTitle}
-                        type="text"
-                    />
-                </InputContainer>
 
                 <InputContainer headerText="Тип заявки">
                     <Selector
@@ -55,6 +46,29 @@ export const RequestRegistryForm = observer(() => {
                         icon="arrow-down"
                     />
                 </InputContainer>
+
+
+                <InputContainer headerText={"Наименование заявки"}>
+                    <Input
+                        placeholder="Наименование"
+                        className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                        value={model.title}
+                        onChange={setTitle}
+                        type="text"
+                    />
+                </InputContainer>
+
+                {model.type == "Поставочная" &&
+                    <InputContainer headerText={"Количество"}>
+                        <Input
+                            placeholder="Количество"
+                            className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                            value={model.requiredCount || ""}
+                            onChange={(e) => setRequiredCount(Number(e))}
+                            type="number"
+                        />
+                    </InputContainer>
+                }
 
                 <InputContainer headerText="Выберете оборудование">
                     <SelectorSearch
@@ -110,7 +124,7 @@ export const RequestRegistryForm = observer(() => {
                         Отменить
                     </Link>
                 </div>
-            </div>
+            </div >
         </>
     );
 })

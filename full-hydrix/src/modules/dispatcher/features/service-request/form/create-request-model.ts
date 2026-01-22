@@ -1,7 +1,7 @@
 import { getAllHardware } from "@/packages/entities/hardware/api";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
-import { createServiceRequests } from "@/packages/entities/service-requests/api";
+import { createServiceRequests, supplyRequestCreate } from "@/packages/entities/service-requests/api";
 import { FormCommonServiceModelType } from "@/packages/entities/service-requests/type";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -17,6 +17,7 @@ class CreateRequestModel {
         implementersCompaneId: 0,
         hardwareId: 0,
         objectId: 0,
+        requiredCount: 0,
     }
 
     hardwareList: { value: number, title: string }[] = []
@@ -45,6 +46,10 @@ class CreateRequestModel {
 
     setHardwareId(value: number) {
         this.model.hardwareId = value
+    }
+
+    setRequiredCount(value: number) {
+        this.model.requiredCount = value
     }
 
     setImplementerId(value: number) {
@@ -120,25 +125,44 @@ class CreateRequestModel {
     async create(id: number, comanyId: number) {
         this.model.creatorId = id
 
-        createServiceRequests({
-            title: this.model.title,
-            discription: this.model.discription,
-            type: this.model.type,
-            creatorId: this.model.creatorId,
-            creatorsCompanyId: comanyId,
-            implementerId: this.model.implementerId,
-            implementersCompaneId: this.model.implementersCompaneId,
-            hardwareId: this.model.hardwareId,
-            objectId: this.model.objectId,
-        })
-            .then((res) => {
-                this.clear()
-                toast.success("Заявка создана", { progressStyle: { background: "green" } })
-            })
-            .catch((err) => {
-                console.log(err)
-                toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
-            })
+
+        try {
+
+            let result: any = null;
+
+            if (this.model.type == "Общая") {
+                result = await createServiceRequests({
+                    title: this.model.title,
+                    discription: this.model.discription,
+                    type: this.model.type,
+                    creatorId: this.model.creatorId,
+                    creatorsCompanyId: comanyId,
+                    implementerId: this.model.implementerId,
+                    implementersCompaneId: this.model.implementersCompaneId,
+                    hardwareId: this.model.hardwareId,
+                    objectId: this.model.objectId,
+                })
+            } else {
+                result = await supplyRequestCreate({
+                    creatorId: this.model.creatorId,
+                    creatorsCompanyId: this.model.creatorsCompanyId,
+                    currentImplementerId: this.model.implementerId,
+                    currentImplementerCompanyId: this.model.implementersCompaneId,
+                    productName: this.model.discription,
+                    requiredCount: this.model.requiredCount || 0,
+                    hardwareId: this.model.hardwareId,
+                    objectId: this.model.objectId,
+                })
+            }
+
+            this.clear()
+            toast.success("Заявка создана", { progressStyle: { background: "green" } })
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
+
+        }
     }
 }
 

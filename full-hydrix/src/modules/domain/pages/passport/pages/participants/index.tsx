@@ -14,7 +14,7 @@ export const PassportParticipants = observer(() => {
 
   const { isLoading, init, openCompanyId, showModalParticipants, setShowModalParticipants, listParticipants, pushParticipants, showAddModalParticipants, setShowAddModalParticipants, updateList } = listParticipantsModel
 
-  
+
 
   const [showModalCompany, setShowModalCompany] = useState(false);
   const [showAddModalCompany, setShowAddModalCompany] = useState(false);

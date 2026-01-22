@@ -30,8 +30,24 @@ export type FormCommonServiceModelType = {
     implementerId: number,
     implementersCompaneId?: number,
     hardwareId: number,
+    objectId: number,
+
+    requiredCount?: number
+}
+
+export type FormSupplyServiceModelType = {
+    creatorId: number,
+    creatorsCompanyId: number,
+    currentImplementerId: number,
+    currentImplementerCompanyId: number,
+    productName: string,
+    requiredCount: number,
+    hardwareId: number,
     objectId: number
 }
+
+
+
 
 export type FormIncidentServiceModelType = {
     title: string,

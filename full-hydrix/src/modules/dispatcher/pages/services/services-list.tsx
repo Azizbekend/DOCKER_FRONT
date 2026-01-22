@@ -193,7 +193,7 @@ export const RequestRegistryList = observer(() => {
                       </div>
                       <div className="min-w-0">
                         <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
-                        <div className="font-medium text-gray-800 truncate">{item.creator ? getGoodName(item.creator) : "—"}</div>
+                        <div className="font-medium text-gray-800 truncate">{item.creator}</div>
                       </div>
                     </div>
 
@@ -217,7 +217,7 @@ export const RequestRegistryList = observer(() => {
                       </div>
                       <div className="min-w-0">
                         <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
-                        <div className="font-medium text-gray-800 truncate">{item.creator ? getGoodName(item.creator) : "—"}</div>
+                        <div className="font-medium text-gray-800 truncate">{item.implementer}</div>
                       </div>
                     </div>
 

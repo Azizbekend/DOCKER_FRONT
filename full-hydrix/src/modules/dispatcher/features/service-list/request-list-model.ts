@@ -87,10 +87,7 @@ class ListRequestModel {
                                 console.log(response.value.data)
                             }
 
-                            enrichedItem[key] =
-                                key === 'implementer'
-                                    ? getGoodName(response.value.data)
-                                    : response.value.data;
+                            enrichedItem[key] = (key === 'implementer' || key == "creator") ? getGoodName(response.value.data) : response.value.data;
                         }
                     });
 
