@@ -1,8 +1,9 @@
 import { getAllHardware } from "@/packages/entities/hardware/api";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
-import { createServiceRequests, supplyRequestCreate } from "@/packages/entities/service-requests/api";
+import { createServiceRequests } from "@/packages/entities/service-requests/api";
 import { FormCommonServiceModelType } from "@/packages/entities/service-requests/type";
+import { supplyRequestCreate } from "@/packages/entities/supply-request/api";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

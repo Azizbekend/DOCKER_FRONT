@@ -1,6 +1,13 @@
 import { SupplyRequest } from "@/app/routers/api-router"
 import { SupplyRequestStageAttachExpensesType, SupplyRequestStageAttachPayType, SupplyRequestStageCancelType, SupplyRequestStageCompleteType, SupplyRequestStageConfirmNoPayType, SupplyRequestStageConfirmType, SupplyRequestStageResendType, SupplyRequestStageType, SupplyRequestType } from "./type"
 import { reserchInstance } from "@/app/api/instances"
+import { FormSupplyServiceModelType } from "../service-requests/type"
+
+
+
+export const supplyRequestCreate = (params: SupplyRequestType) => {
+    return reserchInstance.post(SupplyRequest.create, params)
+}
 
 export const supplyRequestCreateStage = (params: SupplyRequestType) => {
     return reserchInstance.post(SupplyRequest.createStage, params)
