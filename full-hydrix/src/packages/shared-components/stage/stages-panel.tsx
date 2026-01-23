@@ -124,7 +124,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                     placeholder="Тип этапа"
                     classWripper="w-full"
                     items={[
-                      { value: 'Общая', title: "Общий" },
+                      { value: 'Общий', title: "Общий" },
                       { value: 'Поставочная', title: "Поставочная" },
                       { value: 'Аварийная', title: "Аварийная" },
                     ]}

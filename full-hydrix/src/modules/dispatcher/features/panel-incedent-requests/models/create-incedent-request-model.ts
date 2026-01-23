@@ -79,10 +79,8 @@ class CreateRequestPanelModel {
         }
     }
 
-    async init({ incidentId, hardwareId, objectId, userId }: { incidentId: number, hardwareId: number, objectId: number, userId: number }) {
+    async init({ incidentId, hardwareId, objectId, userId, creatorsCompanyId }: { incidentId: number, hardwareId: number, objectId: number, userId: number, creatorsCompanyId: number }) {
         this.clear()
-
-        console.log({ incidentId, hardwareId, objectId, userId })
 
         try {
             const [allCompanies] = await Promise.all([
@@ -99,6 +97,9 @@ class CreateRequestPanelModel {
             this.model.objectId = objectId
             this.model.hardwareId = hardwareId
             this.model.incidentId = incidentId
+            this.model.creatorId = userId
+            this.model.creatorsCompanyId = creatorsCompanyId
+            
         } catch (error) {
             console.log(error)
         }

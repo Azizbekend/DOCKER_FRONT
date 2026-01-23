@@ -39,7 +39,7 @@ export const RequestRegistryForm = observer(() => {
                         placeholder="Тип заявки"
                         classWripper="w-full"
                         items={[
-                            { value: 'Общая', title: "Общий" },
+                            { value: 'Общий', title: "Общий" },
                             { value: 'Поставочная', title: "Поставочная" },
                         ]}
                         onSelect={(item) => { setType(item.value.toString()) }}

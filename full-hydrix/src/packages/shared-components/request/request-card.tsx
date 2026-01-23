@@ -1,7 +1,5 @@
 import { getRequestTypeColor, getStatusColor } from '@/modules/dispatcher/widgets/service-request/functions';
-import { getBetweenTimeByHour } from '@/packages/functions/get-between-time-by-hour';
 import { getDate } from 'date-fns';
-import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
 
@@ -77,21 +75,21 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
 
                     {request.status == "New" ?
                         <div className="flex item-start gap-8">
-                            <div className="flex items-center gap-3 min-w-0">
+                            <div className="flex items-center gap-3 ">
                                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </div>
-                                <div className="min-w-0">
+                                <div className="">
                                     <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
                                     <div className="font-medium text-gray-800 truncate">{request.creator}</div>
                                 </div>
                             </div>
                             {request.creatorsCompany &&
-                                <div className="flex items-center gap-3 min-w-0">
-                                    <div className="min-w-0">
-                                        <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
+                                <div className="flex items-center gap-3 ">
+                                    <div className="">
+                                        <div className="text-xs text-gray-500 uppercase">Компания</div>
                                         <div className="font-medium text-gray-800 truncate">{request.creatorsCompany.companyName}</div>
                                     </div>
                                 </div>
@@ -99,13 +97,13 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                         </div>
                         :
                         <div className="flex item-start gap-8">
-                            <div className="flex items-center gap-3 min-w-0">
+                            <div className="flex items-center gap-3 ">
                                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <div className="min-w-0">
+                                <div className="">
                                     <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
                                     <div className="font-medium text-gray-800 truncate">{request.implementer}</div>
                                 </div>
@@ -123,14 +121,6 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                     }
 
                 </div>
-
-                <div>
-
-                    {"Потрачено времени"}
-
-                    {getBetweenTimeByHour(request.createdAt, request.status !== "New" ? request.closedAt : null)}
-                </div>
-
             </div>
         </div>
     );

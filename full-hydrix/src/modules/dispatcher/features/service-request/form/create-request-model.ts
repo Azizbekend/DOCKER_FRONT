@@ -125,7 +125,6 @@ class CreateRequestModel {
     async create(id: number, comanyId: number) {
         this.model.creatorId = id
 
-
         try {
 
             let result: any = null;
@@ -166,15 +165,3 @@ class CreateRequestModel {
 }
 
 export const createRequestModel = new CreateRequestModel()
-
-
-
-// 28	"aovks"	"ffggrr"	"aovks"	"aovks"	"aovks"	"user@mail.ru"	"+7 (789)-123-4565"	"г. Казань"	false	4
-// 29	"minisrty"	"pass123"	"User"	"User"	"User"	"user@mail.ru"	"+7 (789)-123-4565"	"г. Казань"	false	4
-// 30	"ggvp@mail.ru"	"asdasdasd"	"User"	"User"	"User"	"user@mail.ru"	"+7 (789)-123-4565"	"г. Казань"	false	4
-// 31	"ruslam@mail.ru"	"qweasdzxc"	"Клиент"	"Клиент"	"Клиент"	"ruslam@mail.ru"	"+7 (789)-123-4565"	"г. Казань"	false	4
-
-
-
-
-// 5	"АО ""Высокогорские Коммунальные Сети"""	"АО ""ВКС"""	"161601001"	"422701, Республика Татарстан, Высокогорский район, село Высокая Гора, ул Энергетиков, д. 26"	"Директор"	"+79879879879"	"1061683041221"	"1616016031"	"422701, Республика Татарстан, Высокогорский район, село Высокая Гора, ул Энергетиков, д. 26"

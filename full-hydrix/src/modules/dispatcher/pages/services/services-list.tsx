@@ -39,7 +39,7 @@ export const RequestRegistryList = observer(() => {
 
   // Фильтрация
   const allRes = model.length;
-  const commonRes = model.filter(r => r.type === 'Общая').length;
+  const commonRes = model.filter(r => r.type === 'Общий').length;
   const supplyRes = model.filter(r => r.type === 'Поставочная' || r.type === "InitialSupply").length;
   const incidentsRes = model.filter(r => r.type === 'Аварийная').length;
 

@@ -36,11 +36,13 @@ export const PanelIncedentRequests = observer(({ show, onClose, incident, stageP
                 hardwareId: incident.hardware.id,
                 objectId: getObjectId(),
                 userId: user?.id,
+                creatorsCompanyId: user?.companyId,
             })
         }
     }, [incident])
 
     const onSubmit = () => {
+        setIsOpenForm(false)
         create(pushObject)
     }
 

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 class ServiceStagesFormModel {
     model: ServiceStageType = {
         discription: '',
-        stageType: 'Общая',
+        stageType: 'Общий',
         serviceId: 0,
         creatorId: 0,
         implementerId: 0,
