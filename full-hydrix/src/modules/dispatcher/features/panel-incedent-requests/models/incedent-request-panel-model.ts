@@ -3,6 +3,7 @@ import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceRequests, completeServiceRequests, getByIncidentServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
+import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
 import { getGoodName } from "@/packages/functions/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -17,8 +18,9 @@ class IncedentRequestPanelModel {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    pushObject(obj: any) {
-        this.list.push(obj)
+    async pushObject(obj: any) {
+        const enrichedItem = await getCompanyUserRequest(obj);
+        this.list.push(enrichedItem)
     }
 
 
@@ -34,70 +36,10 @@ class IncedentRequestPanelModel {
             const results = [];
 
             for (const item of serviceRes.data) {
-                try {
-                    const requests: { key: string; promise: Promise<any> }[] = [];
-
-                    if (item.creatorsCompanyId) {
-                        requests.push({
-                            key: 'creatorsCompany',
-                            promise: getCompanyOne({ id: item.creatorsCompanyId })
-                        });
-                    }
-
-                    if (item.implementersCompanyId) {
-                        requests.push({
-                            key: 'implementersCompany',
-                            promise: getCompanyOne({ id: item.implementersCompanyId })
-                        });
-                    }
-
-                    if (item.creatorId) {
-                        requests.push({
-                            key: 'creator',
-                            promise: getByUser({ id: item.creatorId })
-                        });
-                    }
-
-                    if (item.implementerId) {
-                        requests.push({
-                            key: 'implementer',
-                            promise: getByUser({ id: item.implementerId })
-                        });
-                    }
-
-                    if (item.hardwareId) {
-                        requests.push({
-                            key: 'hardware',
-                            promise: getInfoHardware({ id: item.hardwareId })
-                        });
-                    }
-                    const responses = await Promise.allSettled(
-                        requests.map(r => r.promise)
-                    );
-
-                    const enrichedItem = { ...item };
-
-                    responses.forEach((response, index) => {
-                        if (response.status === 'fulfilled') {
-                            const key = requests[index].key;
-
-                            if (key == "hardwareId") {
-                                console.log(response.value.data)
-                            }
-
-                            enrichedItem[key] = (key === 'implementer' || key == "creator") ? getGoodName(response.value.data) : response.value.data;
-                        }
-                    });
-
-                    results.push(enrichedItem);
-                } catch (error) {
-                    console.error(`Error processing item ${item.id}:`, error);
-                    results.push({
-                        ...item,
-                        error: true
-                    });
-                }
+                const enrichedItem = await getCompanyUserRequest(item);
+                results.push(enrichedItem);
             }
+
 
             this.list = results;
             console.log(results)

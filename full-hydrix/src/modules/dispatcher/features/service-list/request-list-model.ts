@@ -27,7 +27,6 @@ class ListRequestModel {
         }
     }
 
-
     async init(id: number) {
         try {
             this.isLoader = true;
@@ -109,7 +108,6 @@ class ListRequestModel {
             this.isLoader = false;
         }
     }
-
 
     async completeService(data: CompleteCancelType) {
         await completeServiceRequests(data)

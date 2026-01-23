@@ -3,6 +3,7 @@ import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, createServiceStageRequests, getByObjectServiceRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
+import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
 import { getGoodName } from "@/packages/functions/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -19,7 +20,7 @@ class ServiceStagesModel {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    setIsActiveRequest(value: boolean){
+    setIsActiveRequest(value: boolean) {
         this.isActiveRequest = value
     }
 
@@ -158,8 +159,9 @@ class ServiceStagesModel {
             })
     }
 
-    pushStage(data: ServiceStageType) {
-        this.model.push(data)
+    async pushStage(data: ServiceStageType) {
+        const enrichedItem = await getCompanyUserRequest(data);
+        this.model.push(enrichedItem)
     }
 }
 

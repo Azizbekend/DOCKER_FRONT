@@ -61,9 +61,8 @@ class ServiceStagesFormModel {
     }
 
     async init() {
-
         this.clear()
-
+        
         try {
             const [allCompanies] = await Promise.all([
                 getCompanybyObject({ id: getObjectId() })

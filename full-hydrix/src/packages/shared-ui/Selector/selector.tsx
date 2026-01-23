@@ -13,9 +13,10 @@ type Props = {
     className?: string;
     titleClass?: string;
     icon?: string;
+    defaultValue?: string;
 }
 
-export const Selector = observer(({ placeholder, items, onSelect, className, classWripper, icon, titleClass }: Props) => {
+export const Selector = observer(({ placeholder, items, onSelect, className, classWripper, icon, titleClass, defaultValue }: Props) => {
     let [isOpen, setOpen] = useState<boolean>(false)
     let [value, setValue] = useState<string | null>('')
     const containerRef = useRef<HTMLDivElement>(null);
@@ -52,8 +53,17 @@ export const Selector = observer(({ placeholder, items, onSelect, className, cla
                     borderColor: isOpen ? "var(--clr-accent)" : (isOpen ? "var(--clr-error)" : "var(--clr-border-gray)"),
                 }}
             >
+                {(() => {
+                    if (value) {
+                        return <p className="text-gray-900 truncate">{value}</p>;
+                    }
 
-                {value ? <p>{value}</p> : <span className="text-gray-400">{placeholder}</span>}
+                    if (defaultValue) {
+                        return <p className="text-gray-500 italic">{defaultValue}</p>;
+                    }
+
+                    return <span className="text-gray-400">{placeholder || 'Выберите...'}</span>;
+                })()}
 
                 {icon && <Icon systemName={icon}
                     style={{ transitionDuration: "0.3s", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }} />

@@ -27,7 +27,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
 
   const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest } = serviceStagesModel
-  const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, setImplementerId, setDiscription, setStageType, clear, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
+  const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const { user } = useAuth()
 
@@ -36,7 +36,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   useEffect(() => {
 
     if (isService) {
-      clear()
       init(isService.id, userDD)
       formInit()
 
@@ -187,7 +186,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   <Button onClick={onSubmit} styleColor="blue" class="w-full py-2">
                     Создать этап
                   </Button>
-                  <Button onClick={() => setIsOpenForm(false)} styleColor="gray" class="w-full py-2">
+                  <Button onClick={() => { setIsOpenForm(false); clear() }} styleColor="gray" class="w-full py-2">
                     Отмена
                   </Button>
                 </div >
