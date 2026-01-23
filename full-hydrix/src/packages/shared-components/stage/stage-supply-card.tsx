@@ -25,7 +25,7 @@ interface StageCardProps {
   setIsActiveRequest?: (value: boolean) => void,
   typeAction?: StageAction | null
   serviceData?: any,
-  supplyRequestAction?: (data: any) => void,
+  supplyRequestAction: (data: any) => void,
 }
 
 export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData, supplyRequestAction }: StageCardProps) => {
@@ -45,6 +45,11 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
       })
     }
   }, [stage])
+
+
+  const onSubmit = () => {
+    supplyRequestAction(data)
+  }
 
 
   return (
@@ -240,7 +245,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
               icon="arrow-down"
             />
 
-            <Button class="px-4" styleColor="blueOutline" onClick={supplyRequestAction}>
+            <Button class="px-4" styleColor="blueOutline" onClick={onSubmit}>
               Подтвердить
             </Button>
           </div >

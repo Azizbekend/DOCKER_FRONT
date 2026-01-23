@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { observer } from "mobx-react-lite";
-import { getDate } from "@/packages/functions/get-date";
 import { Statistics } from "./components/statistics";
-import { getRequestTypeColor, getStatusColor, txtLastStageRequest } from "../../widgets/service-request/functions";
 import { ServiceStagesPanel } from "../../../../packages/shared-components/stage/stages-panel";
 import { listRequestModel } from "../../features/service-list/request-list-model";
-import { getGoodName } from "@/packages/functions/get-good-name";
-import { Link } from "react-router-dom";
-import { getBetweenTimeByHour } from "@/packages/functions/get-between-time-by-hour";
 import { FilterButtons } from "./components/filter-buttons";
 import { RequestCard } from "@/packages/shared-components/request/request-card";
 
