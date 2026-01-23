@@ -27,6 +27,7 @@ export function isCompanyUsers(typeAction: StageAction | null) {
 export function isSupplierName(typeAction: StageAction | null) {
     switch (typeAction) {
         case StageAction.attachExpenses:
+        case StageAction.confirmNoPay:
             return true
         default:
             return false
