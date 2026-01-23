@@ -251,6 +251,6 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
           </div >
         </div>
       )}
-    </div >
+    </div>
   );
 });

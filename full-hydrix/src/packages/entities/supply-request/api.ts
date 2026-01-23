@@ -15,26 +15,26 @@ export const supplyRequestCreateStage = (params: SupplyRequestType) => {
 
 
 export const supplyRequestStage = (params: SupplyRequestStageType) => {
-    return reserchInstance.post(SupplyRequest.confirmNoPay, params)
+    return reserchInstance.post(SupplyRequest.createStage, params)
 }
 
 export const supplyRequestStageResend = (params: SupplyRequestStageResendType) => {
-    return reserchInstance.post(SupplyRequest.confirmNoPay, params)
+    return reserchInstance.post(SupplyRequest.resend, params)
 }
 export const supplyRequestStageAttachExpenses = (params: SupplyRequestStageAttachExpensesType) => {
     return reserchInstance.post(SupplyRequest.attachExpenses, params)
 }
 export const supplyRequestStageConfirmNoPay = (params: SupplyRequestStageConfirmNoPayType) => {
-    return reserchInstance.post(SupplyRequest.attachPay, params)
+    return reserchInstance.post(SupplyRequest.confirmNoPay, params)
 }
 export const supplyRequestStageAttachPay = (params: SupplyRequestStageAttachPayType) => {
-    return reserchInstance.post(SupplyRequest.confirm, params)
+    return reserchInstance.post(SupplyRequest.attachPay, params)
 }
 export const supplyRequestStageConfirm = (params: SupplyRequestStageConfirmType) => {
-    return reserchInstance.post(SupplyRequest.complete, params)
+    return reserchInstance.post(SupplyRequest.confirm, params)
 }
 export const supplyRequestStageComplete = (params: SupplyRequestStageCompleteType) => {
-    return reserchInstance.post(SupplyRequest.resend, params)
+    return reserchInstance.post(SupplyRequest.complete, params)
 }
 export const supplyRequestStageCancel = (params: SupplyRequestStageCancelType) => {
     return reserchInstance.post(SupplyRequest.cancel, params)
