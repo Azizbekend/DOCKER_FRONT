@@ -1,11 +1,7 @@
-import { getCompanyOne } from "@/packages/entities/company/api";
-import { getInfoHardware } from "@/packages/entities/hardware/api";
-import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, createServiceStageRequests, getByObjectServiceRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
+import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageCancel, supplyRequestStageComplete, supplyRequestStageConfirm, supplyRequestStageConfirmNoPay, supplyRequestStageResend } from "@/packages/entities/supply-request/api";
-import { getByUser } from "@/packages/entities/user/api";
 import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
-import { getGoodName } from "@/packages/functions/get-good-name";
 import { StageAction } from "@/packages/shared-components/stage/stage-actions";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -104,102 +100,90 @@ class ServiceStagesModel {
             })
     }
 
-//     async supplyRequestAction() {
+    async supplyRequestAction(data: any) {
 
-//         try {
+        try {
 
-//             let dataRes: any;
+            let dataRes: any;
 
-//             switch (this.typeAction) {
-//                 case StageAction.confirmNoPay:
-//                     dataRes = await supplyRequestStageConfirmNoPay({
-// supplierName
-// realCount
-// stageId
-// nextImplementerId
-// nextImplementerCompanyId
-// requestId
-// supplyRequestId
-//                     })
-//                     break;
-//                 case StageAction.attachExpenses:
-//                     dataRes = await supplyRequestStageAttachExpenses({
-// supplierName
-// realCount
-// expenseNumber
-// expenses
-// stageId
-// nextImplementerId
-// nextImplementerCompanyId
-// requestId
-// supplyRequestId
-//                     })
-//                     break;
-//                 case StageAction.attachPay:
-//                     dataRes = await supplyRequestStageAttachPay({
-// supplyRequestId
-// stageId
-// nextImplementerId
-// nextImplementerCompanyId
-// requestId
-//                     })
-//                     break;
-//                 case StageAction.confirm:
-//                     dataRes = await supplyRequestStageConfirm({
-// supplyRequestId
-// stageId
-// nextImplementerId
-// nextImplementerCompanyId
-// requestId
-//                     })
-//                     break;
-//                 case StageAction.complete:
-//                     dataRes = await supplyRequestStageComplete({
-// implementerId
-// implementersCompanyId
-// supplyRequestId
-// supplyStageId
-//                     })
-//                     break;
-//                 case StageAction.resend:
-//                     dataRes = await supplyRequestStageResend({
-// resendDiscription
-// creatorId
-// creatiorCompanyId
-// nextImplementerId
-//     nextImplementerCompanyId
-// hardwareId
-// objectId
-// serviceId
-//                     })
-//                     break;
-//                 case StageAction.cancel:
-//                     dataRes = await supplyRequestStageCancel({
-// cancelDiscription
-// supplyRequestId
-// supplyStageId
-//                     })
-//                     break;
+            switch (this.typeAction) {
+                case StageAction.confirmNoPay:
+                    dataRes = await supplyRequestStageConfirmNoPay({
+                        supplierName: data.supplierName,
+                        realCount: data.count,
+                        stageId: data.stageId,
+                        nextImplementerId: data.implementerId,
+                        nextImplementerCompanyId: data.implementersCompanyId,
+                        requestId: data.serviceId,
+                    })
+                    break;
+                case StageAction.attachExpenses:
+                    dataRes = await supplyRequestStageAttachExpenses({
+                        supplierName: data.supplierName,
+                        realCount: data.cound,
+                        expenseNumber: data.expenseNumber,
+                        expenses: data.expenses,
+                        stageId: data.stageId,
+                        nextImplementerId: data.implementerId,
+                        nextImplementerCompanyId: data.implementersCompanyId,
+                        requestId: data.serviceId,
+                    })
+                    break;
+                case StageAction.attachPay:
+                    dataRes = await supplyRequestStageAttachPay({
+                        stageId: data.stageId,
+                        nextImplementerId: data.implementerId,
+                        nextImplementerCompanyId: data.implementersCompanyId,
+                        requestId: data.serviceId,
+                    })
+                    break;
+                case StageAction.confirm:
+                    dataRes = await supplyRequestStageConfirm({
+                        stageId: data.stageId,
+                        nextImplementerId: data.implementerId,
+                        nextImplementerCompanyId: data.implementersCompanyId,
+                        requestId: data.serviceId,
+                    })
+                    break;
+                case StageAction.complete:
+                    dataRes = await supplyRequestStageComplete({
+                        implementerId: data.implementerId,
+                        implementersCompanyId: data.implementersCompanyId,
+                        supplyStageId: data.stageId,
+                    })
+                    break;
+                case StageAction.resend:
+                    dataRes = await supplyRequestStageResend({
+                        resendDiscription: data.discription,
+                        creatorId: data.creatorId,
+                        creatiorCompanyId: data.creatiorCompanyId,
+                        nextImplementerId: data.implementerId,
+                        nextImplementerCompanyId: data.implementersCompanyId,
+                        hardwareId: data.hardwareId,
+                        objectId: data.objectId,
+                        serviceId: data.serviceId,
+                    })
+                    break;
+                case StageAction.cancel:
+                    dataRes = await supplyRequestStageCancel({
+                        cancelDiscription: data.discription,
+                        supplyStageId: data.stageId,
+                    })
+                    break;
 
-//                 default:
-//                     break;
-//             }
-
-
-
-//         } catch (error) {
-//             console.log(error)
-//         }
-//     }
+                default:
+                    break;
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     async pushStage(data: ServiceStageType) {
         const enrichedItem = await getCompanyUserRequest(data);
         this.model.push(enrichedItem)
     }
-
-
-
 }
 
 

@@ -18,7 +18,6 @@ export function isCompanyUsers(typeAction: StageAction | null) {
         case StageAction.confirmNoPay:
         case StageAction.attachPay:
         case StageAction.confirm:
-        case StageAction.complete:
             return true
         default:
             return false
@@ -28,7 +27,6 @@ export function isCompanyUsers(typeAction: StageAction | null) {
 export function isSupplierName(typeAction: StageAction | null) {
     switch (typeAction) {
         case StageAction.attachExpenses:
-        case StageAction.confirm:
             return true
         default:
             return false

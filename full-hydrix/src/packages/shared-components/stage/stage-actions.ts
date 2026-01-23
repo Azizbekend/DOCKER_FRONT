@@ -23,7 +23,7 @@ export const stageActions = [
     },
     {
         value: StageAction.confirm, // /SupplyRequest/supplier/warehouse/confirm
-        title: "Принять закупку закупку",
+        title: "Принять закупку",
     },
     {
         value: StageAction.complete, // /SupplyRequest/mainEngineer/supplyStage/complete

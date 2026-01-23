@@ -14,6 +14,7 @@ import { stageSupplyFormModel } from "@/packages/features/stage-supply/stage-sup
 import { getObjectId } from "@/packages/functions/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { isCompanyUsers, isCount, isDiscription, isExpense, isExpenseNumber, isSupplierName } from "@/packages/functions/is-stage-supply-switch-form-input";
+import { observer } from "mobx-react-lite";
 
 
 interface StageCardProps {
@@ -26,7 +27,7 @@ interface StageCardProps {
   serviceData?: any,
 }
 
-export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData }: StageCardProps) => {
+export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData }: StageCardProps) => {
 
   const { user } = useAuth()
   const { init, setImplementerId, getUserList, data, companyList, userList, setDiscription, setSupplierName, setCount, setExpenseNumber, setExpenses, } = stageSupplyFormModel
@@ -131,8 +132,9 @@ export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, set
             </div>
           )}
         </div>
+
         {typeAction &&
-          <div className="space-y-3 mt-5 mb-5">
+          <div className="flex flex-col gap-4 mt-5 mb-5">
             {isDiscription(typeAction) &&
               <InputContainer headerText="Описание">
                 <Textarea
@@ -143,34 +145,6 @@ export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, set
                 />
               </InputContainer>
             }
-
-            {isCompanyUsers(typeAction) &&
-              <>
-                <InputContainer headerText="Выберете компанию">
-                  <Selector
-                    placeholder="Выберете компанию"
-                    classWripper="w-full"
-                    items={companyList}
-                    onSelect={(item) => { getUserList(Number(item.value)) }}
-                    icon="arrow-down"
-                  />
-                </InputContainer>
-
-                {data.implementersCompanyId != 0 && (userList.length > 0 ?
-                  <InputContainer headerText="Выберете ответственное лицо">
-                    <Selector
-                      placeholder="Выберете ответственное лицо"
-                      classWripper="w-full"
-                      items={userList}
-                      onSelect={(item) => { setImplementerId(Number(item.value)) }}
-                      icon="arrow-down"
-                    />
-                  </InputContainer>
-                  : <div>У компании отсутвствуют ответственные лица </div>)}
-              </>
-            }
-
-
 
             {isSupplierName(typeAction) &&
               <InputContainer headerText={"Имя поставщика"}>
@@ -219,6 +193,36 @@ export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, set
               </InputContainer>
             }
 
+
+            {isCompanyUsers(typeAction) &&
+              <div className="border-t border-gray-400 mt-6 pt-8 space-y-4 ">
+
+
+
+                <InputContainer headerText="Выберете компанию">
+                  <Selector
+                    placeholder="Выберете компанию"
+                    classWripper="w-full"
+                    items={companyList}
+                    onSelect={(item) => { getUserList(Number(item.value)) }}
+                    icon="arrow-down"
+                  />
+                </InputContainer>
+
+                {data.implementersCompanyId != 0 && (userList.length > 0 ?
+                  <InputContainer headerText="Выберете ответственное лицо">
+                    <Selector
+                      placeholder="Выберете ответственное лицо"
+                      classWripper="w-full"
+                      items={userList}
+                      onSelect={(item) => { setImplementerId(Number(item.value)) }}
+                      icon="arrow-down"
+                    />
+                  </InputContainer>
+                  : <div>У компании отсутвствуют ответственные лица </div>)}
+              </div>
+            }
+
           </div>
         }
 
@@ -228,7 +232,7 @@ export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, set
         <div className="p-4 border-t border-gray-100 bg-gray-50">
           <div className="flex gap-2">
             <Selector
-              placeholder="Выберете ответственное лицо"
+              placeholder="Выберите действие"
               classWripper="w-full"
               items={stageActions}
               onSelect={(item) => { setTypeAction(item.value) }}
@@ -243,4 +247,4 @@ export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, set
       )}
     </div >
   );
-};
+});

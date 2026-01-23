@@ -36,7 +36,6 @@ class ServiceStagesModel {
                 console.log(err)
             })
     }
-
     async completeCommon(data: CompleteCommonStageType) {
         await completeCommonServiceStageRequests(data)
             .then(() => {

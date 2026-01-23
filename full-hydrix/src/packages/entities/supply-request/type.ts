@@ -43,7 +43,6 @@ export type SupplyRequestStageAttachExpensesType = {
     nextImplementerId: number,
     nextImplementerCompanyId: number,
     requestId: number,
-    supplyRequestId: number
 }
 
 export type SupplyRequestStageConfirmNoPayType = {
@@ -53,11 +52,9 @@ export type SupplyRequestStageConfirmNoPayType = {
     nextImplementerId: number,
     nextImplementerCompanyId: number,
     requestId: number,
-    supplyRequestId: number
 }
 
 export type SupplyRequestStageAttachPayType = {
-    supplyRequestId: number,
     stageId: number,
     nextImplementerId: number,
     nextImplementerCompanyId: number,
@@ -65,22 +62,19 @@ export type SupplyRequestStageAttachPayType = {
 }
 
 export type SupplyRequestStageConfirmType = {
-    supplyRequestId: number,
     stageId: number,
-    nextImplementerId: number,
-    nextImplementerCompanyId: number,
+    nextImplementerId: number, // ЭТО ТЕКУШИЙ ПОЛЬЗОВАТЕЛЬ
+    nextImplementerCompanyId: number, // ЭТО ТЕКУШИЙ ПОЛЬЗОВАТЕЛЬ
     requestId: number
 }
 
 export type SupplyRequestStageCompleteType = {
     implementerId: number,
     implementersCompanyId: number,
-    supplyRequestId: number,
     supplyStageId: number
 }
 
 export type SupplyRequestStageCancelType = {
     cancelDiscription: string,
-    supplyRequestId: number,
     supplyStageId: number
 }
