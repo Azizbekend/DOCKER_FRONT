@@ -60,8 +60,8 @@ class ServiceStagesModel {
                 })
                 toast.success("Заявка успешно завершена", { progressStyle: { background: "green" } })
             })
-            .catch(() => {
-                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
             })
     }
 
@@ -77,8 +77,8 @@ class ServiceStagesModel {
 
                 toast.success("Этап успешно завершен", { progressStyle: { background: "green" } })
             })
-            .catch(() => {
-                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
             })
     }
 
@@ -95,8 +95,8 @@ class ServiceStagesModel {
 
                 toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
             })
-            .catch(() => {
-                toast.error("Ошибка при отмене заявки", { progressStyle: { background: "red" } })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
             })
     }
 
@@ -175,7 +175,7 @@ class ServiceStagesModel {
                     break;
             }
         } catch (error) {
-            console.log(error)
+            toast.error("ОШибка", { progressStyle: { background: "red" } })
         }
     }
 

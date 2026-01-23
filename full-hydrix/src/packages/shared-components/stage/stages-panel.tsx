@@ -28,7 +28,7 @@ interface ServiceStagesPanelProps {
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
 
 
-  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction } = serviceStagesModel
+  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction, supplyRequestAction } = serviceStagesModel
   const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const { user } = useAuth()
@@ -86,6 +86,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               footerBlock={isActiveRequest && (user!.id == stage.implementerId || true)}
               setTypeAction={setTypeAction}
               setIsActiveRequest={setIsActiveRequest}
+              supplyRequestAction={supplyRequestAction}
               typeAction={typeAction}
               serviceData={isService}
             />

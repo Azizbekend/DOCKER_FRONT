@@ -25,9 +25,10 @@ interface StageCardProps {
   setIsActiveRequest?: (value: boolean) => void,
   typeAction?: StageAction | null
   serviceData?: any,
+  supplyRequestAction?: (data: any) => void,
 }
 
-export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData }: StageCardProps) => {
+export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData, supplyRequestAction }: StageCardProps) => {
 
   const { user } = useAuth()
   const { init, setImplementerId, getUserList, data, companyList, userList, setDiscription, setSupplierName, setCount, setExpenseNumber, setExpenses, } = stageSupplyFormModel
@@ -239,7 +240,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
               icon="arrow-down"
             />
 
-            <Button class="px-4" styleColor="blueOutline" onClick={setIsActiveRequest}>
+            <Button class="px-4" styleColor="blueOutline" onClick={supplyRequestAction}>
               Подтвердить
             </Button>
           </div >
