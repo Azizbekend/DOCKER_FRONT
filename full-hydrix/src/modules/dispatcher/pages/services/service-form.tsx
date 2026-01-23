@@ -105,7 +105,7 @@ export const RequestRegistryForm = observer(() => {
                     : <div>У компании отсутвствуют ответственные лица </div>)
                 }
 
-                {model.type == "Поставочная" &&
+                {model.type != "Поставочная" &&
                     <InputContainer headerText="Описание" >
                         <Textarea
                             className="h-[116px]"
