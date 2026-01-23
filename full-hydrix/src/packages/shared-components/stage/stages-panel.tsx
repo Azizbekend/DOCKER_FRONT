@@ -14,6 +14,8 @@ import { CompleteCancelType } from "@/packages/entities/service-requests/type";
 import { getObjectId } from "@/packages/functions/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { getDostup } from "@/packages/entities/user/utils";
+import { StageSupplyCard } from "./stage-supply-card";
+import { isStageSupplyTypes } from "@/packages/functions/is-stage-types";
 
 interface ServiceStagesPanelProps {
   show: boolean;
@@ -26,7 +28,7 @@ interface ServiceStagesPanelProps {
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
 
 
-  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest } = serviceStagesModel
+  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction } = serviceStagesModel
   const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const { user } = useAuth()
@@ -34,19 +36,15 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const userDD = getDostup()
 
   useEffect(() => {
-
     if (isService) {
       init(isService.id, userDD)
       formInit()
-
       setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
     }
 
   }, [isService])
 
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
-
-
 
 
   const onSubmit = () => {
@@ -80,7 +78,19 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
       children={isLoaded ? <Loader /> :
         <div className="flex flex-col gap-2 p-6">
-          {(model.length > 0 ? (model.map((stage, key) =>
+          {(model.length > 0 ? (model.map((stage, key) => ((isStageSupplyTypes(stage.stageType) ?
+            <StageSupplyCard
+              key={stage.id}
+              number={key + 1}
+              stage={stage}
+              footerBlock={isActiveRequest && (user!.id == stage.implementerId || true)}
+              setTypeAction={setTypeAction}
+              setIsActiveRequest={setIsActiveRequest}
+              typeAction={typeAction}
+              serviceData={isService}
+            />
+            :
+
             <StageCard
               key={stage.id}
               number={key + 1}
@@ -90,8 +100,9 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               cancelEngineer={cancelEngineer}
               completeCommon={completeCommon}
             />
-          ))
-            :
+
+          )))) :
+
             <div className="text-center py-8 text-gray-500">
               <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +111,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               </div>
               <p>Нет этапов для отображения</p>
             </div>
-
           )}
 
           {isActiveRequest && (isOpenForm ?
@@ -125,7 +135,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                     items={[
                       { value: 'Общий', title: "Общий" },
                       { value: 'Поставочная', title: "Поставочная" },
-                      { value: 'Аварийная', title: "Аварийная" },
                     ]}
                     onSelect={(item) => { setStageType(item.value.toString()) }}
                     icon="arrow-down"

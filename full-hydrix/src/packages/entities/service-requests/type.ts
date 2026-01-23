@@ -38,15 +38,13 @@ export type FormCommonServiceModelType = {
 export type FormSupplyServiceModelType = {
     creatorId: number,
     creatorsCompanyId: number,
-    currentImplementerId: number,
-    currentImplementerCompanyId: number,
     productName: string,
     requiredCount: number,
     hardwareId: number,
     objectId: number
+    nextImplementerId: number,
+    nextImplementerCompanyId: number,
 }
-
-
 
 
 export type FormIncidentServiceModelType = {
@@ -58,7 +56,6 @@ export type FormIncidentServiceModelType = {
     hardwareId: number,
     objectId: number
 }
-
 
 export type CompleteCancelType = {
     requestId: number,
@@ -101,13 +98,3 @@ export type ServiceStageType = {
 }
 
 
-export type SupplyRequestType = {
-    creatorId: number,
-    currentImplementerId: number,
-    currentImplementerCompanyId: number,
-    productName: string,
-    requiredCount: number,
-    hardwareId: number,
-    objectId: number,
-    serviceId: number
-}

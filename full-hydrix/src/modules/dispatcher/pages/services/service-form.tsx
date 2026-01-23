@@ -48,7 +48,7 @@ export const RequestRegistryForm = observer(() => {
                 </InputContainer>
 
 
-                <InputContainer headerText={"Наименование заявки"}>
+                <InputContainer headerText={model.type == "Поставочная" ? "Наименование товара" : "Наименование заявки"}>
                     <Input
                         placeholder="Наименование"
                         className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
@@ -105,17 +105,16 @@ export const RequestRegistryForm = observer(() => {
                     : <div>У компании отсутвствуют ответственные лица </div>)
                 }
 
-
-                <InputContainer headerText="Описание" >
-                    <Textarea
-                        className="h-[116px]"
-                        placeholder="Описание"
-                        value={model.discription}
-                        onChange={setDiscription}
-                    />
-
-                </InputContainer>
-
+                {model.type == "Поставочная" &&
+                    <InputContainer headerText="Описание" >
+                        <Textarea
+                            className="h-[116px]"
+                            placeholder="Описание"
+                            value={model.discription}
+                            onChange={setDiscription}
+                        />
+                    </InputContainer>
+                }
                 <div className="flex gap-4">
                     <Button class="bg-[#4A85F6] text-white px-6 py-2.5 rounded-lg hover:opacity-50 duration-300" onClick={onSubmit}>
                         Отправить заявку

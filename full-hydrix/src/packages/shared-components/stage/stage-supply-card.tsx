@@ -1,0 +1,246 @@
+import { useEffect, useInsertionEffect, useState } from "react";
+import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "../../entities/service-requests/type";
+import { getDate } from "../../functions/get-date";
+import { Button } from "../../shared-ui/button";
+import { InputContainer } from "../../shared-ui/Inputs/input-container";
+import { Textarea } from "../../shared-ui/textarea";
+import { useAuth } from "../../entities/user/context";
+import { Role } from "../../entities/user/enums";
+import { getDostup } from "../../entities/user/utils";
+import { Selector } from "@/packages/shared-ui/Selector/selector";
+import { StageAction, stageActions } from "./stage-actions";
+import { statusColorStage, statusStage } from "@/packages/functions/get-stage-status";
+import { stageSupplyFormModel } from "@/packages/features/stage-supply/stage-supply-form-model";
+import { getObjectId } from "@/packages/functions/get-object-data";
+import { Input } from "@/packages/shared-ui/Inputs/input-text";
+import { isCompanyUsers, isCount, isDiscription, isExpense, isExpenseNumber, isSupplierName } from "@/packages/functions/is-stage-supply-switch-form-input";
+
+
+interface StageCardProps {
+  stage: ServiceStageType,
+  footerBlock?: boolean,
+  number: number,
+  setTypeAction?: (value: StageAction) => void,
+  setIsActiveRequest?: (value: boolean) => void,
+  typeAction?: StageAction | null
+  serviceData?: any,
+}
+
+export const StageSupplyCard = ({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData }: StageCardProps) => {
+
+  const { user } = useAuth()
+  const { init, setImplementerId, getUserList, data, companyList, userList, setDiscription, setSupplierName, setCount, setExpenseNumber, setExpenses, } = stageSupplyFormModel
+
+  useEffect(() => {
+    if (stage) {
+      init({
+        creatorId: user?.id,
+        creatiorCompanyId: user?.companyId,
+        hardwareId: serviceData.hardwareId,
+        objectId: getObjectId(),
+        serviceId: stage.serviceId,
+        stageId: stage.id,
+      })
+    }
+  }, [stage])
+
+
+  return (
+    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+      <div className="p-4 border-b border-gray-100 bg-gray-50">
+        <div className="flex items-center justify-between gap-3">
+          <h3 className="font-bold text-gray-800">Этап {number}</h3>
+          <div className={`px-2 py-1 rounded-lg text-white ${statusColorStage[[stage!.currentStatus]]}`}>
+            {statusStage[stage!.currentStatus]}
+          </div>
+        </div>
+      </div>
+
+      <div className="p-4">
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Создано</div>
+            <p className="text-gray-800 font-medium">{getDate(stage.createdAt)}</p>
+          </div>
+          <div>
+            <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Завершено</div>
+            <p className="text-gray-800 font-medium"> {getDate(stage.closedAt) !== "01.01.1, 00:00" ? getDate(stage.closedAt) : '—'}</p>
+          </div>
+        </div>
+
+
+        <div className="space-y-4">
+          <div className="grid grid-cols-2">
+            <div className="flex items-center gap-3 min-w-0 text-xs">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Создатель</div>
+                <div className="font-medium text-gray-800 truncate">{stage.creator ? stage.creator : "—"}</div>
+              </div>
+            </div>
+
+            {stage.creatorsCompany &&
+              <div className="flex items-center gap-3 min-w-0 text-xs">
+                <div className="min-w-0">
+                  <div className="text-gray-500 uppercase tracking-wide">Компания</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div className="grid grid-cols-2">
+            {/* Исполнитель */}
+            <div className="flex items-center gap-3 min-w-0 text-xs">
+              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Исполнитель</div>
+                <div className="font-medium text-gray-800 truncate">{stage.implementer ? stage.implementer : "—"}</div>
+              </div>
+            </div>
+
+            {stage.implementersCompany &&
+              <div className="flex items-center gap-3 min-w-0 text-xs">
+                <div className="min-w-0">
+                  <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                </div>
+              </div>
+            }
+          </div>
+
+
+          {/* ===    ОСОБЕННОСТИ ПОСТАВОЧНОЙ ЗАЯВКИ     === */}
+
+          <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
+            <p className="mb-1 text-gray-600">{"Требования к поставке"}</p>
+            {stage.discription}
+          </div>
+          {(stage.cancelDiscription?.length > 0 && stage.cancelDiscription !== "None") && (
+            <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
+              <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
+              <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
+            </div>
+          )}
+        </div>
+        {typeAction &&
+          <div className="space-y-3 mt-5 mb-5">
+            {isDiscription(typeAction) &&
+              <InputContainer headerText="Описание">
+                <Textarea
+                  placeholder="Описание..."
+                  value={data.discription}
+                  onChange={setDiscription}
+                  className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none"
+                />
+              </InputContainer>
+            }
+
+            {isCompanyUsers(typeAction) &&
+              <>
+                <InputContainer headerText="Выберете компанию">
+                  <Selector
+                    placeholder="Выберете компанию"
+                    classWripper="w-full"
+                    items={companyList}
+                    onSelect={(item) => { getUserList(Number(item.value)) }}
+                    icon="arrow-down"
+                  />
+                </InputContainer>
+
+                {data.implementersCompanyId != 0 && (userList.length > 0 ?
+                  <InputContainer headerText="Выберете ответственное лицо">
+                    <Selector
+                      placeholder="Выберете ответственное лицо"
+                      classWripper="w-full"
+                      items={userList}
+                      onSelect={(item) => { setImplementerId(Number(item.value)) }}
+                      icon="arrow-down"
+                    />
+                  </InputContainer>
+                  : <div>У компании отсутвствуют ответственные лица </div>)}
+              </>
+            }
+
+
+
+            {isSupplierName(typeAction) &&
+              <InputContainer headerText={"Имя поставщика"}>
+                <Input
+                  placeholder="Имя поставщика"
+                  className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                  value={data.supplierName || ""}
+                  onChange={(e) => setSupplierName(e)}
+                  type="string"
+                />
+              </InputContainer>
+            }
+
+            {isCount(typeAction) &&
+              <InputContainer headerText={"Количество"}>
+                <Input
+                  placeholder="Количество"
+                  className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                  value={data.count || ""}
+                  onChange={(e) => setCount(Number(e))}
+                  type="number"
+                />
+              </InputContainer>
+            }
+
+            {isExpenseNumber(typeAction) &&
+              <InputContainer headerText={"Номер счёта"}>
+                <Input
+                  placeholder="Номер счёта"
+                  className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                  value={data.expenseNumber || ""}
+                  onChange={(e) => setExpenseNumber(e)}
+                  type="number"
+                />
+              </InputContainer>
+            }
+            {isExpense(typeAction) &&
+              <InputContainer headerText={"Цена"}>
+                <Input
+                  placeholder="Цена"
+                  className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                  value={data.expenses || ""}
+                  onChange={(e) => setExpenses(e)}
+                  type="number"
+                />
+              </InputContainer>
+            }
+
+          </div>
+        }
+
+      </div>
+
+      {footerBlock && stage.currentStatus === "New" && (
+        <div className="p-4 border-t border-gray-100 bg-gray-50">
+          <div className="flex gap-2">
+            <Selector
+              placeholder="Выберете ответственное лицо"
+              classWripper="w-full"
+              items={stageActions}
+              onSelect={(item) => { setTypeAction(item.value) }}
+              icon="arrow-down"
+            />
+
+            <Button class="px-4" styleColor="blueOutline" onClick={setIsActiveRequest}>
+              Подтвердить
+            </Button>
+          </div >
+        </div>
+      )}
+    </div >
+  );
+};

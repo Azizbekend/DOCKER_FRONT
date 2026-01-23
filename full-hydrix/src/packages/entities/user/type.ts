@@ -25,7 +25,7 @@ export type UserType = {
     isEmailApproved?: boolean,
     baseRoleId: number
     baseRole?: null
-    comanyId?: number
+    companyId?: number
 }
 
 export type UpdateMunicipalitiesRequest = {

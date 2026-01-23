@@ -216,6 +216,14 @@ export const ServiceStageRequests = {
 export const SupplyRequest = {
   create: "/SupplyRequest/mainEngineer/SupplyRequest/InitialCreate",
   createStage: "/SupplyRequest/mainEngineer/supplyRequest/stage/create",
+
+  confirmNoPay: "/SupplyRequest/supplier/warehouse/confirm/noPay",
+  attachExpenses: "/SupplyRequest/supplier/attachExpenses",
+  attachPay: "/SupplyRequest/buhgalteriya/attachPay",
+  confirm: "/SupplyRequest/supplier/warehouse/confirm",
+  complete: "/SupplyRequest/mainEngineer/supplyStage/complete",
+  resend: "/SupplyRequest/mainEngineer/supplyRequest/stage/resend",
+  cancel: "/SupplyRequest/mainEngineer/supplyStage/Cancel",
 }
 
 export const Company = {

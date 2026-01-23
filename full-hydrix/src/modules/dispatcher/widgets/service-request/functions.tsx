@@ -22,7 +22,7 @@ export const getStatusColor = (status: 'New' | 'Completed' | 'Canceled') => {
     );
 };
 
-export const getRequestTypeColor = (type: 'Общая' | "Общий" | 'Поставочная' | 'Аварийная' | "InitialSupply" | "Incident") => {
+export const getRequestTypeColor = (type: 'Общая' | "Общий" | 'Поставочная' | 'Аварийная' | "InitialSupply" | "Incident" | "Поставочная заявка") => {
     let data = { color: '', text: '' };
 
     switch (type) {
@@ -36,6 +36,9 @@ export const getRequestTypeColor = (type: 'Общая' | "Общий" | 'Пос�
             data = { color: 'bg-yellow-500 text-white', text: type };
             break;
         case 'InitialSupply':
+            data = { color: 'bg-yellow-500 text-white', text: "Поставочная" };
+            break;
+        case 'Поставочная заявка':
             data = { color: 'bg-yellow-500 text-white', text: "Поставочная" };
             break;
         case 'Аварийная':

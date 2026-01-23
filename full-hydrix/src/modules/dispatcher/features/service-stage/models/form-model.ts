@@ -1,20 +1,22 @@
 import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
-import { createServiceStageRequests, supplyRequestCreateStage } from "@/packages/entities/service-requests/api";
+import { createServiceStageRequests } from "@/packages/entities/service-requests/api";
 import { ServiceStageType } from "@/packages/entities/service-requests/type";
+import { supplyRequestCreateStage } from "@/packages/entities/supply-request/api";
 import { getObjectId } from "@/packages/functions/get-object-data";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
 class ServiceStagesFormModel {
-    model: ServiceStageType = {
+    model: any = {
         discription: '',
         stageType: 'Общий',
         serviceId: 0,
         creatorId: 0,
         implementerId: 0,
         requiredCount: 0,
-    }
 
+        resendDescription: ''
+    }
 
     companyList: any[] = []
     userList: { value: number, title: string }[] = []
@@ -62,7 +64,7 @@ class ServiceStagesFormModel {
 
     async init() {
         this.clear()
-        
+
         try {
             const [allCompanies] = await Promise.all([
                 getCompanybyObject({ id: getObjectId() })
@@ -76,7 +78,6 @@ class ServiceStagesFormModel {
             })
 
             this.objectId = getObjectId()
-
 
         } catch (error) {
             console.log(error)
@@ -131,27 +132,35 @@ class ServiceStagesFormModel {
                     implementersCompanyId: this.implementersCompaneId
 
                 })
-            } else {
+
+                toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
+                pushStage(createRes.data)
+
+            } else if (this.model.stageType == "Поставочная") {
+
                 createRes = await supplyRequestCreateStage({
                     creatorId: userId,
-                    // creatorsCompanyId: this.model.implementerId,
-                    currentImplementerId: this.model.implementerId,
-                    currentImplementerCompanyId: this.implementersCompaneId,
+                    creatiorCompanyId: userCompanyId,
                     productName: this.model.discription,
                     requiredCount: this.model.requiredCount || 0,
                     hardwareId: hardwareId,
                     objectId: objectId,
                     serviceId: serviceId,
+                    nextImplementerId: this.model.implementerId,
+                    nextImplementerCompanyId: this.implementersCompaneId,
                 })
-            }
 
-            pushStage(createRes.data)
-            toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
+                toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
+                pushStage(createRes.data)
+
+            } else {
+                toast.error("Ошибка при создании этапа", { progressStyle: { background: "red" } })
+            }
 
             this.clear()
         } catch (error) {
             toast.error("Ошибка при создании этапа", { progressStyle: { background: "red" } })
-            console.log(error)
+            console.log({ error: error })
         }
     }
 

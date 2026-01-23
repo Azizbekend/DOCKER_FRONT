@@ -16,7 +16,7 @@ export const Button = (props: Props) => {
         blue: "bg-blue-500 hover:bg-blue-700 text-white",
         green: "bg-green-500 hover:bg-green-700 text-white",
         red: "bg-red-500 hover:bg-red-700 text-white",
-        blueOutline: "border border-red-500 hover:bg-red-700 text-white border-2",
+        blueOutline: "border border-blue-500 hover:bg-blue-500 hover:text-white text-blue-500 border-2",
         greenOutline: "border border-green-500 hover:bg-green-500 text-green-500 border-2 hover:text-white",
         redOutline: "border border-red-500 text-red-500 hover:bg-red-500 hover:text-white border-2",
         gray: "bg-gray-400 hover:bg-gray-700 text-white",

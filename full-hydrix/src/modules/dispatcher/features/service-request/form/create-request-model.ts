@@ -140,26 +140,29 @@ class CreateRequestModel {
                     hardwareId: this.model.hardwareId,
                     objectId: this.model.objectId,
                 })
-            } else {
+
+            } else if (this.model.type == "Поставочная") {
                 result = await supplyRequestCreate({
                     creatorId: this.model.creatorId,
                     creatorsCompanyId: this.model.creatorsCompanyId,
-                    currentImplementerId: this.model.implementerId,
-                    currentImplementerCompanyId: this.model.implementersCompaneId,
-                    productName: this.model.discription,
+                    nextImplementerId: this.model.implementerId,
+                    nextImplementerCompanyId: this.model.implementersCompaneId,
+                    productName: this.model.title,
                     requiredCount: this.model.requiredCount || 0,
                     hardwareId: this.model.hardwareId,
                     objectId: this.model.objectId,
+                    requestType: "asda",
                 })
+
+                toast.success("Заявка создана", { progressStyle: { background: "green" } })
+            } else {
+                toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
             }
 
             this.clear()
-            toast.success("Заявка создана", { progressStyle: { background: "green" } })
 
         } catch (error) {
-            console.log(error)
             toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
-
         }
     }
 }

@@ -7,6 +7,8 @@ import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";
 import { Role } from "../../entities/user/enums";
 import { getDostup } from "../../entities/user/utils";
+import { Selector } from "@/packages/shared-ui/Selector/selector";
+import { StageAction, stageActions } from "./stage-actions";
 
 
 interface StageCardProps {
@@ -18,7 +20,7 @@ interface StageCardProps {
   completeCommon: (data: CompleteCommonStageType) => void
 }
 
-export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon, }: StageCardProps) => {
+export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon }: StageCardProps) => {
 
   const [descr, setDescr] = useState<string>("")
   const [isCanc, setIsCanc] = useState<boolean>(false)
@@ -38,7 +40,6 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
     completeEngineer({ stageId: Number(stage.id), engineerId: user.id, discription: descr })
   }
 
-
   const needCancel = () => {
     cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })
   }
@@ -49,9 +50,8 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
     setIsCancComplete(false)
   }
 
-
   return (
-    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
       <div className="p-4 border-b border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-bold text-gray-800">Этап {number}</h3>
@@ -189,6 +189,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                 <Button onClick={onComplete} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">
                   Завершить этап
                 </Button>
+
                 <Button onClick={() => setIsCanc(true)} class="flex-2 py-2.5 px-4 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors">
                   Отменить этап
                 </Button>
@@ -197,8 +198,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
 
           </div >
         </div>
-      )
-      }
+      )}
     </div >
   );
 };
