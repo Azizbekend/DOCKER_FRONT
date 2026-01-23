@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import imagePassport from "./assets/passport.jpg";
 import { Icon } from '@/packages/shared-ui/icon';
 import { coordinates, infoContacts } from '../../../../../../packages/entities/object/data';
-import { BlockContainer } from '../../../../../../packages/shared/components/block-container';
+import { BlockContainer } from '../../../../../../packages/shared-components/container-blocks/block-container';
 import { TechSpecifications } from './components/tech-specifications';
 import mmrgl from 'mmr-gl';
 import mapPl from '../../../registry-map/assets/map-pl.png';
@@ -11,7 +11,7 @@ import { PassportHeaderPanel } from '../../components/header-panel';
 import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { listParticipantsModel } from '@/modules/domain/features/participants/models/list-participants-model';
-import { getGoodName } from '@/packages/hook/user/get-good-name';
+import { getGoodName } from '@/packages/functions/get-good-name';
 
 export const PassportInformation = observer(() => {
 

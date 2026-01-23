@@ -1,16 +1,15 @@
 import { Link, Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { Header } from "@/packages/shared/components/header/header";
 import { Icon } from '@/packages/shared-ui/icon';
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Button } from "@/packages/shared-ui/button";
+import { Header } from "@/packages/shared-components/header/header";
 
 export const Layout = observer(() => {
 
 
     const [isPanelOpen, setIsPanelOpen] = useState(false);
-
 
     return (
         <>

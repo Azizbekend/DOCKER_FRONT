@@ -1,11 +1,15 @@
 import { reserchInstance } from "@/app/api/instances"
 import { CancelStageType, CompleteCancelType, CompleteCommonStageType, CompleteEngineerStageType, FormCommonServiceModelType, FormIncidentServiceModelType, FormSupplyServiceModelType, ServiceStageType, SupplyRequestType } from "./type"
 import { ServiceRequests, ServiceStageRequests, SupplyRequest } from "@/app/routers/api-router"
+import { IncedentRequestType } from "../incident/type"
 
 
 // ServiceRequests
 export const getServiceRequestsAll = () => {
     return reserchInstance.get(ServiceRequests.all)
+}
+export const getByIncidentServiceRequestsAll = (params: { id: number }) => {
+    return reserchInstance.get(ServiceRequests.byIncident, { params })
 }
 export const getByObjectServiceRequests = (params: { id: number }) => {
     return reserchInstance.post(ServiceRequests.byObject, params)
@@ -13,7 +17,7 @@ export const getByObjectServiceRequests = (params: { id: number }) => {
 export const createServiceRequests = (params: FormCommonServiceModelType) => {
     return reserchInstance.post(ServiceRequests.create, params)
 }
-export const createIncidentServiceRequests = (params: FormIncidentServiceModelType) => {
+export const createIncidentServiceRequests = (params: IncedentRequestType) => {
     return reserchInstance.post(ServiceRequests.createIncident, params)
 }
 export const completeServiceRequests = (params: CompleteCancelType) => {

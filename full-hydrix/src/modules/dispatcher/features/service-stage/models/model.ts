@@ -3,7 +3,7 @@ import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, createServiceStageRequests, getByObjectServiceRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
-import { getGoodName } from "@/packages/hook/user/get-good-name";
+import { getGoodName } from "@/packages/functions/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

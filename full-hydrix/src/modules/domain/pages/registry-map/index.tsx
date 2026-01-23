@@ -9,7 +9,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { chartData, chartDataInic } from './data/data';
 import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
-import { ServiceStagesPanel } from '@/packages/shared/libs/stage-panel/stages-panel';
+import { ServiceStagesPanel } from '@/packages/shared-components/stage/stages-panel';
 
 
 

@@ -1,7 +1,7 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import { Incident } from "../../registry-objects/data/data";
 import { ServiceType } from "@/packages/entities/service-requests/type";
-import { getDate } from "@/packages/hook/get-date";
+import { getDate } from "@/packages/functions/get-date";
 
 export const columnsIncidents: TableColumn<Incident>[] = [
     {

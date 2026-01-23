@@ -1,7 +1,6 @@
-import { Characteristic } from "@/modules/dispatcher/pages/hardware-form/components/characteristic/type";
-import { ControlType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/modules/dispatcher/pages/hardware-form/components/control/type";
-import { Documents } from "./api-general";
-
+import { ControlType, ServiceHistoryType, ServiceModelType } from "@/packages/shared/libs/hardware-form/components/control/type";
+import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
+import { DocumentsModelType, DocumentsType } from "../documents/type";
 
 export interface HardwareInterface {
     id: number,
@@ -40,7 +39,7 @@ export interface CreateHardwareInterface {
 export interface HardwareReviewProps {
     сharacteristic: Characteristic[],
     commandsInfo: ControlType[],
-    documents: Documents[],
+    documents: DocumentsModelType[],
     getInfoNodeInfoAll: () => void,
 
     data: {
@@ -69,7 +68,7 @@ export interface HardwareServesProps {
 export interface HardwarePassportProps {
     getInfoNodeInfoAll: () => void,
     model: HardwareInterface,
-    documents: Documents[],
+    documents: DocumentsType[],
     сharacteristic: Characteristic[],
     commandsInfo: ControlType[],
     status: boolean,

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { BlockContainer } from "../../../../../../../packages/shared/components/block-container";
+import { BlockContainer } from "../../../../../../../packages/shared-components/container-blocks/block-container";
 import { PassportModelIndicatorType } from "@/packages/entities/object/type";
 
 export const TechSpecifications = observer(({ data }: { data: PassportModelIndicatorType }) => {

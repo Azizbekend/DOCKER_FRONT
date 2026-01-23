@@ -21,3 +21,40 @@ export const getStatusColor = (status: 'New' | 'Completed' | 'Canceled') => {
         </span>
     );
 };
+
+export const getRequestTypeColor = (type: 'Общая' | 'Поставочная' | 'Аварийная' | "InitialSupply") => {
+    let data = { color: '', text: '' };
+
+    switch (type) {
+        case 'Общая':
+            data = { color: 'bg-blue-600 text-white', text: type };
+            break;
+        case 'Поставочная':
+            data = { color: 'bg-yellow-500 text-white', text: type };
+            break;
+        case 'InitialSupply':
+            data = { color: 'bg-yellow-500 text-white', text: "Поставочная" };
+            break;
+        case 'Аварийная':
+            data = { color: 'bg-red-600 text-white', text: type };
+            break;
+        default:
+            data = { color: 'bg-gray-800 text-white', text: type };
+    }
+
+    return (
+        <span className={`px-2 py-1 rounded-full text-xs font-medium ${data.color}`}>
+            {data.text}
+        </span>
+    );
+};
+
+
+
+
+
+
+
+export const txtLastStageRequest = (status: 'New' | 'Completed' | 'Canceled') => {
+    return status === 'New' ? 'Текущий этап' : 'Последний этап';
+};

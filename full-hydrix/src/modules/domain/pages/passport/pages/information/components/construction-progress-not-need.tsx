@@ -1,4 +1,4 @@
-import { BlockContainer } from '@/packages/shared/components/block-container';
+import { BlockContainer } from '@/packages/shared-components/container-blocks/block-container';
 import { observer } from 'mobx-react-lite';
 
 export const BLOCK = observer(() => {

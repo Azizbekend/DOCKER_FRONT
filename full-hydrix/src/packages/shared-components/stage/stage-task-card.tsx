@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { CompleteCommonStageType, ServiceStageType } from "../entities/service-requests/type";
-import { getDate } from "../hook/get-date";
-import { Button } from "../shared-ui/button";
-import { InputContainer } from "../shared-ui/Inputs/input-container";
-import { Textarea } from "../shared-ui/textarea";
-import { useAuth } from "../entities/user/context";
-import { Role } from "../entities/user/enums";
+import { CompleteCommonStageType, ServiceStageType } from "../../entities/service-requests/type";
+import { getDate } from "../../functions/get-date";
+import { Button } from "../../shared-ui/button";
+import { InputContainer } from "../../shared-ui/Inputs/input-container";
+import { Textarea } from "../../shared-ui/textarea";
+import { useAuth } from "../../entities/user/context";
+import { Role } from "../../entities/user/enums";
 
 
 

@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { HardwarePassport } from "@/packages/shared/libs/hardware/tabs/page-tabs";
-import { getObjectId } from "@/packages/hook/objectData/getObjectData";
+import { getObjectId } from "@/packages/functions/get-object-data";
 
 export const HardwareInformation = observer(() => {
     const { id } = useParams();

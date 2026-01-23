@@ -1,18 +1,17 @@
 import { Modal } from "@/packages/shared-ui/modal/modal";
-import { serviceStagesModel } from "../../../../modules/dispatcher/features/service-stage/models/model";
+import { serviceStagesModel } from "../../../modules/dispatcher/features/service-stage/models/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { useEffect, useState } from "react";
-import { serviceStagesFormModel } from "../../../../modules/dispatcher/features/service-stage/models/form-model";
+import { serviceStagesFormModel } from "../../../modules/dispatcher/features/service-stage/models/form-model";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Textarea } from "@/packages/shared-ui/textarea";
 import { Button } from "@/packages/shared-ui/button";
-import { StageCard } from "@/packages/shared-components/stage-card";
+import { StageCard } from "@/packages/shared-components/stage/stage-card";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { useAuth } from "@/packages/entities/user/context";
 import { CompleteCancelType } from "@/packages/entities/service-requests/type";
-import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search";
-import { getObjectId } from "@/packages/hook/objectData/getObjectData";
+import { getObjectId } from "@/packages/functions/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { getDostup } from "@/packages/entities/user/utils";
 
@@ -35,15 +34,16 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const userDD = getDostup()
 
   useEffect(() => {
-    clear()
-    init(isService.id, userDD)
-    formInit()
 
-    setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
+    if (isService) {
+      clear()
+      init(isService.id, userDD)
+      formInit()
 
+      setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
+    }
 
-
-  }, [isService.id])
+  }, [isService])
 
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
 
@@ -81,7 +81,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
       children={isLoaded ? <Loader /> :
         <div className="flex flex-col gap-2 p-6">
-
           {(model.length > 0 ? (model.map((stage, key) =>
             <StageCard
               key={stage.id}
@@ -201,7 +200,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               Добавить этап
             </Button>)
           }
-
         </div >
       }
 

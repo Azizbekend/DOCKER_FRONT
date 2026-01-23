@@ -1,7 +1,7 @@
 import { HardwareCreate } from "@/packages/shared/libs/hardware-form";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { useState } from "react";
-import { getObjectId } from "@/packages/hook/objectData/getObjectData";
+import { getObjectId } from "@/packages/functions/get-object-data";
 
 export const HardwareForm = () => {
 

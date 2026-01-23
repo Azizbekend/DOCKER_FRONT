@@ -1,37 +1,36 @@
 import { getCompanyOne } from "@/packages/entities/company/api";
 import { getInfoHardware } from "@/packages/entities/hardware/api";
-import { cancelServiceRequests, completeServiceRequests, getByObjectServiceRequests } from "@/packages/entities/service-requests/api";
+import { cancelServiceRequests, completeServiceRequests, getByIncidentServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
 import { getGoodName } from "@/packages/functions/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
-class ListRequestModel {
 
-    model: ServiceType[] = []
-    isLoader: boolean = true
-    isStagesPanel: boolean = false
-    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number } = { id: 0, status: null, hardwareId: 0 }
+class IncedentRequestPanelModel {
+    list: ServiceType[] = []
+    isLoader: boolean = false
+    focusIncedent: any = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    setIsStagesPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number) {
-        this.isStagesPanel = value
-        this.isService = {
-            id: id,
-            status: status,
-            hardwareId: hardwareId
-        }
+    pushObject(obj: any) {
+        this.list.push(obj)
     }
 
 
     async init(id: number) {
+
+
+
+        if (id == 0) return
+
         try {
             this.isLoader = true;
-            const serviceRes = await getByObjectServiceRequests({ id });
+            const serviceRes = await getByIncidentServiceRequestsAll({ id: id });
             const results = [];
 
             for (const item of serviceRes.data) {
@@ -100,16 +99,15 @@ class ListRequestModel {
                 }
             }
 
-            this.model = results;
+            this.list = results;
             console.log(results)
         } catch (error) {
             console.error('Error in init:', error);
-            this.model = [];
+            this.list = [];
         } finally {
             this.isLoader = false;
         }
     }
-
 
     async completeService(data: CompleteCancelType) {
         await completeServiceRequests(data)
@@ -132,4 +130,4 @@ class ListRequestModel {
     }
 }
 
-export const listRequestModel = new ListRequestModel()
+export const incedentRequestPanelModel = new IncedentRequestPanelModel()

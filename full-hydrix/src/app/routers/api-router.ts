@@ -194,6 +194,8 @@ export const NodeIndicates = {
 export const ServiceRequests = {
   all: "/ServiceRequests/services/all",
   byObject: "/ServiceRequests/object/services/all",
+  byIncident: "/ServiceRequests/services/incidentServices/all",
+
 
   create: "/ServiceRequests/mainEngineer/commonService/InitialCreate",
   createIncident: "/ServiceRequests/mainEngineer/incidentService/InitialCreate",

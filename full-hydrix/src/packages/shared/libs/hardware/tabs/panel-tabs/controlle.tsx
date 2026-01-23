@@ -4,8 +4,8 @@ import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { ConfirmModal } from '@/packages/shared/components/hardware-modal-confirms/modal-confirm';
-import { ModalCommanActive } from '@/packages/shared/components/hardware-modal-confirms/modal-comman-active';
+import { ConfirmModal } from '@/packages/shared-components/hardware-modal-confirms/modal-confirm';
+import { ModalCommanActive } from '@/packages/shared-components/hardware-modal-confirms/modal-comman-active';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { HardwareControlleProps } from '@/packages/entities/hardware/type';
 

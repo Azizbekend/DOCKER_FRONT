@@ -28,21 +28,3 @@ export const objects = [
         energy: 68
     }
 ];
-
-
-export interface Incident {
-    id: number,
-    nodeName: string,
-    discription: null,
-    status: string,
-    isClosed: boolean,
-    createdAt: string,
-    closedAt: string,
-    hardwareId: number,
-    hardwareName?: string,
-    controlBlockId: number,
-    objectId: number,
-    serviceUserId: number
-}
-
-

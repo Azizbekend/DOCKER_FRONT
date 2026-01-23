@@ -3,7 +3,7 @@ import { stageJobModel } from '../../features/service-stage/models/task-model';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { useEffect } from 'react';
 import { useAuth } from '@/packages/entities/user/context';
-import { StageTaskCard } from '@/packages/shared-components/stage-task-card';
+import { StageTaskCard } from '@/packages/shared-components/stage/stage-task-card';
 
 export const Stages = observer(() => {
 
