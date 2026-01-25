@@ -18,5 +18,4 @@ export const StatusText = (status: number) => {
         case 3:
             return "Авария"
     }
-
 }

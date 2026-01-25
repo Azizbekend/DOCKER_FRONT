@@ -1,8 +1,6 @@
 import { observer } from "mobx-react-lite";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "../icon";
-import { useSearch } from "../Inputs/hooks/hook-search";
-import { Input } from "../Inputs/input-text";
 import { SeletectItemInterface } from "./type";
 
 type Props = {
@@ -50,7 +48,7 @@ export const Selector = observer(({ placeholder, items, onSelect, className, cla
         <div ref={containerRef} className={`flex flex-col cursor-pointer relative rounded-lg ${classWripper}`} onClick={handleButtonClick}>
             <div className={`w-full outline-none disabled:bg-zinc-200 flex items-center border p-2 rounded-lg py-3 ${icon && "justify-between"} ${titleClass}`}
                 style={{
-                    borderColor: isOpen ? "var(--clr-accent)" : (isOpen ? "var(--clr-error)" : "var(--clr-border-gray)"),
+                    borderColor: isOpen ? "var(--clr-accent)" : "var(--clr-border-gray)",
                 }}
             >
                 {(() => {

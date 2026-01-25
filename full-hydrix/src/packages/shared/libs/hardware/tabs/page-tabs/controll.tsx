@@ -7,10 +7,13 @@ import { Button } from "@/packages/shared-ui/button";
 import { ConfirmModal } from '@/packages/shared-components/hardware-modal-confirms/modal-confirm';
 import { ModalCommanActive } from '@/packages/shared-components/hardware-modal-confirms/modal-comman-active';
 import { observer } from "mobx-react-lite";
-import { eventLog } from "@/modules/domain/features/hardware/data";
 import { HardwareControlleProps } from "@/packages/entities/hardware/type";
+import { logsModel } from "@/modules/domain/features/hardware/logs-model";
+import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { getDate } from "@/packages/functions/get-date";
+import { LogEventCard } from "@/packages/shared-components/log-event-card";
 
-export const HardwareControll = observer(({ commands, switchIsCommand, changeCommands, isLoaderCommand, isActiveCommand }: HardwareControlleProps) => {
+export const HardwareControll = observer(({ commands, switchIsCommand, changeCommands, isLoaderCommand, isActiveCommand, evengLog }: HardwareControlleProps) => {
 
   const [btnCount, setBtnCount] = useState<number>(3);
   const [show, setShow] = useState<boolean>(false);
@@ -19,13 +22,13 @@ export const HardwareControll = observer(({ commands, switchIsCommand, changeCom
   const confirm = () => { setShowAvtive(false); switchIsCommand() }
   const cancle = () => { setShowAvtive(false) }
 
+
   return (
     <>
       {isActiveCommand && <ConfirmModal show={show} setShow={setShow} />}
       <ModalCommanActive show={showAvtive} setShow={setShowAvtive} confirm={confirm} cancle={cancle} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Команды управления */}
         <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
           <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
             <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
@@ -94,7 +97,6 @@ export const HardwareControll = observer(({ commands, switchIsCommand, changeCom
 
         </div>
 
-        {/* Расширенный журнал событий */}
         <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
           <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
             <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>
@@ -102,36 +104,7 @@ export const HardwareControll = observer(({ commands, switchIsCommand, changeCom
           </h3>
 
           <div className="flex flex-col gap-5 max-h-[600px] overflow-y-auto pr-2">
-            {eventLog.length > 0 ? (
-              eventLog.map((event, idx) => (
-                <div
-                  key={idx}
-                  className="p-5 rounded-lg border-l-4 border-white shadow-md transition-shadow"
-                  style={{
-                    borderLeftColor: event.status === 'warning' ? '#f87171' :
-                      event.status === 'success' ? '#4ade80' :
-                        event.status === 'info' ? '#60a5fa' : '#9ca3af'
-                  }}
-                >
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${event.status === 'warning' ? 'bg-red-100 text-red-800' :
-                      event.status === 'success' ? 'bg-green-100 text-green-800' :
-                        event.status === 'info' ? 'bg-blue-100 text-blue-800' :
-                          'bg-gray-100 text-gray-800'
-                      }`}>
-                      {event.action}
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-700 leading-relaxed">{event.description}</p>
-                  <p className="text-xs text-gray-500 mt-2">Инициатор: {event.initiator}</p>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-8 text-gray-500">
-                Нет записей в журнале
-              </div>
-            )}
+            {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
           </div>
         </div>
       </div>

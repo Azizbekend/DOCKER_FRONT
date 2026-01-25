@@ -2,6 +2,7 @@ import { cancelServiceStageRequests, completeCommonServiceStageRequests, complet
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageCancel, supplyRequestStageComplete, supplyRequestStageConfirm, supplyRequestStageConfirmNoPay, supplyRequestStageResend } from "@/packages/entities/supply-request/api";
 import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
+import { getAnswerActions } from "@/packages/functions/get-stage-supply-switch-text";
 import { StageAction } from "@/packages/shared-components/stage/stage-actions";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
@@ -30,6 +31,7 @@ class ServiceStagesModel {
 
     async init(id: number, userDD: any) {
 
+        this.isLoaded = true
         this.isEngener = userDD.isCommandsEnabled
 
         try {
@@ -118,9 +120,12 @@ class ServiceStagesModel {
                     })
                     break;
                 case StageAction.attachExpenses:
+
+                    console.log(data)
+
                     dataRes = await supplyRequestStageAttachExpenses({
                         supplierName: data.supplierName,
-                        realCount: data.cound,
+                        realCount: data.count,
                         expenseNumber: data.expenseNumber,
                         expenses: data.expenses,
                         stageId: data.stageId,
@@ -147,8 +152,8 @@ class ServiceStagesModel {
                     break;
                 case StageAction.complete:
                     dataRes = await supplyRequestStageComplete({
-                        implementerId: data.implementerId,
-                        implementersCompanyId: data.implementersCompanyId,
+                        implementerId: data.creatorId,
+                        implementersCompanyId: data.creatiorCompanyId,
                         supplyStageId: data.stageId,
                     })
                     break;
@@ -170,12 +175,14 @@ class ServiceStagesModel {
                         supplyStageId: data.stageId,
                     })
                     break;
-
-                default:
-                    break;
             }
+
+            toast.success(getAnswerActions(this.typeAction), { progressStyle: { background: "red" } })
         } catch (error) {
-            toast.error("ОШибка", { progressStyle: { background: "red" } })
+
+            console.log(error)
+
+            toast.error("Ошибка", { progressStyle: { background: "red" } })
         }
     }
 

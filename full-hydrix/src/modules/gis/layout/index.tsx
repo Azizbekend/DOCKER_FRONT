@@ -8,7 +8,7 @@ export const Layout = () => {
             <Header />
             <div className="w-full flex flex-row h-full flex-grow">
                 <Sidebar />
-                <div className="min-w-0 flex flex-col min-h-full flex-grow">
+                <div className="min-w-0 flex flex-col max-h-50vh flex-grow">
                     <div className="mt-12 ml-10 pr-[40px]">
                         <Outlet />
                     </div>

@@ -1,6 +1,6 @@
 import { Hardware } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
-import { CreateHardwareInterface } from "./type"
+import { CreateHardwareInterface, HardwareEventsType } from "./type"
 
 export const getAllHardware = () => {
     return reserchInstance.get(Hardware.all)
@@ -28,4 +28,8 @@ export const activeHardware = (params: { id: number }) => {
 
 export const statusHardwaresCheck = (params: { ids: number[] }) => {
     return reserchInstance.post(Hardware.statusHardwaresCheck, params)
+}
+
+export const hardwaresEvents = (params: HardwareEventsType) => {
+    return reserchInstance.post(Hardware.events, params)
 }

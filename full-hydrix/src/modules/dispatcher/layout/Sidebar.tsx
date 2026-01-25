@@ -65,9 +65,9 @@ export const Sidebar = observer(() => {
                     {userDD.isCommandsEnabled &&
                         <SidebarItem link={`/dispatcher/services`} icon='clipboard' title='Заявки' isActive={location.pathname.includes('/dispatcher/services')} />
                     }
-                    {!userDD.isCommandsEnabled &&
-                        <SidebarItem link={`/dispatcher/stages`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/stages')} />
-                    }
+                    {/* {!userDD.isCommandsEnabled &&
+                    } */}
+                    <SidebarItem link={`/dispatcher/stages`} icon='clipboard' title='Задачи' isActive={location.pathname.includes('/dispatcher/stages')} />
 
                     <SidebarItem link={`/dispatcher/incident`} icon='incident' title='Аварии' isActive={location.pathname.includes('/dispatcher/incident')} />
                 </div>

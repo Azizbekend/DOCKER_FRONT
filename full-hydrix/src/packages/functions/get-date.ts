@@ -1,4 +1,4 @@
-export function getDate(date: Date | string | number, type: 'full' | 'year' | 'short' = 'full'): string {
+export function getDate(date: Date | string | number | any, type: 'full' | 'year' | 'short' = 'full'): string {
 
     const dateObj = new Date(date);
 

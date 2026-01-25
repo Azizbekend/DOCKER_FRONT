@@ -57,6 +57,7 @@ export interface HardwareControlleProps {
     isActiveCommand: boolean,
     isLoaderCommand: boolean,
     switchIsCommand: () => void,
+    evengLog: HardwareEventsDataType[],
 }
 
 export interface HardwareServesProps {
@@ -71,6 +72,8 @@ export interface HardwarePassportProps {
     documents: DocumentsType[],
     сharacteristic: Characteristic[],
     commandsInfo: ControlType[],
+    evengLog?: HardwareEventsDataType[] | string,
+    evengLogLinksTo?: string,
     status: boolean,
     incidentList: { nodeId: number, nodeName: string }[],
 }
@@ -83,4 +86,40 @@ export interface HardwareServiceProps {
     serviceStatistic: ServiceStatisticType[],
 
     checkedService: (id: string) => void,
+}
+
+
+export type HardwareEventsType = {
+    hadrwareId: number,
+    start: Date,
+    end: Date
+}
+
+export type StartEndDates = { start: Date | string, end: Date | string }
+
+
+export type HardwareEventsDataType = {
+    id: number,
+    discription: string,
+    timeStamp: Date,
+    hardwareId: number,
+    userId: number
+}
+
+
+
+
+// Типы данных
+export interface EquipmentLogEntry {
+    id: number;
+    indicates: string; // "Вкл" или "Выкл"
+    plcNodeId: string;
+    timestamp: string;
+    details?: string;
+}
+
+export interface EventLogEntry {
+    id: number;
+    description: string;
+    timestamp: string;
 }

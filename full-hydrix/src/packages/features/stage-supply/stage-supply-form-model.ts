@@ -31,6 +31,31 @@ class StageSupplyFormModel {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
+
+    clear() {
+        this.data = {
+            creatorId: 0,
+            creatiorCompanyId: 0,
+            hardwareId: 0,
+            objectId: 0,
+            serviceId: 0,
+            stageId: 0,
+            implementerId: 0,
+            implementersCompanyId: 0,
+            discription: "",
+            supplierName: "",
+            count: 0,
+            expenseNumber: "",
+            expenses: 0,
+        }
+
+        this.companyList = []
+        this.userList = []
+
+        this.isLoader = false
+    }
+
+
     async init({
         creatorId,
         creatiorCompanyId,
@@ -52,6 +77,10 @@ class StageSupplyFormModel {
         this.data.objectId = objectId;
         this.data.serviceId = serviceId;
         this.data.stageId = stageId;
+
+
+
+
 
 
         try {

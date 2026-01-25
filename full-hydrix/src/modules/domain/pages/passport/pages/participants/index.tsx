@@ -24,7 +24,7 @@ export const PassportParticipants = observer(() => {
     init(objectId)
   }, [])
 
-  return isLoading ? <Loader /> : <>
+  return <>
     {showModalCompany && <CreateCompanyModal show={showModalCompany} setShow={setShowModalCompany} />}
     {showModalParticipants && <CreateParticipantsModal show={showModalParticipants} setShow={setShowModalParticipants} companyData={openCompanyId} />}
     {showAddModalCompany && <AddCompanyModal show={showAddModalCompany} setShow={setShowAddModalCompany} objectId={14} pushParticipants={pushParticipants} />}
@@ -47,7 +47,7 @@ export const PassportParticipants = observer(() => {
     />
 
     <div className="space-y-4">
-      {listParticipants.map((participant, key) => (
+      {isLoading ? <Loader /> : listParticipants.map((participant, key) => (
         <div key={key} className="border border-gray-200 rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-white to-gray-50">
 
           <div className="flex justify-start mb-3 sm:mb-4">

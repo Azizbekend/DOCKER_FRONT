@@ -41,7 +41,7 @@ export async function getCompanyUserRequest(item: any) {
                 promise: getInfoHardware({ id: item.hardwareId })
             });
         }
-        
+
         const responses = await Promise.allSettled(
             requests.map(r => r.promise)
         );

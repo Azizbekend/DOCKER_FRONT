@@ -1,9 +1,9 @@
 import { getDocuments } from "@/packages/entities/documents/api";
 import { DocumentsType } from "@/packages/entities/documents/type";
-import { getInfoHardware, statusHardwaresCheck } from "@/packages/entities/hardware/api";
+import { getInfoHardware, hardwaresEvents, statusHardwaresCheck } from "@/packages/entities/hardware/api";
 import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/packages/entities/hardware/api-general";
-import { HardwareInterface } from "@/packages/entities/hardware/type";
-import { ControlType, EventLogsType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
+import { HardwareEventsDataType, HardwareInterface, StartEndDates } from "@/packages/entities/hardware/type";
+import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
 import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
 
 import { makeAutoObservable } from "mobx";
@@ -38,13 +38,14 @@ class HardwareModel {
     servicesHistory: ServiceHistoryType[] | any = []
     serviceStatistic: ServiceStatisticType[] | any = []
     documents: DocumentsType[] | any = []
-
     incidentList: { nodeId: number, nodeName: string }[] = []
 
     commandInfoIds: string[] = []
     ids: (string | undefined)[] = []
-    evengLog: EventLogsType[] = [];
     status: boolean = false;
+
+    evengLog: HardwareEventsDataType[] = [];
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -88,13 +89,12 @@ class HardwareModel {
         this.ids = []
     }
 
-    async init(id: number, serviceTody: boolean = false) {
+    async init(id: number, dateData: StartEndDates) {
         this.isLoading = true
         this.clear()
 
         try {
-
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, hardwaresEventsRes] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -105,6 +105,12 @@ class HardwareModel {
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
                 getInfoNodeInfoAllCheck({ id: id }),
+                hardwaresEvents({
+                    hadrwareId: id,
+                    start: dateData.start,
+                    end: dateData.end,
+                })
+
             ]);
 
             this.model = info.data;
@@ -128,7 +134,7 @@ class HardwareModel {
 
             // this.isActiveCommand = commandCheck.data == "True"
 
-            console.log(this.сharacteristic)
+            this.evengLog = hardwaresEventsRes.data
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);

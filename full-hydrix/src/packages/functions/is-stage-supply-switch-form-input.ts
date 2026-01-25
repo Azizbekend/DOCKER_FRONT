@@ -10,6 +10,16 @@ export function isDiscription(typeAction: StageAction | null) {
             return false
     }
 }
+export function getDiscriptionTitle(typeAction: StageAction | null) {
+    switch (typeAction) {
+        case StageAction.resend:
+            return "Причина отправки"
+        case StageAction.cancel:
+            return "Причина отмена"
+        default:
+            return "Описание"
+    }
+}
 
 export function isCompanyUsers(typeAction: StageAction | null) {
     switch (typeAction) {
@@ -31,6 +41,14 @@ export function isSupplierName(typeAction: StageAction | null) {
             return true
         default:
             return false
+    }
+}
+export function getSupplierNameTitle(typeAction: StageAction | null) {
+    switch (typeAction) {
+        case StageAction.attachExpenses:
+        case StageAction.confirmNoPay:
+        default:
+            return "Имя поставщика" 
     }
 }
 
@@ -61,3 +79,6 @@ export function isExpense(typeAction: StageAction | null) {
             return false
     }
 }
+
+
+

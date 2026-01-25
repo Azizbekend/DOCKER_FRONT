@@ -29,8 +29,8 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
   }
 
   return (
-    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-      <div className="p-4 border-b border-gray-100 bg-gray-50">
+    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+      <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <p className="text-gray-800 font-medium">{getDate(stage.createdAt)}</p>
 
@@ -110,7 +110,7 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
           </InputContainer>
         }
 
-        {isСonfirm ?
+        {stage.currentStatus == "New" && (isСonfirm ?
           <div className="flex gap-4">
             <Button onClick={onComplete} class="py-2.5 px-4" styleColor="green">
               Подтвердить
@@ -122,7 +122,7 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
           :
           <Button onClick={() => setConfirm(true)} class="py-2.5 px-4" styleColor="blue">
             Выполнить
-          </Button>
+          </Button>)
         }
       </div>
     </div>

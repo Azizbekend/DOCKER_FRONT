@@ -9,18 +9,24 @@ import { hardwareListModel } from "../hardware-list/model/hardware-list-model";
 import { ModalServiceCreate } from "../../../../packages/shared/libs/hardware/components/modal-service-create";
 import { tabsList } from "@/modules/domain/features/hardware/data";
 import { HardwareControll, HardwarePassport, HardwareService } from "@/packages/shared/libs/hardware/tabs/page-tabs";
+import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { HardwareEvents } from "@/packages/shared/libs/hardware/tabs/page-tabs/events";
+import { HardwareLogs } from "@/packages/shared/libs/hardware/tabs/page-tabs/logs";
 
 export const HardwareAbout = observer(() => {
     const { id, tab } = useParams();
 
     const { setModalService, modalService, closeModal } = hardwareListModel;
 
-    const { status, model, init, isLoading, commands, switchIsCommand, changeCommands, incidentList, isLoaderCommand, isActiveCommand, getInfoNodeInfoAll, documents, сharacteristic, commandsInfo, getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic } = hardwareModel
-
+    const { status, model, init, isLoading, commands, switchIsCommand, changeCommands,
+        incidentList, isLoaderCommand, isActiveCommand, getInfoNodeInfoAll, documents,
+        сharacteristic, commandsInfo, getCommands, servicesWeek, checkedService, servicesHistory,
+        serviceStatistic, evengLog } = hardwareModel
     const navigate = useNavigate();
 
     useEffect(() => {
-        init(Number(id))
+        const { weekRange } = getTimeRanges()
+        init(Number(id), weekRange)
     }, [])
 
     return isLoading ?
@@ -43,8 +49,7 @@ export const HardwareAbout = observer(() => {
                 {/* Шапка */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between h-[100px] gap-4 z-2 rounded-2xl bg-white shadow-sm p-6">
                     <div className="flex items-center gap-4">
-                        <Link
-                            to="/dispatcher/hardware"
+                        <Link to="/dispatcher/hardware"
                             className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
                         >
                             <Icon systemName="arrow-left" className="text-white" />
@@ -54,6 +59,8 @@ export const HardwareAbout = observer(() => {
                                 {window.location.pathname.includes("passport") && "Паспорт"}
                                 {window.location.pathname.includes("controll") && "Управление"}
                                 {window.location.pathname.includes("service") && "Сервис"}
+                                {window.location.pathname.includes("events") && "Журнал событий"}
+                                {window.location.pathname.includes("logs") && "Журнал логов"}
                             </h1>
                             <p className="w-max text-sm">{model.name || '—'}</p>
                         </div>
@@ -92,13 +99,16 @@ export const HardwareAbout = observer(() => {
                     incidentList={incidentList}
                     status={status}
                 />}
+
                 {tab == "controll" && <HardwareControll
                     commands={commands}
                     switchIsCommand={switchIsCommand}
                     changeCommands={changeCommands}
                     isLoaderCommand={isLoaderCommand}
                     isActiveCommand={isActiveCommand}
+                    evengLog={evengLog}
                 />}
+
                 {tab == "service" && <HardwareService
                     getCommands={getCommands}
                     servicesWeek={servicesWeek}
@@ -106,6 +116,10 @@ export const HardwareAbout = observer(() => {
                     servicesHistory={servicesHistory}
                     serviceStatistic={serviceStatistic}
                 />}
+
+                {tab == "events" && <HardwareEvents hardwareId={model.id} />}
+
+                {tab == "logs" && <HardwareLogs />}
 
             </div>
         </div>

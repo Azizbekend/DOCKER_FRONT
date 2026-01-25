@@ -4,15 +4,18 @@ import Loader from '@/packages/shared-ui/loader/loader';
 import { useEffect } from 'react';
 import { useAuth } from '@/packages/entities/user/context';
 import { StageTaskCard } from '@/packages/shared-components/stage/stage-task-card';
+import { isStageSupplyTypes } from '@/packages/functions/is-stage-types';
+import { StageTaskSupplyCard } from '@/packages/shared-components/stage/stage-task-supply-card';
 
 export const Stages = observer(() => {
 
-  const { model, isLoaded, init, completeCommon } = stageJobModel;
+  const { model, isLoaded, init, completeCommon, setTypeAction, typeAction, supplyRequestAction } = stageJobModel;
   const { user } = useAuth();
 
   useEffect(() => {
     init(user!.id);
   }, [])
+
 
   return (
     <div className="informations-dispatch__requestregistry">
@@ -28,11 +31,24 @@ export const Stages = observer(() => {
         {isLoaded ? (<div className="flex items-center justify-center py-12"> <Loader /></div>) : model.length > 0 ? (
 
           <div className="space-y-6">
-            {model.map((stage) => (stage.currentStatus === "New" && <StageTaskCard
-              key={stage.id}
-              stage={stage}
-              completeCommon={completeCommon}
-            />))}
+            {model.map((stage) => isStageSupplyTypes(stage.stageType) ?
+              <StageTaskSupplyCard
+                key={stage.id}
+                stage={stage}
+                hardwareId={0} // ============ TODO: hardwareId 
+                completeCommon={completeCommon}
+                setTypeAction={setTypeAction}
+                supplyRequestAction={supplyRequestAction}
+                typeAction={typeAction}
+              />
+              :
+              <StageTaskCard
+                key={stage.id}
+                stage={stage}
+                completeCommon={completeCommon}
+              />
+            )
+            }
           </div>
 
         ) : (

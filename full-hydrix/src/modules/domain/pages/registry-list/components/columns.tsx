@@ -95,46 +95,43 @@ export const columns: TableColumn<DespetcherTest>[] = [
             );
         },
     },
-    {
-        header: "Диспетчеризация",
-        key: 'dispetcher',
-        cell: ({ dispetcher }) => {
-            if (dispetcher) {
-                return (
-                    <div className="flex justify-center">
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                window.location.href = "/dispatcher";
-                            }}
-                            className="z-4 px-4 py-2 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm hover:shadow-md flex items-center"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            Перейти
-                        </button>
-                    </div>
-                );
-            } else {
-                return (
-                    <div className="flex justify-center">
-                        <button
-                            disabled
-                            className="px-4 py-2 bg-gray-200 text-gray-500 font-semibold rounded-lg cursor-not-allowed flex items-center"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            Недоступно
-                        </button>
-                    </div>
-                );
-            }
-        },
-    },
-
-
-    
+    // {
+    //     header: "Диспетчеризация",
+    //     key: 'dispetcher',
+    //     cell: ({ dispetcher }) => {
+    //         if (dispetcher) {
+    //             return (
+    //                 <div className="flex justify-center">
+    //                     <button
+    //                         onClick={(e) => {
+    //                             e.stopPropagation();
+    //                             e.preventDefault();
+    //                             window.location.href = "/dispatcher";
+    //                         }}
+    //                         className="z-4 px-4 py-2 bg-[#4A85F6] text-white font-semibold rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm hover:shadow-md flex items-center"
+    //                     >
+    //                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    //                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    //                         </svg>
+    //                         Перейти
+    //                     </button>
+    //                 </div>
+    //             );
+    //         } else {
+    //             return (
+    //                 <div className="flex justify-center">
+    //                     <button
+    //                         disabled
+    //                         className="px-4 py-2 bg-gray-200 text-gray-500 font-semibold rounded-lg cursor-not-allowed flex items-center"
+    //                     >
+    //                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    //                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    //                         </svg>
+    //                         Недоступно
+    //                     </button>
+    //                 </div>
+    //             );
+    //         }
+    //     },
+    // },
 ];

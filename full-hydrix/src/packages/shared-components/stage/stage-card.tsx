@@ -11,9 +11,9 @@ import { getDostup } from "../../entities/user/utils";
 interface StageCardProps {
   stage: ServiceStageType,
   footerBlock?: boolean,
-  number: number,
-  completeEngineer: (data: CompleteEngineerStageType) => void
-  cancelEngineer: (data: CancelStageType) => void,
+  number?: number,
+  completeEngineer?: (data: CompleteEngineerStageType) => void
+  cancelEngineer?: (data: CancelStageType) => void,
   completeCommon: (data: CompleteCommonStageType) => void
 }
 
@@ -49,7 +49,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
 
   return (
     <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-      <div className="p-4 border-b border-gray-100 bg-gray-50">
+      <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-bold text-gray-800">Этап {number}</h3>
           <div className={`px-2 py-1 rounded-lg text-white ${statusColorStage[[stage!.currentStatus]]}`}>

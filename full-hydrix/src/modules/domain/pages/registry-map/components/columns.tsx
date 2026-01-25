@@ -9,7 +9,7 @@ export const columnsIncidents: TableColumn<Incident>[] = [
         key: 'objectId',
         cell: ({ objectId }) => {
             return (
-                <div className='font-semibold text-sm text-left'>{objectId}</div>
+                <div className='font-semibold text-sm'>{objectId}</div>
             )
         },
     },
@@ -83,7 +83,7 @@ export const columnsService: TableColumn<ServiceType>[] = [
         key: 'hardwareName',
         cell: ({ hardwareName }) => {
             return (
-                <div className='font-semibold text-sm text-left'>{hardwareName}</div>
+                <div className='font-semibold text-sm'>{hardwareName}</div>
             )
         },
     },
@@ -92,7 +92,7 @@ export const columnsService: TableColumn<ServiceType>[] = [
         key: 'title',
         cell: ({ title }) => {
             return (
-                <div className='font-semibold text-sm text-left'>{title}</div>
+                <div className='font-semibold text-sm'>{title}</div>
             )
         },
     },
@@ -109,17 +109,41 @@ export const columnsService: TableColumn<ServiceType>[] = [
         header: "Дата завершения",
         key: 'closedAt',
         cell: ({ closedAt }) => {
+            if (!closedAt) {
+                return "-";
+            }
+            // Проверяем строковое представление
+            const dateString = String(closedAt);
+            const isInvalidDate =
+                dateString === "01.01.1, 00:00" ||
+                dateString.includes("Invalid Date") ||
+                dateString === "Invalid Date" ||
+                dateString === "null" ||
+                dateString === "undefined";
+
+            if (isInvalidDate) {
+                return "-";
+            }
+
+            // Проверяем через Date
+            const date = new Date(closedAt);
+            if (isNaN(date.getTime())) {
+                return "-";
+            }
+
+            // Если все проверки пройдены, показываем дату
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{getDate(closedAt)}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>
+                    {getDate(closedAt)}
+                </div>
             );
         },
-    },
-    {
+    }, {
         header: "Ответственный исполнитель",
-        key: 'creatorId',
-        cell: ({ creatorId }) => {
+        key: 'userName',
+        cell: ({ userName }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{creatorId}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{userName}</div>
             );
         },
     },

@@ -21,7 +21,7 @@ export const stageActions = [
         value: StageAction.attachPay, // /SupplyRequest/buhgalteriya/attachPay
         title: "Подтвердить оплату",
     },
-    {
+    { 
         value: StageAction.confirm, // /SupplyRequest/supplier/warehouse/confirm
         title: "Принять закупку",
     },

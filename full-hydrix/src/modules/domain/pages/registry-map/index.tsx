@@ -6,20 +6,16 @@ import 'mmr-gl/dist/mmr-gl.css';
 import { useNavigate } from "react-router-dom";
 import { Table } from '@/packages/shared-ui/table/index';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { chartData, chartDataInic } from './data/data';
 import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
 import { ServiceStagesPanel } from '@/packages/shared-components/stage/stages-panel';
+import { toJS } from 'mobx';
 
 
 
 export const MapObjects = observer(() => {
 
-  const { init, services, incidents, setIsPanel, isPanel, serviceId, isService, completeService, cancelService
-
-  } = servicesMapModel
-
-
+  const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter } = servicesMapModel
 
   useEffect(() => {
     init();
@@ -74,53 +70,68 @@ export const MapObjects = observer(() => {
 
           <div className="text-gray-900 text-sm font-semibold border-b-2 border-gray-200 mb-6 pb-3 flex items-center gap-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            Объектов онлайн <span className="text-gray-600 font-normal">1 из 1</span>
+            <div>Объектов онлайн <span className="text-gray-600 font-normal">1 из 1</span></div>
           </div>
 
-          {chartDataInic.map((item, index) => (
-            <div className={`${item.color == "red" ? "bg-red-50" : "bg-blue-50"} p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
-              <div className="mb-1">{item.name}</div>
-              <div className={`font-semibold ${item.color == "red" ? 'text-red-600' : 'text-blue-600'}`}>{item.value}</div>
-            </div>
-          ))}
+          <div className={`bg-red-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
+            <div className="mb-1">Инцидентов</div>
+            <div className={`font-semibold text-red-600`}>{incidents.length}</div>
+          </div>
+          <div className={`bg-blue-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
+            <div className="mb-1">Заявок</div>
+            <div className={`font-semibold text-blue-600`}>{services.length}</div>
+          </div>
+
+          {/* serviceStatusCounter serviceTypeCounter */}
 
           <div className=" p-2 rounded-xl text-[14px] font-medium mb-4 flex items-center justify-between">
             <div className="mb-1"></div>
             <div className='text-blue-600'></div>
           </div>
 
-          {chartData.map((item, index) => (
-            <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-              <span>{item.name}</span>
-              <div className='flex flex-col'>
-                <span className='font-bold text-sm'>{item.value + "%"}</span>
-                <span className='font-medium text-sm'>1 объект</span>
-              </div>
-            </div>
-          ))}
 
-
-          <div style={{ width: '100%', height: 300 }}>
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+            <span>Общие заявки</span>
+            {/* <div className='flex flex-col'> */}
+            <span className='font-bold text-sm'>{serviceTypeCounter.asnser}</span>
+            {/* <span className='font-medium text-sm'>1 объект</span> */}
+            {/* </div> */}
           </div>
+          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+            <span>Поставочные заявки</span>
+            {/* <div className='flex flex-col'> */}
+            <span className='font-bold text-sm'>{serviceTypeCounter.supply}</span>
+            {/* <span className='font-medium text-sm'>1 объект</span> */}
+            {/* </div> */}
+          </div>
+          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+            <span>Аварийные заявки</span>
+            <span className='font-bold text-sm'>{serviceTypeCounter.incident}</span>
+          </div>
+
+          {chartData.length > 0 &&
+            <div style={{ width: '100%', height: 300 }}>
+              <ResponsiveContainer>
+                <PieChart>
+                  <Pie
+                    data={toJS(chartData)}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          }
 
         </div>
       </div>
@@ -144,7 +155,7 @@ export const MapObjects = observer(() => {
         classNames={{ thead: "bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200" }}
         onRowClick={(row) => setIsPanel(true, row.id, row.status)}
         columns={typeTable == "services" ? columnsService : columnsIncidents}
-        countActive 
+        countActive
         data={typeTable == "services" ? services : incidents}
       />
 

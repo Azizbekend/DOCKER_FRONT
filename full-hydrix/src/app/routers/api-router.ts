@@ -69,6 +69,7 @@ export const Hardware = {
   create: "/Hardware/create",
   active: "/Hardware/Activate",
   statusHardwaresCheck: "/Hardware/statusCheck/group",
+  events: "/Hardware/hardwareEvents",
 }
 
 export const Schema = {

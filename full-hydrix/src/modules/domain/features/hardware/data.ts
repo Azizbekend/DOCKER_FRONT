@@ -44,4 +44,12 @@ export const tabsList: { to: string, name: string }[] = [
         to: "service",
         name: "Сервис"
     },
+    {
+        to: "events",
+        name: "События"
+    },
+    {
+        to: "logs",
+        name: "Логи"
+    },
 ]

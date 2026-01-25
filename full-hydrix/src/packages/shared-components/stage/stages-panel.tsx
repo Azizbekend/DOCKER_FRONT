@@ -36,11 +36,15 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const userDD = getDostup()
 
   useEffect(() => {
+
+
     if (isService) {
       init(isService.id, userDD)
       formInit()
       setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
     }
+
+
 
   }, [isService])
 
@@ -77,13 +81,13 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
       }}
 
       children={isLoaded ? <Loader /> :
-        <div className="flex flex-col gap-2 p-6">
+        <div className="flex flex-col-reverse gap-2 p-6">
           {(model.length > 0 ? (model.map((stage, key) => ((isStageSupplyTypes(stage.stageType) ?
             <StageSupplyCard
               key={stage.id}
               number={key + 1}
               stage={stage}
-              footerBlock={isActiveRequest && (user!.id == stage.implementerId || true)}
+              footerBlock ={isActiveRequest && (user!.id == stage.implementerId || true)}
               setTypeAction={setTypeAction}
               setIsActiveRequest={setIsActiveRequest}
               supplyRequestAction={supplyRequestAction}
@@ -187,7 +191,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   </InputContainer>
                   :
                   <div>У компании отсутвствуют ответственные лица </div>)
-                }
+                } 
               </div>
 
 

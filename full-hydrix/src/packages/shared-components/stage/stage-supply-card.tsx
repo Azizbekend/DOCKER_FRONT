@@ -13,7 +13,7 @@ import { statusColorStage, statusStage } from "@/packages/functions/get-stage-st
 import { stageSupplyFormModel } from "@/packages/features/stage-supply/stage-supply-form-model";
 import { getObjectId } from "@/packages/functions/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
-import { isCompanyUsers, isCount, isDiscription, isExpense, isExpenseNumber, isSupplierName } from "@/packages/functions/is-stage-supply-switch-form-input";
+import { getDiscriptionTitle, getSupplierNameTitle, isCompanyUsers, isCount, isDiscription, isExpense, isExpenseNumber, isSupplierName } from "@/packages/functions/is-stage-supply-switch-form-input";
 import { observer } from "mobx-react-lite";
 
 
@@ -28,7 +28,7 @@ interface StageCardProps {
   supplyRequestAction: (data: any) => void,
 }
 
-export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, setIsActiveRequest, typeAction, serviceData, supplyRequestAction }: StageCardProps) => {
+export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAction, typeAction, serviceData, supplyRequestAction }: StageCardProps) => {
 
   const { user } = useAuth()
   const { init, setImplementerId, getUserList, data, companyList, userList, setDiscription, setSupplierName, setCount, setExpenseNumber, setExpenses, } = stageSupplyFormModel
@@ -54,10 +54,10 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
 
   return (
     <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-      <div className="p-4 border-b border-gray-100 bg-gray-50">
+      <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-bold text-gray-800">Этап {number}</h3>
-          <div className={`px-2 py-1 rounded-lg text-white ${statusColorStage[[stage!.currentStatus]]}`}>
+          <div className={`px-2 py-1 rounded-lg text-white ${statusColorStage[stage!.currentStatus]}`}>
             {statusStage[stage!.currentStatus]}
           </div>
         </div>
@@ -142,7 +142,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
         {typeAction &&
           <div className="flex flex-col gap-4 mt-5 mb-5">
             {isDiscription(typeAction) &&
-              <InputContainer headerText="Описание">
+              <InputContainer headerText={getDiscriptionTitle(typeAction)}>
                 <Textarea
                   placeholder="Описание..."
                   value={data.discription}
@@ -153,7 +153,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
             }
 
             {isSupplierName(typeAction) &&
-              <InputContainer headerText={"Имя поставщика"}>
+              <InputContainer headerText={getSupplierNameTitle(typeAction)}>
                 <Input
                   placeholder="Имя поставщика"
                   className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
@@ -240,6 +240,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
             <Selector
               placeholder="Выберите действие"
               classWripper="w-full"
+              titleClass="!border-gray-300"
               items={stageActions}
               onSelect={(item) => { setTypeAction(item.value) }}
               icon="arrow-down"

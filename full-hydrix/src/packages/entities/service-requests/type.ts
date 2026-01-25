@@ -18,6 +18,7 @@ export type ServiceType = {
     creator?: any,
     implementer?: any,
     hardware?: any,
+    userName?: any,
 }
 
 
@@ -31,7 +32,6 @@ export type FormCommonServiceModelType = {
     implementersCompaneId?: number,
     hardwareId: number,
     objectId: number,
-
     requiredCount?: number
 }
 
