@@ -1,134 +1,91 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Button } from '@/packages/shared-ui/button';
 import { PassportHeaderPanel } from '../../components/header-panel';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { documentModel } from '@/modules/domain/features/document/model';
+import { categories, documents } from '@/modules/domain/features/document/data';
+// import { DocumentCard } from '@/modules/domain/widgets/document-card/index';
+import { DocumentCard } from '@/modules/domain/widgets/document-card/index-2';
 
-// Данные для таблицы
-const documents = [
-  {
-    id: 1,
-    number: "1",
-    name: "Фотоотчет",
-    type: "Фотоотчет",
-    date: "2025-06-02 00:00:00",
-    changedDate: "25.06.2025, 10:28:11",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/photo-report.pdf"
-  },
-  {
-    id: 2,
-    number: "16-1-1-2-065197.2023",
-    name: "Заключение государственной экспертизы",
-    type: "Заключение экспертизы",
-    date: "2023-10-27 10:56:45",
-    changedDate: "29.12.2025, 01:23:16",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/expertise-conclusion.pdf"
-  },
-  {
-    id: 3,
-    number: "2165301484323000017",
-    name: "Выполнение проектно-изыскательских работ",
-    type: "Договор",
-    date: "2023-09-12 12:51:14",
-    changedDate: "29.12.2025, 02:28:06",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/survey-works.pdf"
-  },
-  {
-    id: 4,
-    number: "2165301484325000007",
-    name: "Реконструкция водовода в г. Лениногорск",
-    type: "Договор",
-    date: "2025-03-21 09:00:41",
-    changedDate: "29.12.2025, 01:06:24",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/water-pipe-reconstruction.pdf"
-  },
-  {
-    id: 5,
-    number: "2165301484325000021",
-    name: "Выполнение работ по реконструкции",
-    type: "Договор",
-    date: "2025-10-20 00:00:00",
-    changedDate: "29.12.2025, 01:06:24",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/reconstruction-works.pdf"
-  },
-  {
-    id: 6,
-    number: "КСГ",
-    name: "План работ",
-    type: "План работ",
-    date: "2025-07-08 00:00:00",
-    changedDate: "08.07.2025, 11:18:48",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/work-plan.pdf"
-  },
-  {
-    id: 7,
-    number: "КСГ",
-    name: "План работ",
-    type: "План работ",
-    date: "2025-07-08 00:00:00",
-    changedDate: "08.07.2025, 11:18:48",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/work-plan-2.pdf"
-  },
-  {
-    id: 8,
-    number: "КСГ",
-    name: "План работ",
-    type: "План работ",
-    date: "2025-07-08 00:00:00",
-    changedDate: "08.07.2025, 11:18:48",
-    ekn: "253755699",
-    changedBy: "Сидоров Андрей",
-    fileUrl: "/docs/work-plan-3.pdf"
-  }
-];
 
 export const PassportDocumentation = observer(() => {
   const { reset, onChange, setDocumentName, isValue, getData } = documentModel;
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     reset();
   }, []);
 
+  // Фильтрация документов
+  const filteredDocuments = documents.filter(doc => {
+    const matchesCategory = activeCategory === 'all' || doc.category === activeCategory;
+    const matchesSearch = doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.number.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+
+
   return (
-    <>
+    <div className="max-w mx-auto">
       <PassportHeaderPanel title="Документация" />
 
-      {/* Адаптивная сетка */}
+      {/* Поиск и фильтры */}
+      <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 mb-6">
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Поиск */}
+          <div className="flex-1">
+            <Input
+              type="text"
+              placeholder="Поиск по названию или номеру..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+            />
+          </div>
+
+          {/* Фильтры категорий */}
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <button
+                key={category.key}
+                onClick={() => setActiveCategory(category.key)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeCategory === category.key
+                  ? 'bg-[#4A85F6] text-white shadow-sm'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+              >
+
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Основной контент */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Загрузка документа */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 mb-8 border border-gray-100">
+        <div className="bg-white rounded-2xl shadow-xl p-6 border h-fit sticky top-1 border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Загрузить документ</h2>
 
-          <label className="bg-gray-50 rounded-xl shadow-sm h-64 lg:h-[350px] block flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors">
+          <label className="bg-gray-50 rounded-xl h-64 block flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors">
             <input type="file" onChange={onChange} className="hidden" />
 
             <Icon
-              systemName={isValue ? "docs" : "checkmate"}
-              className="text-gray-400 mb-3 lg:mb-4"
-              width={24}
-              height={24}
+              systemName={isValue ? "docs" : "upload"}
+              className="text-gray-400 mb-3 w-12 h-12"
             />
-            <h3 className="text-base lg:text-lg font-semibold text-gray-700">
-              {isValue ? "Перетащите файл или нажмите" : "Файл загружен"}
+            <h3 className="text-base font-semibold text-gray-700 mb-1">
+              {isValue ? "Файл готов к загрузке" : "Перетащите файл или нажмите"}
             </h3>
+            <p className="text-xs text-gray-500">Поддерживаемые форматы: PDF, DOC, JPG</p>
+
             {isValue && (
-              <p className="text-sm text-green-600 font-medium mt-2 lg:mt-3">
+              <p className="text-sm text-green-600 font-medium mt-2">
                 {getData.fileName}
               </p>
             )}
@@ -139,36 +96,92 @@ export const PassportDocumentation = observer(() => {
             placeholder="Наименование документа"
             value={getData.documentName}
             onChange={setDocumentName}
-            className="border border-gray-300 px-3 py-2.5 lg:px-4 lg:py-3 mt-4 lg:mt-5 rounded-lg text-gray-900 transition-all duration-200 w-full"
+            className="border border-gray-300 px-3 py-2.5 mt-4 rounded-lg text-gray-900 w-full"
           />
 
-          <Button class="mt-6 lg:mt-10 rounded-lg w-full justify-center bg-[#4A85F6] text-white hover:bg-[#3a6bc9] transition-colors py-2.5 lg:py-3">
-            Добавить
+          <Button class="mt-4 w-full bg-[#4A85F6] text-white hover:bg-[#3a6bc9] py-2.5 rounded-lg font-medium">
+            Добавить документ
           </Button>
         </div>
 
-        {/* Список документов */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 mb-8 border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Документы</h2>
+        <div className="space-y-6">
 
-          <div className="space-y-3 lg:space-y-4">
-            {documents.map((doc, key) => (
-              <div
-                key={key}
-                className="flex items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
-              >
-                <div className="flex items-center gap-3 lg:gap-4">
-                  <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
-                  <div className="font-medium text-gray-800 text-sm lg:text-base">{doc.name}</div>
-                </div>
-                <Button class="p-1.5 lg:p-2 hover:bg-red-50 rounded-full">
-                  <Icon systemName="delete-red" className="w-4 h-4 lg:w-5 lg:h-5" />
-                </Button>
+          {activeCategory === 'all' || activeCategory === 'PIR' ? (
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+              <div className="flex items-center gap-3 mb-4">
+
+                <h2 className="text-xl font-bold text-gray-800">ПИР</h2>
               </div>
-            ))}
-          </div>
+
+              <div className="space-y-3">
+                {filteredDocuments
+                  .filter(doc => doc.category === 'PIR')
+                  .map((doc) => (
+                    <DocumentCard key={doc.id} doc={doc} />
+                  ))
+                }
+                {filteredDocuments.filter(doc => doc.category === 'PIR').length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    <Icon systemName="folder-empty" className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                    <p>Нет документов в категории ПИР</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+
+
+          {activeCategory === 'all' || activeCategory === 'ITD' ? (
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+              <div className="flex items-center gap-3 mb-4">
+
+                <h2 className="text-xl font-bold text-gray-800">ИТД</h2>
+              </div>
+
+              <div className="space-y-3">
+                {filteredDocuments
+                  .filter(doc => doc.category === 'ITD')
+                  .map((doc) => (
+                    <DocumentCard key={doc.id} doc={doc} />
+                  ))
+                }
+                {filteredDocuments.filter(doc => doc.category === 'ITD').length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    <Icon systemName="folder-empty" className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                    <p>Нет документов в категории ИТД</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+
+
+          {activeCategory === 'all' || activeCategory === 'EXPLOITATION' ? (
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+              <div className="flex items-center gap-3 mb-4">
+
+                <h2 className="text-xl font-bold text-gray-800">Документация в период эксплуатации</h2>
+              </div>
+
+              <div className="space-y-3">
+                {filteredDocuments
+                  .filter(doc => doc.category === 'EXPLOITATION')
+                  .map((doc) => (
+                    <DocumentCard key={doc.id} doc={doc} />
+                    // <DocumentCard key={doc.id} doc={doc} />
+                  ))
+                }
+                {filteredDocuments.filter(doc => doc.category === 'EXPLOITATION').length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    <Icon systemName="folder-empty" className="w-12 h-12 text-gray-300 mx-auto mb-2" />
+                    <p>Нет документов в категории эксплуатации</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
-    </>
+    </div>
   );
 });

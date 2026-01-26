@@ -35,7 +35,7 @@ export const PassportObject = observer(() => {
 
       <div className="relative mb-20 min-h-[60vh]">
 
-        <div className="sticky top-0 z-10 backdrop-blur-sm px-4">
+        <div className="top-0 z-10 backdrop-blur-sm px-4">
           <div className="flex overflow-x-auto hide-scrollbar">
             <div className="flex gap-2 min-w-max">
               {tabLinks.map((link, key) => (
