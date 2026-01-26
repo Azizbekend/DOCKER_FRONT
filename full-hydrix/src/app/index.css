@@ -27,6 +27,48 @@
 }
 
 
+/* Для всех input type date */
+input[type="date"]::selection {
+  background: transparent;
+}
+
+input[type="date"]::-moz-selection {
+  background: transparent;
+}
+
+/* Если нужно убрать выделение конкретно при клике в календаре */
+input[type="date"]:focus::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
+}
+
+input[type="date"]:focus::-webkit-datetime-edit {
+  background: transparent;
+}
+
+/* Для современных браузеров */
+input[type="date"]:focus {
+  caret-color: transparent;
+}
+
+/* Убираем выделение текста в input date */
+input[type="date"] {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Альтернативный вариант с более широким покрытием */
+input[type="date"] *::selection {
+  background: transparent !important;
+}
+
+input[type="date"] *::-moz-selection {
+  background: transparent !important;
+}
+
+
+
 
 @layer base {
   :root {

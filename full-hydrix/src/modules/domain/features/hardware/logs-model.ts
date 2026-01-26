@@ -5,8 +5,8 @@ import { makeAutoObservable } from "mobx";
 class LogsModel {
     evengLog: HardwareEventsDataType[] = [];
     loader: boolean = false;
-
     hardwareId: number = 0;
+    
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });

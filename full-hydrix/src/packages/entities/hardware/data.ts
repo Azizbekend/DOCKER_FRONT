@@ -95,6 +95,10 @@ export const dateFilterBtns: {
             label: "Месяц",
             value: "month",
         },
+        {
+            label: "Другое",
+            value: "custom",
+        },
     ]
 
 

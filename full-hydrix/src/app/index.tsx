@@ -1,6 +1,6 @@
 import "./index.scss"
 import './index.css'
-
+  
 import { configure } from 'mobx';
 import 'react-toastify/dist/ReactToastify.css';
 import { RouterProvider } from "react-router-dom";

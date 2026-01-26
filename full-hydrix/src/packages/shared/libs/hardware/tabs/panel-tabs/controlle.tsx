@@ -28,7 +28,7 @@ export const HardwareControlle = observer(({ commands, changeCommands, isActiveC
             <div className="w-full mt-10 p-[0_0_50px_0]">
 
                 <div className='border-b border-black pb-5 mb-5 '>
-                    <Button onClick={() => setShowAvtive(true)} class={`border-2 w-full justify-center text-white bg-[var(--clr-gray-dark)]`}>Активировать удалённое управление</Button>
+                    <Button onClick={() => setShowAvtive(true)} class={`border-2 w-full justify-center text-white bg-[var(--clr-gray-dark)] py-2`}>Активировать удалённое управление</Button>
                 </div>
 
                 {isLoaderCommand ? <Loader /> :

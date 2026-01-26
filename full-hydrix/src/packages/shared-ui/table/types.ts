@@ -9,6 +9,7 @@ export interface TableColumn<T> {
 
 export interface TableProps<T> {
     classNames?: {
+        wrapper?: string;
         body?: string;
         table?: string;
         thead?: string;

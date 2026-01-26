@@ -138,8 +138,12 @@ export const ModalServiceCreate = observer(({ isOpen, setShow }: Props) => {
 
             footerSlot={
                 <div className='flex justify-end gap-4'>
-                    <Button class="rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
-                    <Button class="rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={() => setShow(false)}>Отмена</Button>
+                    <Button
+                        styleColor={"blue"}
+                        class="w-[120px] py-2" onClick={handleSubmit}>Сохранить</Button>
+                    <Button
+                        styleColor={"gray"}
+                        class="w-[120px] py-2" onClick={() => setShow(false)}>Отмена</Button>
                 </div>
             }
         />

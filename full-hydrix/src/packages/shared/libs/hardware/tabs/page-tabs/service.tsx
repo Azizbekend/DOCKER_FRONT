@@ -11,6 +11,7 @@ import { ServiceFilterBtn } from "../../components/service-filter-btn";
 import { ServiceStatisticItem } from "../../components/service-statistic-item";
 import { columns } from "../../columns/columns";
 import { HardwareServiceProps } from "@/packages/entities/hardware/type";
+import { getDate } from "@/packages/functions/get-date";
 
 export const HardwareService = observer(({ getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic }: HardwareServiceProps) => {
 
@@ -32,7 +33,7 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
 
 
   useEffect(() => {
-    console.log(serviceStatistic)
+    console.log()
   }, [])
 
   return (
@@ -136,18 +137,40 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
         <BlockContainer>
           <BlockTitle title="История выполнения" />
           <div>
-            <Table
+
+            <div className="grid grid-cols-3 bg-blue-50 rounded-t-lg">
+              <div className="text-gray-700 font-medium py-4 px-5">Наименование</div>
+              <div className="text-gray-700 font-medium py-4 px-5 text-center">Дата создания</div>
+              <div className="text-gray-700 font-medium py-4 px-5 text-center">Дата выполнения</div>
+            </div>
+
+            <div className="max-h-[400px] overflow-auto">
+              {servicesHistory.map((service, key) => {
+                return (
+                  <div className="grid grid-cols-3 border-b border-blue-200 items-center" key={key}>
+                    <div className="text-gray-700 font-medium py-4 px-5">{service.title}</div>
+                    <div className="text-gray-700 font-medium py-4 px-5 text-center">{getDate(service.sheduleMaintenanceDate)}</div>
+                    <div className="text-gray-700 font-medium py-4 px-5 text-center">{getDate(service.completedMaintenanceDate)}</div>
+                  </div>
+                )
+              })}
+            </div>
+
+
+            {/* <Table
               columns={columns}
               data={servicesHistory}
               classNames={{
                 table: "!min-w-[100px]",
                 body: "!text-lg"
               }}
-            />
+            /> */}
           </div>
         </BlockContainer>
 
         <BlockContainer>
+          <BlockTitle title="Статистика обслуживания" />
+
           <div className="flex flex-wrap items-center gap-2 mb-6">
             <span className="text-gray-700 font-medium">Период:</span>
             <ServiceFilterBtn name="За день" onClick={() => setFilterPeriod("day")} isActive={filterPeriod == "day"} />

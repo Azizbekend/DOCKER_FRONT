@@ -65,7 +65,7 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
             {/* Фильтры */}
             <div className="flex flex-col sm:flex-row gap-3 mb-4">
               <div className="flex gap-2">
-                {dateFilterBtns.map((btn) => (
+                {dateFilterBtns.map((btn) => btn.value !== "custom" && (
                   <button
                     onClick={() => onFilterSubmit(btn.value)}
                     className={`px-3 py-1 rounded-md text-sm ${filterPeriod === btn.value ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
@@ -101,7 +101,10 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
             </div>
 
             <div className="space-y-3 max-h-[560px] overflow-y-auto pr-2">
-              {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
+              {evengLog && evengLog.length > 0 ?
+                evengLog.map((event, key) => (<LogEventCard event={event} key={key} />)) :
+                <p className="text-center text-gray-500 mt-10">Нет данных</p>
+              }
             </div>
           </>
         }

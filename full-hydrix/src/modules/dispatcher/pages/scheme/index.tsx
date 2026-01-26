@@ -18,8 +18,8 @@ export const Scheme = observer(() => {
   }, []);
 
   return (
-    <div className="informations-dispatch__scheme scheme-dispatch relative mt-8" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-      <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
+    <div className="informations-dispatch__scheme scheme-dispatch relative mt-8">
+      <div className="absolute top-[-40px]  max-w-full flex gap-2  overflow-x-auto px-[30px] ">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -31,7 +31,7 @@ export const Scheme = observer(() => {
         ))}
       </div>
 
-      <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh] lg:mb-0 mb-10">
+      <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_auto] gap-6 pb-8 max-h-[90vh] h-[90vh] lg:mb-0 mb-10 rounded-2xl">
         <SchemeViewer
           listSensore={listSensore}
           points={list}

@@ -8,7 +8,7 @@ export const columns: TableColumn<HardwareInterface>[] = [
         header: "Наименование",
         key: 'name',
         cell: ({ name }) => (
-            <span className="text-sm text-gray-800 font-medium line-clamp-2 h-10 overflow-hidden">{name}</span>
+            <span className="text-sm text-gray-800 font-medium line-clamp-2 h-10 overflow-hidden h-full">{name}</span>
         ),
     },
     {

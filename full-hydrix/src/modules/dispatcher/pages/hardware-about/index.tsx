@@ -11,17 +11,17 @@ import { tabsList } from "@/modules/domain/features/hardware/data";
 import { HardwareControll, HardwarePassport, HardwareService } from "@/packages/shared/libs/hardware/tabs/page-tabs";
 import { getTimeRanges } from "@/packages/functions/get-time-ranges";
 import { HardwareEvents } from "@/packages/shared/libs/hardware/tabs/page-tabs/events";
-import { HardwareLogs } from "@/packages/shared/libs/hardware/tabs/page-tabs/logs";
+// import { HardwareLogs } from "@/packages/shared/libs/hardware/tabs/page-tabs/logs";
+import { isAdmin } from "@/packages/entities/user/utils";
 
 export const HardwareAbout = observer(() => {
     const { id, tab } = useParams();
-
     const { setModalService, modalService, closeModal } = hardwareListModel;
 
     const { status, model, init, isLoading, commands, switchIsCommand, changeCommands,
         incidentList, isLoaderCommand, isActiveCommand, getInfoNodeInfoAll, documents,
         сharacteristic, commandsInfo, getCommands, servicesWeek, checkedService, servicesHistory,
-        serviceStatistic, evengLog } = hardwareModel
+        serviceStatistic } = hardwareModel
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,26 +67,32 @@ export const HardwareAbout = observer(() => {
                     </div>
                     {/* Top Action Buttons */}
                     <div className="flex gap-3 z-10">
-                        <Link to="/dispatcher/orders/create/form"
+                        {/* <Link to="/dispatcher/orders/create/form"
                             className="flex items-center gap-2 px-4 py-2.5 bg-[#4A85F6] text-white rounded-lg font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm"
                         >
                             <Icon systemName="file-plus" />
                             Создать заявку
-                        </Link>
+                        </Link> */}
 
                         <Button
-                            class="px-4 py-2.5 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors shadow-sm"
+                            // class="px-4 py-2.5 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors shadow-sm"
+                            styleColor={"blue"}
+                            class="px-4 gap-3"
                             onClick={() => setModalService(true, model.id)}
                         >
-                            + сервис
+                            <Icon systemName="file-plus" />
+
+                            сервис
                         </Button>
 
-                        <Button
-                            class="p-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-sm"
-                            onClick={() => navigate(`/dispatcher/hardware/form/${model.id}`)}
-                        >
-                            <Icon systemName="edit-white" width={20} height={20} />
-                        </Button>
+                        {isAdmin() &&
+                            <Button
+                                class="p-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors shadow-sm"
+                                onClick={() => navigate(`/dispatcher/hardware/form/${model.id}`)}
+                            >
+                                <Icon systemName="edit-white" width={20} height={20} />
+                            </Button>
+                        }
                     </div>
                 </div>
 
@@ -100,14 +106,14 @@ export const HardwareAbout = observer(() => {
                     status={status}
                 />}
 
-                {tab == "controll" && <HardwareControll
+                {/* {tab == "controll" && <HardwareControll
                     commands={commands}
                     switchIsCommand={switchIsCommand}
                     changeCommands={changeCommands}
                     isLoaderCommand={isLoaderCommand}
                     isActiveCommand={isActiveCommand}
                     evengLog={evengLog}
-                />}
+                />} */}
 
                 {tab == "service" && <HardwareService
                     getCommands={getCommands}
@@ -119,7 +125,7 @@ export const HardwareAbout = observer(() => {
 
                 {tab == "events" && <HardwareEvents hardwareId={model.id} />}
 
-                {tab == "logs" && <HardwareLogs />}
+                {/* {tab == "logs" && <HardwareLogs />} */}
 
             </div>
         </div>

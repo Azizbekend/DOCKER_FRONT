@@ -12,7 +12,7 @@ export const TableBody = ({ table, gridTemplate, onRowClick }: any) => {
             {rows.map((row: any, i: number) => (
                 <tr
                     key={i}
-                    className="grid text-center items-center items-center hover:bg-blue-50 cursor-pointer"
+                    className="grid text-center items-center hover:bg-blue-50 cursor-pointer"
                     style={{ gridTemplateColumns: gridTemplate }}
                     onClick={() => onRowClick?.(row.original)}
                 >

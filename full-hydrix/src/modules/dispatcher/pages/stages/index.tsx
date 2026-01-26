@@ -21,7 +21,7 @@ export const Stages = observer(() => {
     <div className="informations-dispatch__requestregistry">
 
       {/* Основной контент */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-7">
+      <div className="bg-white rounded-2xl p-7">
         {/* Заголовок */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Задачи</h1>
@@ -36,7 +36,6 @@ export const Stages = observer(() => {
                 key={stage.id}
                 stage={stage}
                 hardwareId={0} // ============ TODO: hardwareId 
-                completeCommon={completeCommon}
                 setTypeAction={setTypeAction}
                 supplyRequestAction={supplyRequestAction}
                 typeAction={typeAction}

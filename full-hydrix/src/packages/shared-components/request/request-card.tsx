@@ -1,5 +1,5 @@
 import { getRequestTypeColor, getStatusColor } from '@/modules/dispatcher/widgets/service-request/functions';
-import { getDate } from 'date-fns';
+import { getDate } from '@/packages/functions/get-date';
 import { Link } from 'react-router-dom';
 
 

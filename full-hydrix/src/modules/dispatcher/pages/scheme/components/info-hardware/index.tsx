@@ -140,7 +140,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
                   <Icon systemName="history" className="text-gray-600" />
                   Журнал событий (сегодня)
                 </h3>
-                <Link to={`/dispatcher/hardware-about/${id}/logs`} className="text-[#4A85F6] text-sm font-medium hover:underline">
+                <Link to={`/dispatcher/hardware-about/${id}/events`} className="text-[#4A85F6] text-sm font-medium hover:underline">
                   Показать все →
                 </Link>
               </div>
