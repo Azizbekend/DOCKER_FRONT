@@ -1,8 +1,13 @@
 import { NodeIndicates, PassportObject } from "@/app/routers/api-router";
 import { reserchInstance } from "@/app/api/instances";
 
+
 export const getTechnicalCharsShapshi = () => {
     return reserchInstance.get(NodeIndicates.technicalChars)
+}
+
+export const getAllObjects = () => {
+    return reserchInstance.get(PassportObject.all)
 }
 
 export const getAllUserObjects = (params: { userId: number }) => {

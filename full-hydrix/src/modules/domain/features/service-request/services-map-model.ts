@@ -152,9 +152,9 @@ class ServicesMapModel {
         this.serviceTypeCounter = typeCounter;
 
         this.chartData = [
-            { name: 'Новые', value: statusCounter.new, color: '#0088FE' },
-            { name: 'Завершенные', value: statusCounter.complete, color: '#00C49F' },
-            { name: 'Отмененные', value: statusCounter.cancle, color: '#FFBB28' }
+            { name: 'Общие заявки', value: this.serviceTypeCounter.asnser, color: 'oklch(62.3% 0.214 259.815)' },
+            { name: 'Поставочные заявки', value: this.serviceTypeCounter.supply, color: 'oklch(72.3% 0.219 149.579)' },
+            { name: 'Аварийные заявки', value: this.serviceTypeCounter.incident, color: 'oklch(63.7% 0.237 25.331)' }
         ]
     }
 

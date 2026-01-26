@@ -163,16 +163,9 @@ class LoginModel {
                             }, 1000)
                             break;
                         case Role.Sewer:
-                            setTimeout(() => {
-                                window.location.href = '/menu-moduls'
-                            }, 1000)
-                            break;
                         case Role.TransporterCompany:
-                            setTimeout(() => {
-                                window.location.href = '/menu-moduls'
-                            }, 1000)
-                            break;
                         case Role.Participant:
+                        case Role.Admin:
                             setTimeout(() => {
                                 window.location.href = '/menu-moduls'
                             }, 1000)

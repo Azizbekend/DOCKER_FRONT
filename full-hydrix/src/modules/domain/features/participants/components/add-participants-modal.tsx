@@ -46,7 +46,7 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
             wrapperId="addEmployeeModal"
             type="center"
             show={show}
-            setShow={onSetShow}
+            setShow={setShow}
             title={"Добавление сотрудников"}
             classNames={{
                 panel: "max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl border border-gray-200",
@@ -60,13 +60,12 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
                     </div>
 
                     <div className="relative" ref={dropdownRef}>
-                        <div
-                            onClick={() => setShowList(!showList)}
+                        <div onClick={() => setShowList(!showList)}
                             className={`flex flex-wrap items-center gap-2 min-h-[48px] p-3 border rounded-xl transition-all duration-200 border-gray-300 hover:border-gray-400 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-200`}>
                             {attachUsers.length > 0 ? attachUsers.map((user, key) => (
                                 <div
                                     key={key}
-                                    onClick={() => removeUser(user.id)}
+                                    onClick={(e) => { e.stopPropagation(); removeUser(user.id) }}
                                     className="flex items-center gap-1.5 bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:bg-blue-200"
                                 >
                                     <span className="truncate max-w-[120px]">{user.lastName + " " + user.firstName + " " + user.patronymic}</span>
@@ -149,18 +148,17 @@ export const AddParticipantsModal = observer(({ show, setShow, companyId, update
             footerSlot={
                 <div className="flex gap-3" >
                     <Button
-                        onClick={() => onSetShow(false)}
+                        onClick={() => setShow(false)}
                         class="flex items-center gap-2 px-6 py-3 bg-white text-[#4A85F6] font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                     >
                         Закрыть
                     </Button>
-                    {/* <Button
+                    <Button
                         onClick={() => onSetShow(false)}
                         class="flex items-center gap-2 px-6 py-3 bg-[#4A85F6] text-white font-semibold rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm"
                     >
-
-                        Добавить
-                    </Button> */}
+                        Сохранить
+                    </Button>
                 </div>
             }
         />

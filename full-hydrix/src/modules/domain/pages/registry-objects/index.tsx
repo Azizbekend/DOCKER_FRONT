@@ -12,6 +12,7 @@ import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
 import { ObjectsForm } from '../objects-form';
 import { useAuth } from '@/packages/entities/user/context';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 export const RegistryObjectsLayout = observer(() => {
 
@@ -22,16 +23,14 @@ export const RegistryObjectsLayout = observer(() => {
   const { search, setSearch, results } = useSearch<DespetcherTest>({ data: model, searchFields: ["nameMinin", "company"] });
 
   useEffect(() => {
-    init(user!.id);
+    init(user!.id, user.baseRoleId);
   }, []);
 
 
   return (
     <div className="h-full flex flex-col" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       <div className="flex items-center gap-4 mb-14">
-        <Link
-
-          to="/menu-moduls"
+        <Link to="/menu-moduls"
           className="flex items-center justify-center w-11 h-11  transition-colors"
         >
           <Icon systemName="home-active" className="text-white" />
@@ -49,53 +48,46 @@ export const RegistryObjectsLayout = observer(() => {
           {/* Левая часть: поиск и фильтры */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full sm:w-auto">
             {page === "list" && (
-              <>
-                {/* Поиск */}
-                <div className="flex w-60 sm:w-[320px]">
-                  <Search
-                    placeholder="Поиск по названию или организации..."
-                    value={search}
-                    onChange={setSearch}
+              <div className='flex items-center gap-5'>
+                <Search
+                  placeholder="Поиск по названию или организации..."
+                  value={search}
+                  onChange={setSearch}
+                  classNames={{
+                    container: "border border-gray-300 rounded-lg h-11 !w-[400px]",
+                    input: "px-4 text-gray-800 text-sm",
+                  }}
+                />
+                <FilterObjects />
+
+                <div className='flex items-center gap-2'>
+                  <SwitchButton
+                    label=""
+                    onChange={() => { console.log() }}
                     classNames={{
-                      container: "bg-gray-50 rounded-lg h-11",
-                      input: "bg-gray-50 px-4 text-gray-800 text-sm",
+                      container: "gap-3",
+                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
                     }}
                   />
-                  <div className="flex items-center gap-2 ">
-                    <FilterObjects />
-                  </div>
+                  <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Диспетчерская</span>
                 </div>
 
-                {/* Переключатели */}
-                <div className="hidden sm:flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <SwitchButton
-                      label=""
-                      onChange={() => { console.log() }}
-                      classNames={{
-                        container: "gap-3",
-                        button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                        circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                      }}
-                    />
-                    <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Диспетчерская</span>
-
-                    <SwitchButton
-                      label=""
-                      onChange={() => { console.log() }}
-                      classNames={{
-                        container: "gap-3",
-                        button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
-                        circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
-                      }}
-                    />
-                    <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Управление ЖБО</span>
-                  </div>
+                <div className='flex items-center gap-2'>
+                  <SwitchButton
+                    label=""
+                    onChange={() => { console.log() }}
+                    classNames={{
+                      container: "gap-3",
+                      button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",
+                      circle: "rounded-[150px] bg-white h-[18px] w-[18px]",
+                    }}
+                  />
+                  <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Управление ЖБО</span>
                 </div>
-              </>
+              </div>
             )}
           </div>
-
           {/* Правая часть: кнопки */}
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <NavLink
@@ -115,13 +107,16 @@ export const RegistryObjectsLayout = observer(() => {
               )}
             </NavLink>
 
-            <NavLink
-              to={"/domain/form-add"}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm w-full sm:w-auto"
-            >
-              <Icon systemName="plus-white" className="w-4 h-4" />
-              <span className="text-sm sm:text-base">Создать объект</span>
-            </NavLink>
+
+
+            {isAdmin() &&
+              <NavLink to={"/domain/form-add"}
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm w-full sm:w-auto"
+              >
+                <Icon systemName="plus-white" className="w-4 h-4" />
+                <span className="text-sm sm:text-base">Создать объект</span>
+              </NavLink>
+            }
           </div>
         </div>
 

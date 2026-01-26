@@ -91,22 +91,22 @@ export const MapObjects = observer(() => {
 
 
           <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Общие заявки</span>
+            <span>Ожидают обработки</span>
             {/* <div className='flex flex-col'> */}
-            <span className='font-bold text-sm'>{serviceTypeCounter.asnser}</span>
+            <span className='font-bold text-sm'>{serviceStatusCounter.new}</span>
             {/* <span className='font-medium text-sm'>1 объект</span> */}
             {/* </div> */}
           </div>
           <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Поставочные заявки</span>
+            <span>Успешно закрыты</span>
             {/* <div className='flex flex-col'> */}
-            <span className='font-bold text-sm'>{serviceTypeCounter.supply}</span>
+            <span className='font-bold text-sm'>{serviceStatusCounter.complete}</span>
             {/* <span className='font-medium text-sm'>1 объект</span> */}
             {/* </div> */}
           </div>
           <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Аварийные заявки</span>
-            <span className='font-bold text-sm'>{serviceTypeCounter.incident}</span>
+            <span>Отменённы заявок</span>
+            <span className='font-bold text-sm'>{serviceStatusCounter.cancle}</span>
           </div>
 
           {chartData.length > 0 &&

@@ -12,12 +12,12 @@ export const tabLinks: {
         },
         {
             to: "hardwares",
-            name: "Оборудования",
+            name: "Оборудование",
         },
-        {
-            to: "incident",
-            name: "Аварии",
-        },
+        // {
+        //     to: "incident",
+        //     name: "Аварии",
+        // },
         {
             to: "documentation",
             name: "Документация",

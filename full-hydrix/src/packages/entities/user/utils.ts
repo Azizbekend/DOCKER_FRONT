@@ -1,3 +1,4 @@
+import { useAuth } from "./context";
 import { Role } from "./enums";
 
 export const getRoleText = (role: number) => {
@@ -35,8 +36,11 @@ export const getRoleText = (role: number) => {
     }
 }
 
-
-
 export function getDostup() {
     return JSON.parse(localStorage.getItem("userDostup"))
+}
+
+export function isAdmin() {
+    const { user } = useAuth()
+    return user.baseRoleId === Role.Admin
 }

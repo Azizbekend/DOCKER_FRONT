@@ -1,7 +1,8 @@
 import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
 import { makeAutoObservable } from "mobx";
 import { passportObject } from "../service/api";
-import { getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
+import { getAllObjects, getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
+import { Role } from "@/packages/entities/user/enums";
 
 
 
@@ -12,10 +13,10 @@ class RegistryModel {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    async init(userId: number) {
+    async init(userId: number, userRole: Role) {
         try {
             const [objectsRes, charsShapshiRes] = await Promise.all([
-                getAllUserObjects({ userId: userId }),
+                userRole == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId }),
                 getTechnicalCharsShapshi()
             ])
 

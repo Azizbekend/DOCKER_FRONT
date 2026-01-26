@@ -63,8 +63,7 @@ export const cartLinksCompany: MenuItemType[] = [
     {
         name: "Управление ЖБО",
         link: "/gis/company/56",
-        userIds: []
-        // userIds: [Role.Client, Role.Ministry]
+        userIds: [Role.Client, Role.Ministry]
     },
     {
         name: "Оцифровка сетей",

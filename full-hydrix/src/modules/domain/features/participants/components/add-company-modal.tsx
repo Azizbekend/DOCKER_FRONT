@@ -2,7 +2,6 @@ import { Button } from "@/packages/shared-ui/button";
 import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
-import { SwitchButton } from "@/packages/shared-ui/switch-button";
 import { addCompanyModel } from "../models/add-company-model";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { Icon } from "@/packages/shared-ui/icon";
@@ -35,14 +34,17 @@ export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticip
           {stageModal === 'form' && <div className="space-y-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Наименование организации или ИНН
+                Поиск по ИНН
               </label>
               <Input
-                type="text"
-                placeholder="Введите наименование или ИНН"
+                type="number"
+                placeholder="Введите ИНН организации"
                 value={innValue}
                 onChange={setInnValue}
                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent"
+                lengthOptions={{
+                  maxLength: 12,
+                }}
               />
             </div>
 
@@ -74,7 +76,11 @@ export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticip
 
           {loaderSearch ? <Loader /> : innValue.trim() && (
             <div className="mt-8 space-y-4 animate-fadeIn">
-              {model.id != 0 &&
+              {model.id != 0 && (model.id == null ?
+                <p className="text-md text-gray-600">
+                  Компания не найдена
+                </p>
+                :
                 <div key={model.id}
                   // onClick={() => onActiveCompanies(company.id)}
                   className={`border rounded-xl p-5 cursor-pointer transition-all border-[#4A85F6] border-gray-200 hover:border-gray-300 hover:bg-gray-50`}
@@ -134,7 +140,7 @@ export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticip
                     </div>
 
                   </div>
-                </div>
+                </div>)
               }
             </div>
           )}
@@ -164,7 +170,7 @@ export const AddCompanyModal = observer(({ show, setShow, objectId, pushParticip
             {stageModal === 'form' ? (
               <Button
                 onClick={() => setStageModal("xz")}
-                disabled={model.id == 0}
+                disabled={model.id == 0 || model.id == null}
                 class="px-5 py-2.5 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Дальше

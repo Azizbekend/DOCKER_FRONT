@@ -11,11 +11,12 @@ import { eventLog } from "@/modules/domain/features/hardware/data";
 import { getStatusClass } from "@/packages/shared/libs/hardware/functions/functions";
 import { HardwareControlle, HardwareReview, HardwareServes } from "@/packages/shared/libs/hardware/tabs/panel-tabs";
 import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/hardware-status";
+import { LogEventCard } from "@/packages/shared-components/log-event-card";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
 
-  const { init, model, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
+  const { init, model, evengLog, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -133,13 +134,21 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
                 />}
             </div>
 
-            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-              <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <Icon systemName="history" className="text-gray-600" />
-                Журнал событий
-              </h3>
+            <div className="bg-gray-50 rounded-xl border border-gray-200 p-3">
+              <div className="mb-4 flex justify-between items-center">
+                <h3 className="font-bold text-gray-800 flex items-center gap-2">
+                  <Icon systemName="history" className="text-gray-600" />
+                  Журнал событий (сегодня)
+                </h3>
+                <Link to={`/dispatcher/hardware-about/${id}/logs`} className="text-[#4A85F6] text-sm font-medium hover:underline">
+                  Показать все →
+                </Link>
+              </div>
+
               <div className="space-y-3 max-h-40 overflow-y-auto pr-1">
-                {eventLog.map((event, idx) => {
+                {evengLog && (evengLog.length > 0 ? evengLog.map((event, key) => (<LogEventCard event={event} key={key} />)) : <p className="text-center text-gray-500">Нет данных</p>)}
+
+                {/* {evengLog.map((event, idx) => {
                   const { badge, border } = getStatusClass(event.status);
                   return (
                     <div
@@ -156,7 +165,9 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
                       <p className="text-xs text-gray-600 mt-1">{event.description}</p>
                     </div>
                   );
-                })}
+                })} */}
+
+
               </div>
             </div>
           </div>

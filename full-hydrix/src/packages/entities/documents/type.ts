@@ -15,3 +15,10 @@ export interface DocumentsModelType {
     fileName: string,
     documentName?: string,
 }
+
+
+export interface UploadObjectDocumentType {
+    docId: number,
+    objectId: number
+}
+

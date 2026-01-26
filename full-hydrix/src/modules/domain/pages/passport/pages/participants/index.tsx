@@ -9,12 +9,13 @@ import Loader from '@/packages/shared-ui/loader/loader';
 import { CreateParticipantsModal } from '@/modules/domain/features/participants/components/create-participants-modal';
 import { AddCompanyModal } from '@/modules/domain/features/participants/components/add-company-modal';
 import { AddParticipantsModal } from '@/modules/domain/features/participants/components/add-participants-modal';
+import { useAuth } from '@/packages/entities/user/context';
+import { Role } from '@/packages/entities/user/enums';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 export const PassportParticipants = observer(() => {
 
   const { isLoading, init, openCompanyId, showModalParticipants, setShowModalParticipants, listParticipants, pushParticipants, showAddModalParticipants, setShowAddModalParticipants, updateList } = listParticipantsModel
-
-
 
   const [showModalCompany, setShowModalCompany] = useState(false);
   const [showAddModalCompany, setShowAddModalCompany] = useState(false);
@@ -38,10 +39,13 @@ export const PassportParticipants = observer(() => {
             <span className="whitespace-nowrap">Добавить организацию</span>
           </Button>
 
-          <Button styleColor='green' class='px-3 py-2' onClick={() => setShowModalCompany(true)}>
-            <Icon systemName='plus-white' className="w-4 h-4" />
-            <span className="whitespace-nowrap">Создать организацию</span>
-          </Button>
+
+          {isAdmin() &&
+            <Button styleColor='green' class='px-3 py-2' onClick={() => setShowModalCompany(true)}>
+              <Icon systemName='plus-white' className="w-4 h-4" />
+              <span className="whitespace-nowrap">Создать организацию</span>
+            </Button>
+          }
         </>
       }
     />
@@ -54,6 +58,7 @@ export const PassportParticipants = observer(() => {
             <span className="inline-flex items-center px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
               <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-600 rounded-full mr-1.5 sm:mr-2"></div>
               {participant.status}
+              Действующая
             </span>
           </div>
 
@@ -106,14 +111,16 @@ export const PassportParticipants = observer(() => {
               </div>
               <span className="whitespace-nowrap">Добавить сотрудника</span>
             </div>
-            <div
-              className="flex items-center gap-2 sm:gap-3 text-green-600 hover:text-green-800 font-semibold text-sm sm:text-base transition-colors duration-200 cursor-pointer w-fit group"
-              onClick={() => setShowModalParticipants(true, participant.company)}>
-              <div className="bg-green-600 h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center group-hover:bg-green-800 transition-colors duration-200">
-                <Icon systemName='plus-white' className="w-3 h-3 sm:w-4 sm:h-4" />
+            {isAdmin() &&
+              <div
+                className="flex items-center gap-2 sm:gap-3 text-green-600 hover:text-green-800 font-semibold text-sm sm:text-base transition-colors duration-200 cursor-pointer w-fit group"
+                onClick={() => setShowModalParticipants(true, participant.company)}>
+                <div className="bg-green-600 h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center group-hover:bg-green-800 transition-colors duration-200">
+                  <Icon systemName='plus-white' className="w-3 h-3 sm:w-4 sm:h-4" />
+                </div>
+                <span className="whitespace-nowrap">Создать сотрудника (Временная кнопка)</span>
               </div>
-              <span className="whitespace-nowrap">Создать сотрудника (Временная кнопка)</span>
-            </div>
+            }
           </div>
         </div>
       ))}

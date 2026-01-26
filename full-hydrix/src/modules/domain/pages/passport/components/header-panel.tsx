@@ -17,7 +17,7 @@ export const PassportHeaderPanel = observer(({ title, rightBlock, to = "/domain/
           to={to}
           className="flex items-center justify-center w-10 h-10 bg-[#4A85F6] rounded-lg hover:bg-[#3a6bc9] transition-colors"
         >
-          <Icon systemName="arrow-left" className="text-white w-5 h-5" />
+          <Icon systemName="arrow-left" className="text-white" />
         </Link>
         <h1 className="text-xl md:text-2xl font-bold text-gray-800 truncate">
           {title}

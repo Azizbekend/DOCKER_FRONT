@@ -106,23 +106,23 @@ export const PassportDocumentation = observer(() => {
   }, []);
 
   return (
-    <div className="mx-auto px-4">
+    <>
       <PassportHeaderPanel title="Документация" />
-      
+
       {/* Адаптивная сетка */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Загрузка документа */}
         <div className="bg-white rounded-2xl shadow-xl p-6 lg:p-8 mb-8 border border-gray-100">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Загрузить документ</h2>
-          
+
           <label className="bg-gray-50 rounded-xl shadow-sm h-64 lg:h-[350px] block flex flex-col items-center justify-center text-center border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors">
             <input type="file" onChange={onChange} className="hidden" />
-            
-            <Icon 
-              systemName={isValue ? "docs" : "checkmate"} 
-              className="text-gray-400 mb-3 lg:mb-4" 
-              width={24} 
-              height={24} 
+
+            <Icon
+              systemName={isValue ? "docs" : "checkmate"}
+              className="text-gray-400 mb-3 lg:mb-4"
+              width={24}
+              height={24}
             />
             <h3 className="text-base lg:text-lg font-semibold text-gray-700">
               {isValue ? "Перетащите файл или нажмите" : "Файл загружен"}
@@ -134,10 +134,10 @@ export const PassportDocumentation = observer(() => {
             )}
           </label>
 
-          <Input 
-            type="text" 
-            placeholder="Наименование документа" 
-            value={getData.documentName} 
+          <Input
+            type="text"
+            placeholder="Наименование документа"
+            value={getData.documentName}
             onChange={setDocumentName}
             className="border border-gray-300 px-3 py-2.5 lg:px-4 lg:py-3 mt-4 lg:mt-5 rounded-lg text-gray-900 transition-all duration-200 w-full"
           />
@@ -153,8 +153,8 @@ export const PassportDocumentation = observer(() => {
 
           <div className="space-y-3 lg:space-y-4">
             {documents.map((doc, key) => (
-              <div 
-                key={key} 
+              <div
+                key={key}
                 className="flex items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
               >
                 <div className="flex items-center gap-3 lg:gap-4">
@@ -169,6 +169,6 @@ export const PassportDocumentation = observer(() => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 });

@@ -185,12 +185,12 @@ input.MuiInputBase-input {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translate(-40%, 5px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate(-40%, 0);
   }
 }
 
