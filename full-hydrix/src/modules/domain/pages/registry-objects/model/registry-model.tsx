@@ -20,12 +20,15 @@ class RegistryModel {
                 getTechnicalCharsShapshi()
             ])
 
+            console.log(objectsRes.data)
+
             this.model = objectsRes.data.map((data, _) => {
                 if (data.id == 14) {
                     return {
                         id: data.id,
                         img: data.fileId,
-                        nameMinin: data.name,
+                        // nameMinin: data.name,
+                        nameMinin: "Очистные сооружения с. Шапши",
                         company: data.operatingOrganization,
                         statusСonnection: true,
                         volumeProjec: data.projectEfficiency,
@@ -47,7 +50,6 @@ class RegistryModel {
                     dispetcher: true,
                 }
             })
-
 
         } catch (error) {
             console.log(error)
