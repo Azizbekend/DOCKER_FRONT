@@ -258,15 +258,15 @@ export const AppRouter = createBrowserRouter([
                                     },
                                 ]
                             },
-                            {
-                                path: "incident",
-                                async lazy() {
-                                    const { Incident } = await import("@/modules/domain/pages/passport/pages/incident")
-                                    return {
-                                        Component: Incident
-                                    }
-                                },
-                            },
+                            // {
+                            //     path: "incident",
+                            //     async lazy() {
+                            //         const { Incident } = await import("@/modules/domain/pages/passport/pages/")
+                            //         return {
+                            //             Component: Incident
+                            //         }
+                            //     },
+                            // },
                             {
                                 path: "documentation",
                                 async lazy() {
