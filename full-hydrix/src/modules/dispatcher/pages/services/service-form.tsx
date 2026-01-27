@@ -22,7 +22,11 @@ export const RequestRegistryForm = observer(() => {
     }, [])
 
     const onSubmit = () => {
-        create(user!.id, user!.companyId, navigate("/dispatcher/services/"))
+        create({
+            id: user!.id,
+            comanyId: user!.companyId,
+            onAction: () => navigate("/dispatcher/services"),
+        })
     }
 
     return (

@@ -60,13 +60,14 @@ class CreateRequestModel {
 
     clear() {
         this.model = {
-            title: "",
+            title: "Тестовая поставка товара",
             discription: "",
             type: "",
             creatorId: 0,
             implementerId: 0,
             hardwareId: 0,
             objectId: 0,
+            requiredCount: 5,
         }
     }
 
@@ -123,7 +124,8 @@ class CreateRequestModel {
         }));
     }
 
-    async create(id: number, comanyId: number, onAction: () => void) {
+    async create({ id, comanyId, onAction }: { id: number, comanyId: number, onAction: () => void }) {
+
         this.model.creatorId = id
 
         try {
@@ -141,6 +143,8 @@ class CreateRequestModel {
                     hardwareId: this.model.hardwareId,
                     objectId: this.model.objectId,
                 })
+
+
                 onAction()
 
             } else if (this.model.type == "Поставочная") {
@@ -158,12 +162,12 @@ class CreateRequestModel {
                 onAction()
 
                 toast.success("Заявка создана", { progressStyle: { background: "green" } })
-                
+
             } else {
                 toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
             }
 
-            this.clear()
+            // this.clear()
 
         } catch (error) {
             toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
