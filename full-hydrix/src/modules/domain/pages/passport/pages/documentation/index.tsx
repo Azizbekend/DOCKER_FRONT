@@ -64,10 +64,10 @@ export const PassportDocumentation = observer(() => {
 
       {isLoader ? <Loader /> : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {(activeCategory === 'all' || activeCategory === 'PIR') && <DocumentBlock title="ПИР" category="PIR" list={filteredDocuments} />}
-          {(activeCategory === 'all' || activeCategory === 'ITD') && <DocumentBlock title="ИТД" category="ITD" list={filteredDocuments} />}
-          {(activeCategory === 'all' || activeCategory === 'EXPLOITATION') && <DocumentBlock title="Документация в период эксплуатации" category="EXPLOITATION" list={filteredDocuments} />}
           {(activeCategory === 'all' || activeCategory === 'PORJECTS') && <DocumentBlock title="Проектная документация" category="PORJECTS" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'PIR') && <DocumentBlock title="Рабочая документация" category="PIR" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'ITD') && <DocumentBlock title="Исполнительно-техническая документация" category="ITD" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'EXPLOITATION') && <DocumentBlock title="Документация в период эксплуатации" category="EXPLOITATION" list={filteredDocuments} />}
         </div>
       )}
 
