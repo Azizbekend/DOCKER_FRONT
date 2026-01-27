@@ -190,6 +190,7 @@ export const NodeIndicates = {
   group: "/NodeIndicates/actual/group",
   plcNodeOd: "/NodeIndicates/actual/plcNodeOd",
   hStatusAll: "/NodeIndicates/hStatus/all/byPlcNodeId",
+  getLogs: "/NodeIndicates/hardware/statusLog",
 }
 
 

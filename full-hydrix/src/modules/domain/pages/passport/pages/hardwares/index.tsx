@@ -11,6 +11,7 @@ import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/mode
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { domainHardwariesColumns } from "@/packages/shared/libs/hardware/columns/columns";
 import { getObjectId } from "@/packages/functions/get-object-data";
+import { isAdmin } from "@/packages/entities/user/utils";
 
 export const HardwareRegistry = observer(() => {
   const { list, init } = hardwareListModel;
@@ -58,15 +59,15 @@ export const HardwareRegistry = observer(() => {
             ))}
           />
         </div>
-
-        {/* Кнопка добавления */}
-        <Link
-          to={`/domain/passport/${objectId}/hardwares/form`}
-          className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 w-full sm:w-auto rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm whitespace-nowrap"
-        >
-          <Icon systemName="plus-white" className="w-4 h-4" />
-          Добавить оборудование
-        </Link>
+        {isAdmin() &&
+          <Link
+            to={`/domain/passport/${objectId}/hardwares/form`}
+            className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 w-full sm:w-auto rounded-lg bg-[#4A85F6] text-white font-medium hover:bg-[#3a6bc9] transition-colors shadow-sm whitespace-nowrap"
+          >
+            <Icon systemName="plus-white" className="w-4 h-4" />
+            Добавить оборудование
+          </Link>
+        }
       </div>
 
       {/* Таблица */}

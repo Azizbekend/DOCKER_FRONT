@@ -1,4 +1,4 @@
-import { hardwaresEvents } from "@/packages/entities/hardware/api";
+import { hardwaresEvents, hardwaresLogs } from "@/packages/entities/hardware/api";
 import { HardwareEventsDataType, StartEndDates } from "@/packages/entities/hardware/type";
 import { makeAutoObservable } from "mobx";
 
@@ -6,7 +6,7 @@ class LogsModel {
     evengLog: HardwareEventsDataType[] = [];
     loader: boolean = false;
     hardwareId: number = 0;
-    
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -33,6 +33,17 @@ class LogsModel {
             end: endDate,
         }).then((res) => {
             this.evengLog = res.data
+        })
+
+        await hardwaresLogs({
+            hadrwareId: this.hardwareId,
+            start: startDate,
+            end: endDate,
+        }).then((res) => {
+            this.evengLog = [
+                ...this.evengLog,
+                ...res.data
+            ]
         })
     }
 }

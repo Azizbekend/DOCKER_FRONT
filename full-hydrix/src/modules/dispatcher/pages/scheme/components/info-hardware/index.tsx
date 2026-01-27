@@ -12,15 +12,20 @@ import { getStatusClass } from "@/packages/shared/libs/hardware/functions/functi
 import { HardwareControlle, HardwareReview, HardwareServes } from "@/packages/shared/libs/hardware/tabs/panel-tabs";
 import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/hardware-status";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
+import { getTimeRanges } from "@/packages/functions/get-time-ranges";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
-
+  const { todayRange } = getTimeRanges()
   const { init, model, evengLog, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
-    init(id, true);
+
+
+
+
+    init(id, todayRange);
   }, [id]);
 
   return (

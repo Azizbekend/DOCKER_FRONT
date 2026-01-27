@@ -1,12 +1,23 @@
 import { BlockContainer } from '@/packages/shared-components/container-blocks/block-container';
 import { observer } from 'mobx-react-lite';
 import image from "@/modules/domain/assets/images/image.png"
+import { useState } from 'react';
+import { Icon } from '@/packages/shared-ui/icon';
+import { Button } from '@/packages/shared-ui/button';
 
 export const InformationBlock = observer(() => {
+
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+
     return (
         <BlockContainer title="Описание технологии очистки">
 
-            <div className='text-[0.75rem] text-justify'>
+            <div className={`text-[0.9rem] text-justify relative ${isExpanded ? '' : 'line-clamp-6'}`}>
                 Хозяйственно-бытовые сточные воды по наружной сети канализации поступают в канализационную насосную станцию с сорозадерживающей корзиной и насосами. Далее под напором стоки поступают в блок механической очистки для удаления грубых включений размерами не более 1 мм, в состав которого входит автоматическая барабанная решетка тонкой очистки и песколовка для отделения песка и абразивных включений.
                 <br /> Сточные воды, очищенные от грубых включений и минеральных примесей, поступают в усреднитель. Из усреднителя сточные воды погружным насосом направляются в блок биологической очистки, которая разделена на технологические зоны:
                 <br /> - денитрификатор (аноксидная зона);
@@ -27,9 +38,35 @@ export const InformationBlock = observer(() => {
                 <br /> Стабилизированный осадок при помощи насосов подается в шнековый обезвоживатель. Обезвоженный кек выгружается в контейнер, которой периодически вывозится на полигон ТБО. Фильтрат от обезвоживания поступает в усреднитель.
                 <br /> Для интенсификации процесса сгущения осадка активного ила подается раствор флокулянта. Полимерный раствор приготавливается на установке приготовления и дозирования полимера.
                 <br /> Для очистки сточной воды от соединений фосфора, предусмотрена система дозирования коагулянта. Система дозирования коагулянта представляет собой две емкости, одна из которых служит для приготовления раствора, другая является расходной емкостью. Емкость для приготовления раствора коагулянта снабжена мешалкой. Раствор коагулянта подается насосом-дозатором из расходной емкости в трубопровод.
+
+
+                {!isExpanded && (
+                    <div className='absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none'>
+                        {/* Или более заметная тень */}
+                        {/* <div className='absolute inset-0 shadow-[inset_0_0_20px_0_rgba(0,0,0,0.1)] pointer-events-none'></div> */}
+                    </div>
+                )}
+
             </div>
 
             <img className='w-[100%] mx-auto mt-5' src={image} alt="" />
+
+            <Button
+                onClick={toggleExpand}
+                class="mt-4 mx-auto px-8 justify-items-center font-medium text-sm"
+                styleColor='blueOutline'
+            >
+                {isExpanded ? (
+                    <>
+                        <span>Свернуть</span>
+                    </>
+                ) : (
+                    <>
+                        <span>Подробнее</span>
+                    </>
+                )}
+            </Button>
+
         </BlockContainer>
     )
 });

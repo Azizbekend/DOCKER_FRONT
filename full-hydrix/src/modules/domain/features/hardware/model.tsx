@@ -1,6 +1,6 @@
 import { getDocuments } from "@/packages/entities/documents/api";
 import { DocumentsType } from "@/packages/entities/documents/type";
-import { getInfoHardware, hardwaresEvents, statusHardwaresCheck } from "@/packages/entities/hardware/api";
+import { getInfoHardware, hardwaresEvents, hardwaresLogs, statusHardwaresCheck } from "@/packages/entities/hardware/api";
 import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/packages/entities/hardware/api-general";
 import { HardwareEventsDataType, HardwareInterface, StartEndDates } from "@/packages/entities/hardware/type";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
@@ -94,7 +94,7 @@ class HardwareModel {
         this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, hardwaresEventsRes] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -109,9 +109,14 @@ class HardwareModel {
                     hadrwareId: id,
                     start: dateData.start,
                     end: dateData.end,
+                }),
+                hardwaresLogs({
+                    hadrwareId: id,
+                    start: dateData.start,
+                    end: dateData.end,
                 })
-
             ]);
+
 
             this.model = info.data;
 
@@ -135,6 +140,10 @@ class HardwareModel {
             // this.isActiveCommand = commandCheck.data == "True"
 
             this.evengLog = hardwaresEventsRes.data
+            this.evengLog = [
+                ...this.evengLog,
+                ...hardwaresLogsRes.data
+            ]
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);

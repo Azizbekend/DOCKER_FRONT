@@ -15,6 +15,8 @@ export const LogEventCard = ({ event }: Props) => {
             </div>
             <p className="text-sm text-gray-700 mt-1">
                 {event.discription}
+                {event.indicates == "1" && "Пуск оборудования"}
+                {event.indicates == "0" && "Стоп оборудования"}
             </p>
         </div>
     );

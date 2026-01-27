@@ -100,7 +100,8 @@ export type StartEndDates = { start: Date | string, end: Date | string }
 
 export type HardwareEventsDataType = {
     id: number,
-    discription: string,
+    discription?: string,
+    indicates?: string,
     timeStamp: Date,
     hardwareId: number,
     userId: number

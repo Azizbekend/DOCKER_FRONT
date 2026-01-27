@@ -1,4 +1,4 @@
-import { Hardware } from "@/app/routers/api-router"
+import { Hardware, NodeIndicates } from "@/app/routers/api-router"
 import { reserchInstance } from "@/app/api/instances"
 import { CreateHardwareInterface, HardwareEventsType } from "./type"
 
@@ -32,4 +32,8 @@ export const statusHardwaresCheck = (params: { ids: number[] }) => {
 
 export const hardwaresEvents = (params: HardwareEventsType) => {
     return reserchInstance.post(Hardware.events, params)
+}
+
+export const hardwaresLogs = (params: HardwareEventsType) => {
+    return reserchInstance.post(NodeIndicates.getLogs, params)
 }

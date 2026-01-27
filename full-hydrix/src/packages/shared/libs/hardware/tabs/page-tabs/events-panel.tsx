@@ -130,11 +130,6 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
         <div className="space-y-3 overflow-y-auto pr-2"
           style={{ maxHeight: filterPeriod == "custom" ? "65%" : "75%" }}>
           {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
         </div>
       </div>
     </PassportBlockContainer>

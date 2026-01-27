@@ -63,18 +63,18 @@ export const PassportInformation = observer(() => {
           <div className="xl:col-span-1 space-y-6">
             <ImageBlock imagePassport={imagePassport} />
             <ObjectDataBlock data={objectData} items={itemObjectData} />
-            <DocumentListBlock />
-            <ListParticipantsBlock list={listParticipants} />
-          </div>
-
-          <div className="xl:col-span-1 space-y-6">
             <InformationBlock />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
             <TechSpecsBlock cards={model} />
-            <ReagentStatsBlock />
             <SludgeStatsBlock />
+            <DocumentListBlock />
+          </div>
+
+          <div className="xl:col-span-1 space-y-6">
+            <ReagentStatsBlock />
+            <ListParticipantsBlock list={listParticipants} />
           </div>
         </div>
       </div>
