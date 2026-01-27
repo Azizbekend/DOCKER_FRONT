@@ -26,12 +26,12 @@ export const ObjectDataBlock = observer(({ data, items }: ObjectDataBlockProps) 
                     {data.adress}
                 </h3>
 
-{/* 
+                <div>
+                    <p className='text-[1rem] font-semibold text-gray-800'>Дата введения в эксплуатацию</p>
+                    <p className='text-[0.9rem] font-semibold text-gray-800'>Декабрь 2025</p>
+                </div>
 
-дата ввода в эксплуатацию, добавить
 
-
-*/}
 
                 {items.map((item, index) => (
                     <div key={index} className="space-y-1">

@@ -11,7 +11,7 @@ export const ImageBlock = observer(({ imagePassport }: ImageBlockProps) => {
                 <img
                     src={imagePassport}
                     alt="Объект"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg object-right"
                 />
                 <div className="absolute top-3 left-3 bg-white/30 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-semibold flex items-center">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5"></div>

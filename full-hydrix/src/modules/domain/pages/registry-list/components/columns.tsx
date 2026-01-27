@@ -1,6 +1,6 @@
 import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
 import { TableColumn } from "@/packages/shared-ui/table/types";
-import imageProfile from "../assets/stations.jpg"
+import imageProfile from "../assets/object-actual.jpg"
 import { Icon } from "@/packages/shared-ui/icon";
 
 export const columns: TableColumn<DespetcherTest>[] = [
@@ -11,13 +11,14 @@ export const columns: TableColumn<DespetcherTest>[] = [
         cell: ({ img }) => {
             return (
                 <div className="flex justify-center">
-                    <div className="relative w-28 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
-                        <img
-                            src={imageProfile}
-                            alt="Объект"
-                            className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/5 hover:bg-black/10 transition-colors duration-200"></div>
+                    <div className="relative w-28 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex justify-items-end">
+                        <div>
+                            <img
+                                src={imageProfile}
+                                alt="Объект"
+                                className="h-full w-fit object-cover object-right"
+                            />
+                        </div>
                     </div>
                 </div>
             );

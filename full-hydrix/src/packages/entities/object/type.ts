@@ -10,7 +10,7 @@ export interface PassportModelType {
     customerName: string,
     generalContractorName: string,
     projectEfficiency: number,
-    fileId: number
+    fileId: number,
 }
 
 

@@ -11,7 +11,7 @@ import { DocumentListBlock } from '@/modules/domain/widgets/object-passport/docu
 import { ReagentStatsBlock } from '@/modules/domain/widgets/object-passport/reagent-stats-block';
 import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludge-stats-block';
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
-import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/passport.jpg';
+import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/object-actual.jpg';
 import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
 
@@ -68,11 +68,11 @@ export const PassportInformation = observer(() => {
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <TechSpecsBlock cards={model} />
             <InformationBlock />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
+            <TechSpecsBlock cards={model} />
             <ReagentStatsBlock />
             <SludgeStatsBlock />
           </div>

@@ -81,7 +81,7 @@ class PassportModel {
             this.itemObjectData.push({ name: "Адрес", value: this.objectData.adress, coord: (this.objectData.latitude + " " + this.objectData.longitude) })
             this.itemObjectData.push({ name: "Заказчик", value: this.objectData.customerName, })
             this.itemObjectData.push({ name: "Эксплуатирующая организация", value: this.objectData.operatingOrganization, })
-            this.itemObjectData.push({ name: "Генеральныйподрядчик", value: this.objectData.generalContractorName, })
+            this.itemObjectData.push({ name: "Генеральный подрядчик", value: this.objectData.generalContractorName, })
 
 
             console.log(shapshiChars.data)
