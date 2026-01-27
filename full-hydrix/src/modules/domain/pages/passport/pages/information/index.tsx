@@ -13,6 +13,7 @@ import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludg
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
 import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/passport.jpg';
 import { useEffect } from 'react';
+import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
 
 export const PassportInformation = observer(() => {
   const { objectId } = useParams();
@@ -69,6 +70,7 @@ export const PassportInformation = observer(() => {
           <div className="xl:col-span-1 space-y-6">
             <ObjectDataBlock data={objectData} items={itemObjectData} />
             <DocumentListBlock />
+            <InformationBlock />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
