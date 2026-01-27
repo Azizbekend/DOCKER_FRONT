@@ -1,16 +1,67 @@
 import { ReagentStat } from '@/packages/entities/participants/type';
+import { Button } from '@/packages/shared-ui/button';
+import { Icon } from '@/packages/shared-ui/icon';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ReagentStatsCardProps {
     item: ReagentStat
 }
 
+interface SavedCalculation {
+    value: number;
+    answer: number;
+}
+
+
 
 export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
 
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState<number>(0);
+    const [answer, setAnswer] = useState<number>(0);
+
+    const storageKey = `reagent_${item.id}_calculation`;
+    useEffect(() => {
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+            try {
+                const parsedData: SavedCalculation = JSON.parse(savedData);
+                setValue(parsedData.value);
+                setAnswer(parsedData.answer);
+            } catch (error) {
+                console.error('Ошибка при чтении из localStorage:', error);
+            }
+        }
+    }, [storageKey]);
+
+    const saveToLocalStorage = (val: number, ans: number) => {
+        const dataToSave: SavedCalculation = {
+            value: val,
+            answer: ans
+        };
+        localStorage.setItem(storageKey, JSON.stringify(dataToSave));
+    };
+
+    const onSave = () => {
+        const project = Number(item.projectConsumption.replace(',', '.'));
+        const actual = Number(value);
+
+        if (!isNaN(project) && !isNaN(actual) && project > 0) {
+            const result = 100 - (actual / project * 100);
+            const roundedAnswer = Number(result.toFixed(2));
+            setAnswer(roundedAnswer);
+            // Сохраняем в localStorage
+            saveToLocalStorage(actual, roundedAnswer);
+        } else {
+            setAnswer(0);
+            saveToLocalStorage(actual, 0);
+        }
+    };
+
+
+
+
 
     return (
         <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-sm transition-shadow">
@@ -29,13 +80,26 @@ export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
                     <span className="text-xs text-gray-600">Проект</span>
                     <span className="text-sm font-medium text-gray-800">{item.projectConsumption} {item.unit}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center justify-end gap-1">
+
+                    <Button
+                        styleColor='blue'
+                        onClick={onSave}
+                        class={'!rounded-[5px] py-1.5 px-1.5'}
+                    >
+                        <Icon systemName='chekc-white' width={15} height={15} />
+
+                    </Button>
+
                     <Input
                         type="number"
-                        className="text-sm font-medium text-blue-600 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Введите значение"
-                        value={value}
+                        className="text-sm font-medium text-right text-blue-600 border border-gray-300 rounded px-2 py-1 !w-[100px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Значение"
+                        value={value || ""}
                         onChange={setValue}
+                        lengthOptions={{
+                            maxLength: 8
+                        }}
                     />
                     <span className="text-sm text-gray-500">{item.unit}</span>
                 </div>
@@ -44,7 +108,7 @@ export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
             {/* Экономия */}
             <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
                 <span className="text-xs text-gray-600">Экономия</span>
-                <span className="text-sm font-medium text-blue-600">{item.economy}</span>
+                <span className="text-sm font-medium text-blue-600">{answer}%</span>
             </div>
         </div>
     );

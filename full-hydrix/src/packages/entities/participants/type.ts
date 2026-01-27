@@ -37,3 +37,4 @@ export interface ReagentStat {
     unit: string;
     economy: string;
 }
+
