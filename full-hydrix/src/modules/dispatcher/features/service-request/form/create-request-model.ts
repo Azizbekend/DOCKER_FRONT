@@ -146,7 +146,7 @@ class CreateRequestModel {
             } else if (this.model.type == "Поставочная") {
                 result = await supplyRequestCreate({
                     creatorId: this.model.creatorId,
-                    creatorsCompanyId: this.model.creatorsCompanyId,
+                    creatorsCompanyId: comanyId,
                     nextImplementerId: this.model.implementerId,
                     nextImplementerCompanyId: this.model.implementersCompaneId,
                     productName: this.model.title,
@@ -158,6 +158,7 @@ class CreateRequestModel {
                 onAction()
 
                 toast.success("Заявка создана", { progressStyle: { background: "green" } })
+                
             } else {
                 toast.error("Ошибка при создании заявки", { progressStyle: { background: "red" } })
             }

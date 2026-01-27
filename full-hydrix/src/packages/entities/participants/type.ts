@@ -25,3 +25,15 @@ export type AttachCompanyType = {
     companyName: string,
     companyRole: string
 }
+
+
+
+export interface ReagentStat {
+    id: number;
+    name: string;
+    area: string;
+    projectConsumption: string;
+    actualConsumption: string;
+    unit: string;
+    economy: string;
+}

@@ -13,7 +13,7 @@ import { useAuth } from "@/packages/entities/user/context";
 export const RequestRegistryForm = observer(() => {
 
     const navigate = useNavigate();
-    const { user }  = useAuth()
+    const { user } = useAuth()
     const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create, setRequiredCount, companyList, setImplementerId, getUserList, userList } = createRequestModel
 
     useEffect(() => {

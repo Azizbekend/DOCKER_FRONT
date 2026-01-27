@@ -90,6 +90,8 @@ class ListParticipantsModel {
                     // Прохожу и получаю подкреплённых
                     attachUsersRes.data.forEach(element => { attachUsersIds.push(element.userId) });
                     companyItem.users = usersRes.data.filter(user => attachUsersIds.includes(user.id));
+
+
                 } catch (companyError) {
                     console.error(
                         `Ошибка получения пользователей компании ${company.companyId}`,
