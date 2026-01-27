@@ -62,14 +62,13 @@ export const PassportInformation = observer(() => {
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="xl:col-span-1 space-y-6">
             <ImageBlock imagePassport={imagePassport} />
-
-            <TechSpecsBlock cards={model} />
+            <ObjectDataBlock data={objectData} items={itemObjectData} />
+            <DocumentListBlock />
             <ListParticipantsBlock list={listParticipants} />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <ObjectDataBlock data={objectData} items={itemObjectData} />
-            <DocumentListBlock />
+            <TechSpecsBlock cards={model} />
             <InformationBlock />
           </div>
 
