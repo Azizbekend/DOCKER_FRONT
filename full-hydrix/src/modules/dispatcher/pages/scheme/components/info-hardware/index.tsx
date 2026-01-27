@@ -21,10 +21,6 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
   const navigate = useNavigate();
 
   useEffect(() => {
-
-
-
-
     init(id, todayRange);
   }, [id]);
 

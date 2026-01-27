@@ -4,9 +4,9 @@ import { Icon } from "@/packages/shared-ui/icon";
 
 
 export const DocumentCard = ({ doc }: { doc: DocumentTestType }) => {
+
     return (
         <div
-            // key={key}
             className="flex items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer"
         >
             <div className="flex items-center gap-3 lg:gap-4">
