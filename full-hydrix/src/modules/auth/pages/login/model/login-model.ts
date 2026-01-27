@@ -84,7 +84,7 @@ class LoginModel {
                 window.localStorage.setItem("access_token", response.data['jwtToken'])
                 window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                 window.localStorage.setItem("user_id", "99999")
-                initUser()
+                // initUser()
 
                 await getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
                     initCompany(x.data)
@@ -144,49 +144,45 @@ class LoginModel {
                 })
         } else {
 
-
-            await authAdmin({
-                username: "aovks",
-                password: "ffggrr",
-            }).then((response) => {
-                window.localStorage.setItem("access_token", response.data['jwtToken'])
-                window.localStorage.setItem("refresh_token", response.data['refreshToken'])
-                window.localStorage.setItem("user_id", response.data['id'])
-            }).catch((error) => {
-                console.log(error)
-            })
-
-
-
-            await authoriseDespetcher({
-                login: this.model.username,
-                password: this.model.password
-            })
-                .then(response => {
-
-                    // window.localStorage.setItem("access_token", response.data['jwtToken'])
-                    // window.localStorage.setItem("refresh_token", response.data['refreshToken'])
-
-                    console.log({ ...response.data, id: response.data.id })
-                    window.localStorage.setItem("user", JSON.stringify({ ...response.data, id: response.data.userId }))
-                    initUser({ ...response.data, id: response.data.userId })
-
-                    switch (response.data.baseRoleId) {
-                        case Role.Client:
-                            setTimeout(() => {
-                                window.location.href = '/trieco/client'
-                            }, 1000)
-                            break;
-                        case Role.Sewer:
-                        case Role.TransporterCompany:
-                        case Role.Participant:
-                        case Role.Admin:
-                            setTimeout(() => {
-                                window.location.href = '/menu-moduls'
-                            }, 1000)
-                            break;
-                    }
+            try {
+                const adminResponse = await authAdmin({
+                    username: 'aovks',
+                    password: 'ffggrr',
                 })
+
+                window.localStorage.setItem('access_token', adminResponse.data.jwtToken)
+                window.localStorage.setItem('refresh_token', adminResponse.data.refreshToken)
+                window.localStorage.setItem('user_id', adminResponse.data.id)
+
+                const response = await authoriseDespetcher({
+                    login: this.model.username,
+                    password: this.model.password,
+                })
+
+                const user = { ...response.data, id: response.data.userId }
+
+                window.localStorage.setItem('user', JSON.stringify(user))
+                initUser(user)
+
+                switch (response.data.baseRoleId) {
+                    case Role.Client:
+                        setTimeout(() => {
+                            window.location.href = '/trieco/client'
+                        }, 1000)
+                        break
+
+                    case Role.Sewer:
+                    case Role.TransporterCompany:
+                    case Role.Participant:
+                    case Role.Admin:
+                        setTimeout(() => {
+                            window.location.href = '/menu-moduls'
+                        }, 1000)
+                        break
+                }
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 }

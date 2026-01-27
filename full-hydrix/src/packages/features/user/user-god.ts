@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
 import { User, UserType } from "../../entities/user/type";
 import { InitTriecoCompanyInterface, WaterCompany } from "../../entities/water-company/types";
 import { Role } from "../../entities/user/enums";
 import { getByUser } from "@/packages/entities/user/api";
+import { GetUserById } from "@/app/cores/core-trieco/network/user/user";
 
 export class UserModel {
     private _user: User | UserType | null = null;
@@ -58,6 +58,9 @@ export class UserModel {
     }
 
     setUser(user: User | UserType) {
+
+        console.log('----')
+
         this._user = user;
         this._error = null;
         localStorage.setItem("user", JSON.stringify(user));
@@ -74,10 +77,6 @@ export class UserModel {
         const token = this.getToken();
         const userId = localStorage.getItem("user_id");
 
-        if (!token || !userId) {
-            this.clearUser();
-            return;
-        }
 
         this._isLoading = true;
         this._error = null;
@@ -103,7 +102,7 @@ export class UserModel {
             }
         } catch (error) {
             this._error = "Failed to load user data";
-            this.clearUser();
+            // this.clearUser();
         } finally {
             this._isLoading = false;
         }
