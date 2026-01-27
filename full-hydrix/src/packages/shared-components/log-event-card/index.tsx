@@ -8,8 +8,20 @@ interface Props {
 }
 
 export const LogEventCard = ({ event }: Props) => {
+
+    const getColorBorder = (txt: string) => {
+
+        if (txt == "1") {
+            return "border-l-4 border-green-500"
+        }
+
+        return
+    }
+
+
+
     return (
-        <div className="border bg-white p-3 rounded-lg border-l-4 transition-colors duration-200 hover:bg-gray-50">
+        <div className={`border bg-white p-3 rounded-lg border-l-4 transition-colors duration-200 hover:bg-gray-50`}>
             <div className="flex justify-between items-start mb-1">
                 <span className="text-xs text-gray-500 font-mono">{getDate(event.timeStamp)}</span>
             </div>

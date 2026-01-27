@@ -10,7 +10,7 @@ interface UploadDocData {
     file?: File
 }
 
-export const DocumentFormCard = ({ category }: { category: string }) => {
+export const DocumentFormCard = ({ category, onClose }: { category: string, onClose: () => void }) => {
     const { uploadDoc } = passportDocuments
 
     const [data, setData] = useState<UploadDocData>({
@@ -32,6 +32,7 @@ export const DocumentFormCard = ({ category }: { category: string }) => {
         console.log(data.file)
         if (!data.file || !data.name || !data.category) return
         await uploadDoc(data)
+        onClose()
     }
 
     return (

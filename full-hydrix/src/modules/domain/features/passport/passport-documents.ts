@@ -1,5 +1,6 @@
 import { objectDocumenAll, objectDocumentDelete, objectDocumentUpload } from '@/packages/entities/file-storage/api';
 import { makeAutoObservable } from 'mobx';
+import { toast } from 'react-toastify';
 
 
 class PassportDocuments {
@@ -18,6 +19,8 @@ class PassportDocuments {
         await objectDocumenAll({ id: objectId })
             .then((res) => {
                 console.log(res.data)
+
+                this.model = res.data
             })
             .catch((err) => {
                 console.log(err)
@@ -54,9 +57,7 @@ class PassportDocuments {
                 method: "POST",
                 body: formData
             })
-            const result = response.json();
-
-
+            const result = await response.json();
 
             this.model.push({
                 id: result.id,
@@ -64,6 +65,10 @@ class PassportDocuments {
                 category: result.category,
                 file: result.docId
             })
+
+
+            toast.success("Документ добавлен")
+
         } catch (error) {
             console.log(error)
         }

@@ -23,8 +23,7 @@ export const PassportDocumentation = observer(() => {
 
   const filteredDocuments = model.filter(doc => {
     const matchesCategory = activeCategory === 'all' || doc.category === activeCategory;
-    const matchesSearch = doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.number.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = doc.name.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch;
   });
 
