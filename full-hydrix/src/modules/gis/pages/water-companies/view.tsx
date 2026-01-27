@@ -149,9 +149,6 @@ export const CompanyListView = observer(() => {
                 countActive
                 columns={columns}
                 data={results.length > 0 ? results : []}
-                classNames={{
-                    body: "mt-4",
-                }}
             />
         </>
     )

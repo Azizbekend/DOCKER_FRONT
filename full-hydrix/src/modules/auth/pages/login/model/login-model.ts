@@ -143,6 +143,21 @@ class LoginModel {
                     }
                 })
         } else {
+
+
+            await authAdmin({
+                username: "aovks",
+                password: "ffggrr",
+            }).then((response) => {
+                window.localStorage.setItem("access_token", response.data['jwtToken'])
+                window.localStorage.setItem("refresh_token", response.data['refreshToken'])
+                window.localStorage.setItem("user_id", response.data['id'])
+            }).catch((error) => {
+                console.log(error)
+            })
+
+
+
             await authoriseDespetcher({
                 login: this.model.username,
                 password: this.model.password

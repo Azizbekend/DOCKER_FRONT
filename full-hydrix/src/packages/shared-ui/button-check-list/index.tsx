@@ -70,7 +70,7 @@ export const ButtonCheckList = (props: Props) => {
             </button>
             {open && (
                 <div
-                    className={`absolute top-full left-[50%] translate-x-[-50%] mt-1 min-w-full w-max px-2 py-2 bg-white rounded-lg shadow-lg border border-gray-200 z-20  ${props.classNames?.body || ''}`}
+                    className={`absolute flex flex-col gap-3 top-full left-[50%] translate-x-[-50%] mt-1 min-w-full w-max px-2 py-2 bg-white rounded-lg shadow-lg border border-gray-200 z-20  ${props.classNames?.body || ''}`}
                     role="listbox"
                 >
                     {props.children}

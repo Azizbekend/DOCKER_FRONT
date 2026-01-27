@@ -143,7 +143,10 @@ export const Incident = {
 export const Documents = {
   upload: "/FileStorage/documents/upload",
   hardware: "/FileStorage/documents/hardware",
+  
   objectDocumentUpload: "/FileStorage/object/document/upload",
+  objectDocumenAll: "/FileStorage/object/documents/all",
+  objectDocumentDelete: "/FileStorage/object/document/id",
 }
 
 

@@ -210,9 +210,6 @@ export const OderListView = observer(() => {
                 data={results.length > 0 ? results : []}
                 onRowClick={handleRowClick}
                 countActive
-                classNames={{
-                    body: "mt-4",
-                }}
             />
         </>
     )

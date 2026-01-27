@@ -42,11 +42,11 @@ export const Sidebar = observer(() => {
             <div className={`flex flex-col justify-between transition-all duration-300 sticky top-10 ${isSticky ? 'h-[95vh] pb-0' : 'h-[85vh] pb-5 '}`}>
                 <div className='flex gap-4 flex-col w-full'>
                     {/* {user?.roleId == 6 && */}
-                        <SidebarItem link='/gis/companies' icon='water-company' title='Водоканалы' isActive={location.pathname === "/gis/companies" || location.pathname === "/gis/company/56"} />
+                        {/* <SidebarItem link='/gis/companies' icon='water-company' title='Водоканалы' isActive={location.pathname === "/gis/companies" || location.pathname === "/gis/company/56"} /> */}
                     {/* } */}
 
                     {/* {(user?.roleId === Role.WaterCompany || user?.roleId === Role.Guest) && */}
-                        {/* <SidebarItem link={`/gis/company/${waterCompany?.id}`} icon='water-company' title='Водоканал' isActive={location.pathname.includes('/gis/company/')} /> */}
+                        <SidebarItem link={`/gis/company/${waterCompany?.id}`} icon='water-company' title='Водоканал' isActive={location.pathname.includes('/gis/company/')} />
                     {/* } */}
 
                     <SidebarItem link='/gis/sewers' icon='sewer-car' title='Ассенизаторы' isActive={location.pathname === '/gis/sewers'} />

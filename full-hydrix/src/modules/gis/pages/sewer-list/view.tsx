@@ -167,9 +167,6 @@ export const SewerListView = observer(() => {
                 columns={columns}
                 data={results.length > 0 ? results : []}
                 onRowClick={handleRowClick}
-                classNames={{
-                    body: "mt-4",
-                }}
             />
         </>
     );

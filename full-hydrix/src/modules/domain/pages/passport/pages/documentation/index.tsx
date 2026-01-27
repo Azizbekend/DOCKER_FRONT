@@ -3,15 +3,25 @@ import { PassportHeaderPanel } from '../../components/header-panel';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { categories, documents } from '@/modules/domain/features/document/data';
 import { DocumentBlock } from '@/modules/domain/widgets/passport-object-document/document-block';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { passportDocuments } from '@/modules/domain/features/passport/passport-documents';
+import { getObjectId } from '@/packages/functions/get-object-data';
+import Loader from '@/packages/shared-ui/loader/loader';
 
 
 export const PassportDocumentation = observer(() => {
+
+
+  const { model, isLoader, init } = passportDocuments
+
+  useEffect(() => {
+    init(getObjectId())
+  }, [])
+
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // Фильтрация документов
-  const filteredDocuments = documents.filter(doc => {
+  const filteredDocuments = model.filter(doc => {
     const matchesCategory = activeCategory === 'all' || doc.category === activeCategory;
     const matchesSearch = doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       doc.number.toLowerCase().includes(searchTerm.toLowerCase());
@@ -53,12 +63,15 @@ export const PassportDocumentation = observer(() => {
         </div>
       </div>
 
-      {/* Основной контент */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {(activeCategory === 'all' || activeCategory === 'PIR') && <DocumentBlock title="ПИР" category="PIR" list={filteredDocuments} />}
-        {(activeCategory === 'all' || activeCategory === 'ITD') && <DocumentBlock title="ИТД" category="ITD" list={filteredDocuments} />}
-        {(activeCategory === 'all' || activeCategory === 'EXPLOITATION') && <DocumentBlock title="Документация в период эксплуатации" category="EXPLOITATION" list={filteredDocuments} />}
-      </div>
+      {isLoader ? <Loader /> : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {(activeCategory === 'all' || activeCategory === 'PIR') && <DocumentBlock title="ПИР" category="PIR" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'ITD') && <DocumentBlock title="ИТД" category="ITD" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'EXPLOITATION') && <DocumentBlock title="Документация в период эксплуатации" category="EXPLOITATION" list={filteredDocuments} />}
+          {(activeCategory === 'all' || activeCategory === 'PORJECTS') && <DocumentBlock title="Проектная документация" category="PORJECTS" list={filteredDocuments} />}
+        </div>
+      )}
+
     </div>
   );
 });
