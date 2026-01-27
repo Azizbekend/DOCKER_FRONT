@@ -176,7 +176,7 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo,
                                 </div>
                             }
                             children={evengLog.length > 0 ?
-                                <div className="space-y-2 mb-3 max-h-[400px]">
+                                <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
                                     {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
                                 </div>
                                 :

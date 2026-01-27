@@ -2,6 +2,7 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportBlockContainer } from "../../components/passport-block-container";
 import { eventLogData } from "@/packages/entities/hardware/data";
+import { getColorBorder } from "@/packages/functions/get-color-border";
 
 
 export const HardwareLogs = observer(() => {
@@ -96,8 +97,11 @@ export const HardwareLogs = observer(() => {
                     <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
 
                   </div>
-                  <p className="text-sm text-gray-700 mt-1">{event.description}</p>
-
+                  <p className={`text-sm mt-1 ${getColorBorder(event.indicates)} ${getColorBorder(event.discription)}`}>
+                    {event.discription}
+                    {event.indicates == "1" && "Пуск оборудования"}
+                    {event.indicates == "0" && "Стоп оборудования"}
+                  </p>
                 </div>
               ))}
             </div>

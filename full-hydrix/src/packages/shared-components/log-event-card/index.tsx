@@ -1,4 +1,5 @@
 import { HardwareEventsDataType } from "@/packages/entities/hardware/type";
+import { getColorBorder } from "@/packages/functions/get-color-border";
 import { getDate } from "@/packages/functions/get-date";
 import { Link } from "react-router-dom";
 
@@ -9,14 +10,7 @@ interface Props {
 
 export const LogEventCard = ({ event }: Props) => {
 
-    const getColorBorder = (txt: string) => {
 
-        if (txt == "1") {
-            return "border-l-4 border-green-500"
-        }
-
-        return
-    }
 
 
 
@@ -25,11 +19,11 @@ export const LogEventCard = ({ event }: Props) => {
             <div className="flex justify-between items-start mb-1">
                 <span className="text-xs text-gray-500 font-mono">{getDate(event.timeStamp)}</span>
             </div>
-            <p className="text-sm text-gray-700 mt-1">
+            <p className={`text-sm mt-1 ${getColorBorder(event.indicates)} ${getColorBorder(event.discription)}`}>
                 {event.discription}
                 {event.indicates == "1" && "Пуск оборудования"}
                 {event.indicates == "0" && "Стоп оборудования"}
             </p>
-        </div>
+        </div >
     );
 }
