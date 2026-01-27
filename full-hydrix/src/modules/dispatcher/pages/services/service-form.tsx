@@ -7,12 +7,13 @@ import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { Textarea } from "@/packages/shared-ui/textarea";
 import { observer } from "mobx-react-lite";
 import { SelectorSearch } from "@/packages/shared-ui/Selector/selector-search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/packages/entities/user/context";
 
 export const RequestRegistryForm = observer(() => {
 
-    const { user } = useAuth()
+    const navigate = useNavigate();
+    const { user }  = useAuth()
     const { model, setTitle, setDiscription, setType, setHardwareId, init, hardwareList, isLodaderHardwares, create, setRequiredCount, companyList, setImplementerId, getUserList, userList } = createRequestModel
 
     useEffect(() => {
@@ -21,7 +22,7 @@ export const RequestRegistryForm = observer(() => {
     }, [])
 
     const onSubmit = () => {
-        create(user!.id, user!.companyId)
+        create(user!.id, user!.companyId, navigate("/dispatcher/services/"))
     }
 
     return (

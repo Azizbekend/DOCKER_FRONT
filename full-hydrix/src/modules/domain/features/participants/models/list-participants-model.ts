@@ -53,10 +53,7 @@ class ListParticipantsModel {
     }
 
     async init(id: number) {
-
-
         const userData = JSON.parse(localStorage.getItem('user'))
-
         try {
             this.isLoading = true;
             const res = await getCompanyByObject({ id: 14 });

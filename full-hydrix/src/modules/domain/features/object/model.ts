@@ -22,28 +22,45 @@ class PassportModel {
     itemObjectData: { name: string, value: string | number, coord?: string | null }[] = []
 
 
-    model: PassportModelIndicatorType = {
-        designPerformance: {
+    model: PassportModelIndicatorType[] = [
+        // {
+        //     key: "designPerformance",
+        //     name: "Проектная производительность",
+        //     projectValue: "250",
+        //     value: "250",
+        //     unit: "м³/сут",
+        // },
+        {
+            key: "dayEfficiency",
+            // name: "Среднесуточная производительность",
             name: "Проектная производительность",
-            value: "250 м³/сут",
+            projectValue: "250",
+            value: "0",
+            unit: "м³/сут",
         },
-        hourEfficiency: {
+        {
+            key: "hourEfficiency",
             name: "Часовая производительность",
-            value: "0 м³/ч",
+            projectValue: "10.4",
+            value: "0",
+            unit: "м³/ч",
         },
-        dayEfficiency: {
-            name: "Среднесуточная производительность",
-            value: "0 м³/сут",
+
+        {
+            key: "electroConsumption",
+            name: "Электроэнергия",
+            projectValue: "92.3",
+            value: "0",
+            unit: "кВт/ч",
         },
-        electroConsumption: {
-            name: "Расход электроэнергии",
-            value: "0 кВт/ч",
-        },
-        waterConsumption: {
+        {
+            key: "waterConsumption",
             name: "Водоснабжение",
-            value: "0 м³",
-        },
-    }
+            projectValue: "0.6",
+            value: "0.5",
+            unit: "м³",
+        }
+    ]
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -66,11 +83,28 @@ class PassportModel {
             this.itemObjectData.push({ name: "Эксплуатирующая организация", value: this.objectData.operatingOrganization, })
             this.itemObjectData.push({ name: "Генеральныйподрядчик", value: this.objectData.generalContractorName, })
 
-            this.model.hourEfficiency.value = shapshiChars.data.hourEfficiency + " м³/ч";
-            this.model.dayEfficiency.value = shapshiChars.data.dayEfficiency + " м³/сут";
-            this.model.electroConsumption.value = shapshiChars.data.electroConsumption + " кВт/ч";
-            this.model.waterConsumption.value = shapshiChars.data.waterConsumption + " м³";
 
+            console.log(shapshiChars.data)
+
+            const hourEfficiencyItem = this.model.find(item => item.key === "hourEfficiency");
+            if (hourEfficiencyItem) {
+                hourEfficiencyItem.value = String(shapshiChars.data.hourEfficiency);
+            }
+
+            const electroConsumptionItem = this.model.find(item => item.key === "electroConsumption");
+            if (electroConsumptionItem) {
+                electroConsumptionItem.value = String(shapshiChars.data.electroConsumption);
+            }
+
+            const dayEfficiencyItem = this.model.find(item => item.key === "dayEfficiency");
+            if (dayEfficiencyItem) {
+                dayEfficiencyItem.value = String(shapshiChars.data.dayEfficiency);
+            }
+
+            // const waterConsumptionItem = this.model.find(item => item.key === "waterConsumption");
+            // if (waterConsumptionItem) {
+            //     waterConsumptionItem.value = String(shapshiChars.data.waterConsumption);
+            // }
         } catch (error) {
             console.log(error)
         } finally {

@@ -15,26 +15,11 @@ export interface PassportModelType {
 
 
 export interface PassportModelIndicatorType {
-    designPerformance: {
-        name: string,
-        value: string,
-    }
-    hourEfficiency: {
-        name: string,
-        value: string,
-    }
-    dayEfficiency: {
-        name: string,
-        value: string,
-    }
-    electroConsumption: {
-        name: string,
-        value: string,
-    }
-    waterConsumption: {
-        name: string,
-        value: string,
-    }
+    key: string,
+    name: string,
+    projectValue: string,
+    value: string,
+    unit: string,
 }
 
 

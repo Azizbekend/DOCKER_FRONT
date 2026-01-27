@@ -1,6 +1,5 @@
 import { Table } from "@/packages/shared-ui/table-old"
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { columns } from "../../features/incident/columns";
 import { incedentListModel } from "../../features/incident/list-model";
 import Loader from "@/packages/shared-ui/loader/loader";
@@ -10,7 +9,6 @@ import { observer } from "mobx-react-lite";
 import { ServiceStagesPanel } from "@/packages/shared-components/stage/stages-panel";
 
 export const Incident = observer(() => {
-    const navigate = useNavigate();
     const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 

@@ -45,6 +45,7 @@ export const columns: TableColumn<IncidentColumn>[] = [
     {
         header: "Статус работы",
         key: 'status',
+        width: "200px",
         cell: ({ status }) => {
             return (
                 <div className="flex justify-center">

@@ -123,7 +123,7 @@ class CreateRequestModel {
         }));
     }
 
-    async create(id: number, comanyId: number) {
+    async create(id: number, comanyId: number, onAction: () => void) {
         this.model.creatorId = id
 
         try {
@@ -141,6 +141,7 @@ class CreateRequestModel {
                     hardwareId: this.model.hardwareId,
                     objectId: this.model.objectId,
                 })
+                onAction()
 
             } else if (this.model.type == "Поставочная") {
                 result = await supplyRequestCreate({
@@ -154,6 +155,7 @@ class CreateRequestModel {
                     objectId: this.model.objectId,
                     requestType: "asda",
                 })
+                onAction()
 
                 toast.success("Заявка создана", { progressStyle: { background: "green" } })
             } else {

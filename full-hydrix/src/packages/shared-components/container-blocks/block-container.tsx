@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export const BlockContainer = ({ title, children }: { title: string, children: ReactNode }) => {
     return (
         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-200">
