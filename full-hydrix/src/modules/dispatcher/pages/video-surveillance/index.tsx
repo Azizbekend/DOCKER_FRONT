@@ -1,16 +1,20 @@
 import { VideoSlider } from "./components/video-slider"
 import { StreamPlayer } from "./components/stream-player"
 import { videoSurveillanceModel } from "./model/video-surveillance-model";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
+import { useAuth } from "@/packages/entities/user/context";
 
 export const VideoSurveillance = observer(() => {
     const { cameraSources, videoSrc, CameraConnect, CameraSwitch, CameraDisconnect } = videoSurveillanceModel
+    const { user } = useAuth()
 
     useEffect(() => {
-        CameraConnect()
-        return () => {
-            CameraDisconnect()
+        if (user?.id) {
+            CameraConnect(user.id)
+            return () => {
+                CameraDisconnect()
+            }
         }
     }, [])
 
