@@ -87,9 +87,9 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
                             className='w-full '
                             // info={item.discription}
                             children={
-                                <div className='flex items-center gap-4 justify-between ' onClick={() => handleServiceOpen(item.id)}>
+                                <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
+                                    <span className='font-bold'>X</span>
                                     ТО-1 Замена масла через 300 ч (25.12.2025)
-                                    <Icon systemName='info-blue' className='min-w-[30px] min-h-[30px] w-[30px] h-[30px]' />
                                 </div>
                             }
                         />
