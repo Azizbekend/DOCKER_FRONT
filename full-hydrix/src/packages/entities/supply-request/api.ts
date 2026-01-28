@@ -41,3 +41,6 @@ export const supplyRequestStageCancel = (params: SupplyRequestStageCancelType) =
 }
 
 
+export const supplyRequestStageDelete = (params: { id: number }) => {
+    return reserchInstance.delete(SupplyRequest.delete, { params })
+}

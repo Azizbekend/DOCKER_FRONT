@@ -82,14 +82,12 @@ export const RequestRegistryList = observer(() => {
       </h2>
 
       <div className="space-y-5">
-        {filteredRequests.length > 0 ? (
-          filteredRequests.map((item) => (
-            <RequestCard key={item.id}
-              request={item}
-              onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId)}
-            />
-          ))
-        ) : (
+        {filteredRequests.length > 0 ? (filteredRequests.map((item) => (
+          <RequestCard key={item.id}
+            request={item}
+            onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId)}
+          />
+        ))) : (
           <div className="text-center py-12">
 
             <h3 className="text-lg font-medium text-gray-800 mb-1">Заявки не найдены</h3>

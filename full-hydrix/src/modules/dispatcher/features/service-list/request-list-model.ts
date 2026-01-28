@@ -2,6 +2,7 @@ import { getCompanyOne } from "@/packages/entities/company/api";
 import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceRequests, completeServiceRequests, getByObjectServiceRequests } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
+import { supplyRequestStageDelete } from "@/packages/entities/supply-request/api";
 import { getByUser } from "@/packages/entities/user/api";
 import { getGoodName } from "@/packages/functions/get-good-name";
 import { makeAutoObservable } from "mobx";
@@ -32,6 +33,11 @@ class ListRequestModel {
             this.isLoader = true;
             const serviceRes = await getByObjectServiceRequests({ id });
             const results = [];
+
+
+            console.log(serviceRes)
+
+
 
             for (const item of serviceRes.data) {
                 try {
@@ -100,7 +106,6 @@ class ListRequestModel {
             }
 
             this.model = results;
-            console.log(results)
         } catch (error) {
             console.error('Error in init:', error);
             this.model = [];

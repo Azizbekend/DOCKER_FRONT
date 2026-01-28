@@ -94,7 +94,7 @@ class HardwareModel {
         this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -105,16 +105,6 @@ class HardwareModel {
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
                 getInfoNodeInfoAllCheck({ id: id }),
-                hardwaresEvents({
-                    hadrwareId: id,
-                    start: dateData.start,
-                    end: dateData.end,
-                }),
-                hardwaresLogs({
-                    hadrwareId: id,
-                    start: dateData.start,
-                    end: dateData.end,
-                })
             ]);
 
 
@@ -124,7 +114,6 @@ class HardwareModel {
 
             this.commandsInfo = commandsInfo.data;
             for (let i = 0; i < commandsInfo.data.length; i++) { this.ids.push(commandsInfo.data[i].id) }
-
 
             this.сharacteristic = characteristics.data;
 
@@ -139,16 +128,36 @@ class HardwareModel {
 
             // this.isActiveCommand = commandCheck.data == "True"
 
-            this.evengLog = hardwaresEventsRes.data
-            this.evengLog = [
-                ...this.evengLog,
-                ...hardwaresLogsRes.data
-            ]
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
             this.isLoading = false;
+        }
+
+
+        try {
+            const [hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
+                hardwaresEvents({
+                    hadrwareId: id,
+                    start: dateData.start,
+                    end: dateData.end,
+                }),
+                hardwaresLogs({
+                    hadrwareId: id,
+                    start: dateData.start,
+                    end: dateData.end,
+                })
+            ]);
+
+            this.evengLog = hardwaresEventsRes.data;
+            this.evengLog = [
+                ...this.evengLog,
+                ...hardwaresLogsRes.data
+            ];
+
+        } catch (error) {
+            console.log(error)
         }
 
         await getInfoHardware({ id: id })

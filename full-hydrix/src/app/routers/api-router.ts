@@ -143,7 +143,7 @@ export const Incident = {
 export const Documents = {
   upload: "/FileStorage/documents/upload",
   hardware: "/FileStorage/documents/hardware",
-  
+
   objectDocumentUpload: "/FileStorage/object/document/upload",
   objectDocumenAll: "/FileStorage/object/documents/all",
   objectDocumentDelete: "/FileStorage/object/document/id",
@@ -210,6 +210,7 @@ export const ServiceRequests = {
   cancel: "/ServiceRequests/mainEngineer/commonService/Cancel",
 };
 
+
 export const ServiceStageRequests = {
   all: "/ServiceRequests/stage/services/all",
   byUser: "/ServiceRequests/services/stages/user/all",
@@ -230,6 +231,7 @@ export const SupplyRequest = {
   complete: "/SupplyRequest/mainEngineer/supplyStage/complete",
   resend: "/SupplyRequest/mainEngineer/supplyRequest/stage/resend",
   cancel: "/SupplyRequest/mainEngineer/supplyStage/Cancel",
+  delete: "/SupplyRequest",
 }
 
 export const Company = {
