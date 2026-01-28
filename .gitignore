@@ -1,4 +1,4 @@
 node_modules
 dist
 
-server-video-systema/public/stream*
+server-save-image/*
