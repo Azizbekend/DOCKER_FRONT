@@ -17,7 +17,7 @@ import { getTimeRanges } from "@/packages/functions/get-time-ranges";
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
   const { todayRange } = getTimeRanges()
-  const { init, model, evengLog, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, checkedService } = hardwareModel;
+  const { init, model, evengLog, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, missedService, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -130,6 +130,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
               {mode === 2 &&
                 <HardwareServes
                   idHardware={id}
+                  missedService={missedService}
                   getCommands={getCommands}
                   servicesWeek={servicesWeek}
                   checkedService={checkedService}

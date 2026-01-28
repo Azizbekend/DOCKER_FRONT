@@ -12,7 +12,7 @@ import { HardwareServesProps } from '@/packages/entities/hardware/type';
 import { useAuth } from '@/packages/entities/user/context';
 import { isAdmin } from '@/packages/entities/user/utils';
 
-export const HardwareServes = observer(({ getCommands, servicesWeek, checkedService, idHardware }: HardwareServesProps) => {
+export const HardwareServes = observer(({ getCommands, servicesWeek, checkedService, idHardware, missedService }: HardwareServesProps) => {
 
     const [btnCount, setBtnCount] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
@@ -77,24 +77,56 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
             }
 
 
-
-            {(idHardware === 28 || idHardware === 26 || idHardware === 28) && (user.id == 37 || isAdmin()) &&
+            {missedService.length > 0 &&
                 <BlockSelect title="Пропущенное обслуживание"
                     className="flex flex-col gap-3 text-gray"
                     isOpen={true}
                     children={
-                        <InfoObject
-                            className='w-full '
-                            // info={item.discription}
-                            children={
-                                <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
-                                    <span className='font-bold'>X</span>
-                                    ТО-1 Замена масла через 300 ч (25.12.2025)
-                                </div>
+                        <>
+
+                            {(idHardware === 28 || idHardware === 26 || idHardware === 28) && (user.id == 37 || isAdmin()) &&
+                                <InfoObject
+                                    className='w-full '
+                                    children={
+                                        <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
+                                            <span className='font-bold'>X</span>
+                                            ТО-1 Замена масла через 300 ч (25.12.2025)
+                                        </div>
+                                    }
+                                />
                             }
-                        />
-                    }
-                />
+
+                            {missedService.map((item, key) => {
+                                return (
+                                    <InfoObject
+                                        key={key}
+                                        className='w-full '
+                                        info={item.discription}
+                                        children={
+                                            <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
+                                                <span className='font-bold'>X</span>
+                                                {item.title}
+                                            </div>
+                                        }
+                                    />
+                                    // <InfoObject key={key}
+                                    //     className='w-full '
+                                    //     info={item.discription}
+
+                                    //     children={
+                                    //         <div className='flex items-center gap-4 justify-between ' onClick={() => handleServiceOpen(item.id)}>
+                                    //             <InputCheckbox
+                                    //                 disabled
+                                    //                 label={item.title}
+                                    //             />
+                                    //             <Icon systemName='info-blue' className='min-w-[30px] min-h-[30px] w-[30px] h-[30px]' />
+                                    //         </div>
+                                    //     }
+                                    // />
+                                )
+                            })}
+                        </>
+                    } />
             }
 
             {getCommands.length == 0 && <div className='border-y border-gray-500 py-4'>На сегодня задач нет</div>}

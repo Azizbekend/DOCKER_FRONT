@@ -35,6 +35,7 @@ class HardwareModel {
     commandsInfo: ControlType[] = []
     services: ServiceModelType[] | any = []
     servicesToday: ServiceModelType[] | any = []
+    missedService: ServiceModelType[] | any = []
     servicesWeek: ServiceModelType[] | any = []
     servicesHistory: ServiceHistoryType[] | any = []
     serviceStatistic: ServiceStatisticType[] | any = []
@@ -81,6 +82,7 @@ class HardwareModel {
         this.commandsInfo = [];
         this.services = [];
         this.servicesToday = [];
+        this.missedService = [];
         this.servicesWeek = [];
         this.servicesHistory = [];
         this.serviceStatistic = [];
@@ -126,6 +128,16 @@ class HardwareModel {
 
             this.documents = documents.data;
             this.incidentList = incidentList.data;
+
+
+            const today = new Date();
+            this.missedService = this.servicesToday.filter(service => {
+                if (!service.nextMaintenanceDate) return false;
+                const nextDate = new Date(service.nextMaintenanceDate);
+                nextDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+                return nextDate < today;
+            });
 
             // this.isActiveCommand = commandCheck.data == "True"
 
