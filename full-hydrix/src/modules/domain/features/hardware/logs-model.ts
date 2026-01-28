@@ -1,5 +1,6 @@
 import { hardwaresEvents, hardwaresLogs } from "@/packages/entities/hardware/api";
 import { HardwareEventsDataType, StartEndDates } from "@/packages/entities/hardware/type";
+import { sortHardwareEventsLogs } from "@/packages/functions/sort-hardware-events-logs";
 import { makeAutoObservable } from "mobx";
 
 class LogsModel {
@@ -27,24 +28,26 @@ class LogsModel {
             throw new Error('Переданы некорректные даты');
         }
 
-        await hardwaresEvents({
-            hadrwareId: this.hardwareId,
-            start: startDate,
-            end: endDate,
-        }).then((res) => {
-            this.evengLog = res.data
-        })
 
-        await hardwaresLogs({
-            hadrwareId: this.hardwareId,
-            start: startDate,
-            end: endDate,
-        }).then((res) => {
-            this.evengLog = [
-                ...this.evengLog,
-                ...res.data
-            ]
-        })
+        try {
+            const [hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
+                hardwaresEvents({
+                    hadrwareId: this.hardwareId,
+                    start: startDate,
+                    end: endDate,
+                }),
+                hardwaresLogs({
+                    hadrwareId: this.hardwareId,
+                    start: startDate,
+                    end: endDate,
+                })
+            ]);
+
+
+            this.evengLog = sortHardwareEventsLogs([...hardwaresEventsRes.data, ...hardwaresLogsRes.data])
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

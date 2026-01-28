@@ -3,6 +3,7 @@ import { DocumentsType } from "@/packages/entities/documents/type";
 import { getInfoHardware, hardwaresEvents, hardwaresLogs, statusHardwaresCheck } from "@/packages/entities/hardware/api";
 import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/packages/entities/hardware/api-general";
 import { HardwareEventsDataType, HardwareInterface, StartEndDates } from "@/packages/entities/hardware/type";
+import { sortHardwareEventsLogs } from "@/packages/functions/sort-hardware-events-logs";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
 import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
 
@@ -149,13 +150,7 @@ class HardwareModel {
                     end: dateData.end,
                 })
             ]);
-
-            this.evengLog = hardwaresEventsRes.data;
-            this.evengLog = [
-                ...this.evengLog,
-                ...hardwaresLogsRes.data
-            ];
-
+            this.evengLog = sortHardwareEventsLogs([...hardwaresEventsRes.data, ...hardwaresLogsRes.data])
         } catch (error) {
             console.log(error)
         }
