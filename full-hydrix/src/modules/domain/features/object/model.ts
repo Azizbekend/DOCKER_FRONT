@@ -67,11 +67,14 @@ class PassportModel {
     }
 
     async init(id: number) {
+
+
+
+
         try {
 
-            const [data, shapshiChars] = await Promise.all([
+            const [data] = await Promise.all([
                 getOneData({ id: id }),
-                getTechnicalCharsShapshi()
             ])
 
             localStorage.setItem("objectData", JSON.stringify(data.data))
@@ -83,8 +86,15 @@ class PassportModel {
             this.itemObjectData.push({ name: "Эксплуатирующая организация", value: this.objectData.operatingOrganization, })
             this.itemObjectData.push({ name: "Генеральный подрядчик", value: this.objectData.generalContractorName, })
 
+        } catch (error) {
+            console.log(error)
+        }
 
-            console.log(shapshiChars.data)
+        try {
+
+            const [shapshiChars] = await Promise.all([
+                getTechnicalCharsShapshi()
+            ])
 
             const hourEfficiencyItem = this.model.find(item => item.key === "hourEfficiency");
             if (hourEfficiencyItem) {

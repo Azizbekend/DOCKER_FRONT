@@ -72,7 +72,6 @@ class AddCompanyModel {
         await getCompanyByInn({ inn: this.innValue })
             .then((res) => {
                 this.model = res.data
-                console.log(res.data)
             })
             .catch((error) => console.log(error.data))
             .finally(() => this.loaderSearch = false)

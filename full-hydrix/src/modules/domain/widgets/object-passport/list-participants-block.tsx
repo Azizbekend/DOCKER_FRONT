@@ -17,9 +17,7 @@ export const ListParticipantsBlock = observer(({ list }: ListParticipantsBlockPr
 
 
     const chekCompany = (txt: string) => {
-        console.log('Проверяемый текст:', txt);
         const result = txt != 'ГУП "Электрические сети"';
-        console.log('Результат:', result);
         return result;
     }
 

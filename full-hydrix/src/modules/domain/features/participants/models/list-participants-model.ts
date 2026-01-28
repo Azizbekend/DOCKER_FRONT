@@ -34,11 +34,7 @@ class ListParticipantsModel {
 
     async updateList(companyId: number, data: any) {
         const listParticipantsCompanyListUpdate = this.listParticipants.map(participant => {
-            console.log(participant.company?.companyId)
             if (participant.company?.companyId === companyId) {
-
-                console.log({ ...participant, users: data })
-
                 return {
                     ...participant,
                     users: data
@@ -52,11 +48,12 @@ class ListParticipantsModel {
 
     }
 
-    async init(id: number) {
+    async init(objectId: number) {
         const userData = JSON.parse(localStorage.getItem('user'))
+
         try {
             this.isLoading = true;
-            const res = await getCompanyByObject({ id: 14 });
+            const res = await getCompanyByObject({ id: objectId });
             const companyList = res.data ?? [];
             const fullData: Array<{ company: any; users: any[] }> = [];
 
@@ -71,19 +68,28 @@ class ListParticipantsModel {
 
                     const [usersRes, companyObjectLinkRes] = await Promise.all([
                         getCompanyUsers({ id: companyItem.company.companyId }),
-                        getCompanyObjectLinkId({ companyId: companyItem.company.companyId, objectId: 14 })
+                        getCompanyObjectLinkId({ companyId: companyItem.company.companyId, objectId: objectId })
                     ]);
 
                     const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
 
+                    if (userData.login === "admin_god") {
 
-                    attachUsersRes.data.forEach(element => {
+                        localStorage.setItem("userDostup", JSON.stringify({
+                            isNodeInfosEnabled: true,
+                            isCommandsEnabled: true,
+                            is3DEnabled: true,
+                            canCreateCommonServiceRequests: true,
+                            canCreateIncidentServiseRequests: true
+                        }))
+                    } else {
+                        attachUsersRes.data.forEach(element => {
+                            if (element.userId == userData.id) {
+                                localStorage.setItem("userDostup", JSON.stringify(element))
+                            }
+                        });
+                    }
 
-                        if (element.userId == userData.id) {
-                            localStorage.setItem("userDostup", JSON.stringify(element))
-                        }
-
-                    });
 
                     let attachUsersIds: number[] = []
 
@@ -104,7 +110,6 @@ class ListParticipantsModel {
 
             this.listParticipants = fullData;
 
-            console.log(this.listParticipants)
         } catch (err) {
             console.error('Error in init:', err);
         } finally {

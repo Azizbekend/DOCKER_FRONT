@@ -58,9 +58,6 @@ export class UserModel {
     }
 
     setUser(user: User | UserType) {
-
-        console.log('----')
-
         this._user = user;
         this._error = null;
         localStorage.setItem("user", JSON.stringify(user));
@@ -75,7 +72,8 @@ export class UserModel {
 
     async initUser() {
         const token = this.getToken();
-        const userId = localStorage.getItem("user_id");
+        const userId = JSON.parse(localStorage.getItem("user")).id;
+
 
 
         this._isLoading = true;
@@ -109,9 +107,6 @@ export class UserModel {
     }
 
     initCompany(data: WaterCompany) {
-
-        console.log(data)
-
         this._waterCompany = data;
         localStorage.setItem("waterCompany", JSON.stringify(data));
     }

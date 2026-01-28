@@ -6,7 +6,6 @@ import { passportModel } from "../../features/object/model";
 import { tabLinks } from "../../../../packages/entities/object/config";
 import { observer } from "mobx-react-lite";
 import Loader from "@/packages/shared-ui/loader/loader";
-import { getDostup } from "@/packages/entities/user/utils";
 
 export const PassportObject = observer(() => {
 
@@ -14,7 +13,7 @@ export const PassportObject = observer(() => {
   const { init, isLodaded } = passportModel;
 
   useEffect(() => {
-    init(objectId)
+    init(Number(objectId))
   }, [])
 
   return (

@@ -154,6 +154,14 @@ class LoginModel {
                 window.localStorage.setItem('refresh_token', adminResponse.data.refreshToken)
                 window.localStorage.setItem('user_id', adminResponse.data.id)
 
+                await getWaterCompanyByUserId({ UserId: adminResponse.data.id }).then(x => {
+                    initCompany(x.data)
+                    setTimeout(() => {
+                        window.location.href = '/menu-moduls'
+                    }, 1000)
+                })
+
+
                 const response = await authoriseDespetcher({
                     login: this.model.username,
                     password: this.model.password,

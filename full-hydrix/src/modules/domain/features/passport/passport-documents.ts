@@ -18,8 +18,6 @@ class PassportDocuments {
 
         await objectDocumenAll({ id: objectId })
             .then((res) => {
-                console.log(res.data)
-
                 this.model = res.data
             })
             .catch((err) => {

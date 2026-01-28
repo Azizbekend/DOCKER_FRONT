@@ -3,27 +3,21 @@ import { observer } from 'mobx-react-lite';
 import { PassportHeaderPanel } from '../../components/header-panel';
 import { Button } from '@/packages/shared-ui/button';
 import { CreateCompanyModal } from '@/modules/domain/features/participants/components/create-company-modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { listParticipantsModel } from '@/modules/domain/features/participants/models/list-participants-model';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { CreateParticipantsModal } from '@/modules/domain/features/participants/components/create-participants-modal';
 import { AddCompanyModal } from '@/modules/domain/features/participants/components/add-company-modal';
 import { AddParticipantsModal } from '@/modules/domain/features/participants/components/add-participants-modal';
-import { useAuth } from '@/packages/entities/user/context';
-import { Role } from '@/packages/entities/user/enums';
 import { isAdmin } from '@/packages/entities/user/utils';
 
 export const PassportParticipants = observer(() => {
 
-  const { isLoading, init, openCompanyId, showModalParticipants, setShowModalParticipants, listParticipants, pushParticipants, showAddModalParticipants, setShowAddModalParticipants, updateList } = listParticipantsModel
+  const { isLoading, openCompanyId, showModalParticipants, setShowModalParticipants, listParticipants, pushParticipants, showAddModalParticipants, setShowAddModalParticipants, updateList } = listParticipantsModel
 
   const [showModalCompany, setShowModalCompany] = useState(false);
   const [showAddModalCompany, setShowAddModalCompany] = useState(false);
 
-  useEffect(() => {
-    const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
-    init(objectId)
-  }, [])
 
   return <>
     {showModalCompany && <CreateCompanyModal show={showModalCompany} setShow={setShowModalCompany} />}
