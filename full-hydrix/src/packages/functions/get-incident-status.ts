@@ -9,7 +9,6 @@ export function getIncidentColor(status: string) {
         case "Cancele":
         case "Canceled":
         case "canceled":
-        case "canceled":
         case "Завершён":
             return "bg-green-100 text-green-800 border border-green-200";
     }
@@ -25,7 +24,6 @@ export function getIncidentText(status: string) {
             return "В работе";
         case "Cancele":
         case "Canceled":
-        case "canceled":
         case "canceled":
         case "Завершён":
             return "Завершён";
