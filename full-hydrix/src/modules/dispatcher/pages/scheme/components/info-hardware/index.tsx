@@ -7,8 +7,6 @@ import Loader from "@/packages/shared-ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/packages/shared-ui/button";
 import { InfoCompType } from "../../types/type";
-import { eventLog } from "@/modules/domain/features/hardware/data";
-import { getStatusClass } from "@/packages/shared/libs/hardware/functions/functions";
 import { HardwareControlle, HardwareReview, HardwareServes } from "@/packages/shared/libs/hardware/tabs/panel-tabs";
 import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/hardware-status";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
