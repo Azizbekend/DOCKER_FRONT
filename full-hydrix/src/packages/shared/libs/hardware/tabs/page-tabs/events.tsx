@@ -22,7 +22,7 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
 
   useEffect(() => {
     init(hardwareId, todayRange)
-  }, [hardwareId,])
+  }, [])
 
 
   const onFilterSubmit = (type: string) => {

@@ -28,26 +28,32 @@ class LogsModel {
             throw new Error('Переданы некорректные даты');
         }
 
+        let eventsData = [];
+        let logsData = [];
 
         try {
-            const [hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
-                hardwaresEvents({
-                    hadrwareId: this.hardwareId,
-                    start: startDate,
-                    end: endDate,
-                }),
-                hardwaresLogs({
-                    hadrwareId: this.hardwareId,
-                    start: startDate,
-                    end: endDate,
-                })
-            ]);
-
-
-            this.evengLog = sortHardwareEventsLogs([...hardwaresEventsRes.data, ...hardwaresLogsRes.data])
+            const hardwaresEventsRes = await hardwaresEvents({
+                hadrwareId: this.hardwareId,
+                start: startDate,
+                end: endDate,
+            });
+            eventsData = hardwaresEventsRes.data;
         } catch (error) {
-            console.log(error)
+            console.error('Ошибка загрузки events:', error);
         }
+
+        try {
+            const hardwaresLogsRes = await hardwaresLogs({
+                hadrwareId: this.hardwareId,
+                start: startDate,
+                end: endDate,
+            });
+            logsData = hardwaresLogsRes.data;
+        } catch (error) {
+            console.error('Ошибка загрузки logs:', error);
+        }
+
+        this.evengLog = sortHardwareEventsLogs([...eventsData, ...logsData]);
     }
 }
 

@@ -137,23 +137,32 @@ class HardwareModel {
         }
 
 
+        let eventsData = [];
+        let logsData = [];
+
         try {
-            const [hardwaresEventsRes, hardwaresLogsRes] = await Promise.all([
-                hardwaresEvents({
-                    hadrwareId: id,
-                    start: dateData.start,
-                    end: dateData.end,
-                }),
-                hardwaresLogs({
-                    hadrwareId: id,
-                    start: dateData.start,
-                    end: dateData.end,
-                })
-            ]);
-            this.evengLog = sortHardwareEventsLogs([...hardwaresEventsRes.data, ...hardwaresLogsRes.data])
+            const hardwaresEventsRes = await hardwaresEvents({
+                hadrwareId: id,
+                start: dateData.start,
+                end: dateData.end,
+            });
+            eventsData = hardwaresEventsRes.data;
         } catch (error) {
-            console.log(error)
+            console.error('Ошибка загрузки events:', error);
         }
+
+        try {
+            const hardwaresLogsRes = await hardwaresLogs({
+                hadrwareId: id,
+                start: dateData.start,
+                end: dateData.end,
+            });
+            logsData = hardwaresLogsRes.data;
+        } catch (error) {
+            console.error('Ошибка загрузки logs:', error);
+        }
+
+        this.evengLog = sortHardwareEventsLogs([...eventsData, ...logsData]);
 
         await getInfoHardware({ id: id })
             .then((res) => {

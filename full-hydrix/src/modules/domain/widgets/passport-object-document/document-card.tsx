@@ -1,12 +1,9 @@
 import { DocumentTestType } from "@/packages/entities/documents/type";
-import { Button } from "@/packages/shared-ui/button";
 import { Icon } from "@/packages/shared-ui/icon";
-import { passportDocuments } from "../../features/passport/passport-documents";
-import { useEffect } from "react";
 
 
 export const DocumentCard = ({ doc }: { doc: DocumentTestType }) => {
-    const { deleteDoc } = passportDocuments
+    // const { deleteDoc } = passportDocuments
 
     return (
         <a href={"https://triapi.ru/research/api/FileStorage/images/download?id=" + doc.docId}
@@ -19,7 +16,6 @@ export const DocumentCard = ({ doc }: { doc: DocumentTestType }) => {
                 <div className="font-medium text-gray-800 text-sm lg:text-base">{doc.name}</div>
             </div>
             <div></div>
-            download={true}
         </a>
     );
 };

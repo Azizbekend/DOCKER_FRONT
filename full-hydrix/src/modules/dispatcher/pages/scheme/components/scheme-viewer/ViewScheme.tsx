@@ -70,7 +70,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
             >
                 {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div key={p.id}
-                        onDoubleClickCapture={() => { if (user?.roleId !== Role.Guest) setSchemeObjectData(p.id) }}
+                        onDoubleClickCapture={() => { if (user?.login == "admin_god") setSchemeObjectData(p.id) }}
                         onClick={() => setInfo(p.hardwareId, p.status)}
                         className="absolute cursor-pointer z-3"
                         style={{

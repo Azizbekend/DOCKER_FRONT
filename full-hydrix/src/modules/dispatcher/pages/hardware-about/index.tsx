@@ -74,16 +74,18 @@ export const HardwareAbout = observer(() => {
                             Создать заявку
                         </Link> */}
 
-                        <Button
-                            // class="px-4 py-2.5 bg-gray-500 text-white rounded-lg font-medium hover:bg-gray-600 transition-colors shadow-sm"
-                            styleColor={"blue"}
-                            class="px-4 gap-3"
-                            onClick={() => setModalService(true, model.id)}
-                        >
-                            <Icon systemName="file-plus" />
 
-                            сервис
-                        </Button>
+                        {isAdmin() &&
+                            <Button
+                                styleColor={"blue"}
+                                class="px-4 gap-3 py-2"
+                                onClick={() => setModalService(true, model.id)}
+                            >
+                                <Icon systemName="file-plus" />
+
+                                сервис
+                            </Button>
+                        }
 
                         {isAdmin() &&
                             <Button
