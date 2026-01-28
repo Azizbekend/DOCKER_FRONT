@@ -1,15 +1,16 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
-import { Incident } from "../../registry-objects/data/data";
 import { ServiceType } from "@/packages/entities/service-requests/type";
 import { getDate } from "@/packages/functions/get-date";
+import { Incident } from "@/packages/entities/incident/type";
+import { getIncidentColor, getIncidentText } from "@/packages/functions/get-incident-status";
 
 export const columnsIncidents: TableColumn<Incident>[] = [
     {
         header: "Объект",
-        key: 'objectId',
-        cell: ({ objectId }) => {
+        key: 'object',
+        cell: ({ object }) => {
             return (
-                <div className='font-semibold text-sm'>{objectId}</div>
+                <div className='font-semibold text-sm'>{object.name}</div>
             )
         },
     },
@@ -24,10 +25,10 @@ export const columnsIncidents: TableColumn<Incident>[] = [
     },
     {
         header: "Авария",
-        key: 'discription',
-        cell: ({ discription }) => {
+        key: 'nodeName',
+        cell: ({ nodeName }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{discription || '—'}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-sm'>{nodeName || '—'}</div>
             );
         },
     },
@@ -40,36 +41,32 @@ export const columnsIncidents: TableColumn<Incident>[] = [
             );
         },
     },
-    {
-        header: "Затрачено",
-        key: 'duration',
-        cell: ({ duration }) => {
-            return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{duration}</div>
-            );
-        },
-    },
-    {
-        header: "Исполнитель",
-        key: 'responsible',
-        cell: ({ serviceUserId }) => {
-            return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{serviceUserId}</div>
-            );
-        },
-    },
+    // {
+    //     header: "Затрачено",
+    //     key: 'duration',
+    //     cell: ({ duration }) => {
+    //         return (
+    //             <div className='text-center w-full text-gray-800 font-medium text-sm'>{duration}</div>
+    //         );
+    //     },
+    // },
+    // {
+    //     header: "Исполнитель",
+    //     key: 'responsible',
+    //     cell: ({ serviceUserId }) => {
+    //         return (
+    //             <div className='text-center w-full text-gray-800 font-medium text-sm'>{serviceUserId}</div>
+    //         );
+    //     },
+    // },
     {
         header: "Статус работы",
         key: 'status',
         cell: ({ status }) => {
             return (
                 <div className="flex justify-center">
-                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold 
-                        ${status == "New" && "bg-red-100 text-red-800 border border-red-200"}
-                        ${status == "В работе" && "bg-blue-100 text-blue-800 border border-blue-200"}
-                        ${status == "Завершён" && "bg-green-100 text-green-800 border border-green-200"}
-                    `}>
-                        {status == "New" && "Новая"}
+                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${getIncidentColor(status)}`}>
+                        {getIncidentText(status)}
                     </div>
                 </div >
             );
@@ -138,7 +135,8 @@ export const columnsService: TableColumn<ServiceType>[] = [
                 </div>
             );
         },
-    }, {
+    },
+    {
         header: "Ответственный исполнитель",
         key: 'userName',
         cell: ({ userName }) => {

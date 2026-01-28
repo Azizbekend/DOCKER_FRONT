@@ -1,6 +1,7 @@
 import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { getAllIncedent } from "@/packages/entities/incident/api";
 import { Incident } from "@/packages/entities/incident/type";
+import { getOneData } from "@/packages/entities/object/api";
 import { cancelServiceRequests, completeServiceRequests, getServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
@@ -161,45 +162,66 @@ class ServicesMapModel {
 
     async initIncident() {
         const incidentResponse = await getAllIncedent();
-        this.incidents = incidentResponse.data;
+        const incidents = incidentResponse.data ?? [];
 
+        // 1. Собираем уникальные hardwareId и objectId за один проход
         const hardwareIds = new Set<number>();
-        this.incidents.forEach(incident => {
+        const objectIds = new Set<number>();
+
+        for (const incident of incidents) {
             if (incident.hardwareId) {
                 hardwareIds.add(incident.hardwareId);
             }
-        });
-
-        const hardwarePromises = Array.from(hardwareIds).map(async (hardwareId) => {
-            try {
-                const hardwareResponse = await getInfoHardware({ id: hardwareId });
-                return {
-                    hardwareId,
-                    hardwareName: hardwareResponse.data?.name || 'Неизвестно'
-                };
-            } catch (error) {
-                console.error(`Ошибка загрузки hardware ${hardwareId}:`, error);
-                return {
-                    hardwareId,
-                    hardwareName: 'Ошибка загрузки'
-                };
+            if (incident.objectId) {
+                objectIds.add(incident.objectId);
             }
-        });
+        }
 
-        const hardwareInfoArray = await Promise.all(hardwarePromises);
-
+        // 2. Загружаем hardware
         const hardwareMap = new Map<number, string>();
-        hardwareInfoArray.forEach(info => {
-            hardwareMap.set(info.hardwareId, info.hardwareName);
-        });
 
-        const enrichedIncidents = this.incidents.map(incident => ({
+        await Promise.all(
+            Array.from(hardwareIds).map(async (hardwareId) => {
+                try {
+                    const res = await getInfoHardware({ id: hardwareId });
+                    hardwareMap.set(
+                        hardwareId,
+                        res.data?.name ?? 'Неизвестно'
+                    );
+                } catch (e) {
+                    console.error(`Ошибка загрузки hardware ${hardwareId}`, e);
+                    hardwareMap.set(hardwareId, 'Ошибка загрузки');
+                }
+            })
+        );
+
+        // 3. Загружаем объекты (objectId может повторяться)
+        const objectMap = new Map<number, any>();
+
+        await Promise.all(
+            Array.from(objectIds).map(async (objectId) => {
+                try {
+                    const res = await getOneData({ id: objectId });
+                    objectMap.set(objectId, res.data ?? null);
+                } catch (e) {
+                    console.error(`Ошибка загрузки объекта ${objectId}`, e);
+                    objectMap.set(objectId, null);
+                }
+            })
+        );
+
+        // 4. Обогащаем модель аварий
+        this.incidents = incidents.map(incident => ({
             ...incident,
-            hardwareName: incident.hardwareId ? hardwareMap.get(incident.hardwareId) || 'Неизвестно' : null
+            hardwareName: incident.hardwareId
+                ? hardwareMap.get(incident.hardwareId) ?? 'Неизвестно'
+                : null,
+            object: incident.objectId
+                ? objectMap.get(incident.objectId) ?? null
+                : null
         }));
-
-        this.incidents = enrichedIncidents;
     }
+
 
 
     async completeService(data: CompleteCancelType) {

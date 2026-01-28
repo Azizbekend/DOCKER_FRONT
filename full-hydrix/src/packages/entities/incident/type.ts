@@ -25,6 +25,8 @@ export interface Incident {
     controlBlockId: number,
     objectId: number,
     serviceUserId: number
+    
+    object?: any
 }
 
 export interface IncidentColumn {
