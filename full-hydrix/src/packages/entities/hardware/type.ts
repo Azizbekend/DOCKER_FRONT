@@ -61,6 +61,7 @@ export interface HardwareControlleProps {
 }
 
 export interface HardwareServesProps {
+    idHardware: number,
     getCommands: ServiceModelType[],
     servicesWeek: ServiceModelType[],
     checkedService: (id: string) => void,

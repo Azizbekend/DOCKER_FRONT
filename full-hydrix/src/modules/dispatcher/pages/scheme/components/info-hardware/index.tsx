@@ -129,6 +129,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
               }
               {mode === 2 &&
                 <HardwareServes
+                  idHardware={id}
                   getCommands={getCommands}
                   servicesWeek={servicesWeek}
                   checkedService={checkedService}
