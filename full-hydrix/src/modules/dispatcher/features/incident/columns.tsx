@@ -33,15 +33,15 @@ export const columns: TableColumn<IncidentColumn>[] = [
             );
         },
     },
-    {
-        header: "Затрачено",
-        key: 'duration',
-        cell: (row) => {
-            return (
-                <div className='text-center w-full text-gray-800 font-medium text-sm'>{row.isClosed ? (getDate(row.createdAt, "short") + " — " + getDate(row.closedAt, "short")) : "—"}</div>
-            );
-        },
-    },
+    // {
+    //     header: "Затрачено",
+    //     key: 'duration',
+    //     cell: (row) => {
+    //         return (
+    //             <div className='text-center w-full text-gray-800 font-medium text-sm'>{row.isClosed ? (getDate(row.createdAt, "short") + " — " + getDate(row.closedAt, "short")) : "—"}</div>
+    //         );
+    //     },
+    // },
     {
         header: "Статус работы",
         key: 'status',
