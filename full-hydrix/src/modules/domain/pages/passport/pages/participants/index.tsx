@@ -28,10 +28,12 @@ export const PassportParticipants = observer(() => {
     <PassportHeaderPanel title="Участники"
       rightBlock={
         <>
-          <Button styleColor='blue' class='px-3 py-2' onClick={() => setShowAddModalCompany(true)}>
-            <Icon systemName='plus-white' className="w-4 h-4" />
-            <span className="whitespace-nowrap">Добавить организацию</span>
-          </Button>
+          {isAdmin() &&
+            <Button styleColor='blue' class='px-3 py-2' onClick={() => setShowAddModalCompany(true)}>
+              <Icon systemName='plus-white' className="w-4 h-4" />
+              <span className="whitespace-nowrap">Добавить организацию</span>
+            </Button>
+          }
 
 
           {isAdmin() &&

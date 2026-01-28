@@ -132,10 +132,7 @@ class HardwareModel {
 
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
-        } finally {
-            this.isLoading = false;
         }
-
 
         let eventsData = [];
         let logsData = [];
@@ -168,7 +165,6 @@ class HardwareModel {
             .then((res) => {
                 this.model = res.data
             })
-
             .finally(() => {
                 this.isLoading = false
             })
