@@ -183,6 +183,7 @@ class LoginModel {
 
             } catch (error) {
                 console.log(error)
+                toast.error("Неверный логин или пароль")
             }
         }
     }
