@@ -33,11 +33,13 @@ export const StreamPlayer = observer(({ videoSrc }: { videoSrc: string }) => {
     }, [videoSrc]);
 
     return (
+
         <video
             ref={videoRef}
             autoPlay
             muted
-            className="h-[600px] w-full mx-auto"
+            className="h-[600px] block w-full mx-auto"
         />
-    );
+
+    )
 })

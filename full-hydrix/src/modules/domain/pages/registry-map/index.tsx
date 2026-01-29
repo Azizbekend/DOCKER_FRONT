@@ -22,7 +22,7 @@ export const MapObjects = observer(() => {
 
     const getImage = document.createElement('img');
     getImage.src = mapPl;
-    getImage.onclick = () => { navigate("/domain/passport/information") }
+    getImage.onclick = () => { navigate("/domain/passport/information/information") }
 
     mmrgl.accessToken = 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814';
 

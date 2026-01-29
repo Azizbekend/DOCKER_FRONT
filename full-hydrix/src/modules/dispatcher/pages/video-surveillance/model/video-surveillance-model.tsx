@@ -6,6 +6,7 @@ class VideoSurveillanceModel {
 
     _videoSrc: string = "";
     userId: number = 0;
+    loader: boolean = true;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -17,15 +18,22 @@ class VideoSurveillanceModel {
 
     async CameraConnect(userId: number) {
         this.userId = userId;
+        this.loader = true;
+
         await CameryConnectApi({ userId: this.userId, cameraId: this.cameraSources[0] })
             .then((res) => {
                 this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
                 console.log(this._videoSrc)
             })
             .catch((err) => { console.log(err) })
+            .finally(() => {
+                this.loader = false;
+            })
     }
 
     async CameraSwitch(id: number) {
+        this.loader = true;
+
         await CamerySwitchApi({
             userId: this.userId,
             cameraId: id
@@ -35,6 +43,9 @@ class VideoSurveillanceModel {
                 console.log(res.data.data.streamUrl)
             })
             .catch((err) => { console.log(err) })
+            .finally(() => {
+                this.loader = false;
+            })
     }
 
     async CameraDisconnect() {

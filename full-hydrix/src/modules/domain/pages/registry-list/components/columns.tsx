@@ -48,9 +48,9 @@ export const columns: TableColumn<DespetcherTest>[] = [
         key: 'statusСonnection',
         width: '1.2fr',
         cell: ({ statusСonnection }) => {
-            statusСonnection = false;
+            // statusСonnection = false;
 
-            const [show, setShow] = useState(false);
+            // const [show, setShow] = useState(false);
 
             return (
                 <div className="flex justify-center relative">
@@ -63,10 +63,9 @@ export const columns: TableColumn<DespetcherTest>[] = [
                     >
                         <div className={`w-2 h-2 rounded-full mr-2 ${statusСonnection ? "bg-green-500" : "bg-red-500"
                             }`}></div>
-                        {/* {statusСonnection ? "Подключено" : "Не подключено"} */}
-                        Отсутствует подключение
+                        {statusСonnection ? "Подключено" : "Не подключено"}
                     </div>
-                    <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
+                    {false && <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
                             absolute top-[100%] border border-2 rounded-xl shadow-xl p-4 bg-white
                             transition-all duration-300 ease-out
                             ${show ? 'opacity-100 -translate-y-0 visible' : 'opacity-0 translate-y-2 invisible'}`}>
@@ -74,7 +73,7 @@ export const columns: TableColumn<DespetcherTest>[] = [
                         Трафик 0/100 гб <br />
                         Баланс 0/990 руб. <br />
                         оплатить до 01.02.2026
-                    </div>
+                    </div>}
                 </div>
             );
         },
