@@ -60,7 +60,8 @@ export class UserModel {
     setUser(user: User | UserType) {
         this._user = user;
         this._error = null;
-        localStorage.setItem("user", JSON.stringify(user));
+        this._user.dateAuth = new Date().toISOString().split('T')[0];
+        localStorage.setItem("user", JSON.stringify(this._user));
     }
 
     updateUser(updates: Partial<User | UserType>) {

@@ -21,6 +21,18 @@ reserchInstance.interceptors.request.use((config) => {
         return Promise.reject(new Error(config.method + " blocked by meta flag"))
     }
 
+
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user?.dateAuth) {
+        const today = new Date().toISOString().split('T')[0];
+        if (user.dateAuth !== today) {
+            window.location.href = "/"
+        }
+    } else {
+        window.location.href = "/"
+    }
+
+
     config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`
     return config;
 })
