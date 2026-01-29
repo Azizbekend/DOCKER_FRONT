@@ -1,6 +1,7 @@
 
 import { useEffect, useRef } from "react";
 import Hls from "hls.js";
+import { observer } from "mobx-react-lite";
 
 interface CameraItemProps {
     onClick: () => void,
@@ -8,7 +9,7 @@ interface CameraItemProps {
     count: number
 }
 
-export const CameraItem = ({ active, onClick, count }: CameraItemProps) => {
+export const CameraItem = observer(({ active, onClick, count }: CameraItemProps) => {
     const CameraIcon = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -64,4 +65,4 @@ export const CameraItem = ({ active, onClick, count }: CameraItemProps) => {
             </div>
         </div>
     );
-};
+})

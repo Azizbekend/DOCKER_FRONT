@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "@/packages/shared-ui/button";
 import { Icon } from "@/packages/shared-ui/icon";
 import { CameraItem } from "./video-item";
+import { observer } from "mobx-react-lite";
 
-export const VideoSlider = ({ cameraSources, CameraSwitch }: { cameraSources: number[], CameraSwitch: (value: number) => void }) => {
+export const VideoSlider = observer(({ cameraSources, CameraSwitch }: { cameraSources: number[], CameraSwitch: (value: number) => void }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [active, setActive] = useState(0);
@@ -55,4 +56,4 @@ export const VideoSlider = ({ cameraSources, CameraSwitch }: { cameraSources: nu
             </div>
         </div>
     );
-};
+})

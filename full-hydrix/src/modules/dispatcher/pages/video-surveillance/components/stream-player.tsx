@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 import { observer } from 'mobx-react-lite';
 
-export const StreamPlayer = ({ videoSrc }: { videoSrc: string }) => {
+export const StreamPlayer = observer(({ videoSrc }: { videoSrc: string }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
 
     useEffect(() => {
@@ -40,4 +40,4 @@ export const StreamPlayer = ({ videoSrc }: { videoSrc: string }) => {
             className="h-[600px] w-full mx-auto"
         />
     );
-};
+})

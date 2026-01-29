@@ -2,6 +2,7 @@ import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import imageProfile from "../assets/object-actual.jpg"
 import { Icon } from "@/packages/shared-ui/icon";
+import { useState } from "react";
 
 export const columns: TableColumn<DespetcherTest>[] = [
     {
@@ -45,16 +46,34 @@ export const columns: TableColumn<DespetcherTest>[] = [
     {
         header: "статус подключения к ПЛК",
         key: 'statusСonnection',
+        width: '1.2fr',
         cell: ({ statusСonnection }) => {
+            statusСonnection = false;
+
+            const [show, setShow] = useState(false);
+
             return (
-                <div className="flex justify-center">
+                <div className="flex justify-center relative">
                     <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${statusСonnection
                         ? "bg-green-100 text-green-800 border border-green-200"
                         : "bg-red-100 text-red-800 border border-red-200"
-                        }`}>
+                        }`}
+                        onMouseEnter={() => setShow(true)}
+                        onMouseLeave={() => setShow(false)}
+                    >
                         <div className={`w-2 h-2 rounded-full mr-2 ${statusСonnection ? "bg-green-500" : "bg-red-500"
                             }`}></div>
-                        {statusСonnection ? "Подключено" : "Не подключено"}
+                        {/* {statusСonnection ? "Подключено" : "Не подключено"} */}
+                        Отсутствует подключение
+                    </div>
+                    <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
+                            absolute top-[100%] border border-2 rounded-xl shadow-xl p-4 bg-white
+                            transition-all duration-300 ease-out
+                            ${show ? 'opacity-100 -translate-y-0 visible' : 'opacity-0 translate-y-2 invisible'}`}>
+
+                        Трафик 0/100 гб <br />
+                        Баланс 0/990 руб. <br />
+                        оплатить до 01.02.2026
                     </div>
                 </div>
             );
