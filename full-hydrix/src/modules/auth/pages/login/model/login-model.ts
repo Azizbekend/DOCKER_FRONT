@@ -163,7 +163,7 @@ class LoginModel {
                 })
 
                 const authDate = new Date().toISOString().split('T')[0];
-                const user = { ...response.data, id: response.data.userId, authDateConnect: authDate }
+                const user = { ...response.data, id: response.data.userId, dateConnectAuth: authDate }
 
                 window.localStorage.setItem('user', JSON.stringify(user))
                 initUser(user)
