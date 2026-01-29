@@ -162,7 +162,8 @@ class LoginModel {
                     password: this.model.password,
                 })
 
-                const user = { ...response.data, id: response.data.userId }
+                const authDate = new Date().toISOString().split('T')[0];
+                const user = { ...response.data, id: response.data.userId, authDateConnect: authDate }
 
                 window.localStorage.setItem('user', JSON.stringify(user))
                 initUser(user)

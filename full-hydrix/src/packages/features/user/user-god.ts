@@ -74,8 +74,6 @@ export class UserModel {
         const token = this.getToken();
         const userId = JSON.parse(localStorage.getItem("user")).id;
 
-
-
         this._isLoading = true;
         this._error = null;
 
@@ -97,7 +95,7 @@ export class UserModel {
                 // const userResp = await GetUserById({ id: Number(userId) });
                 const userResp = await getByUser({ id: Number(userId) })
                 const authDate = new Date().toISOString().split('T')[0];
-                let user = { ...userResp.data, authDate: authDate }
+                let user = { ...userResp.data, authDateConnect: authDate }
                 this.setUser(user);
             }
         } catch (error) {
