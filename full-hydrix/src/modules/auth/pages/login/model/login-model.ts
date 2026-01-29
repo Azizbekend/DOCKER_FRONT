@@ -95,11 +95,7 @@ class LoginModel {
 
             })
 
-        } else if (false
-            // this.model.username == "ruslam@mail.ru" ||
-            // this.model.username == "ggvp@mail.ru" ||
-            // this.model.username == "minisrty" ||
-            // this.model.username == "aovks"
+        } else if (false // this.model.username == "ruslam@mail.ru" || // this.model.username == "ggvp@mail.ru" || // this.model.username == "minisrty" || // this.model.username == "aovks"
         ) {
             await authAdmin(this.model)
                 .then(response => {
@@ -163,9 +159,8 @@ class LoginModel {
                 })
 
                 const authDate = new Date().toISOString().split('T')[0];
-                const user = { ...response.data, id: response.data.userId, dateConnectAuth: authDate }
+                const user = { ...response.data, id: response.data.userId, dateAuthConnect: authDate }
 
-                window.localStorage.setItem('user', JSON.stringify(user))
                 initUser(user)
 
                 switch (response.data.baseRoleId) {

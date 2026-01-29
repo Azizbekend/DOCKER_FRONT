@@ -10,7 +10,7 @@ export type User = {
     adress: string,
     companyId: number
     roleId: number,
-    dateAuth?: Date,
+    dateAuthConnect?: Date,
 }
 
 export type UserType = {
@@ -27,7 +27,7 @@ export type UserType = {
     baseRoleId: number
     baseRole?: null
     companyId?: number
-    dateAuth?: any
+    dateAuthConnect?: any
 }
 
 export type UpdateMunicipalitiesRequest = {

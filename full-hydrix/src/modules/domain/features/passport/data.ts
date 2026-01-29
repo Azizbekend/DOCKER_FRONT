@@ -13,3 +13,66 @@ export const sludgeStats = [
     { id: 13, name: "Отбросы", area: "Барабанное сито", projectConsumption: "0,93", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
     { id: 14, name: "Пескопульпа", area: "Песколовка", projectConsumption: "0,93", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
 ];
+
+export const staticData = [
+    {
+        "id": 0,
+        "indicates": "50",
+        "plcNodeId": "PLC01_TANK_LEVEL",
+        "timeStamp": "2026-01-29T10:15:22.450Z"
+    },
+    {
+        "id": 1,
+        "indicates": "80",
+        "plcNodeId": "PLC02_PRESSURE",
+        "timeStamp": "2026-01-29T10:15:23.120Z"
+    },
+    {
+        "id": 2,
+        "indicates": "140",
+        "plcNodeId": "PLC01_REACTOR_TEMP",
+        "timeStamp": "2026-01-28T10:15:24.850Z"
+    },
+    {
+        "id": 3,
+        "indicates": "150",
+        "plcNodeId": "PLC03_MOTOR_STATUS",
+        "timeStamp": "2026-01-28T10:15:25.560Z"
+    },
+    {
+        "id": 4,
+        "indicates": "160",
+        "plcNodeId": "PLC02_FLOW_RATE",
+        "timeStamp": "2026-01-27T10:15:26.990Z"
+    },
+    {
+        "id": 5,
+        "indicates": "170",
+        "plcNodeId": "PLC01_VALVE_POS",
+        "timeStamp": "2026-01-27T10:15:27.340Z"
+    },
+    {
+        "id": 6,
+        "indicates": "180",
+        "plcNodeId": "MAIN_PLC_ALARM",
+        "timeStamp": "2026-01-27T10:15:28.770Z"
+    },
+    {
+        "id": 7,
+        "indicates": "190",
+        "plcNodeId": "PLC03_PH_VALUE",
+        "timeStamp": "2026-01-26T10:15:30.210Z"
+    },
+    {
+        "id": 8,
+        "indicates": "200",
+        "plcNodeId": "SCADA_THROUGHPUT",
+        "timeStamp": "2026-01-26T10:15:31.005Z"
+    },
+    {
+        "id": 9,
+        "indicates": "210",
+        "plcNodeId": "PLC02_PRODUCT_COUNT",
+        "timeStamp": "2026-01-26T10:15:32.880Z"
+    }
+]

@@ -94,9 +94,7 @@ export class UserModel {
             } else {
                 // const userResp = await GetUserById({ id: Number(userId) });
                 const userResp = await getByUser({ id: Number(userId) })
-                const authDate = new Date().toISOString().split('T')[0];
-                let user = { ...userResp.data, dateConnectAuth: authDate }
-                this.setUser(user);
+                this.setUser(userResp.data);
             }
         } catch (error) {
             this._error = "Failed to load user data";

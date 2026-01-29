@@ -12,11 +12,9 @@ import { ReagentStatsBlock } from '@/modules/domain/widgets/object-passport/reag
 import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludge-stats-block';
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
 import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/object-actual.jpg';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
-import { PassportStatisticsPanel } from '@/modules/domain/widgets/passport-statistics-panel';
 import { passportStatisticsModel } from '@/modules/domain/features/passport/passport-statistics-model';
-import { getTimeRanges } from '@/packages/functions/get-time-ranges';
 
 export const PassportInformation = observer(() => {
 
@@ -81,7 +79,7 @@ export const PassportInformation = observer(() => {
             <ListParticipantsBlock list={listParticipants} />
           </div>
 
-          <PassportStatisticsPanel show={StatisticsPanelShow} setShow={setStatisticsPanelShow} />
+          {/* <PassportStatisticsPanel show={StatisticsPanelShow} setShow={setStatisticsPanelShow} /> */}
         </div>
       </div>
     </>
