@@ -6,6 +6,10 @@ export const getTechnicalCharsShapshi = () => {
     return reserchInstance.get(NodeIndicates.technicalChars)
 }
 
+export const getTechSpecsStatisticsByPeriod = (params: { plcNodeId: string, startTime: Date, endTime: Date }) => {
+    return reserchInstance.post(NodeIndicates.getTechSpecsStatisticsByPeriod, params)
+}
+
 export const getAllObjects = () => {
     return reserchInstance.get(PassportObject.all)
 }

@@ -52,14 +52,27 @@ class PassportModel {
             projectValue: "92.3",
             value: "0",
             unit: "кВт/ч",
+            plcNodes: ['ns=4;s=|var|PLC210 OPC-UA.Application.GVL98.meter98_pwr_total', 'ns=4;s=|var|PLC210 OPC-UA.Application.GVL104.meter104_pwr_total',]
         },
+        // 1.Расход электроэнергии (значение приходят в Вт, нужно будет делить на 1000 и выводить в кВт) - Сумма  
+
         {
             key: "waterConsumption",
             name: "Водоснабжение",
             projectValue: "0.6",
             value: "0.5",
             unit: "м³",
+            plcNodes: ["ns=4;s=|var|PLC210 OPC-UA.Application.PVL.waterMeter1_counter", "ns=4;s=|var|PLC210 OPC-UA.Application.PVL.waterMeter2_counter",]
         }
+
+        // 2.Водоснабжение (значение приходят в л, нужно будет делить на 1000 и выводить в м3) - Сумма 
+
+        // Тут по 2. Водоснабжение:
+        // Надо считать:
+        // В 22 декабря в 6.00 запросили показание, запомнили (пришло например 500)
+        // В 23 декабря в 6.00 запросили показание, запомнили (пришло например 600). Значит вывели на фронт 600-500= 100 (за 23.12.2025)
+        // В 24 декабря в 6.00 (получили 720) вывели значит 720-600=120 (за 24.12.2025)
+
     ]
 
     constructor() {
@@ -67,10 +80,6 @@ class PassportModel {
     }
 
     async init(id: number) {
-
-
-
-
         try {
 
             const [data] = await Promise.all([
@@ -121,6 +130,9 @@ class PassportModel {
             this.isLodaded = false
         }
     }
+
+
+
 }
 
 export const passportModel = new PassportModel()

@@ -28,11 +28,11 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    useEffect(() => {
-        if (userModel.getToken()) {
-            userModel.initUser();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (userModel.getToken()) {
+    //         userModel.initUser();
+    //     }
+    // }, []);
 
     const value: AuthContextType = {
         // Данные

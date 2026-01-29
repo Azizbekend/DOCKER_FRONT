@@ -62,6 +62,7 @@ export interface SchemaObjectType {
     file: any,
     hardwareId: number,
     status?: boolean,
+    serviceStatus?: boolean,
 }
 
 export interface SchemaCoordinatesCreateType {

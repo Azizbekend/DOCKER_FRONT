@@ -27,10 +27,7 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         onClose();
-        console.log("Внутри")
       }
-
-      console.log("Клик")
     };
 
     if (show) {

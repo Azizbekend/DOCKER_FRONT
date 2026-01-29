@@ -1,4 +1,4 @@
-import { getInfoNodeInfos, getSchemaObjects, NodeInfoSingle } from "@/packages/entities/hardware/api-general";
+import { getInfoNodeInfos, getSchemaObjects, getTodayServiceApi, NodeInfoSingle } from "@/packages/entities/hardware/api-general";
 import { SchemaObjectType } from "@/packages/entities/hardware/type-general";
 import { makeAutoObservable, runInAction } from "mobx";
 import { toast } from "react-toastify";
@@ -50,21 +50,45 @@ class SchemeModel {
             const hardwareIdMap = new Map<number, number>();
             const hardwareStatusMap = new Map<number, boolean>();
 
-            await Promise.all(
-                nodeInfoIds.map(async (nodeInfoId) => {
-                    const { data } = await NodeInfoSingle({ id: nodeInfoId });
-                    hardwareIdMap.set(nodeInfoId, data.hardwareId);
-                    hardwareStatusMap.set(nodeInfoId, data.status);
-                })
-            );
+            await Promise.all(nodeInfoIds.map(async (nodeInfoId) => {
+                const { data } = await NodeInfoSingle({ id: nodeInfoId });
+                hardwareIdMap.set(nodeInfoId, data.hardwareId);
+                hardwareStatusMap.set(nodeInfoId, data.status);
+            }));
 
             sensors.forEach(sensor => {
                 sensor.hardwareId = hardwareIdMap.get(sensor.nodeInfoId);
                 sensor.hardwareStatus = hardwareStatusMap.get(sensor.nodeInfoId);
             });
 
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const newObjectWithServiceStatus = await Promise.all(objects.map(async (object) => {
+                try {
+                    const { data } = await getTodayServiceApi({
+                        id: object.hardwareId
+                    });
+
+                    // Фильтруем сервисы с просроченной датой обслуживания
+                    const overdueServicesCount = data.filter(service => {
+                        if (!service.nextMaintenanceDate) return false;
+
+                        const nextDate = new Date(service.nextMaintenanceDate);
+                        nextDate.setHours(0, 0, 0, 0);
+
+                        return nextDate < today;
+                    }).length;
+
+                    return { ...object, serviceStatus: overdueServicesCount > 0 };
+                } catch (error) {
+                    console.error(`Ошибка при запросе для hardwareId=${object.hardwareId}:`, error);
+                    return { ...object, serviceStatus: false };
+                }
+            }));
+
             runInAction(() => {
-                this.model = objects;
+                this.model = newObjectWithServiceStatus;
                 this.schemaSensoreData = sensors;
                 this.idska = hardwareIds;
                 this.idskaSensores = nodeInfoIds;

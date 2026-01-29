@@ -31,8 +31,6 @@ export const ObjectDataBlock = observer(({ data, items }: ObjectDataBlockProps) 
                     <p className='text-[0.9rem] font-semibold text-gray-800'>Декабрь 2025</p>
                 </div>
 
-
-
                 {items.map((item, index) => (
                     <div key={index} className="space-y-1">
                         <div className="text-xs font-semibold uppercase tracking-wide text-gray-600">

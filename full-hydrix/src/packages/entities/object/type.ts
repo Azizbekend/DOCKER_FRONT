@@ -20,6 +20,8 @@ export interface PassportModelIndicatorType {
     projectValue: string,
     value: string,
     unit: string,
+    plcNodes?: string[]
+
 }
 
 

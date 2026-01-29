@@ -6,7 +6,7 @@ import "./ViewScheme.scss";
 import { observer } from "mobx-react-lite";
 import { useScheme } from './hooks/useScheme';
 import { SchemeViewerType } from '../../types/type';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { Role } from '@/packages/entities/user/enums';
 import { useAuth } from '@/packages/entities/user/context';
 import { SchemaCardInterface } from '@/packages/entities/sensor/type';
@@ -82,6 +82,21 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                     >
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
+
+                                {p.serviceStatus && <div className={`absolute ${p.width > 40 ? (p.width < 300 ? "-right-[0%] -top-[5%]" : "-left-[0%] -top-[5%]") : "-left-[20%] -top-[20%]"}`}
+                                    style={{
+                                        width: `${Math.min(p.width * 0.3, 100)}px`,
+                                        height: `${Math.min(p.height * 0.3, 100)}px`,
+                                        maxWidth: '50px',
+                                        maxHeight: '50px',
+                                        minWidth: '10px',
+                                        minHeight: '10px',
+                                    }}
+                                >
+                                    <img src={accident} alt="" />
+                                </div>
+                                }
+
                                 <img className="not-hover h-full w-full object-cover" src={getPhoto(p.focusFileId || p.fileId)} />
                             </div>
                         </div>

@@ -11,12 +11,8 @@ export const TechSpecsBlock = observer(({ cards }: TechSpecsBlockProps) => {
         <BlockContainer title="Технические характеристики">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {cards.map((spec, idx) => (
-                    <div
-                        key={idx}
-                        className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-sm transition-shadow"
-                    >
+                    <div key={idx} className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-sm transition-shadow">
                         <div className="flex items-start gap-3 mb-3">
-
                             <div>
                                 <h4 className="font-semibold text-gray-800 text-sm">{spec.name}</h4>
                                 <p className="text-xs text-gray-600">{spec.unit}</p>
