@@ -60,7 +60,6 @@ export class UserModel {
     setUser(user: User | UserType) {
         this._user = user;
         this._error = null;
-        this._user.dateAuth = new Date().toISOString().split('T')[0];
         localStorage.setItem("user", JSON.stringify(this._user));
     }
 
@@ -97,7 +96,9 @@ export class UserModel {
             } else {
                 // const userResp = await GetUserById({ id: Number(userId) });
                 const userResp = await getByUser({ id: Number(userId) })
-                this.setUser(userResp.data);
+                const authDate = new Date().toISOString().split('T')[0];
+                let user = { ...userResp.data, authDate: authDate }
+                this.setUser(user);
             }
         } catch (error) {
             this._error = "Failed to load user data";

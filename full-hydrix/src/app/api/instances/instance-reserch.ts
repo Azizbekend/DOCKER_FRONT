@@ -23,9 +23,9 @@ reserchInstance.interceptors.request.use((config) => {
 
 
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user?.dateAuth) {
+    if (user?.authDate) {
         const today = new Date().toISOString().split('T')[0];
-        if (user.dateAuth !== today) {
+        if (user.authDate !== today) {
             window.location.href = "/"
         }
     } else {
