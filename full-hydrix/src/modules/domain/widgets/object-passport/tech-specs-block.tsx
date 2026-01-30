@@ -73,6 +73,7 @@ export const TechSpecsBlock = observer(({ cards }: TechSpecsBlockProps) => {
 
                         {isExpanded && (
                             <PassportStatisticsPanel
+                                unit={spec.unit}
                                 show
                                 setShow={() => setExpandedCardIndex(null)}
                                 nodeIds={spec.plcNodes}

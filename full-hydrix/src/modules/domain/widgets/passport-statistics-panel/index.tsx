@@ -15,9 +15,10 @@ interface PassportStatisticsPanelProps {
     show: boolean,
     setShow: (value: boolean) => void,
     nodeIds: string[],
+    unit: string,
 }
 
-export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds }: PassportStatisticsPanelProps) => {
+export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds, unit }: PassportStatisticsPanelProps) => {
 
     const { todayRange, yesterdayRange, weekRange, monthRange } = getTimeRanges()
     const { init, getData, isLoader, model, type } = passportStatisticsModel
@@ -85,7 +86,7 @@ export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds }: Pas
                         <Icon systemName="close" />
                     </button>
 
-                    <div className="mb-8 border-b border-400 pb-4">
+                    <div className="mb-4 border-b border-400 pb-4">
                         <div className="flex gap-2">
                             {/* {dateFilterBtns.map((btn) => (
                                 <button
@@ -129,6 +130,9 @@ export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds }: Pas
                             </div>
                         } */}
                     </div>
+
+                    <p className="text-xs text-gray-600 mb-4 ml-4">{unit}</p>
+
 
 
 
