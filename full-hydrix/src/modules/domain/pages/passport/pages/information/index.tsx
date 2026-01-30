@@ -14,16 +14,12 @@ import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block
 import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/object-actual.jpg';
 import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
-import { passportStatisticsModel } from '@/modules/domain/features/passport/passport-statistics-model';
 
 export const PassportInformation = observer(() => {
 
   const { objectId } = useParams();
   const { init: participantsInit, listParticipants } = listParticipantsModel;
   const { model, objectData, itemObjectData } = passportModel;
-
-  const { model: statisticModel, isLoader, getData, init } = passportStatisticsModel
-
 
   useEffect(() => {
     if (objectId) {
@@ -69,7 +65,7 @@ export const PassportInformation = observer(() => {
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <TechSpecsBlock cards={model} openPanel={init} />
+            <TechSpecsBlock cards={model} />
             <SludgeStatsBlock />
             <DocumentListBlock />
           </div>
@@ -78,8 +74,6 @@ export const PassportInformation = observer(() => {
             <ReagentStatsBlock />
             <ListParticipantsBlock list={listParticipants} />
           </div>
-
-          {/* <PassportStatisticsPanel show={StatisticsPanelShow} setShow={setStatisticsPanelShow} /> */}
         </div>
       </div>
     </>

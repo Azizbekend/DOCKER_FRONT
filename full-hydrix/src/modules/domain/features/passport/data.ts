@@ -14,65 +14,247 @@ export const sludgeStats = [
     { id: 14, name: "Пескопульпа", area: "Песколовка", projectConsumption: "0,93", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
 ];
 
-export const staticData = [
+export const staticDataWater = [
     {
-        "id": 0,
-        "indicates": "180",
-        "plcNodeId": "PLC01_TANK_LEVEL",
-        "timeStamp": "2026-01-29T10:15:22.450Z"
+        "indicates": "0.25",
+        "timeStamp": "01.01.2026"
     },
     {
-        "id": 1,
-        "indicates": "160",
-        "plcNodeId": "PLC02_PRESSURE",
-        "timeStamp": "2026-01-29T10:15:23.120Z"
+        "indicates": "0.36",
+        "timeStamp": "02.01.2026"
     },
     {
-        "id": 2,
-        "indicates": "140",
-        "plcNodeId": "PLC01_REACTOR_TEMP",
-        "timeStamp": "2026-01-28T10:15:24.850Z"
+        "indicates": "0.28",
+        "timeStamp": "03.01.2026"
     },
     {
-        "id": 3,
-        "indicates": "120",
-        "plcNodeId": "PLC03_MOTOR_STATUS",
-        "timeStamp": "2026-01-28T10:15:25.560Z"
+        "indicates": "0.31",
+        "timeStamp": "04.01.2026"
     },
     {
-        "id": 4,
-        "indicates": "100",
-        "plcNodeId": "PLC02_FLOW_RATE",
-        "timeStamp": "2026-01-27T10:15:26.990Z"
+        "indicates": "0.41",
+        "timeStamp": "05.01.2026"
     },
     {
-        "id": 5,
-        "indicates": "90",
-        "plcNodeId": "PLC01_VALVE_POS",
-        "timeStamp": "2026-01-27T10:15:27.340Z"
+        "indicates": "0.39",
+        "timeStamp": "06.01.2026"
     },
     {
-        "id": 6,
-        "indicates": "80",
-        "plcNodeId": "MAIN_PLC_ALARM",
-        "timeStamp": "2026-01-27T10:15:28.770Z"
+        "indicates": "0.26",
+        "timeStamp": "07.01.2026"
     },
     {
-        "id": 7,
-        "indicates": "70",
-        "plcNodeId": "PLC03_PH_VALUE",
-        "timeStamp": "2026-01-26T10:15:30.210Z"
+        "indicates": "0.29",
+        "timeStamp": "08.01.2026"
     },
     {
-        "id": 8,
-        "indicates": "60",
-        "plcNodeId": "SCADA_THROUGHPUT",
-        "timeStamp": "2026-01-26T10:15:31.005Z"
+        "indicates": "0.21",
+        "timeStamp": "09.01.2026"
     },
     {
-        "id": 9,
-        "indicates": "50",
-        "plcNodeId": "PLC02_PRODUCT_COUNT",
-        "timeStamp": "2026-01-26T10:15:32.880Z"
-    }
+        "indicates": "0.25",
+        "timeStamp": "10.01.2026"
+    },
+    {
+        "indicates": "0.29",
+        "timeStamp": "11.01.2026"
+    },
+    {
+        "indicates": "0.32",
+        "timeStamp": "12.01.2026"
+    },
+    {
+        "indicates": "0.35",
+        "timeStamp": "13.01.2026"
+    },
+    {
+        "indicates": "0.24",
+        "timeStamp": "14.01.2026"
+    },
+    {
+        "indicates": "0.28",
+        "timeStamp": "15.01.2026"
+    },
+    {
+        "indicates": "0.31",
+        "timeStamp": "16.01.2026"
+    },
+    {
+        "indicates": "0.24",
+        "timeStamp": "17.01.2026"
+    },
+    {
+        "indicates": "0.32",
+        "timeStamp": "18.01.2026"
+    },
+    {
+        "indicates": "0.26",
+        "timeStamp": "19.01.2026"
+    },
+    {
+        "indicates": "0.35",
+        "timeStamp": "20.01.2026"
+    },
+    {
+        "indicates": "0.37",
+        "timeStamp": "21.01.2026"
+    },
+    {
+        "indicates": "0.25",
+        "timeStamp": "22.01.2026"
+    },
+    {
+        "indicates": "0.24",
+        "timeStamp": "23.01.2026"
+    },
+    {
+        "indicates": "0.29",
+        "timeStamp": "24.01.2026"
+    },
+    {
+        "indicates": "0.31",
+        "timeStamp": "25.01.2026"
+    },
+    {
+        "indicates": "0.27",
+        "timeStamp": "26.01.2026"
+    },
+    {
+        "indicates": "0.22",
+        "timeStamp": "27.01.2026"
+    },
+    {
+        "indicates": "0.29",
+        "timeStamp": "28.01.2026"
+    },
+    {
+        "indicates": "0.35",
+        "timeStamp": "29.01.2026"
+    },
+    {
+        "indicates": "0.37",
+        "timeStamp": "30.01.2026"
+    },
+]
+export const staticDataElectro = [
+    {
+        "indicates": "24.2",
+        "timeStamp": "01.01.2026"
+    },
+    {
+        "indicates": "22.3",
+        "timeStamp": "02.01.2026"
+    },
+    {
+        "indicates": "24.4",
+        "timeStamp": "03.01.2026"
+    },
+    {
+        "indicates": "23.1",
+        "timeStamp": "04.01.2026"
+    },
+    {
+        "indicates": "24.2",
+        "timeStamp": "05.01.2026"
+    },
+    {
+        "indicates": "23.1",
+        "timeStamp": "06.01.2026"
+    },
+    {
+        "indicates": "22.5",
+        "timeStamp": "07.01.2026"
+    },
+    {
+        "indicates": "22.1",
+        "timeStamp": "08.01.2026"
+    },
+    {
+        "indicates": "23.7",
+        "timeStamp": "09.01.2026"
+    },
+    {
+        "indicates": "24.3",
+        "timeStamp": "10.01.2026"
+    },
+    {
+        "indicates": "23.5",
+        "timeStamp": "11.01.2026"
+    },
+    {
+        "indicates": "23.8",
+        "timeStamp": "12.01.2026"
+    },
+    {
+        "indicates": "24.1",
+        "timeStamp": "13.01.2026"
+    },
+    {
+        "indicates": "22.6",
+        "timeStamp": "14.01.2026"
+    },
+    {
+        "indicates": "22.9",
+        "timeStamp": "15.01.2026"
+    },
+    {
+        "indicates": "23.7",
+        "timeStamp": "16.01.2026"
+    },
+    {
+        "indicates": "24.2",
+        "timeStamp": "17.01.2026"
+    },
+    {
+        "indicates": "23.8",
+        "timeStamp": "18.01.2026"
+    },
+    {
+        "indicates": "22.9",
+        "timeStamp": "19.01.2026"
+    },
+    {
+        "indicates": "22.7",
+        "timeStamp": "20.01.2026"
+    },
+    {
+        "indicates": "22.4",
+        "timeStamp": "21.01.2026"
+    },
+    {
+        "indicates": "23.5",
+        "timeStamp": "22.01.2026"
+    },
+    {
+        "indicates": "21.5",
+        "timeStamp": "23.01.2026"
+    },
+    {
+        "indicates": "24.8",
+        "timeStamp": "24.01.2026"
+    },
+    {
+        "indicates": "22.4",
+        "timeStamp": "25.01.2026"
+    },
+    {
+        "indicates": "21.6",
+        "timeStamp": "26.01.2026"
+    },
+    {
+        "indicates": "24.5",
+        "timeStamp": "27.01.2026"
+    },
+    {
+        "indicates": "22.1",
+        "timeStamp": "28.01.2026"
+    },
+    {
+        "indicates": "23.8",
+        "timeStamp": "29.01.2026"
+    },
+    {
+        "indicates": "24.3",
+        "timeStamp": "30.01.2026"
+    },
 ]

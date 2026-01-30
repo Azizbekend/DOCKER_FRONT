@@ -1,83 +1,101 @@
 import { getTechSpecsStatisticsByPeriod } from '@/packages/entities/object/api';
 import { getTimeRanges } from '@/packages/functions/get-time-ranges';
 import { makeAutoObservable } from 'mobx';
-import { staticData } from './data';
-
-
+import { staticDataWater, staticDataElectro } from './data';
 class PassportStatisticsModel {
 
     model: any[] = []
     isLoader: boolean = false
     nodePlcId: string[] = []
-    statisticsPanelShow: boolean = false
+    type: string = ""
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
 
-    async getData(data: any[]): Promise<any[]> {
-        for await (const nodeId of this.nodePlcId) {
-            // const dataRes = await getTechSpecsStatisticsByPeriod({
-            //     plcNodeId: nodeId,
-            //     startTime: start,
-            //     endTime: end,
-            // })
-            // console.log(dataRes.data)
-        }
+    async getData({ start, end }: { start: Date, end: Date }) {
 
-        // 1. Группируем данные по дате
-        const groupedByDate = new Map<string, number>();
+        this.isLoader = true
 
-        data.forEach(item => {
-            // Извлекаем дату из timestamp (YYYY-MM-DD)
-            const date = item.timeStamp.split('T')[0];
+        try {
 
-            // Преобразуем indicates в число
-            const value = parseInt(item.indicates, 10);
+            // const promises = this.nodePlcId.map(async (nodeId) => {
+            //     try {
+            //         const dataRes = await getTechSpecsStatisticsByPeriod({
+            //             plcNodeId: nodeId,
+            //             startTime: start,
+            //             endTime: end,
+            //         });
+            //         return dataRes?.data || [];
+            //     } catch (error) {
+            //         console.error(`Ошибка для nodeId ${nodeId}:`, error);
+            //         return [];
+            //     }
+            // });
 
-            if (!isNaN(value)) {
-                // Суммируем значения для каждой даты
-                if (groupedByDate.has(date)) {
-                    groupedByDate.set(date, groupedByDate.get(date)! + value);
-                } else {
-                    groupedByDate.set(date, value);
+            // const allResults = await Promise.all(promises);
+
+            // // Объединяем все данные в один массив
+            // const allData = allResults.flat();
+
+
+            // 1. Группируем данные по дате
+            const groupedByDate = new Map<string, number>();
+
+            let staticData = this.nodePlcId[0].includes("_pwr_total") ? staticDataElectro : staticDataWater
+            this.type = this.nodePlcId[0].includes("_pwr_total") ? "electro" : "water"
+
+            staticData.forEach(item => {
+                // Извлекаем дату из timestamp (YYYY-MM-DD)
+                const date = item.timeStamp.split('T')[0];
+
+                // Преобразуем indicates в число
+                const value = parseFloat(item.indicates);
+
+
+                if (!isNaN(value)) {
+                    if (groupedByDate.has(date)) {
+                        groupedByDate.set(date, groupedByDate.get(date)! + value);
+                    } else {
+                        groupedByDate.set(date, value);
+                    }
                 }
-            }
-        });
+            });
 
-        // 2. Преобразуем Map в массив объектов и сортируем по дате (по возрастанию)
-        const sortedDates = Array.from(groupedByDate.entries())
-            .map(([date, sum]) => ({ date, sum }))
-            .sort((a, b) => a.date.localeCompare(b.date));
+            // 2. Преобразуем Map в массив объектов и сортируем по дате (по возрастанию)
+            const sortedDates = Array.from(groupedByDate.entries())
+                .map(([date, sum]) => ({ date, sum }))
+                .sort((a, b) => a.date.localeCompare(b.date));
 
-        // 3. Вычисляем разницу с предыдущим днем
-        const results: DailyResult[] = [];
+            // 3. Вычисляем разницу с предыдущим днем
+            const results: DailyResult[] = [];
 
-        sortedDates.forEach((day, index) => {
-            if (index === 0) {
-                // Для первой даты разницы нет (null или можно оставить сумму)
-                results.push({
-                    date: day.date,
-                    sum: day.sum,
-                    difference: null // или day.sum если считать от 0
-                });
-            } else {
-                // Для последующих дней: сумма текущего дня минус сумма предыдущего дня
-                const previousDaySum = sortedDates[index - 1].sum;
-                const difference = day.sum - previousDaySum;
+            sortedDates.forEach((day, index) => {
+                if (index === 0) {
+                    results.push({
+                        date: day.date,
+                        sum: day.sum,
+                    });
+                } else {
+                    // Для последующих дней: сумма текущего дня минус сумма предыдущего дня
+                    // const previousDaySum = sortedDates[index - 1].sum;
 
-                results.push({
-                    date: day.date,
-                    sum: day.sum,
-                    difference: difference
-                });
-            }
-        });
+                    results.push({
+                        date: day.date,
+                        sum: day.sum,
+                    });
+                }
+            });
 
-        console.log(results)
+            console.log(results)
+            this.model = results
 
-        return results;
+        } catch (error) {
+            console.log(error)
+        } finally {
+            this.isLoader = false
+        }
     }
 
 
@@ -85,8 +103,7 @@ class PassportStatisticsModel {
 
         this.nodePlcId = nodeId
         const { todayRange } = getTimeRanges()
-        // this.getData(todayRange)
-        this.getData(staticData)
+        this.getData(todayRange)
     }
 }
 

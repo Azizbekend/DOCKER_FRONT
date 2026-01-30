@@ -26,6 +26,9 @@
   }
 }
 
+.recharts-wrapper *:focus {
+  outline: none;
+}
 
 /* Для всех input type date */
 input[type="date"]::selection {
