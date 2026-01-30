@@ -35,11 +35,12 @@ export const DocumentBlock = observer(({ title, list, category }: DocumentBlockP
                     </div>
                 )}
 
-                {openForm && <DocumentFormCard category={category} onClose={() => setOpaneForm(false)} />}
-
-                <Button class='px-4 py-2' styleColor={openForm ? 'blueOutline' : "gray"} onClick={() => setOpaneForm(!openForm)}>
-                    {openForm ? "Отмена" : "Добавить документ"}
-                </Button>
+                {false && openForm && <DocumentFormCard category={category} onClose={() => setOpaneForm(false)} />}
+                {false &&
+                    <Button class='px-4 py-2' styleColor={openForm ? 'blueOutline' : "gray"} onClick={() => setOpaneForm(!openForm)}>
+                        {openForm ? "Отмена" : "Добавить документ"}
+                    </Button>
+                }
             </div>
         </div>
 

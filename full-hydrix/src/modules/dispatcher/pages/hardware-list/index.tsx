@@ -37,7 +37,7 @@ export const HardwareRegistry = observer(() => {
             onChange={setSearch}
             placeholder="Поиск по названию или описанию..."
             classNames={{
-              container: "!w-[420px] rounded-lg h-11 border",
+              container: "!w-[420px] h-11 border",
               input: "px-4 text-gray-800",
             }}
           />

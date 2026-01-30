@@ -51,6 +51,7 @@ class ListParticipantsModel {
     async init(objectId: number) {
         const userData = JSON.parse(localStorage.getItem('user'))
 
+
         try {
             this.isLoading = true;
             const res = await getCompanyByObject({ id: objectId });
@@ -73,6 +74,7 @@ class ListParticipantsModel {
 
                     const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
 
+
                     if (userData.login === "admin_god") {
 
                         localStorage.setItem("userDostup", JSON.stringify({
@@ -84,7 +86,10 @@ class ListParticipantsModel {
                         }))
                     } else {
                         attachUsersRes.data.forEach(element => {
-                            if (element.userId == userData.id) {
+                            console.log(element.userId)
+                            console.log(userData.userId)
+                            if (element.userId == userData.userId) {
+                                console.log("asd")
                                 localStorage.setItem("userDostup", JSON.stringify(element))
                             }
                         });

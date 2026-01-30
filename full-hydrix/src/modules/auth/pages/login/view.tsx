@@ -25,6 +25,14 @@ export const LoginView = observer(() => {
     [login],
   );
 
+
+  useEffect(() => {
+    const userDate = localStorage.getItem("user")
+    if (userDate) {
+      localStorage.clear()
+    }
+  }, [])
+
   return (
     <>
       <Registration show={isregister} onClose={() => setIsRegister(false)} />

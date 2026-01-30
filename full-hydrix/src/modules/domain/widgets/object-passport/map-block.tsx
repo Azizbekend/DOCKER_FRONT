@@ -1,8 +1,6 @@
 import { BlockContainer } from '@/packages/shared-components/container-blocks/block-container';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { listParticipantsModel } from '../../features/participants/models/list-participants-model';
 import mmrgl from 'mmr-gl';
 import mapPl from '../../pages/registry-map/assets/map-pl.png';
 

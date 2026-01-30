@@ -13,9 +13,9 @@ export const Search = (props: SearchType) => {
     };
 
     return (
-        <div className={`w-full flex gap-1  pl-4 pr-3 py-1 bg-white duration-200 ${props.classNames.container}`}
+        <div className={`w-full flex gap-1  pl-4 pr-3 py-1 bg-white duration-200 rounded-lg ${props.classNames.container}`}
             style={{
-                boxShadow: isFocused ? "rgb(74 133 246) 0px 0px 3px 0px" : "none",
+                boxShadow: isFocused ? "rgb(74 133 246) 0px 0px 3px 0px" : "none",  
                 ...props.style
             }}>
 
