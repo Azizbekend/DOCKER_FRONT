@@ -83,7 +83,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                         <div className="relative w-full h-full">
                             <div className="hover:translate-x-[10px] hover:scale-[1.1] duration-300">
                                 {/* {p.serviceStatus && <div className={`absolute ${p.width > 40 ? (p.width < 300 ? "-right-[0%] -top-[5%]" : "-left-[0%] -top-[5%]") : "-left-[20%] -top-[20%]"}`} */}
-                                {(p.hardwareId == 28 || p.hardwareId == 27 || p.hardwareId == 26) && p.serviceStatus && <div className={`absolute ${p.width < 300 ? "-right-[0%] -top-[5%]" : "-left-[0%] -top-[5%]"}`}
+                                {(p.hardwareId == 28 || p.hardwareId == 26) && p.serviceStatus && <div className={`absolute ${p.width < 300 ? "-right-[0%] -top-[5%]" : "-left-[0%] -top-[5%]"}`}
                                     style={{
                                         width: "24px",
                                         height: "24px",
