@@ -1,19 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { observer } from "mobx-react-lite";
-
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { Password } from "@/packages/shared-ui/Inputs/input-password";
 import { Button } from "@/packages/shared-ui/button";
-
 import loginModel from "./model/login-model";
 import { Registration } from "../registration";
 import { useAuth } from "@/packages/entities/user/context";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const LoginView = observer(() => {
-  const { initUser, setUser, initCompany, initTriecoCompany } = useAuth();
+  const { setUser, initCompany, initTriecoCompany } = useAuth();
   const [isregister, setIsRegister] = useState<boolean>(false);
   const { model, validError, isLoading, canSubmit, isErrorStart, login } = loginModel;
 
@@ -27,10 +25,13 @@ export const LoginView = observer(() => {
 
 
   useEffect(() => {
-    const userDate = localStorage.getItem("user")
-    if (userDate) {
-      localStorage.clear()
+
+    const logoutInfo = localStorage.getItem("logout")
+    if (logoutInfo) {
+      toast.info(logoutInfo)
     }
+
+    localStorage.clear()
   }, [])
 
   return (

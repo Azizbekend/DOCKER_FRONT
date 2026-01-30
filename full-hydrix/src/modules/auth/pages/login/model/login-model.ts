@@ -74,7 +74,7 @@ class LoginModel {
         // this.setCapchaCount(this.capchaCount + 1);
     }
 
-    public async login(initUser: (data: any) => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
+    public async login(setUser: (data: any) => void, initCompany: (data: WaterCompany) => void, initTriecoCompany: (data: InitTriecoCompanyInterface) => void) {
 
         if (this.model.username == "guest") {
             await authAdmin({
@@ -84,7 +84,7 @@ class LoginModel {
                 window.localStorage.setItem("access_token", response.data['jwtToken'])
                 window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                 window.localStorage.setItem("user_id", "99999")
-                // initUser()
+                // setUser()
 
                 await getWaterCompanyByUserId({ UserId: response.data.id }).then(x => {
                     initCompany(x.data)
@@ -103,7 +103,7 @@ class LoginModel {
                     window.localStorage.setItem("access_token", response.data['jwtToken'])
                     window.localStorage.setItem("refresh_token", response.data['refreshToken'])
                     window.localStorage.setItem("user_id", response.data['id'])
-                    initUser()
+                    // setUser()
 
                     switch (response.data.roleId) {
                         case Role.Client:
@@ -158,10 +158,9 @@ class LoginModel {
                     password: this.model.password,
                 })
 
-                const authDate = new Date().toISOString().split('T')[0];
+                const authDate = new Date().toISOString();
                 const user = { ...response.data, id: response.data.userId, dateAuthConnect: authDate }
-
-                initUser(user)
+                setUser(user)
 
                 switch (response.data.baseRoleId) {
                     case Role.Client:

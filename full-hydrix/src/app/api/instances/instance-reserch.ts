@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const baseUrlResearch = "https://triapi.ru/research";
 
@@ -21,15 +22,22 @@ reserchInstance.interceptors.request.use((config) => {
         return Promise.reject(new Error(config.method + " blocked by meta flag"))
     }
 
-
     const user = JSON.parse(localStorage.getItem('user'));
-    if (user?.dateAuthConnect) {
-        const today = new Date().toISOString().split('T')[0];
-        if (user.dateAuthConnect !== today) {
-            window.location.href = "/"
+
+    if (user?.dateAuthConnect && user.baseRole != 5) {
+        try {
+            const lastAuthDate = new Date(user.dateAuthConnect);
+            const currentDate = new Date();
+            const timeDiff = currentDate.getTime() - lastAuthDate.getTime();
+            const minutesDiff = Math.floor(timeDiff / (1000 * 60));
+            if (minutesDiff > 30) {
+                removeUserNavigateOut()
+            }
+        } catch (error) {
+            removeUserNavigateOut()
         }
     } else {
-        window.location.href = "/"
+        removeUserNavigateOut()
     }
 
 
@@ -60,3 +68,9 @@ reserchInstance.interceptors.response.use(function (response) {
     console.log(error);
     throw error;
 });
+
+
+function removeUserNavigateOut() {
+    localStorage.setItem('logout', "Время сессии истекло. Требуется повторная авторизация");
+    window.location.href = "/";
+}

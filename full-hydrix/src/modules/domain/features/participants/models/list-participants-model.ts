@@ -75,8 +75,7 @@ class ListParticipantsModel {
                     const attachUsersRes = await getBjCompDataId({ objCompLinkId: companyObjectLinkRes.data.id });
 
 
-                    if (userData.login === "admin_god") {
-
+                    if (userData.adress === "admin") {
                         localStorage.setItem("userDostup", JSON.stringify({
                             isNodeInfosEnabled: true,
                             isCommandsEnabled: true,
@@ -86,8 +85,6 @@ class ListParticipantsModel {
                         }))
                     } else {
                         attachUsersRes.data.forEach(element => {
-                            console.log(element.userId)
-                            console.log(userData.userId)
                             if (element.userId == userData.userId) {
                                 console.log("asd")
                                 localStorage.setItem("userDostup", JSON.stringify(element))

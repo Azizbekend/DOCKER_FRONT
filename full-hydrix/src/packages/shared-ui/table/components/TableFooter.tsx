@@ -1,5 +1,4 @@
-import { Table } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TableFooterProps } from "../types";
 import { Icon } from "../../icon";
 
@@ -19,10 +18,6 @@ export function TableFooter<T>({
 
     const canPrev = table.getCanPreviousPage();
     const canNext = table.getCanNextPage();
-
-    useEffect(() => {
-        console.log(pageIndex, pageSize)
-    }, [])
 
     return (
         <div className="not-hover w-full pb-10 mt-5">
