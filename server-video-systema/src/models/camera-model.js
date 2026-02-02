@@ -29,6 +29,27 @@ class Camera {
             fs.mkdirSync(this.outDir, { recursive: true });
         }
 
+        // const args = [
+        //     '-rtsp_transport', 'tcp',
+        //     '-fflags', 'nobuffer',
+        //     '-flags', 'low_delay',
+        //     '-use_wallclock_as_timestamps', '1',
+
+        //     '-i', this.rtsp,
+
+        //     '-c:v', 'copy',
+        //     '-an',
+
+        //     '-f', 'hls',
+        //     '-hls_time', '1',
+        //     '-hls_list_size', '4',
+        //     '-hls_flags', 'delete_segments+append_list+omit_endlist',
+        //     '-hls_segment_type', 'fmp4',
+        //     '-hls_playlist_type', 'event',
+
+        //     path.join(this.outDir, 'index.m3u8')
+        // ];
+
         const args = [
             '-rtsp_transport', 'tcp',
             '-fflags', 'nobuffer',
@@ -37,7 +58,17 @@ class Camera {
 
             '-i', this.rtsp,
 
-            '-c:v', 'copy',
+            // Минимально допустимое качество
+            '-c:v', 'libx264',
+            '-preset', 'superfast',     
+            '-tune', 'zerolatency',     
+            '-crf', '28',               
+            '-vf', 'scale=-2:480',      
+            '-r', '15',                 
+            '-b:v', '500k',             
+            '-maxrate', '700k',
+            '-bufsize', '1000k',
+
             '-an',
 
             '-f', 'hls',
@@ -49,6 +80,7 @@ class Camera {
 
             path.join(this.outDir, 'index.m3u8')
         ];
+
 
         console.log(`Запуск камеры ${this.id}...`);
 
