@@ -16,19 +16,30 @@ class VideoSurveillanceModel {
         return this._videoSrc;
     }
 
-    async CameraConnect(userId: number) {
+    async CameraConnect(userId: number, retryCount: number = 3, delay: number = 1000) {
         this.userId = userId;
         this.loader = true;
 
-        await CameryConnectApi({ userId: this.userId, cameraId: this.cameraSources[0] })
-            .then((res) => {
+        for (let attempt = 1; attempt <= retryCount; attempt++) {
+            try {
+                const res = await CameryConnectApi({
+                    userId: this.userId,
+                    cameraId: this.cameraSources[0]
+                });
+
                 this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
-                console.log(this._videoSrc)
-            })
-            .catch((err) => { console.log(err) })
-            .finally(() => {
-                this.loader = false;
-            })
+                break;
+
+            } catch (err) {
+                if (attempt === retryCount) {
+                    console.error('All connection attempts failed');
+                } else {
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+        this.loader = false;
     }
 
     async CameraSwitch(id: number) {
@@ -40,7 +51,6 @@ class VideoSurveillanceModel {
         })
             .then((res) => {
                 this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
-                console.log(res.data.data.streamUrl)
             })
             .catch((err) => { console.log(err) })
             .finally(() => {
@@ -50,9 +60,13 @@ class VideoSurveillanceModel {
 
     async CameraDisconnect() {
         await CameryDisconnectApi({ userId: this.userId })
-            .then((res) => { console.log(res) })
-            .catch((err) => { console.log(err) })
+            .then((res) => {
+                console.log("Камера отключина")
+            })
+            .catch((err) => {
+                console.error(err)
+            })
     }
 }
 
-export const videoSurveillanceModel = new VideoSurveillanceModel() 
+export const videoSurveillanceModel = new VideoSurveillanceModel()  
