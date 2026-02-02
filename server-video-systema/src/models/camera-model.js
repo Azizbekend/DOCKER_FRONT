@@ -27,10 +27,6 @@ class Camera {
 
         if (!fs.existsSync(this.outDir)) {
             fs.mkdirSync(this.outDir, { recursive: true });
-        } else {
-            fs.readdirSync(this.outDir).forEach(file => {
-                fs.unlinkSync(path.join(this.outDir, file));
-            });
         }
 
 
@@ -84,6 +80,11 @@ class Camera {
             '-hls_segment_type', 'fmp4',
             '-hls_playlist_type', 'event',
             '-hls_start_number_source', 'datetime',
+
+            '-master_pl_name', 'index.m3u8',
+            '-strftime', '1', // Используем время в именах
+            '-strftime_mkdir', '1',
+
 
             path.join(this.outDir, 'index.m3u8')
         ];
