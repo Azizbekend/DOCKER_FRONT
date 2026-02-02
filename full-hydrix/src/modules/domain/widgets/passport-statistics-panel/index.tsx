@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Icon } from "@/packages/shared-ui/icon";
-import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { toast } from "react-toastify";
 import { dateFilterBtns } from "@/packages/entities/hardware/data";
 import Loader from "@/packages/shared-ui/loader/loader";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { passportStatisticsModel } from "../../features/passport/passport-statistics-model";
 import { SumChart } from "./sum-chart";
 

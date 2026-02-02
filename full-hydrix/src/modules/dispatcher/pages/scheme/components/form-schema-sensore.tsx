@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { observer } from "mobx-react-lite";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { schemeModel } from "../model/scheme-model";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { schemeSensoreModel } from "../model/scheme-sensore-model";

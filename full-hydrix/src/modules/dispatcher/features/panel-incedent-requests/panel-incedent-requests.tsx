@@ -6,9 +6,9 @@ import { incedentRequestPanelModel } from './models/incedent-request-panel-model
 import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
 import { Selector } from '@/packages/shared-ui/Selector/selector';
 import { Textarea } from '@/packages/shared-ui/textarea';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { createRequestPanelModel } from './models/create-incedent-request-model';
-import { getObjectId } from '@/packages/functions/get-object-data';
+import { getObjectId } from '@/packages/functions/get-data/get-object-data';
 import { useAuth } from '@/packages/entities/user/context';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 

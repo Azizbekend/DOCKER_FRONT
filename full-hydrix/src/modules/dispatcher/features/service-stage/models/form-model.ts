@@ -2,7 +2,7 @@ import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompany
 import { createServiceStageRequests } from "@/packages/entities/service-requests/api";
 import { ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestCreateStage } from "@/packages/entities/supply-request/api";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

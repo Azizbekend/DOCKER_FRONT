@@ -1,7 +1,7 @@
 import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';
 import { PassportHeaderPanel } from '../../components/header-panel';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { CreateCompanyModal } from '@/modules/domain/features/participants/components/create-company-modal';
 import { useState } from 'react';
 import { listParticipantsModel } from '@/modules/domain/features/participants/models/list-participants-model';

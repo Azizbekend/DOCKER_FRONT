@@ -54,9 +54,10 @@ export interface HardwareReviewProps {
 export interface HardwareControlleProps {
     commands: ControlType[],
     changeCommands: (value: string, id: string) => void,
-    isActiveCommand: boolean,
+    isActiveCommandModal: boolean,
     isLoaderCommand: boolean,
     switchIsCommand: () => void,
+    
     evengLog?: HardwareEventsDataType[],
 }
 

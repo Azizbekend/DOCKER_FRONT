@@ -1,4 +1,4 @@
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Modal } from "@/packages/shared-ui/modal/modal";
 import { observer } from "mobx-react-lite";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";

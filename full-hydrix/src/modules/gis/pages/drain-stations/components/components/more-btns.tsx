@@ -1,5 +1,5 @@
 import { Plant } from "@/packages/entities/plants/types";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Icon } from "@/packages/shared-ui/icon";
 import { BarControllerDatasetOptions } from "chart.js";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import { Modal } from "@/packages/shared-ui/modal/modal";
 import { useEffect } from 'react';
 import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 
 interface CreateCompanyModalProps {
     show: boolean;

@@ -47,7 +47,7 @@ export const Scheme = observer(() => {
           <HardwareCard
             id={focusHardware}
             key={focusHardware}
-            className={`panel-scheme__info`}
+            className={`bg-white rounded-lg p-[30px]`}
             onClick={setFocusHardware}
             focusHardwareStatus={focusHardwareStatus}
           />
@@ -56,14 +56,14 @@ export const Scheme = observer(() => {
           <FormSchemaObject
             key={focusSchemeObject}
             onClick={setSchemeObjectData}
-            className={`panel-scheme__info`} />
+            className={`bg-white rounded-lg p-[30px]`} />
         )}
         {focusSchemeSensore !== 0 && (
           <FormSchemaSensore
             key={focusSchemeSensore}
             id={focusSchemeSensore}
             onClick={setSchemeSensoreData}
-            className={`panel-scheme__info`}
+            className={`bg-white rounded-lg p-[30px]`}
           />
         )}
       </div>

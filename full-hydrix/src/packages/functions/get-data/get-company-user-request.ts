@@ -1,6 +1,6 @@
-import { getCompanyOne } from "../entities/company/api";
-import { getInfoHardware } from "../entities/hardware/api";
-import { getByUser } from "../entities/user/api";
+import { getCompanyOne } from "../../entities/company/api";
+import { getInfoHardware } from "../../entities/hardware/api";
+import { getByUser } from "../../entities/user/api";
 import { getGoodName } from "./get-good-name";
 
 export async function getCompanyUserRequest(item: any) {

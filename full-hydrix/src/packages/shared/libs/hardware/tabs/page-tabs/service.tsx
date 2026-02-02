@@ -2,7 +2,7 @@ import { Icon } from "@/packages/shared-ui/icon";
 import { InfoObject } from "../../components/info-object";
 import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 import { Modal } from "@/packages/shared-ui/modal/modal";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { useEffect, useState } from "react";
 import { Table } from "@/packages/shared-ui/table/index";
 import { observer } from "mobx-react-lite";
@@ -11,7 +11,7 @@ import { ServiceFilterBtn } from "../../components/service-filter-btn";
 import { ServiceStatisticItem } from "../../components/service-statistic-item";
 import { columns } from "../../columns/columns";
 import { HardwareServiceProps } from "@/packages/entities/hardware/type";
-import { getDate } from "@/packages/functions/get-date";
+import { getDate } from "@/packages/functions/get-data/get-date";
 
 export const HardwareService = observer(({ getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic }: HardwareServiceProps) => {
 

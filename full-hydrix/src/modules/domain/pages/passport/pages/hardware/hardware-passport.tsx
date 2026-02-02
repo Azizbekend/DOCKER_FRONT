@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/modules/domain/features/hardware/model";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { HardwarePassport } from "@/packages/shared/libs/hardware/tabs/page-tabs";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 
 export const HardwareInformationPassport = observer(() => {
 

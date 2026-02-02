@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportBlockContainer } from "../../components/passport-block-container";
-import { getDate } from "@/packages/functions/get-date";
+import { getDate } from "@/packages/functions/get-data/get-date";
 import { dateFilterBtns } from "@/packages/entities/hardware/data";
-import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { toast } from "react-toastify";
 import { logsModel } from "@/modules/domain/features/hardware/logs-model";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";

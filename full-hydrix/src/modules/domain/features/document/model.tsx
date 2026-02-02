@@ -1,6 +1,6 @@
 import { uploadObjectDocument } from "@/packages/entities/documents/api";
 import { DocumentsModelType } from "@/packages/entities/documents/type";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 

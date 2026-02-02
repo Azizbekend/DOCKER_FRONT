@@ -6,7 +6,7 @@ import { ServiceStagesPanel } from "../../../../packages/shared-components/stage
 import { listRequestModel } from "../../features/service-list/request-list-model";
 import { FilterButtons } from "./components/filter-buttons";
 import { RequestCard } from "@/packages/shared-components/request/request-card";
-import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-stage-types";
+import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
 
 export const RequestRegistryList = observer(() => {
   const [activeFilter, setActiveFilter] = useState<string>('all'); // 'all', 'general', 'supply', 'emergency'

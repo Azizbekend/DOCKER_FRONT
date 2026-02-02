@@ -1,6 +1,6 @@
 import { HardwareEventsDataType } from "@/packages/entities/hardware/type";
-import { getColorBorder } from "@/packages/functions/get-color-border";
-import { getDate } from "@/packages/functions/get-date";
+import { getColorBorder } from "@/packages/functions/get-data/get-color-border";
+import { getDate } from "@/packages/functions/get-data/get-date";
 import { Link } from "react-router-dom";
 
 

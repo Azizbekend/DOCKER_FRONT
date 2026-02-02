@@ -6,16 +6,16 @@ import { useEffect, useState } from "react";
 import { serviceStagesFormModel } from "../../../modules/dispatcher/features/service-stage/models/form-model";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Textarea } from "@/packages/shared-ui/textarea";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { StageCard } from "@/packages/shared-components/stage/stage-card";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { useAuth } from "@/packages/entities/user/context";
 import { CompleteCancelType } from "@/packages/entities/service-requests/type";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { getDostup } from "@/packages/entities/user/utils";
 import { StageSupplyCard } from "./stage-supply-card";
-import { isStageSupplyTypes } from "@/packages/functions/is-stage-types";
+import { isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
 
 interface ServiceStagesPanelProps {
   show: boolean;
@@ -87,7 +87,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               key={stage.id}
               number={key + 1}
               stage={stage}
-              footerBlock ={isActiveRequest && (user!.id == stage.implementerId || true)}
+              footerBlock={isActiveRequest && (user!.id == stage.implementerId || true)}
               setTypeAction={setTypeAction}
               setIsActiveRequest={setIsActiveRequest}
               supplyRequestAction={supplyRequestAction}
@@ -191,7 +191,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   </InputContainer>
                   :
                   <div>У компании отсутвствуют ответственные лица </div>)
-                } 
+                }
               </div>
 
 

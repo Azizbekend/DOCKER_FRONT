@@ -1,6 +1,6 @@
 import { hardwaresEvents, hardwaresLogs } from "@/packages/entities/hardware/api";
 import { HardwareEventsDataType, StartEndDates } from "@/packages/entities/hardware/type";
-import { sortHardwareEventsLogs } from "@/packages/functions/sort-hardware-events-logs";
+import { sortHardwareEventsLogs } from "@/packages/functions/sort-data/sort-hardware-events-logs";
 import { makeAutoObservable } from "mobx";
 
 class LogsModel {

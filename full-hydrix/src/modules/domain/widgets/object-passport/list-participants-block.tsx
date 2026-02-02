@@ -1,4 +1,4 @@
-import { getGoodName } from '@/packages/functions/get-good-name';
+import { getGoodName } from '@/packages/functions/get-data/get-good-name';
 import { BlockContainer } from '@/packages/shared-components/container-blocks/block-container';
 import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';

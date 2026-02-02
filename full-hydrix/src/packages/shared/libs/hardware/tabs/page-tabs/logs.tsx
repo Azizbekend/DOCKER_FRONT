@@ -2,7 +2,7 @@ import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportBlockContainer } from "../../components/passport-block-container";
 import { eventLogData } from "@/packages/entities/hardware/data";
-import { getColorBorder } from "@/packages/functions/get-color-border";
+import { getColorBorder } from "@/packages/functions/get-data/get-color-border";
 
 
 export const HardwareLogs = observer(() => {

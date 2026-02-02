@@ -3,8 +3,8 @@ import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareModel } from "@/modules/domain/features/hardware/model";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getObjectId } from "@/packages/functions/get-object-data";
-import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 
 export const HardwareInformation = observer(() => {
     const { id } = useParams();

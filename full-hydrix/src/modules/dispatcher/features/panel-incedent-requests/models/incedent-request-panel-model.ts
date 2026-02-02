@@ -3,8 +3,8 @@ import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { cancelServiceRequests, completeServiceRequests, getByIncidentServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
-import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
-import { getGoodName } from "@/packages/functions/get-good-name";
+import { getCompanyUserRequest } from "@/packages/functions/get-data/get-company-user-request";
+import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

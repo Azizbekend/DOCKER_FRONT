@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { SelectionComponent } from "../../layout/selection";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 import { useAuth } from "@/packages/entities/user/context";
 import dayjs from 'dayjs';

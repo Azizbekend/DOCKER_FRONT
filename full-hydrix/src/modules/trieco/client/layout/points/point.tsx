@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import clientModel from "../../kernel/model/client-model"
 import { Icon } from "@/packages/shared-ui/icon"
-import { Button } from "@/packages/shared-ui/button"
+import { Button } from "@/packages/shared-ui/button/button"
 import editPointModel from "../../pages/edit-point/model/edit-point-model"
 
 type Props = {

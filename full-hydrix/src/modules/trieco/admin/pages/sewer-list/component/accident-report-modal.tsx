@@ -1,5 +1,5 @@
 import { Modal } from "@/app/cores/core-trieco/UIKit"
-import { Button } from "@/packages/shared-ui/button"
+import { Button } from "@/packages/shared-ui/button/button"
 import { Input } from "@/packages/shared-ui/GIS"
 
 type Props = {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Icon } from "@/packages/shared-ui/icon";
 import { CameraItem } from "./video-item";
 import { observer } from "mobx-react-lite";

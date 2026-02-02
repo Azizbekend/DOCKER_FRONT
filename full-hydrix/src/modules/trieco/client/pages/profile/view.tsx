@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { InputContainer } from "@/packages/shared-ui/Inputs/input-container";
 import { Icon } from "@/packages/shared-ui/icon";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { useAuth } from "@/packages/entities/user/context";
 
 export const ProfileView = observer(() => {

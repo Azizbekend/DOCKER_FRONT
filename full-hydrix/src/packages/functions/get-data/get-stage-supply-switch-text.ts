@@ -1,4 +1,4 @@
-import { StageAction } from "../shared-components/stage/stage-actions";
+import { StageAction } from "../../shared-components/stage/stage-actions";
 
 export function getAnswerActions(typeAction: StageAction | null) {
     switch (typeAction) {

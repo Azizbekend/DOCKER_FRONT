@@ -1,5 +1,5 @@
 import { Modal } from '@/packages/shared-ui/modal/modal';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 
 
 export const ConfirmModal = ({ setShow, show }: { setShow: (value: boolean) => void, show: boolean }) => {

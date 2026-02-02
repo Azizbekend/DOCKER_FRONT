@@ -1,4 +1,4 @@
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
 import { Modal } from '@/packages/shared-ui/modal/modal';
 import { Selector } from '@/packages/shared-ui/Selector/selector';

@@ -1,8 +1,8 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import { ServiceType } from "@/packages/entities/service-requests/type";
-import { getDate } from "@/packages/functions/get-date";
+import { getDate } from "@/packages/functions/get-data/get-date";
 import { Incident } from "@/packages/entities/incident/type";
-import { getIncidentColor, getIncidentText } from "@/packages/functions/get-incident-status";
+import { getIncidentColor, getIncidentText } from "@/packages/functions/get-data/get-incident-status";
 
 export const columnsIncidents: TableColumn<Incident>[] = [
     {

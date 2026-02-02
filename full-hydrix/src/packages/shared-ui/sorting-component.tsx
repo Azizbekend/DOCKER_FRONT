@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ExtendedColumnDef, Filter } from "./table";
-import { Button } from "./button";
+import { Button } from "./button/button";
 
 interface SortFilterComponentProps {
     column: ExtendedColumnDef<any, any>; // Используем расширенный тип

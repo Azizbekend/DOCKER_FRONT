@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import image from "@/modules/domain/assets/images/image.png"
 import { useState } from 'react';
 import { Icon } from '@/packages/shared-ui/icon';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 
 export const InformationBlock = observer(() => {
 

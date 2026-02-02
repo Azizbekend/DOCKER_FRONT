@@ -10,7 +10,7 @@ export const TimModel = () => {
                         <div className="w-20 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
                     </div>
                 </div>
-                <iframe width="1024" height="640" src="http://hydrig.gsurso.ru/tim-model/applications/Waterclean/Waterclean.html" className="timModel-dispatch__iframe"></iframe>
+                <iframe width="1024" height="640" src="http://hydrig.gsurso.ru/tim-model" className="timModel-dispatch__iframe"></iframe>
             </div>
         </>
     )

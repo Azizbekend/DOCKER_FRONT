@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { ServiceStageType } from "../../entities/service-requests/type";
-import { getDate } from "../../functions/get-date";
-import { Button } from "../../shared-ui/button";
+import { getDate } from "../../functions/get-data/get-date";
+import { Button } from "../../shared-ui/button/button";
 import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { stageSupplyFormModel } from "@/packages/features/stage-supply/stage-supply-form-model";
-import { statusColorStage, statusStage } from "@/packages/functions/get-stage-status";
+import { statusColorStage, statusStage } from "@/packages/functions/get-data/get-stage-status";
 import { StageAction, stageActions } from "./stage-actions";
-import { getDiscriptionTitle, isDiscription, isSupplierName, getSupplierNameTitle, isCount, isExpenseNumber, isExpense, isCompanyUsers, } from "@/packages/functions/is-stage-supply-switch-form-input";
+import { getDiscriptionTitle, isDiscription, isSupplierName, getSupplierNameTitle, isCount, isExpenseNumber, isExpense, isCompanyUsers, } from "@/packages/functions/is-value/is-stage-supply-switch-form-input";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { observer } from "mobx-react-lite";
 

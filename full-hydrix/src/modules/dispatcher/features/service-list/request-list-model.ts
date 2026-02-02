@@ -4,7 +4,7 @@ import { cancelServiceRequests, completeServiceRequests, getByObjectServiceReque
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageDelete } from "@/packages/entities/supply-request/api";
 import { getByUser } from "@/packages/entities/user/api";
-import { getGoodName } from "@/packages/functions/get-good-name";
+import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 

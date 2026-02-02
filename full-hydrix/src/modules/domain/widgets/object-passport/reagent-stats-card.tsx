@@ -1,5 +1,5 @@
 import { ReagentStat } from '@/packages/entities/participants/type';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { observer } from 'mobx-react-lite';

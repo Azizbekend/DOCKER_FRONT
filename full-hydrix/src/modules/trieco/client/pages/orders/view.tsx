@@ -14,7 +14,7 @@ import useOrderStatus from "@/packages/entities/order/useOrderStatus";
 import { OrderStatusText, StatusColor } from "@/app/cores/core-trieco/lib/order";
 import { OrderCard } from "../../layout/oder-card";
 import { Table } from "@/packages/shared-ui/table/index";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import { useAuth } from '@/packages/entities/user/context';
 import { OrderModal } from './components/order-modal';

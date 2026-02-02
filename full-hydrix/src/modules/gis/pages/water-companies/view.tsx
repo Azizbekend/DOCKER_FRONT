@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite"
 import listModel from "./model/list-model"
 import { Icon } from "@/packages/shared-ui/icon"
 import { Search } from "@/packages/shared-ui/Inputs/input-search"
-import { Button } from "@/packages/shared-ui/button"
+import { Button } from "@/packages/shared-ui/button/button"
 import { ButtonCheckList } from "@/packages/shared-ui/button-check-list"
 import { Table } from "@/packages/shared-ui/table/"
 

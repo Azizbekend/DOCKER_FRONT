@@ -1,8 +1,8 @@
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageCancel, supplyRequestStageComplete, supplyRequestStageConfirm, supplyRequestStageConfirmNoPay, supplyRequestStageResend } from "@/packages/entities/supply-request/api";
-import { getCompanyUserRequest } from "@/packages/functions/get-company-user-request";
-import { getAnswerActions } from "@/packages/functions/get-stage-supply-switch-text";
+import { getCompanyUserRequest } from "@/packages/functions/get-data/get-company-user-request";
+import { getAnswerActions } from "@/packages/functions/get-data/get-stage-supply-switch-text";
 import { StageAction } from "@/packages/shared-components/stage/stage-actions";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";

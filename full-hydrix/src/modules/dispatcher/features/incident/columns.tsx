@@ -1,7 +1,7 @@
 import { IncidentColumn } from "@/packages/entities/incident/type";
-import { getBetweenTimeByHour } from "@/packages/functions/get-between-time-by-hour";
-import { getDate } from "@/packages/functions/get-date";
-import { getIncidentColor, getIncidentText } from "@/packages/functions/get-incident-status";
+import { getBetweenTimeByHour } from "@/packages/functions/get-data/get-between-time-by-hour";
+import { getDate } from "@/packages/functions/get-data/get-date";
+import { getIncidentColor, getIncidentText } from "@/packages/functions/get-data/get-incident-status";
 import { TableColumn } from "@/packages/shared-ui/table/types";
 
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CompleteCommonStageType, ServiceStageType } from "../../entities/service-requests/type";
-import { getDate } from "../../functions/get-date";
-import { Button } from "../../shared-ui/button";
+import { getDate } from "../../functions/get-data/get-date";
+import { Button } from "../../shared-ui/button/button";
 import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";

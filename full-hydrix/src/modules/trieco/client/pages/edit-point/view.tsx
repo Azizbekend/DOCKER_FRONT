@@ -6,7 +6,7 @@ import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick 
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
 import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
 import { Input } from "@/packages/shared-ui/GIS";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 
 export const EditPointView = observer(() => {
     const { isAddress, changeAddress, model, edit, changeWasteVolume } = editPointModel;

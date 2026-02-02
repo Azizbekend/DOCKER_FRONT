@@ -3,7 +3,7 @@ import { DocumentsType } from "@/packages/entities/documents/type";
 import { getInfoHardware, hardwaresEvents, hardwaresLogs, statusHardwaresCheck } from "@/packages/entities/hardware/api";
 import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/packages/entities/hardware/api-general";
 import { HardwareEventsDataType, HardwareInterface, StartEndDates } from "@/packages/entities/hardware/type";
-import { sortHardwareEventsLogs } from "@/packages/functions/sort-hardware-events-logs";
+import { sortHardwareEventsLogs } from "@/packages/functions/sort-data/sort-hardware-events-logs";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
 import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
 
@@ -231,22 +231,22 @@ class HardwareModel {
             await getCommandActive({ hardwareId: this.model.id })
                 .then(() => {
                     this.isActiveCommand = false
-                    toast("Команды активированы", { progressStyle: { background: "green" } });
+                    toast("Команды деактивированы", { progressStyle: { background: "green" } });
                 })
                 .catch((error) => {
                     console.log(error)
-                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                    toast("Ошибка при деактивации команд", { progressStyle: { background: "red" } });
                 })
                 .finally(() => { this.isLoaderCommand = false })
         } else {
             await getCommandDeactive({ hardwareId: this.model.id })
                 .then(() => {
                     this.isActiveCommand = true
-                    toast("Команды деактивированы", { progressStyle: { background: "green" } });
+                    toast("Команды активированы", { progressStyle: { background: "green" } });
                 })
                 .catch((error) => {
                     console.log(error)
-                    toast("Ошибка при активации команды", { progressStyle: { background: "red" } });
+                    toast("Ошибка при активации команд", { progressStyle: { background: "red" } });
                 })
                 .finally(() => { this.isLoaderCommand = false })
 

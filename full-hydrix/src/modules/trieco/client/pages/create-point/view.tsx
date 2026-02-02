@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
 import mapVKModel from "@/packages/shared-ui/mapVK/model/mapVK-model";
 import { getAdressCoordinates, getAdressList, getSuggestionClick } from "@/packages/shared-ui/mapVK/mapVk-functions";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Input } from "@/packages/shared-ui/GIS";
 import { useAuth } from "@/packages/entities/user/context";
 

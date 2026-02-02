@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { DocumentCard } from './document-card';
 import { DocumentFormCard } from './document-form-card';
 import { useState } from 'react';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { passportDocuments } from '../../features/passport/passport-documents';
 
 

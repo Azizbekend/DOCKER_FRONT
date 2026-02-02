@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { plantsListModel } from "./model/drain-stations-model";
 import { useEffect } from "react";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { NoStations } from "./components/no-stations";
 import { StationModal } from "./components/station-modal";

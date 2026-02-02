@@ -1,4 +1,4 @@
-import { StageAction } from "../shared-components/stage/stage-actions";
+import { StageAction } from "@/packages/shared-components/stage/stage-actions"
 
 export function isDiscription(typeAction: StageAction | null) {
     switch (typeAction) {
@@ -48,7 +48,7 @@ export function getSupplierNameTitle(typeAction: StageAction | null) {
         case StageAction.attachExpenses:
         case StageAction.confirmNoPay:
         default:
-            return "Имя поставщика" 
+            return "Имя поставщика"
     }
 }
 

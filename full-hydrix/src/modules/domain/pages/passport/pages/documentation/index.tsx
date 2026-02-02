@@ -5,7 +5,7 @@ import { categories } from '@/modules/domain/features/document/data';
 import { DocumentBlock } from '@/modules/domain/widgets/passport-object-document/document-block';
 import { useEffect, useMemo, useState } from 'react';
 import { passportDocuments } from '@/modules/domain/features/passport/passport-documents';
-import { getObjectId } from '@/packages/functions/get-object-data';
+import { getObjectId } from '@/packages/functions/get-data/get-object-data';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { Icon } from '@/packages/shared-ui/icon';
 

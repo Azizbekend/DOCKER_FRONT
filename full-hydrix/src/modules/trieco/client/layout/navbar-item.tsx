@@ -1,4 +1,4 @@
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { Icon } from "@/packages/shared-ui/icon";
 import { Link, useNavigate } from "react-router-dom"
 

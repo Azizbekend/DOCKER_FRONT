@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useLocation } from "react-router-dom";
 import { Icon } from "@/packages/shared-ui/icon";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import logo from "./static/logo-3.png";
 import { useAuth } from "@/packages/entities/user/context";
 import { createOrderModel } from "../pages/create-order/entities/create-order-model";

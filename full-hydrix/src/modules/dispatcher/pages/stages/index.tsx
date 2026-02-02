@@ -4,7 +4,7 @@ import Loader from '@/packages/shared-ui/loader/loader';
 import { useEffect } from 'react';
 import { useAuth } from '@/packages/entities/user/context';
 import { StageTaskCard } from '@/packages/shared-components/stage/stage-task-card';
-import { isStageSupplyTypes } from '@/packages/functions/is-stage-types';
+import { isStageSupplyTypes } from '@/packages/functions/is-value/is-stage-types';
 import { StageTaskSupplyCard } from '@/packages/shared-components/stage/stage-task-supply-card';
 
 export const Stages = observer(() => {

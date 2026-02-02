@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { columns } from "../../features/incident/columns";
 import { incedentListModel } from "../../features/incident/list-model";
 import Loader from "@/packages/shared-ui/loader/loader";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { PanelIncedentRequests } from "../../features/panel-incedent-requests/panel-incedent-requests";
 import { observer } from "mobx-react-lite";
 import { ServiceStagesPanel } from "@/packages/shared-components/stage/stages-panel";

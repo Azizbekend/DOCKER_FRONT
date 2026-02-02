@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import clientCompaniesModel, { TypeInfoType } from "./models/client-company-model";
 import { Table } from "@/packages/shared-ui/table/index";
 import { ClientCompany } from "@/packages/entities/company/type";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
 import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { CreateEnterprice } from "./components/create-enterprise";

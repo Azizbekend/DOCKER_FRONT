@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { PassportBlockContainer } from "../../components/passport-block-container";
 import { svodStatistics } from "@/packages/entities/hardware/data";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { HardwareEventsPanel } from "./events-panel";
 
 export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo, model, documents, сharacteristic, commandsInfo, incidentList, status, evengLog = "none" }: HardwarePassportProps) => {

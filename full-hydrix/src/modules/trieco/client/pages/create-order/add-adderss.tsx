@@ -6,7 +6,7 @@ import mapVKModel from '@/packages/shared-ui/mapVK/model/mapVK-model';
 import { getAdressCoordinates, getAdressList, getAdressText, getSuggestionClick } from '@/packages/shared-ui/mapVK/mapVk-functions';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { InputContainer } from '@/packages/shared-ui/Inputs/input-container';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { createOrderModel } from './entities/create-order-model';
 
 const YandexMapComponent = observer(({ getPage }: { getPage: () => void }) => {

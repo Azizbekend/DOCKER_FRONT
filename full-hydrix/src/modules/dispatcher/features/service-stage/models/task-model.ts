@@ -4,8 +4,8 @@ import { completeCommonServiceStageRequests, getByUserStageRequests } from "@/pa
 import { CompleteCommonStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageConfirmNoPay, supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageConfirm, supplyRequestStageComplete, supplyRequestStageResend, supplyRequestStageCancel, } from "@/packages/entities/supply-request/api";
 import { getByUser } from "@/packages/entities/user/api";
-import { getGoodName } from "@/packages/functions/get-good-name";
-import { getAnswerActions } from "@/packages/functions/get-stage-supply-switch-text";
+import { getGoodName } from "@/packages/functions/get-data/get-good-name";
+import { getAnswerActions } from "@/packages/functions/get-data/get-stage-supply-switch-text";
 import { StageAction } from "@/packages/shared-components/stage/stage-actions";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";

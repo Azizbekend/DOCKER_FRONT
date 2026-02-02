@@ -7,7 +7,7 @@ import { Table } from "@/packages/shared-ui/table/index";
 import { useEffect, useState } from "react";
 import { Sewer } from "@/packages/entities/sewer/type";
 import { TableColumn } from "@/packages/shared-ui/table/types";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { SewerInfoModal } from "./component/sewer-info-modal";
 import sewerMapModel from "./models/sewer-map-model";
 import { volumes } from "@/packages/entities/volume/data";

@@ -1,5 +1,5 @@
 import { Operator } from "@/packages/entities/operator/type";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
 import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { observer } from "mobx-react-lite";

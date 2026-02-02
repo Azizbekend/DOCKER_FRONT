@@ -5,7 +5,7 @@ import { useAuth } from "@/packages/entities/user/context";
 import logo from "../../../app/static/img/logo.png"
 import illyas from "./assets/iilyas.png"
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { getRoleText } from "@/packages/entities/user/utils";
 
 export const Header = observer(() => {

@@ -5,12 +5,13 @@ import { hardwareModel } from "@/modules/domain/features/hardware/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { InfoCompType } from "../../types/type";
 import { HardwareControlle, HardwareReview, HardwareServes } from "@/packages/shared/libs/hardware/tabs/panel-tabs";
 import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/hardware-status";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
-import { getTimeRanges } from "@/packages/functions/get-time-ranges";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
+import { panelTabs } from "@/packages/shared-ui/button/config";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
@@ -85,7 +86,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
             })}
 
             <div className="flex gap-3 mb-6 bg-gray-100 p-1 rounded-lg">
-              {['Обзор', 'Управление', 'Сервис'].map((tab, index) => (
+              {panelTabs.map((tab, index) => (
                 <button
                   key={index}
                   onClick={() => setMode(index)}

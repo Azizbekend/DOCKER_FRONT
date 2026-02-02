@@ -6,7 +6,7 @@ import { InfoObject } from '../../components/info-object';
 import InputCheckbox from '@/packages/shared-ui/Inputs/input-checkbox';
 import { Link } from 'react-router-dom';
 import { Modal } from '@/packages/shared-ui/modal/modal';
-import { Button } from '@/packages/shared-ui/button';
+import { Button } from '@/packages/shared-ui/button/button';
 import { useState } from 'react';
 import { HardwareServesProps } from '@/packages/entities/hardware/type';
 import { useAuth } from '@/packages/entities/user/context';

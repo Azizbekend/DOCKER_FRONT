@@ -1,5 +1,5 @@
 import { getTechSpecsStatisticsByPeriod } from '@/packages/entities/object/api';
-import { getTimeRanges } from '@/packages/functions/get-time-ranges';
+import { getTimeRanges } from '@/packages/functions/get-data/get-time-ranges';
 import { makeAutoObservable } from 'mobx';
 import { staticDataWater, staticDataElectro } from './data';
 class PassportStatisticsModel {

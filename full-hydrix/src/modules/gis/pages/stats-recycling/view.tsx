@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite"
 import recyclingStatsModel from "./recycling-stats-model"
 import { getLineData } from "./helper/getData"
 import { Icon } from "@/packages/shared-ui/icon"
-import { Button } from "@/packages/shared-ui/button"
+import { Button } from "@/packages/shared-ui/button/button"
 import statsModel from "../../layout/model/stats-model"
 
 export const RecyclingStatsView = observer(() => {

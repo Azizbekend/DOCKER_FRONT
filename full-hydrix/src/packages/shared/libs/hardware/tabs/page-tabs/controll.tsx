@@ -3,14 +3,14 @@ import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { SwitchButton } from "@/packages/shared-ui/switch-button";
 import { useState } from "react";
 import Loader from "@/packages/shared-ui/loader/loader";
-import { Button } from "@/packages/shared-ui/button";
+import { Button } from "@/packages/shared-ui/button/button";
 import { ConfirmModal } from '@/packages/shared-components/hardware-modal-confirms/modal-confirm';
 import { ModalCommanActive } from '@/packages/shared-components/hardware-modal-confirms/modal-comman-active';
 import { observer } from "mobx-react-lite";
 import { HardwareControlleProps } from "@/packages/entities/hardware/type";
 import { logsModel } from "@/modules/domain/features/hardware/logs-model";
-import { getTimeRanges } from "@/packages/functions/get-time-ranges";
-import { getDate } from "@/packages/functions/get-date";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
+import { getDate } from "@/packages/functions/get-data/get-date";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 
 export const HardwareControll = observer(({ commands, switchIsCommand, changeCommands, isLoaderCommand, isActiveCommand, evengLog }: HardwareControlleProps) => {

@@ -10,7 +10,7 @@ import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { domainHardwariesColumns } from "@/packages/shared/libs/hardware/columns/columns";
-import { getObjectId } from "@/packages/functions/get-object-data";
+import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { isAdmin } from "@/packages/entities/user/utils";
 
 export const HardwareRegistry = observer(() => {
