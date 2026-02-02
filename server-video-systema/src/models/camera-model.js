@@ -31,12 +31,22 @@ class Camera {
 
         const args = [
             '-rtsp_transport', 'tcp',
+            '-fflags', 'nobuffer',
+            '-flags', 'low_delay',
+            '-use_wallclock_as_timestamps', '1',
+
             '-i', this.rtsp,
+
             '-c:v', 'copy',
-            '-c:a', 'aac',
-            '-hls_time', '2',
-            '-hls_list_size', '6',
-            '-hls_flags', 'delete_segments',
+            '-an',
+
+            '-f', 'hls',
+            '-hls_time', '1',
+            '-hls_list_size', '4',
+            '-hls_flags', 'delete_segments+append_list+omit_endlist',
+            '-hls_segment_type', 'fmp4',
+            '-hls_playlist_type', 'event',
+
             path.join(this.outDir, 'index.m3u8')
         ];
 
