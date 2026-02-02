@@ -27,7 +27,12 @@ class Camera {
 
         if (!fs.existsSync(this.outDir)) {
             fs.mkdirSync(this.outDir, { recursive: true });
+        } else {
+            fs.readdirSync(this.outDir).forEach(file => {
+                fs.unlinkSync(path.join(this.outDir, file));
+            });
         }
+
 
         // Не сжатый вариант
         // const args = [
