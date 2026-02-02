@@ -20,18 +20,18 @@ export const getTimeRanges = () => {
         end: yesterdayEnd
     };
 
-    // 3. Текущая неделя с понедельника 00:00 до текущего момента
+    // 3. Неделя (-7 дней от текущей даты)
     const weekStart = new Date(now);
-    weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+    weekStart.setDate(now.getDate() - 7);
     weekStart.setHours(0, 0, 0, 0);
     const weekRange = {
         start: weekStart,
         end: now
     };
 
-    // 4. Текущий месяц с 1-го числа 00:00 до текущего момента
+    // 4. Месяц (-30 дней от текущей даты)
     const monthStart = new Date(now);
-    monthStart.setDate(1);
+    monthStart.setDate(now.getDate() - 30);
     monthStart.setHours(0, 0, 0, 0);
     const monthRange = {
         start: monthStart,

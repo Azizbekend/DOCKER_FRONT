@@ -29,6 +29,7 @@ class Camera {
             fs.mkdirSync(this.outDir, { recursive: true });
         }
 
+        // Не сжатый вариант
         // const args = [
         //     '-rtsp_transport', 'tcp',
         //     '-fflags', 'nobuffer',
