@@ -8,10 +8,10 @@ front-update:
 	sudo docker compose up -d --build
 
 camera-stop:
-	sudo docker-compose stop front-end-servercamera-1
+	sudo docker stop front-end-servercamera-1
 
 camera-start:
-	sudo docker compose up -d front-end-servercamera-1
+	sudo docker compose up -d servercamera
 
 camera-logs:
 	sudo docker logs -f --tail 60 front-end-servercamera-1
