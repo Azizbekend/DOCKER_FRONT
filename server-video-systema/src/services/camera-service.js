@@ -100,6 +100,13 @@ class CameraService {
             camera.getState()
         );
     }
+
+    /**
+    * 
+    */
+    clearCameras() {
+
+    }
 }
 
 module.exports = new CameraService();

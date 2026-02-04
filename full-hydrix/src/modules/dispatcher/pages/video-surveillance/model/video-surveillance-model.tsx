@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { CameryConnectApi, CamerySwitchApi, CameryDisconnectApi } from "../service/api";
+import { CameryConnectApi, CamerySwitchApi, CameryDisconnectApi, CameryСlearApi } from "../service/api";
 
 class VideoSurveillanceModel {
     cameraSources: number[] = [1, 2, 3, 4, 5, 6, 7];
@@ -66,6 +66,13 @@ class VideoSurveillanceModel {
             .catch((err) => {
                 console.error(err)
             })
+    }
+
+
+    async CameryСlear() {
+        await CameryСlearApi()
+            .then((res) => console.log(res.data))
+            .catch((error) => console.log(error))
     }
 }
 

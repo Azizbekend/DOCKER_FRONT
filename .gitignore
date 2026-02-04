@@ -2,3 +2,5 @@ node_modules
 dist
 
 server-save-image/*
+
+.bashrc_user_alias

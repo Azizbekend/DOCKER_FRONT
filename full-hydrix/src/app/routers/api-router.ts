@@ -185,6 +185,7 @@ export const Camery = {
   connect: "/connect",
   switch: "/switch",
   disconnect: "/disconnect",
+  clear: "/clear",
 }
 
 

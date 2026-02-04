@@ -86,6 +86,23 @@ class CameraController {
             });
         }
     }
+
+    clear(req, res) {
+        try {
+            const allCameras = cameraService.getCamerasState()
+
+            return res.status(200).json({
+                success: true,
+                data: allCameras
+            });
+
+
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            });
+        }
+    }
 }
 
 module.exports = new CameraController();

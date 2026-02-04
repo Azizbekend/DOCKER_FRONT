@@ -13,6 +13,10 @@ export const CameryDisconnectApi = (params: CameryConnect) => {
     return reserchCamera.post(Camery.disconnect, params)
 }
 
+export const CameryСlearApi = () => {
+    return reserchCamera.post(Camery.clear)
+}
+
 
 export interface CameryConnect {
     userId: number,
