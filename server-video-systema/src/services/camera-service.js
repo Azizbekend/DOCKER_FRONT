@@ -105,14 +105,14 @@ class CameraService {
     * 
     */
     clearCameras() {
-        Array.from(this.cameras.values()).map((camera) =>
-            camera.stop()
-        )
 
-        // 2. Очищаем коллекцию
+        stopCamera
+
+
+        for (let camera of this.cameras.values()) {
+            camera.stop();
+        }
         this.cameras.clear();
-
-        // 3. Очищаем подключения пользователей
         this.userConnections.clear();
 
     }
