@@ -105,7 +105,7 @@ class CameraService {
     * 
     */
     clearCameras() {
-        this.cameras.values().map((camera) =>
+        Array.from(this.cameras.values()).map((camera) =>
             camera.stop()
         )
     }
