@@ -24,8 +24,8 @@ export const MapObjects = observer(() => {
     getImage.src = mapPl;
     getImage.onclick = () => { navigate("/domain/passport/information/information") }
 
-    mmrgl.accessToken = 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814';
-
+    mmrgl.accessToken = 'RSe0266ce5cca3990591009afbbecaf35c12e6ec656e4a7682eae76b617f3745';
+                         
     const map = new mmrgl.Map({
       container: 'map',
       zoom: 10,
