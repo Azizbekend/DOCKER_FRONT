@@ -69,19 +69,24 @@ class Camera {
             '-fflags', 'nobuffer',
             '-flags', 'low_delay',
             '-use_wallclock_as_timestamps', '1',
-            '-vsync', '1',
 
             '-i', this.rtsp,
 
             '-c:v', 'libx264',
-            '-preset', 'superfast',
+            '-preset', 'ultrafast',
             '-tune', 'zerolatency',
-            '-crf', '28',
-            '-vf', 'scale=-2:480',
+
+            '-fps_mode', 'cfr',
             '-r', '15',
+
+            '-g', '15',
+            '-keyint_min', '15',
+            '-sc_threshold', '0',
+
+            '-vf', 'scale=-2:480',
             '-b:v', '500k',
             '-maxrate', '700k',
-            '-bufsize', '1000k',
+            '-bufsize', '700k',
 
             '-an',
 
@@ -93,13 +98,9 @@ class Camera {
             '-hls_playlist_type', 'event',
             '-hls_start_number_source', 'datetime',
 
-            // '-master_pl_name', 'index.m3u8',
-            // '-strftime', '1', // Используем время в именах
-            // '-strftime_mkdir', '1',
-
-
             path.join(this.outDir, 'index.m3u8')
         ];
+
 
         console.log(`Запуск камеры ${this.id}...`);
 
