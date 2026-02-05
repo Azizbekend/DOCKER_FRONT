@@ -7,10 +7,17 @@ class Camera {
         this.id = id;
         this.rtsp = rtsp;
 
-        this.userDirs = new Map(); // userId -> outDir
-        this.userProcesses = new Map(); // userId -> ffmpegProcess
         this.viewers = new Set();
+        this.userDirs = new Map();
+        this.ffmpegProcess = null;
+
+        this.outDir = path.join(
+            process.cwd(),
+            'public',
+            `stream_${this.id}`
+        );
     }
+
 
     /**
      * Подключение пользователя
@@ -18,51 +25,84 @@ class Camera {
     addViewer(userId) {
         this.viewers.add(userId);
 
-        // Создаем уникальную папку для пользователя
         const userDir = path.join(
-            process.cwd(),
-            'public/',
-            `stream_${this.id}_${userId}`
+            this.outDir,
+            String(userId)
         );
+
+        if (!fs.existsSync(userDir)) {
+            fs.mkdirSync(userDir, { recursive: true });
+        }
 
         this.userDirs.set(userId, userDir);
 
-        // Запускаем ffmpeg для этого пользователя
-        this.startForUser(userId);
+        this.createUserPlaylist(userId);
+
+        if (this.viewers.size === 1) {
+            this.start();
+        }
     }
 
-    /**
-     * Отключение пользователя
-     */
-    removeViewer(userId) {
-        this.viewers.delete(userId);
-
-        // Останавливаем процесс пользователя
-        this.stopForUser(userId);
-
-        // Удаляем папку пользователя
-        this.cleanupUserDir(userId);
-
-        // Удаляем из мапов
-        this.userDirs.delete(userId);
-        this.userProcesses.delete(userId);
-    }
-
-    /**
-     * Запуск ffmpeg для конкретного пользователя
-     */
-    startForUser(userId) {
+    createUserPlaylist(userId) {
         const userDir = this.userDirs.get(userId);
+        if (!userDir) return;
 
-        if (!userDir || this.userProcesses.has(userId)) {
+        const cameraPlaylist = path.join(this.outDir, 'index.m3u8');
+        const userPlaylist = path.join(userDir, 'index.m3u8');
+
+        // если ffmpeg ещё не успел создать playlist — ждём
+        if (!fs.existsSync(cameraPlaylist)) {
+            setTimeout(() => this.createUserPlaylist(userId), 500);
             return;
         }
 
-        // Очищаем и создаем папку пользователя
-        if (fs.existsSync(userDir)) {
-            fs.rmSync(userDir, { recursive: true, force: true });
+        // копируем playlist камеры
+        fs.symlinkSync(cameraPlaylist, userPlaylist);
+    }
+
+    getStreamUrl(userId) {
+        return `/stream_${this.id}/${userId}/index.m3u8`;
+    }
+
+
+
+    /**
+     * Запуск ffmpeg (HLS)
+     */
+    start() {
+        if (this.ffmpegProcess) return;
+
+        if (fs.existsSync(this.outDir)) {
+            fs.rmSync(this.outDir, { recursive: true, force: true });
         }
-        fs.mkdirSync(userDir, { recursive: true });
+
+        fs.mkdirSync(this.outDir, { recursive: true });
+
+        this.startFfmpeg();
+    }
+
+    startFfmpeg() {
+        // Не сжатый вариант
+        // const args = [
+        //     '-rtsp_transport', 'tcp',
+        //     '-fflags', 'nobuffer',
+        //     '-flags', 'low_delay',
+        //     '-use_wallclock_as_timestamps', '1',
+
+        //     '-i', this.rtsp,
+
+        //     '-c:v', 'copy',
+        //     '-an',
+
+        //     '-f', 'hls',
+        //     '-hls_time', '1',
+        //     '-hls_list_size', '4',
+        //     '-hls_flags', 'delete_segments+append_list+omit_endlist',
+        //     '-hls_segment_type', 'fmp4',
+        //     '-hls_playlist_type', 'event',
+
+        //     path.join(this.outDir, 'index.m3u8')
+        // ];
 
         const args = [
             '-rtsp_transport', 'tcp',
@@ -70,7 +110,9 @@ class Camera {
             '-flags', 'low_delay',
             '-use_wallclock_as_timestamps', '1',
             '-vsync', '1',
+
             '-i', this.rtsp,
+
             '-c:v', 'libx264',
             '-preset', 'superfast',
             '-tune', 'zerolatency',
@@ -80,7 +122,9 @@ class Camera {
             '-b:v', '500k',
             '-maxrate', '700k',
             '-bufsize', '1000k',
+
             '-an',
+
             '-f', 'hls',
             '-hls_time', '1',
             '-hls_list_size', '2',
@@ -88,58 +132,66 @@ class Camera {
             '-hls_segment_type', 'fmp4',
             '-hls_playlist_type', 'event',
             '-hls_start_number_source', 'datetime',
-            path.join(userDir, 'index.m3u8')
+
+            // '-master_pl_name', 'index.m3u8',
+            // '-strftime', '1', // Используем время в именах
+            // '-strftime_mkdir', '1',
+
+
+            path.join(this.outDir, 'index.m3u8')
         ];
 
-        console.log(`Запуск камеры ${this.id} для пользователя ${userId}...`);
+        console.log(`Запуск камеры ${this.id}...`);
 
-        const ffmpegProcess = spawn('ffmpeg', args);
-        this.userProcesses.set(userId, ffmpegProcess);
+        this.ffmpegProcess = spawn('ffmpeg', args);
 
-        ffmpegProcess.stderr.on('data', (data) => {
-            console.log(`CAM ${this.id} (user:${userId}):`, data.toString());
+        this.ffmpegProcess.stderr.on('data', (data) => {
+            console.log(`CAM ${this.id}:`, data.toString());
         });
 
-        ffmpegProcess.on('exit', () => {
-            console.log(`CAM ${this.id} для пользователя ${userId} упала`);
-            this.userProcesses.delete(userId);
+        this.ffmpegProcess.on('exit', () => {
+            console.log(`CAM ${this.id} упала`);
+            this.ffmpegProcess = null;
 
-            // Если пользователь еще подключен - перезапускаем
-            if (this.viewers.has(userId)) {
-                console.log(`Перезапуск для пользователя ${userId} через 2 сек`);
-                setTimeout(() => this.startForUser(userId), 2000);
+            if (this.viewers.size > 0) {
+                console.log(`Перезапуск камеры ${this.id} через 2 сек`);
+                setTimeout(() => this.start(), 2000);
             }
         });
     }
 
     /**
-     * Остановка ffmpeg для пользователя
+     * Остановка ffmpeg
      */
-    stopForUser(userId) {
-        const process = this.userProcesses.get(userId);
-        if (!process) return;
+    stop() {
+        if (!this.ffmpegProcess) {
+            return;
+        }
 
-        console.log(`Остановка камеры ${this.id} для пользователя ${userId}`);
-        process.kill('SIGTERM');
-        this.userProcesses.delete(userId);
+        console.log(`Остановка камеры ${this.id}`);
+
+        this.ffmpegProcess.kill('SIGTERM');
+        this.ffmpegProcess = null;
     }
 
     /**
-     * Очистка папки пользователя
+     * Отключение пользователя
      */
-    cleanupUserDir(userId) {
+    removeViewer(userId) {
+        this.viewers.delete(userId);
+
         const userDir = this.userDirs.get(userId);
-        if (!userDir) return;
+        if (userDir && fs.existsSync(userDir)) {
+            fs.rmSync(userDir, { recursive: true, force: true });
+        }
 
-        try {
-            if (fs.existsSync(userDir)) {
-                fs.rmSync(userDir, { recursive: true, force: true });
-                console.log(`Удалена папка пользователя ${userId} для камеры ${this.id}`);
-            }
-        } catch (error) {
-            console.error(`Ошибка удаления папки пользователя ${userId}:`, error);
+        this.userDirs.delete(userId);
+
+        if (this.viewers.size === 0) {
+            this.stop();
         }
     }
+
 
     /**
      * Текущее состояние камеры
@@ -148,12 +200,11 @@ class Camera {
         return {
             id: this.id,
             viewers: this.viewers.size,
-            userUrls: Array.from(this.viewers).map(userId => ({
-                userId,
-                streamUrl: `/stream_${this.id}_${userId}/index.m3u8`
-            }))
+            isRunning: Boolean(this.ffmpegProcess),
+            streamUrl: `/stream_${this.id}/index.m3u8`
         };
     }
+
 }
 
 module.exports = Camera;

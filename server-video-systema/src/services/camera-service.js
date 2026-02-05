@@ -59,11 +59,13 @@ class CameraService {
             throw new Error(`Camera ${cameraId} not found`);
         }
 
-        // Если пользователь уже подключён — отключаем от старой камеры
         const currentCameraId = this.userConnections.get(userId);
         if (currentCameraId !== undefined) {
             if (currentCameraId === cameraId) {
-                return camera.getState();
+                return {
+                    ...camera.getState(),
+                    streamUrl: camera.getStreamUrl(userId)
+                };
             }
 
             this.disconnectUser(userId);
@@ -72,7 +74,10 @@ class CameraService {
         camera.addViewer(userId);
         this.userConnections.set(userId, cameraId);
 
-        return camera.getState();
+        return {
+            ...camera.getState(),
+            streamUrl: camera.getStreamUrl(userId)
+        };
     }
 
     /**
@@ -100,6 +105,17 @@ class CameraService {
             camera.getState()
         );
     }
+
+    getUserStream(userId) {
+        const cameraId = this.userConnections.get(userId);
+        if (!cameraId) return null;
+
+        const camera = this.cameras.get(cameraId);
+        if (!camera) return null;
+
+        return camera.getStreamUrl(userId);
+    }
+
 
     clearCameras() {
         for (let user of this.userConnections.keys()) {
