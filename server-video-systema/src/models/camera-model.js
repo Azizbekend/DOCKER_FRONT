@@ -26,8 +26,7 @@ class Camera {
         if (this.ffmpegProcess) return;
 
         // Проверяем, есть ли уже зрители (возможно, камера уже запускалась)
-        if (this.viewers.size > 0) {
-            // Если зрители есть, НЕ чистим папку, просто запускаем ffmpeg
+        if (this.viewers.size > 1) {
             this.startFfmpeg();
             return;
         }
