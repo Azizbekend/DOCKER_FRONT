@@ -109,9 +109,12 @@ class CameraService {
             camera.stop()
         )
 
+        // 2. Очищаем коллекцию
         this.cameras.clear();
 
+        // 3. Очищаем подключения пользователей
         this.userConnections.clear();
+
     }
 }
 

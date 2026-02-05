@@ -89,11 +89,9 @@ class CameraController {
 
     clear(req, res) {
         try {
-            const allCameras = cameraService.clearCameras()
-
+            cameraService.clearCameras()
             return res.status(200).json({
                 success: true,
-                data: allCameras
             });
 
 
