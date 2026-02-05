@@ -108,6 +108,10 @@ class CameraService {
         Array.from(this.cameras.values()).map((camera) =>
             camera.stop()
         )
+
+        this.cameras.clear();
+
+        this.userConnections.clear();
     }
 }
 
