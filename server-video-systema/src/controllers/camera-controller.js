@@ -15,14 +15,14 @@ class CameraController {
                 });
             }
 
-            const data = cameraService.connectUser(
+            const state = cameraService.connectUser(
                 String(userId),
                 Number(cameraId)
             );
 
             return res.status(200).json({
                 success: true,
-                data
+                data: state
             });
         } catch (error) {
             return res.status(500).json({
@@ -30,7 +30,6 @@ class CameraController {
             });
         }
     }
-
 
     /**
      * Отключение пользователя от камеры
