@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { Role } from '@/packages/entities/user/enums';
 import { useAuth } from '@/packages/entities/user/context';
 import { SchemaCardInterface } from '@/packages/entities/sensor/type';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 
 export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabScheme, setSchemeObjectData, listSensore, setSchemeSensoreData }: SchemeViewerType) => {
@@ -70,7 +71,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
             >
                 {model.map((p, _) => p.hardwareSchemaId == tabScheme && (
                     <div key={p.id}
-                        onDoubleClickCapture={() => { if (user?.login == "admin_god") setSchemeObjectData(p.id) }}
+                        onDoubleClickCapture={() => { if (user?.baseRoleId === Role.Admin) setSchemeObjectData(p.id) }}
                         onClick={() => setInfo(p.hardwareId, p.status)}
                         className="absolute cursor-pointer z-3"
                         style={{
