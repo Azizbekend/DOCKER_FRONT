@@ -105,16 +105,11 @@ class CameraService {
     * 
     */
     clearCameras() {
-
-        stopCamera
-
-
         for (let camera of this.cameras.values()) {
             camera.stop();
         }
         this.cameras.clear();
         this.userConnections.clear();
-
     }
 }
 
