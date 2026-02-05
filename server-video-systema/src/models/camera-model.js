@@ -1,68 +1,64 @@
-const { spawn } = require('child_process');
-const path = require('path');
-const fs = require('fs');
-
 class Camera {
     constructor({ id, rtsp }) {
         this.id = id;
         this.rtsp = rtsp;
 
+        this.userDirs = new Map(); // userId -> outDir
+        this.userProcesses = new Map(); // userId -> ffmpegProcess
         this.viewers = new Set();
-        this.ffmpegProcess = null;
-
-        this.outDir = path.join(
-            process.cwd(),
-            'public/',
-            `stream_${this.id}`
-        );
     }
 
     /**
-     * Запуск ffmpeg (HLS)
+     * Подключение пользователя
      */
+    addViewer(userId) {
+        this.viewers.add(userId);
 
+        // Создаем уникальную папку для пользователя
+        const userDir = path.join(
+            process.cwd(),
+            'public/',
+            `stream_${this.id}_${userId}`
+        );
 
-    start() {
-        if (this.ffmpegProcess) return;
+        this.userDirs.set(userId, userDir);
 
-        // Проверяем, есть ли уже зрители (возможно, камера уже запускалась)
-        // if (this.viewers.size > 1) {
-        //     this.startFfmpeg();
-        //     return;
-        // }
-
-        // Очищаем папку только если это первый зритель
-        if (fs.existsSync(this.outDir)) {
-            fs.rmSync(this.outDir, { recursive: true, force: true });
-        }
-
-        fs.mkdirSync(this.outDir, { recursive: true });
-
-        this.startFfmpeg();
+        // Запускаем ffmpeg для этого пользователя
+        this.startForUser(userId);
     }
 
-    startFfmpeg() {
-        // Не сжатый вариант
-        // const args = [
-        //     '-rtsp_transport', 'tcp',
-        //     '-fflags', 'nobuffer',
-        //     '-flags', 'low_delay',
-        //     '-use_wallclock_as_timestamps', '1',
+    /**
+     * Отключение пользователя
+     */
+    removeViewer(userId) {
+        this.viewers.delete(userId);
 
-        //     '-i', this.rtsp,
+        // Останавливаем процесс пользователя
+        this.stopForUser(userId);
 
-        //     '-c:v', 'copy',
-        //     '-an',
+        // Удаляем папку пользователя
+        this.cleanupUserDir(userId);
 
-        //     '-f', 'hls',
-        //     '-hls_time', '1',
-        //     '-hls_list_size', '4',
-        //     '-hls_flags', 'delete_segments+append_list+omit_endlist',
-        //     '-hls_segment_type', 'fmp4',
-        //     '-hls_playlist_type', 'event',
+        // Удаляем из мапов
+        this.userDirs.delete(userId);
+        this.userProcesses.delete(userId);
+    }
 
-        //     path.join(this.outDir, 'index.m3u8')
-        // ];
+    /**
+     * Запуск ffmpeg для конкретного пользователя
+     */
+    startForUser(userId) {
+        const userDir = this.userDirs.get(userId);
+
+        if (!userDir || this.userProcesses.has(userId)) {
+            return;
+        }
+
+        // Очищаем и создаем папку пользователя
+        if (fs.existsSync(userDir)) {
+            fs.rmSync(userDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(userDir, { recursive: true });
 
         const args = [
             '-rtsp_transport', 'tcp',
@@ -70,9 +66,7 @@ class Camera {
             '-flags', 'low_delay',
             '-use_wallclock_as_timestamps', '1',
             '-vsync', '1',
-
             '-i', this.rtsp,
-
             '-c:v', 'libx264',
             '-preset', 'superfast',
             '-tune', 'zerolatency',
@@ -82,9 +76,7 @@ class Camera {
             '-b:v', '500k',
             '-maxrate', '700k',
             '-bufsize', '1000k',
-
             '-an',
-
             '-f', 'hls',
             '-hls_time', '1',
             '-hls_list_size', '2',
@@ -92,162 +84,56 @@ class Camera {
             '-hls_segment_type', 'fmp4',
             '-hls_playlist_type', 'event',
             '-hls_start_number_source', 'datetime',
-
-            // '-master_pl_name', 'index.m3u8',
-            // '-strftime', '1', // Используем время в именах
-            // '-strftime_mkdir', '1',
-
-
-            path.join(this.outDir, 'index.m3u8')
+            path.join(userDir, 'index.m3u8')
         ];
 
-        console.log(`Запуск камеры ${this.id}...`);
+        console.log(`Запуск камеры ${this.id} для пользователя ${userId}...`);
 
-        this.ffmpegProcess = spawn('ffmpeg', args);
+        const ffmpegProcess = spawn('ffmpeg', args);
+        this.userProcesses.set(userId, ffmpegProcess);
 
-        this.ffmpegProcess.stderr.on('data', (data) => {
-            console.log(`CAM ${this.id}:`, data.toString());
+        ffmpegProcess.stderr.on('data', (data) => {
+            console.log(`CAM ${this.id} (user:${userId}):`, data.toString());
         });
 
-        this.ffmpegProcess.on('exit', () => {
-            console.log(`CAM ${this.id} упала`);
-            this.ffmpegProcess = null;
+        ffmpegProcess.on('exit', () => {
+            console.log(`CAM ${this.id} для пользователя ${userId} упала`);
+            this.userProcesses.delete(userId);
 
-            if (this.viewers.size > 0) {
-                console.log(`Перезапуск камеры ${this.id} через 2 сек`);
-                setTimeout(() => this.start(), 2000);
+            // Если пользователь еще подключен - перезапускаем
+            if (this.viewers.has(userId)) {
+                console.log(`Перезапуск для пользователя ${userId} через 2 сек`);
+                setTimeout(() => this.startForUser(userId), 2000);
             }
         });
     }
 
-
-
-    // start() {
-    //     if (this.ffmpegProcess) {
-    //         return;
-    //     }
-
-    //     if (fs.existsSync(this.outDir)) {
-    //         fs.rmSync(this.outDir, { recursive: true, force: true });
-    //     }
-
-    //     fs.mkdirSync(this.outDir, { recursive: true });
-
-
-
-    //     // Не сжатый вариант
-    //     // const args = [
-    //     //     '-rtsp_transport', 'tcp',
-    //     //     '-fflags', 'nobuffer',
-    //     //     '-flags', 'low_delay',
-    //     //     '-use_wallclock_as_timestamps', '1',
-
-    //     //     '-i', this.rtsp,
-
-    //     //     '-c:v', 'copy',
-    //     //     '-an',
-
-    //     //     '-f', 'hls',
-    //     //     '-hls_time', '1',
-    //     //     '-hls_list_size', '4',
-    //     //     '-hls_flags', 'delete_segments+append_list+omit_endlist',
-    //     //     '-hls_segment_type', 'fmp4',
-    //     //     '-hls_playlist_type', 'event',
-
-    //     //     path.join(this.outDir, 'index.m3u8')
-    //     // ];
-
-    //     const args = [
-    //         '-rtsp_transport', 'tcp',
-    //         '-fflags', 'nobuffer',
-    //         '-flags', 'low_delay',
-    //         '-use_wallclock_as_timestamps', '1',
-    //         '-vsync', '1',
-
-    //         '-i', this.rtsp,
-
-    //         '-c:v', 'libx264',
-    //         '-preset', 'superfast',
-    //         '-tune', 'zerolatency',
-    //         '-crf', '28',
-    //         '-vf', 'scale=-2:480',
-    //         '-r', '15',
-    //         '-b:v', '500k',
-    //         '-maxrate', '700k',
-    //         '-bufsize', '1000k',
-
-    //         '-an',
-
-    //         '-f', 'hls',
-    //         '-hls_time', '1',
-    //         '-hls_list_size', '2',
-    //         '-hls_flags', 'delete_segments+append_list+omit_endlist',
-    //         '-hls_segment_type', 'fmp4',
-    //         '-hls_playlist_type', 'event',
-    //         '-hls_start_number_source', 'datetime',
-
-    //         // '-master_pl_name', 'index.m3u8',
-    //         // '-strftime', '1', // Используем время в именах
-    //         // '-strftime_mkdir', '1',
-
-
-    //         path.join(this.outDir, 'index.m3u8')
-    //     ];
-
-
-    //     console.log(`Запуск камеры ${this.id}...`);
-
-    //     this.ffmpegProcess = spawn('ffmpeg', args);
-
-    //     this.ffmpegProcess.stderr.on('data', (data) => {
-    //         console.log(`CAM ${this.id}:`, data.toString());
-    //     });
-
-    //     this.ffmpegProcess.on('exit', () => {
-    //         console.log(`CAM ${this.id} упала`);
-
-    //         this.ffmpegProcess = null;
-
-    //         if (this.viewers.size > 0) {
-    //             console.log(`Перезапуск камеры ${this.id} через 2 сек`);
-    //             setTimeout(() => this.start(), 2000);
-    //         }
-    //     });
-    // }
-
     /**
-     * Остановка ffmpeg
+     * Остановка ffmpeg для пользователя
      */
-    stop() {
-        if (!this.ffmpegProcess) {
-            return;
-        }
+    stopForUser(userId) {
+        const process = this.userProcesses.get(userId);
+        if (!process) return;
 
-        console.log(`Остановка камеры ${this.id}`);
-
-        this.ffmpegProcess.kill('SIGTERM');
-        this.ffmpegProcess = null;
+        console.log(`Остановка камеры ${this.id} для пользователя ${userId}`);
+        process.kill('SIGTERM');
+        this.userProcesses.delete(userId);
     }
 
     /**
-     * Подключение пользователя
+     * Очистка папки пользователя
      */
-    addViewer(userId) {
-        this.viewers.add(userId);
+    cleanupUserDir(userId) {
+        const userDir = this.userDirs.get(userId);
+        if (!userDir) return;
 
-        if (this.viewers.size === 1) {
-            this.start();
-        }
-    }
-
-    /**
-     * Отключение пользователя
-     */
-    removeViewer(userId) {
-        this.viewers.delete(userId);
-
-        if (this.viewers.size === 0) {
-            this.stop();
+        try {
+            if (fs.existsSync(userDir)) {
+                fs.rmSync(userDir, { recursive: true, force: true });
+                console.log(`Удалена папка пользователя ${userId} для камеры ${this.id}`);
+            }
+        } catch (error) {
+            console.error(`Ошибка удаления папки пользователя ${userId}:`, error);
         }
     }
 
@@ -258,10 +144,10 @@ class Camera {
         return {
             id: this.id,
             viewers: this.viewers.size,
-            isRunning: Boolean(this.ffmpegProcess),
-            streamUrl: `/stream_${this.id}/index.m3u8`
+            userUrls: Array.from(this.viewers).map(userId => ({
+                userId,
+                streamUrl: `/stream_${this.id}_${userId}/index.m3u8`
+            }))
         };
     }
 }
-
-module.exports = Camera;
