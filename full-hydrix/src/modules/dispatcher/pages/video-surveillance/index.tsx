@@ -7,12 +7,13 @@ import { useAuth } from "@/packages/entities/user/context";
 import Loader from "@/packages/shared-ui/loader/loader";
 
 export const VideoSurveillance = observer(() => {
-    const { cameraSources, videoSrc, CameraConnect, CameraSwitch, CameraDisconnect, loader } = videoSurveillanceModel
+    const { cameraSources, videoSrc, CameraConnect, CameraSwitch, CameraDisconnect, loader, CameryСlear } = videoSurveillanceModel
     const { user } = useAuth()
 
     useEffect(() => {
         if (user?.id) {
             CameraConnect(user.id)
+
             return () => {
                 CameraDisconnect()
             }
@@ -23,7 +24,7 @@ export const VideoSurveillance = observer(() => {
         <div className="bg-white rounded-2xl p-7">
             <div className="mb-8 flex items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Видеонаблюдение</h1>
+                    <h1 className="text-3xl font-bold text-gray-800" onClick={CameryСlear}>Видеонаблюдение</h1>
                     <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
                 </div>
             </div>
