@@ -4,6 +4,7 @@ import { DocumentFormCard } from './document-form-card';
 import { useState } from 'react';
 import { Button } from '@/packages/shared-ui/button/button';
 import { passportDocuments } from '../../features/passport/passport-documents';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 
 interface DocumentBlockProps {
@@ -35,8 +36,8 @@ export const DocumentBlock = observer(({ title, list, category }: DocumentBlockP
                     </div>
                 )}
 
-                {false && openForm && <DocumentFormCard category={category} onClose={() => setOpaneForm(false)} />}
-                {false &&
+                {isAdmin() && openForm && <DocumentFormCard category={category} onClose={() => setOpaneForm(false)} />}
+                {isAdmin() &&
                     <Button class='px-4 py-2' styleColor={openForm ? 'blueOutline' : "gray"} onClick={() => setOpaneForm(!openForm)}>
                         {openForm ? "Отмена" : "Добавить документ"}
                     </Button>

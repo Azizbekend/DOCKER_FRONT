@@ -8,6 +8,7 @@ import { passportDocuments } from '@/modules/domain/features/passport/passport-d
 import { getObjectId } from '@/packages/functions/get-data/get-object-data';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { Icon } from '@/packages/shared-ui/icon';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 
 export const PassportDocumentation = observer(() => {
@@ -94,17 +95,26 @@ export const PassportDocumentation = observer(() => {
                 </div>
 
                 {filteredDocumentsFilter.length > 0 ? filteredDocumentsFilter.map((document) => (
-                  <a href={"https://triapi.ru/research/api/FileStorage/images/download?id=" + document.docId}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download={true}
-                    className="flex mb-3 items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
-                    <div className="flex items-center gap-3 lg:gap-4">
-                      <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
-                      <div className="font-medium text-gray-800 text-sm lg:text-base">{highlightText(document.name, searchTerm)}</div>
+                  isAdmin() ?
+                    <a href={"https://triapi.ru/research/api/FileStorage/images/download?id=" + document.docId}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download={true}
+                      className="flex mb-3 items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                      <div className="flex items-center gap-3 lg:gap-4">
+                        <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
+                        <div className="font-medium text-gray-800 text-sm lg:text-base">{highlightText(document.name, searchTerm)}</div>
+                      </div>
+                      <div></div>
+                    </a>
+                    :
+                    <div className="flex mb-3 items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                      <div className="flex items-center gap-3 lg:gap-4">
+                        <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
+                        <div className="font-medium text-gray-800 text-sm lg:text-base">{highlightText(document.name, searchTerm)}</div>
+                      </div>
+                      <div></div>
                     </div>
-                    <div></div>
-                  </a>
                 )) : (
                   <div className="text-center py-8 text-gray-400 border border-gray-200 rounded-lg">
                     <div className="text-lg mb-2">Ничего не найдено</div>
