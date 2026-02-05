@@ -20,16 +20,29 @@ class Camera {
     /**
      * Запуск ffmpeg (HLS)
      */
+
+
     start() {
-        if (this.ffmpegProcess) {
+        if (this.ffmpegProcess) return;
+
+        // Проверяем, есть ли уже зрители (возможно, камера уже запускалась)
+        if (this.viewers.size > 0) {
+            // Если зрители есть, НЕ чистим папку, просто запускаем ffmpeg
+            this.startFfmpeg();
             return;
         }
 
-        if (!fs.existsSync(this.outDir)) {
-            fs.mkdirSync(this.outDir, { recursive: true });
+        // Очищаем папку только если это первый зритель
+        if (fs.existsSync(this.outDir)) {
+            fs.rmSync(this.outDir, { recursive: true, force: true });
         }
 
+        fs.mkdirSync(this.outDir, { recursive: true });
 
+        this.startFfmpeg();
+    }
+
+    startFfmpeg() {
         // Не сжатый вариант
         // const args = [
         //     '-rtsp_transport', 'tcp',
@@ -89,7 +102,6 @@ class Camera {
             path.join(this.outDir, 'index.m3u8')
         ];
 
-
         console.log(`Запуск камеры ${this.id}...`);
 
         this.ffmpegProcess = spawn('ffmpeg', args);
@@ -100,7 +112,6 @@ class Camera {
 
         this.ffmpegProcess.on('exit', () => {
             console.log(`CAM ${this.id} упала`);
-
             this.ffmpegProcess = null;
 
             if (this.viewers.size > 0) {
@@ -109,6 +120,101 @@ class Camera {
             }
         });
     }
+
+
+
+    // start() {
+    //     if (this.ffmpegProcess) {
+    //         return;
+    //     }
+
+    //     if (fs.existsSync(this.outDir)) {
+    //         fs.rmSync(this.outDir, { recursive: true, force: true });
+    //     }
+
+    //     fs.mkdirSync(this.outDir, { recursive: true });
+
+
+
+    //     // Не сжатый вариант
+    //     // const args = [
+    //     //     '-rtsp_transport', 'tcp',
+    //     //     '-fflags', 'nobuffer',
+    //     //     '-flags', 'low_delay',
+    //     //     '-use_wallclock_as_timestamps', '1',
+
+    //     //     '-i', this.rtsp,
+
+    //     //     '-c:v', 'copy',
+    //     //     '-an',
+
+    //     //     '-f', 'hls',
+    //     //     '-hls_time', '1',
+    //     //     '-hls_list_size', '4',
+    //     //     '-hls_flags', 'delete_segments+append_list+omit_endlist',
+    //     //     '-hls_segment_type', 'fmp4',
+    //     //     '-hls_playlist_type', 'event',
+
+    //     //     path.join(this.outDir, 'index.m3u8')
+    //     // ];
+
+    //     const args = [
+    //         '-rtsp_transport', 'tcp',
+    //         '-fflags', 'nobuffer',
+    //         '-flags', 'low_delay',
+    //         '-use_wallclock_as_timestamps', '1',
+    //         '-vsync', '1',
+
+    //         '-i', this.rtsp,
+
+    //         '-c:v', 'libx264',
+    //         '-preset', 'superfast',
+    //         '-tune', 'zerolatency',
+    //         '-crf', '28',
+    //         '-vf', 'scale=-2:480',
+    //         '-r', '15',
+    //         '-b:v', '500k',
+    //         '-maxrate', '700k',
+    //         '-bufsize', '1000k',
+
+    //         '-an',
+
+    //         '-f', 'hls',
+    //         '-hls_time', '1',
+    //         '-hls_list_size', '2',
+    //         '-hls_flags', 'delete_segments+append_list+omit_endlist',
+    //         '-hls_segment_type', 'fmp4',
+    //         '-hls_playlist_type', 'event',
+    //         '-hls_start_number_source', 'datetime',
+
+    //         // '-master_pl_name', 'index.m3u8',
+    //         // '-strftime', '1', // Используем время в именах
+    //         // '-strftime_mkdir', '1',
+
+
+    //         path.join(this.outDir, 'index.m3u8')
+    //     ];
+
+
+    //     console.log(`Запуск камеры ${this.id}...`);
+
+    //     this.ffmpegProcess = spawn('ffmpeg', args);
+
+    //     this.ffmpegProcess.stderr.on('data', (data) => {
+    //         console.log(`CAM ${this.id}:`, data.toString());
+    //     });
+
+    //     this.ffmpegProcess.on('exit', () => {
+    //         console.log(`CAM ${this.id} упала`);
+
+    //         this.ffmpegProcess = null;
+
+    //         if (this.viewers.size > 0) {
+    //             console.log(`Перезапуск камеры ${this.id} через 2 сек`);
+    //             setTimeout(() => this.start(), 2000);
+    //         }
+    //     });
+    // }
 
     /**
      * Остановка ffmpeg

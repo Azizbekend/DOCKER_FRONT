@@ -101,9 +101,6 @@ class CameraService {
         );
     }
 
-    /**
-    * 
-    */
     clearCameras() {
         for (let user of this.userConnections.keys()) {
             this.disconnectUser(user)
