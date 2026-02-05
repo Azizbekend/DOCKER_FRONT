@@ -1,6 +1,3 @@
-
-import { useEffect, useRef } from "react";
-import Hls from "hls.js";
 import { observer } from "mobx-react-lite";
 
 interface CameraItemProps {

@@ -6,6 +6,9 @@ export class StreamPlayerModel {
     hlsInstance: Hls | null = null;
     reconnectTimer: number | null = null;
     reconnectAttempts = 0;
+    videoSrc: string | null = null;
+
+    private setIsLoading: ((loading: boolean) => void) | null = null;
 
     private readonly MAX_RECONNECT_ATTEMPTS = 10;
     private readonly RECONNECT_DELAY = 2000;
@@ -18,47 +21,45 @@ export class StreamPlayerModel {
         this.videoElement = element;
     }
 
-    private normalizeUrl(url: string) {
-        return url.replace(/([^:]\/)\/+/g, '$1');
-    }
+    start(videoSrc: string, setIsLoading: (value: boolean) => void) {
+        if (!this.videoElement) return;
 
-    private clearReconnectTimer() {
-        if (this.reconnectTimer) {
-            clearTimeout(this.reconnectTimer);
-            this.reconnectTimer = null;
+        if (this.videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+            this.videoElement.src = this.normalizeUrl(videoSrc);
+
+            this.videoElement.play().catch(() => { });
+
+            return;
         }
-    }
-
-    destroy() {
-        this.clearReconnectTimer();
-
-        if (this.hlsInstance) {
-            this.hlsInstance.destroy();
-            this.hlsInstance = null;
-        }
-
-        if (this.videoElement) {
-            this.videoElement.src = '';
-        }
-
-        runInAction(() => {
-            this.reconnectAttempts = 0;
-        });
+        this.setIsLoading = setIsLoading
+        this.createHls(videoSrc);
     }
 
     private createHls(videoSrc: string) {
         this.destroy();
+        this.videoSrc = videoSrc;
+        // Задержка если первое подключение после старта камеры
+        // if (this.reconnectAttempts === 0) {
+        //     setTimeout(() => {
+        //         this.createHlsInternal(videoSrc);
+        //     }, 3000);
+        // } else {
+        this.createHlsInternal(videoSrc);
+        // }
+    }
 
+    private createHlsInternal(videoSrc: string) {
         if (!this.videoElement || !Hls.isSupported()) return;
+
+        this.setIsLoading?.(true);
 
         const hls = new Hls({
             lowLatencyMode: true,
             liveDurationInfinity: true,
 
-            maxBufferLength: 2, // Максимальная длина буфера в секундах
+            maxBufferLength: 2,
             maxMaxBufferLength: 3,
-            maxBufferSize: 0, // Не ограничивать по размеру
-
+            maxBufferSize: 0,
 
             manifestLoadingMaxRetry: Infinity,
             manifestLoadingRetryDelay: 2000,
@@ -78,6 +79,7 @@ export class StreamPlayerModel {
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
             runInAction(() => {
                 this.reconnectAttempts = 0;
+                this.setIsLoading?.(false);
             });
             this.videoElement?.play().catch(() => { });
         });
@@ -88,15 +90,40 @@ export class StreamPlayerModel {
             console.warn('HLS fatal error:', data.type);
 
             switch (data.type) {
-                case ErrorTypes.NETWORK_ERROR:
-                    this.retryReconnect();
-                    break;
                 case ErrorTypes.MEDIA_ERROR:
                     hls.recoverMediaError();
                     break;
+                case ErrorTypes.NETWORK_ERROR:
                 default:
-                    this.retryReconnect(true);
+                    setTimeout(() => {
+                        this.retryReconnect(true);
+                    }, 1000)
             }
+        });
+    }
+
+    private clearReconnectTimer() {
+        if (this.reconnectTimer) {
+            clearTimeout(this.reconnectTimer);
+            this.reconnectTimer = null;
+        }
+    }
+
+    destroy() {
+        this.clearReconnectTimer();
+
+        if (this.hlsInstance) {
+            this.hlsInstance.destroy();
+            this.hlsInstance = null;
+        }
+
+        if (this.videoElement) {
+            this.videoElement.src = '';
+            this.videoSrc = null;
+        }
+
+        runInAction(() => {
+            this.reconnectAttempts = 0;
         });
     }
 
@@ -121,22 +148,16 @@ export class StreamPlayerModel {
                 // Пересоздаем HLS
                 // Нужен videoSrc, но он хранится в компоненте
                 // Решение: передавать videoSrc при вызове start
+                console.log("this.videoSrcthis.videoSrcthis.videoSrc")
+                this.videoSrc && this.createHls(this.videoSrc);
             } else {
+                console.log("startLoadstartLoadstartLoad")
                 this.hlsInstance.startLoad();
             }
         }, this.RECONNECT_DELAY);
     }
 
-    start(videoSrc: string) {
-        if (!this.videoElement) return;
-
-        // Нативный HLS для Safari
-        if (this.videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-            this.videoElement.src = this.normalizeUrl(videoSrc);
-            this.videoElement.play().catch(() => { });
-            return;
-        }
-
-        this.createHls(videoSrc);
+    private normalizeUrl(url: string) {
+        return url.replace(/([^:]\/)\/+/g, '$1');
     }
 }

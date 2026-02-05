@@ -39,7 +39,8 @@ class VideoSurveillanceModel {
             }
         }
 
-        this.loader = false;
+        this.loader = false
+
     }
 
     async CameraSwitch(id: number) {
@@ -69,9 +70,13 @@ class VideoSurveillanceModel {
     }
 
 
-    async CameryСlear() {
+    async CameryСlear(onActions: () => void) {
         await CameryСlearApi()
-            .then((res) => console.log(res.data))
+            .then((res) => {
+                onActions()
+                this._videoSrc = ""
+                console.log(res.data)
+            })
             .catch((error) => console.log(error))
     }
 }
