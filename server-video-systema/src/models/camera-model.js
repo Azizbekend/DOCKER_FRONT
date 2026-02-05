@@ -26,10 +26,10 @@ class Camera {
         if (this.ffmpegProcess) return;
 
         // Проверяем, есть ли уже зрители (возможно, камера уже запускалась)
-        if (this.viewers.size > 1) {
-            this.startFfmpeg();
-            return;
-        }
+        // if (this.viewers.size > 1) {
+        //     this.startFfmpeg();
+        //     return;
+        // }
 
         // Очищаем папку только если это первый зритель
         if (fs.existsSync(this.outDir)) {
