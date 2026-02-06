@@ -32,65 +32,9 @@ class CameraService {
     }
 
     /**
-     * 🔒 Деактивация всех камер
-     */
-    deactivate() {
-        this.isActive = false;
-
-        // Отключаем всех пользователей
-        for (const userId of this.userConnections.keys()) {
-            this.disconnectUser(userId);
-        }
-
-        // Останавливаем все камеры
-        for (const camera of this.cameras.values()) {
-            camera.stop();
-        }
-    }
-
-    /**
-     * 🔓 Активация камер
-     */
-    activate() {
-        this.isActive = true;
-    }
-
-    /**
-     * Принудительный запуск камеры
-     */
-    startCamera(cameraId) {
-        if (!this.isActive) {
-            throw new Error('Cameras are deactivated');
-        }
-
-        const camera = this.cameras.get(cameraId);
-        if (!camera) {
-            throw new Error(`Camera ${cameraId} not found`);
-        }
-
-        camera.start();
-    }
-
-    /**
-     * Принудительная остановка камеры
-     */
-    stopCamera(cameraId) {
-        const camera = this.cameras.get(cameraId);
-        if (!camera) {
-            throw new Error(`Camera ${cameraId} not found`);
-        }
-
-        camera.stop();
-    }
-
-    /**
      * Подключение пользователя к камере
      */
     connectUser(userId, cameraId) {
-        if (!this.isActive) {
-            throw new Error('Cameras are deactivated');
-        }
-
         const camera = this.cameras.get(cameraId);
         if (!camera) {
             throw new Error(`Camera ${cameraId} not found`);
@@ -128,21 +72,31 @@ class CameraService {
     }
 
     /**
-     * Состояние камер
+     * 🔒 Деактивация всех камер
      */
-    getCamerasState() {
-        return Array.from(this.cameras.values()).map((camera) => ({
-            ...camera.getState(),
-            serviceActive: this.isActive,
-        }));
+    deactivate() {
+        this.isActive = false;
+
+        // Отключаем всех пользователей
+        for (const userId of this.userConnections.keys()) {
+            this.disconnectUser(userId);
+        }
+
+        // Останавливаем все камеры
+        for (const camera of this.cameras.values()) {
+            camera.stop();
+        }
+        return this.isActive
     }
 
     /**
-     * Очистка (alias)
+     * 🔓 Активация камер
      */
-    clearCameras() {
-        this.deactivate();
+    activate() {
+        this.isActive = true;
+        return this.isActive
     }
+
 
     isActiveStatus() {
         return this.isActive

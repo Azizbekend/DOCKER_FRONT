@@ -89,7 +89,11 @@ class CameraController {
 
     activate(req, res) {
         try {
-            cameraService.activate();
+            return res.status(200).json({
+                success: true,
+                data: cameraService.activate()
+            });
+
         } catch (error) {
             return res.status(500).json({
                 error: error.message
@@ -99,7 +103,11 @@ class CameraController {
 
     deactivate(req, res) {
         try {
-            cameraService.deactivate();
+            return res.status(200).json({
+                success: true,
+                data: cameraService.deactivate()
+            });
+
         } catch (error) {
             return res.status(500).json({
                 error: error.message
