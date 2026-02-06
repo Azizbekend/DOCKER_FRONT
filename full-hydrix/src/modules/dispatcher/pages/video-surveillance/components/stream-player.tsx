@@ -29,9 +29,6 @@ export const StreamPlayer = observer(({ videoSrc, onCameraClear }: StreamPlayerP
         if (!model) return;
         if (videoSrc == "") return;
 
-
-
-
         model.setVideoElement(videoRef.current);
 
         const onClicckLoda = (value: boolean) => {
@@ -76,11 +73,13 @@ export const StreamPlayer = observer(({ videoSrc, onCameraClear }: StreamPlayerP
                 autoPlay
                 muted
                 playsInline
+                preload="auto"
                 className="h-[600px] block w-full mx-auto"
                 style={{
-                    display: isLoading ? "none" : "block",
+                    visibility: isLoading ? 'hidden' : 'visible',
                 }}
             />
+
         </div>
     );
 });

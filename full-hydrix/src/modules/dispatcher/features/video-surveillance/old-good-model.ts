@@ -22,30 +22,27 @@ export class StreamPlayerModel {
     }
 
     start(videoSrc: string, setIsLoading: (value: boolean) => void) {
+
         if (!this.videoElement) return;
 
         this.setIsLoading = setIsLoading;
+        this.setIsLoading(true);
         this.videoSrc = videoSrc;
 
-        // ✅ STRICT native HLS ONLY
-        if (
-            this.videoElement.canPlayType('application/vnd.apple.mpegurl') &&
-            !Hls.isSupported()
-        ) {
+        if (this.videoElement.canPlayType('application/vnd.apple.mpegurl')) {
             this.videoElement.src = this.normalizeUrl(videoSrc);
             this.videoElement.play().catch(() => { });
             this.setIsLoading(false);
             return;
         }
 
-        // ✅ ВСЕГДА hls.js, если он доступен
         this.createHls(videoSrc);
     }
 
     private createHls(videoSrc: string) {
-        if (!this.videoElement || !Hls.isSupported()) return;
+        this.destroy();
 
-        this.setIsLoading?.(true);
+        if (!this.videoElement || !Hls.isSupported()) return;
 
         const hls = new Hls({
             lowLatencyMode: false,
@@ -54,6 +51,12 @@ export class StreamPlayerModel {
             maxBufferLength: 2,
             maxMaxBufferLength: 3,
             maxBufferSize: 0,
+
+            enableWorker: true,
+
+            manifestLoadingMaxRetry: Infinity,
+            levelLoadingMaxRetry: Infinity,
+            fragLoadingMaxRetry: Infinity,
         });
 
         this.hlsInstance = hls;
@@ -63,17 +66,37 @@ export class StreamPlayerModel {
         hls.attachMedia(this.videoElement);
         hls.loadSource(source);
 
+        hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+            this.videoElement!
+                .play()
+                .catch(() => console.warn('Autoplay blocked'));
+        });
+
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            this.setIsLoading?.(false);
-            this.videoElement?.play().catch(() => { });
+            runInAction(() => {
+                this.reconnectAttempts = 0;
+                this.setIsLoading?.(false);
+            });
+
+            this.videoElement?.load();
         });
 
         hls.on(Hls.Events.ERROR, (_, data) => {
             if (!data.fatal) return;
-            this.retryReconnect(true);
+
+            console.warn('HLS fatal error:', data.type);
+
+            switch (data.type) {
+                case ErrorTypes.MEDIA_ERROR:
+                    hls.recoverMediaError();
+                    break;
+                default:
+                    setTimeout(() => {
+                        this.retryReconnect(true);
+                    }, 1000)
+            }
         });
     }
-
 
     destroy() {
         if (this.reconnectTimer) {
@@ -82,19 +105,19 @@ export class StreamPlayerModel {
         }
 
         if (this.hlsInstance) {
-            this.hlsInstance.detachMedia();
             this.hlsInstance.destroy();
             this.hlsInstance = null;
         }
 
         if (this.videoElement) {
             this.videoElement.pause();
+            this.videoElement.removeAttribute('src');
+            this.videoElement.load();
         }
 
         this.videoSrc = null;
         this.reconnectAttempts = 0;
     }
-
 
     private retryReconnect(forceRecreate = false) {
         if (this.reconnectAttempts >= this.MAX_RECONNECT_ATTEMPTS) return;

@@ -32,13 +32,14 @@ export const VideoSurveillance = observer(() => {
             <VideoSlider cameraSources={cameraSources} CameraSwitch={CameraSwitch} />
 
             <div className='min-h-[600px] flex items-center justify-center'>
-                {loader ? (
+                {loader ?
                     <div className='h-[600px] block w-full flex flex-col items-center justify-center mx-auto gap-2'>
                         <Loader />
                         <p>Подключение к камере</p>
                     </div>
-                )
-                    : <StreamPlayer videoSrc={videoSrc} onCameraClear={CameryСlear} />}
+                    :
+                    <StreamPlayer videoSrc={videoSrc} onCameraClear={CameryСlear} />
+                }
             </div>
         </div>
     )
