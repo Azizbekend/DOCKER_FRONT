@@ -1,24 +1,34 @@
-import { Camery } from "@/app/routers/api-router"
+import { Camera } from "@/app/routers/api-router"
 import { reserchCamera } from "@/app/api/instances"
 
-export const CameryConnectApi = (params: CameryConnect) => {
-    return reserchCamera.post(Camery.connect, params)
+export const CameraConnectApi = (params: CameraConnect) => {
+    return reserchCamera.post(Camera.connect, params)
 }
 
-export const CamerySwitchApi = (params: CameryConnect) => {
-    return reserchCamera.post(Camery.switch, params)
+export const CameraSwitchApi = (params: CameraConnect) => {
+    return reserchCamera.post(Camera.switch, params)
 }
 
-export const CameryDisconnectApi = (params: CameryConnect) => {
-    return reserchCamera.post(Camery.disconnect, params)
+export const CameraDisconnectApi = (params: CameraConnect) => {
+    return reserchCamera.post(Camera.disconnect, params)
 }
 
-export const CameryСlearApi = () => {
-    return reserchCamera.post(Camery.clear)
+export const CameraСlearApi = () => {
+    return reserchCamera.post(Camera.clear)
+}
+
+export const CameraActivateApi = () => {
+    return reserchCamera.post(Camera.activate)
+}
+export const CameraDeactivateApi = () => {
+    return reserchCamera.post(Camera.deactivate)
+}
+export const CameraIsActiveApi = () => {
+    return reserchCamera.get(Camera.isActive)
 }
 
 
-export interface CameryConnect {
+export interface CameraConnect {
     userId: number,
     cameraId?: number,
 }

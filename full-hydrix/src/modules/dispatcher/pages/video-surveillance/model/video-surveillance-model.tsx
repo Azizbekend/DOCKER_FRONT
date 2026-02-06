@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { CameryConnectApi, CamerySwitchApi, CameryDisconnectApi, CameryСlearApi } from "../service/api";
+import { CameraConnectApi, CameraSwitchApi, CameraDisconnectApi, CameraActivateApi, CameraDeactivateApi, CameraIsActiveApi } from "../service/api";
 
 class VideoSurveillanceModel {
     cameraSources: number[] = [1, 2, 3, 4, 5, 6, 7];
@@ -7,6 +7,7 @@ class VideoSurveillanceModel {
     _videoSrc: string = "";
     userId: number = 0;
     loader: boolean = true;
+    isActive: boolean = false;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
@@ -17,12 +18,17 @@ class VideoSurveillanceModel {
     }
 
     async CameraConnect(userId: number, retryCount: number = 3, delay: number = 1000) {
+
         this.userId = userId;
         this.loader = true;
 
+        if (this.CameraIsActive()) {
+            return
+        }
+
         for (let attempt = 1; attempt <= retryCount; attempt++) {
             try {
-                const res = await CameryConnectApi({
+                const res = await CameraConnectApi({
                     userId: this.userId,
                     cameraId: this.cameraSources[0]
                 });
@@ -43,24 +49,32 @@ class VideoSurveillanceModel {
 
     }
 
-    async CameraSwitch(id: number) {
+    async CameraSwitch(cameraId: number) {
         this.loader = true;
+        try {
+            if (!(await this.CameraIsActive())) {
+                return
+            }
 
-        await CamerySwitchApi({
-            userId: this.userId,
-            cameraId: id
-        })
-            .then((res) => {
-                this._videoSrc = "http://hydrig.gsurso.ru/camera/" + res.data.data.streamUrl;
-            })
-            .catch((err) => { console.log(err) })
-            .finally(() => {
-                this.loader = false;
-            })
+            const switchResponse = await CameraSwitchApi({
+                userId: this.userId,
+                cameraId: cameraId
+            });
+
+            if (switchResponse.data?.data?.streamUrl) {
+                this._videoSrc = `http://hydrig.gsurso.ru/camera/${switchResponse.data.data.streamUrl}`;
+            } else {
+                console.error('No stream URL in response');
+            }
+
+        } catch (error) {
+            console.error('Error switching camera:', error);
+        } finally {
+            this.loader = false;
+        }
     }
-
     async CameraDisconnect() {
-        await CameryDisconnectApi({ userId: this.userId })
+        await CameraDisconnectApi({ userId: this.userId })
             .then((res) => {
                 console.log("Камера отключина")
             })
@@ -69,15 +83,40 @@ class VideoSurveillanceModel {
             })
     }
 
-
-    async CameryСlear(onActions: () => void) {
-        await CameryСlearApi()
+    async CameraActivate() {
+        await CameraActivateApi()
             .then((res) => {
-                onActions()
-                this._videoSrc = ""
+                this.isActive = res.data.data
                 console.log(res.data)
             })
             .catch((error) => console.log(error))
+    }
+
+    async CameraDeactivate() {
+        await CameraDeactivateApi()
+            .then((res) => {
+                this.isActive = res.data.data
+                console.log(res.data)
+            })
+            .catch((error) => console.log(error))
+    }
+
+    async CameraIsActive() {
+        try {
+            const res = await CameraIsActiveApi()
+
+            this.isActive = res.data.data;
+            console.log('Camera active status:', this.isActive);
+            if (!this.isActive) {
+                console.warn('Camera is not active, switching not performed');
+            }
+            return this.isActive
+
+        } catch (error) {
+            console.log(error)
+            return false;
+
+        }
     }
 }
 

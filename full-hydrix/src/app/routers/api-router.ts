@@ -181,11 +181,15 @@ export const PassportObject = {
 }
 
 
-export const Camery = {
+export const Camera = {
   connect: "/connect",
   switch: "/switch",
   disconnect: "/disconnect",
   clear: "/clear",
+
+  activate: "/activate",
+  deactivate: "/deactivate",
+  isActive: "/is/active",
 }
 
 
