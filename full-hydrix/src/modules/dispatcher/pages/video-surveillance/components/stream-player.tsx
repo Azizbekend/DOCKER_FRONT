@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StreamPlayerModel } from '@/modules/dispatcher/features/video-surveillance/stream-player-model';
 import Loader from '@/packages/shared-ui/loader/loader';
-import { LoaderBlock } from '@/modules/dispatcher/widgets/video-surveillance/loader-block';
+import { LoaderBlock } from '@/modules/dispatcher/widgets/video-surveillance/block/loader-block';
 
 
 interface StreamPlayerProps {
@@ -54,7 +54,7 @@ export const StreamPlayer = observer(({ videoSrc }: StreamPlayerProps) => {
                 muted
                 playsInline
                 preload="auto"
-                className="h-[600px] block w-full mx-auto"
+                className="h-[900px] block w-full mx-auto"
                 style={{
                     visibility: isLoading ? 'hidden' : 'visible',
                 }}

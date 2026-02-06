@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/packages/shared-ui/button/button";
 import { Icon } from "@/packages/shared-ui/icon";
-import { CameraItem } from "./video-item";
 import { observer } from "mobx-react-lite";
+import { CameraItemButton } from "@/modules/dispatcher/widgets/video-surveillance/item-btn";
 
 export const VideoSlider = observer(({ cameraSources, CameraSwitch }: { cameraSources: number[], CameraSwitch: (value: number) => void }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [active, setActive] = useState(0);
-    const itemsToShow = 4;
+    const itemsToShow = cameraSources.length;
 
     const nextSlide = () => {
         setCurrentIndex((prev) =>
@@ -23,35 +23,34 @@ export const VideoSlider = observer(({ cameraSources, CameraSwitch }: { cameraSo
     };
 
     return (
-        <div className="w-full mx-auto">
-            <div className="flex gap-4 items-center justify-between mb-6">
+        <div className="w-[20%]">
+            <div className="flex flex-col gap-4 items-center justify-between mb-6">
 
-                <Button
+                {/* <Button
                     onClick={prevSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0"
+                    class="h-12 w-12 flex items-center justify-center shrink-0 rotate-90"
                 >
                     <Icon systemName="arrow-left-blue" />
-                </Button>
+                </Button> */}
 
                 <div className="flex-1 overflow-hidden">
-                    <div
-                        className="flex gap-[16px] transition-transform duration-500 ease-out cursor-pointer"
+                    <div className="flex gap-[16px] transition-transform duration-500 ease-out cursor-pointer flex-col"
                         style={{
-                            transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+                            // transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
                         }}
                     >
                         {cameraSources.map((src, index) => (
-                            <CameraItem onClick={() => { setActive(index); CameraSwitch(src) }} active={active == index} count={index} key={index} />
+                            <CameraItemButton onClick={() => { setActive(index); CameraSwitch(src) }} active={active == index} count={index} key={index} itemsToShow={itemsToShow} />
                         ))}
                     </div>
                 </div>
 
-                <Button
+                {/* <Button
                     onClick={nextSlide}
-                    class="h-12 w-12 flex items-center justify-center shrink-0 rotate-180"
+                    class="h-12 w-12 flex items-center justify-center shrink-0 rotate-180  -rotate-90"
                 >
                     <Icon systemName="arrow-left-blue" />
-                </Button>
+                </Button> */}
 
             </div>
         </div>
