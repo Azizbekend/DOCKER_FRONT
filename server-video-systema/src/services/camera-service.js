@@ -13,6 +13,11 @@ class CameraService {
          */
         this.userConnections = new Map();
 
+        /**
+         * Глобальный флаг активности
+         */
+        this.isActive = true;
+
         this._initCameras();
     }
 
@@ -27,9 +32,37 @@ class CameraService {
     }
 
     /**
+     * 🔒 Деактивация всех камер
+     */
+    deactivate() {
+        this.isActive = false;
+
+        // Отключаем всех пользователей
+        for (const userId of this.userConnections.keys()) {
+            this.disconnectUser(userId);
+        }
+
+        // Останавливаем все камеры
+        for (const camera of this.cameras.values()) {
+            camera.stop();
+        }
+    }
+
+    /**
+     * 🔓 Активация камер
+     */
+    activate() {
+        this.isActive = true;
+    }
+
+    /**
      * Принудительный запуск камеры
      */
     startCamera(cameraId) {
+        if (!this.isActive) {
+            throw new Error('Cameras are deactivated');
+        }
+
         const camera = this.cameras.get(cameraId);
         if (!camera) {
             throw new Error(`Camera ${cameraId} not found`);
@@ -54,6 +87,10 @@ class CameraService {
      * Подключение пользователя к камере
      */
     connectUser(userId, cameraId) {
+        if (!this.isActive) {
+            throw new Error('Cameras are deactivated');
+        }
+
         const camera = this.cameras.get(cameraId);
         if (!camera) {
             throw new Error(`Camera ${cameraId} not found`);
@@ -76,13 +113,11 @@ class CameraService {
     }
 
     /**
-     * Отключение пользователя от текущей камеры
+     * Отключение пользователя
      */
     disconnectUser(userId) {
         const cameraId = this.userConnections.get(userId);
-        if (cameraId === undefined) {
-            return;
-        }
+        if (cameraId === undefined) return;
 
         const camera = this.cameras.get(cameraId);
         if (camera) {
@@ -93,18 +128,24 @@ class CameraService {
     }
 
     /**
-     * Получить состояние всех камер (опционально, для дебага)
+     * Состояние камер
      */
     getCamerasState() {
-        return Array.from(this.cameras.values()).map((camera) =>
-            camera.getState()
-        );
+        return Array.from(this.cameras.values()).map((camera) => ({
+            ...camera.getState(),
+            serviceActive: this.isActive,
+        }));
     }
 
+    /**
+     * Очистка (alias)
+     */
     clearCameras() {
-        for (let user of this.userConnections.keys()) {
-            this.disconnectUser(user)
-        }
+        this.deactivate();
+    }
+
+    isActiveStatus() {
+        return this.isActive
     }
 }
 

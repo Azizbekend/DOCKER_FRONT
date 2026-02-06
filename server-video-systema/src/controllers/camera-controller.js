@@ -87,13 +87,34 @@ class CameraController {
         }
     }
 
-    clear(req, res) {
+    activate(req, res) {
         try {
-            cameraService.clearCameras()
+            cameraService.activate();
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            });
+        }
+    }
+
+    deactivate(req, res) {
+        try {
+            cameraService.deactivate();
+        } catch (error) {
+            return res.status(500).json({
+                error: error.message
+            });
+        }
+    }
+
+    isActive(req, res) {
+        try {
+            const status = cameraService.isActiveStatus();
+
             return res.status(200).json({
                 success: true,
+                data: status
             });
-
 
         } catch (error) {
             return res.status(500).json({
