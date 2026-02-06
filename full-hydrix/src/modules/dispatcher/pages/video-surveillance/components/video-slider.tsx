@@ -23,7 +23,7 @@ export const VideoSlider = observer(({ cameraSources, CameraSwitch }: { cameraSo
     };
 
     return (
-        <div className="w-[20%]">
+        <div>
             <div className="flex flex-col gap-4 items-center justify-between mb-6">
 
                 {/* <Button

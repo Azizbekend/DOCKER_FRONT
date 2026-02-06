@@ -16,14 +16,28 @@ export type DespetcherTest = {
     photoName?: string
 }
 
-export type ObjectCreateType = {
-    name: string,
-    latitude: string,
-    longitude: string,
+export type ObjectFormType = {
+    id?: number,
     adress: string,
     operatingOrganization: string,
     customerName: string,
     generalContractorName: string,
     projectEfficiency: number,
-    fileId: number
+    latitude: string,
+    longitude: string,
+    name: string,
+    fileId: number,
+    hourEfficiency: number,
+    powerConsump: number,
+    waterConsump: number,
+    wetExcessSludge: number,
+    dryExcessSludge: number,
+    trash: number,
+    peskoPulpa: number,
+    aquaPack30: number,
+    aquaFlock650: number,
+    ufoAcid: number,
+    mbrAcid: number,
+    gypochloride: number,
+    objectDiscription: string,
 }

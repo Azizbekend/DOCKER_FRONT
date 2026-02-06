@@ -1,4 +1,4 @@
-import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
+import { DespetcherTest } from "@/packages/entities/despetcher/type";
 import { makeAutoObservable } from "mobx";
 import { passportObject } from "../service/api";
 import { getAllObjects, getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
@@ -54,8 +54,6 @@ class RegistryModel {
         } catch (error) {
             console.log(error)
         }
-
-
     }
 }
 

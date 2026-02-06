@@ -12,7 +12,7 @@ interface BlockAdminBtnsProps {
 
 export const BlockAdminBtns = observer(({ isActive, CameraActivate, CameraDeactivate }: BlockAdminBtnsProps) => {
     return (
-        <div className='w-full max-w-6xl flex flex-wrap gap-3 p-4 bg-white rounded-lg shadow-sm border border-gray-200'>
+        <div className='w-full flex flex-wrap gap-3 p-4 bg-white rounded-lg shadow-sm border border-gray-200'>
             <Button
                 styleColor={isActive == true ? "red" : "gray"}
                 class="px-4 py-2"

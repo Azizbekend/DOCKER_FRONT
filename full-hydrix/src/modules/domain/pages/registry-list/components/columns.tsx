@@ -1,4 +1,4 @@
-import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
+import { DespetcherTest } from "@/packages/entities/despetcher/type";
 import { TableColumn } from "@/packages/shared-ui/table/types";
 import imageProfile from "../assets/object-actual.jpg"
 import { Icon } from "@/packages/shared-ui/icon";

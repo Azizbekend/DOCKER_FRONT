@@ -24,21 +24,21 @@ reserchInstance.interceptors.request.use((config) => {
 
     const user = JSON.parse(localStorage.getItem('user'));
 
-    if (user?.dateAuthConnect && user.baseRole != 5) {
-        try {
-            const lastAuthDate = new Date(user.dateAuthConnect);
-            const currentDate = new Date();
-            const timeDiff = currentDate.getTime() - lastAuthDate.getTime();
-            const minutesDiff = Math.floor(timeDiff / (1000 * 60));
-            if (minutesDiff > 30) {
-                removeUserNavigateOut()
-            }
-        } catch (error) {
-            removeUserNavigateOut()
-        }
-    } else {
-        removeUserNavigateOut()
-    }
+    // if (user?.dateAuthConnect && user.baseRole != 5) {
+    //     try {
+    //         const lastAuthDate = new Date(user.dateAuthConnect);
+    //         const currentDate = new Date();
+    //         const timeDiff = currentDate.getTime() - lastAuthDate.getTime();
+    //         const minutesDiff = Math.floor(timeDiff / (1000 * 60));
+    //         if (minutesDiff > 30) {
+    //             removeUserNavigateOut()
+    //         }
+    //     } catch (error) {
+    //         removeUserNavigateOut()
+    //     }
+    // } else {
+    //     removeUserNavigateOut()
+    // }
 
 
     config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`

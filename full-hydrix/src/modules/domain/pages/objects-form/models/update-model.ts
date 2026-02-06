@@ -1,4 +1,4 @@
-import { DespetcherTest } from "@/packages/entities/despetcher-test/type";
+import { DespetcherTest } from "@/packages/entities/despetcher/type";
 import { makeAutoObservable } from "mobx";
 
 

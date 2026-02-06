@@ -7,11 +7,11 @@ interface LoaderBlockProps {
 }
 
 
-export const LoaderBlock = ({ text, lookLoader= true }: LoaderBlockProps) => {
+export const LoaderBlock = ({ text, lookLoader = true }: LoaderBlockProps) => {
     return (
-        <div className='h-full block w-full flex flex-col items-center justify-center mx-auto gap-2'>
+        <div className='h-full flex flex-col justify-center items-center w-full m-auto'>
             {lookLoader && <Loader />}
-            <div>{text}</div>
+            <p className='mx-auto mt-2 w-max'>{text}</p>
         </div>
     );
 };

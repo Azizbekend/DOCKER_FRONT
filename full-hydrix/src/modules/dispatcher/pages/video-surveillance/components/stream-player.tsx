@@ -45,7 +45,6 @@ export const StreamPlayer = observer(({ videoSrc }: StreamPlayerProps) => {
 
     return (
         <>
-
             {isLoading && <LoaderBlock text="Получение кадров" />}
 
             <video
@@ -54,7 +53,7 @@ export const StreamPlayer = observer(({ videoSrc }: StreamPlayerProps) => {
                 muted
                 playsInline
                 preload="auto"
-                className="h-[900px] block w-full mx-auto"
+                className="max-h-full h-full block max-w-full mx-auto"
                 style={{
                     visibility: isLoading ? 'hidden' : 'visible',
                 }}

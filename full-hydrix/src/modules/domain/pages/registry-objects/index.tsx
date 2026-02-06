@@ -6,7 +6,7 @@ import { Link, NavLink, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
-import { DespetcherTest } from '@/packages/entities/despetcher-test/type';
+import { DespetcherTest } from '@/packages/entities/despetcher/type';
 import { registryModel } from './model/registry-model';
 import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
@@ -42,7 +42,6 @@ export const RegistryObjectsLayout = observer(() => {
         </div>
       </div>
 
-      {/* Панель управления */}
       <div className="mb-6 sm:mb-8 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {/* Левая часть: поиск и фильтры */}
@@ -151,7 +150,6 @@ export const RegistryObjectsLayout = observer(() => {
         )}
       </div>
 
-      {/* Основной контент */}
       <div className="flex-1 min-h-0">
         {page == "list" && <RegistryObjects list={results.length > 0 ? results : []} />}
         {page == "map" && <MapObjects />}

@@ -1,34 +1,44 @@
-import { ObjectCreateType } from "@/packages/entities/despetcher-test/type";
+import { ObjectFormType } from "@/packages/entities/despetcher/type";
 import { makeAutoObservable } from "mobx";
+import { ChangeEvent } from "react";
+import { toast } from "react-toastify";
 
 
 
 class CreateObjectModel {
-    model: ObjectCreateType = {
-        name: "",
-        latitude: "qwer",
-        longitude: "qwer",
+    model: ObjectFormType = {
         adress: "",
         operatingOrganization: "",
         customerName: "",
         generalContractorName: "",
         projectEfficiency: 0,
-        fileId: 0
+        latitude: "",
+        longitude: "",
+        name: "",
+        fileId: 0,
+        hourEfficiency: 0,
+        powerConsump: 0,
+        waterConsump: 0,
+        wetExcessSludge: 0,
+        dryExcessSludge: 0,
+        trash: 0,
+        peskoPulpa: 0,
+        aquaPack30: 0,
+        aquaFlock650: 0,
+        ufoAcid: 0,
+        mbrAcid: 0,
+        gypochloride: 0,
+        objectDiscription: "",
     }
+
+    imgPreview: string = "";
+    saveIMage: File | null = null;
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
-    setName(value: string) {
-        this.model.name = value
-    }
-    setLatitude(value: string) {
-        this.model.latitude = value
-    }
-    setLongitude(value: string) {
-        this.model.longitude = value
-    }
     setAdress(value: string) {
         this.model.adress = value
     }
@@ -41,46 +51,127 @@ class CreateObjectModel {
     setGeneralContractorName(value: string) {
         this.model.generalContractorName = value
     }
-    setProjectEfficiency(value: string) {
-        this.model.projectEfficiency = Number(value)
+    setProjectEfficiency(value: number) {
+        this.model.projectEfficiency = value
     }
-    setFileId(value: number) {
-        this.model.fileId = value
+    setLatitude(value: string) {
+        this.model.latitude = value
+    }
+    setLongitude(value: string) {
+        this.model.longitude = value
+    }
+    setName(value: string) {
+        this.model.name = value
+    }
+    setHourEfficiency(value: number) {
+        this.model.hourEfficiency = value
+    }
+    setPowerConsump(value: number) {
+        this.model.powerConsump = value
+    }
+    setWaterConsump(value: number) {
+        this.model.waterConsump = value
+    }
+    setWetExcessSludge(value: number) {
+        this.model.wetExcessSludge = value
+    }
+    setDryExcessSludge(value: number) {
+        this.model.dryExcessSludge = value
+    }
+    setTrash(value: number) {
+        this.model.trash = value
+    }
+    setPeskoPulpa(value: number) {
+        this.model.peskoPulpa = value
+    }
+    setAquaPack30(value: number) {
+        this.model.aquaPack30 = value
+    }
+    setAquaFlock650(value: number) {
+        this.model.aquaFlock650 = value
+    }
+    setUfoAcid(value: number) {
+        this.model.ufoAcid = value
+    }
+    setMbrAcid(value: number) {
+        this.model.mbrAcid = value
+    }
+    setGypochloride(value: number) {
+        this.model.gypochloride = value
+    }
+    setObjectDiscription(value: string) {
+        this.model.objectDiscription = value
+    }
+
+    setImg(e: ChangeEvent<HTMLInputElement>) {
+        this.saveIMage = e.target.files && e.target?.files[0]
+        this.imgPreview = URL.createObjectURL(this.saveIMage);
     }
 
 
     clear() {
         this.model = {
-            name: "",
-            latitude: "qwer",
-            longitude: "qwer",
             adress: "",
             operatingOrganization: "",
             customerName: "",
             generalContractorName: "",
             projectEfficiency: 0,
-            fileId: 0
+            latitude: "",
+            longitude: "",
+            name: "",
+            fileId: 0,
+            hourEfficiency: 0,
+            powerConsump: 0,
+            waterConsump: 0,
+            wetExcessSludge: 0,
+            dryExcessSludge: 0,
+            trash: 0,
+            peskoPulpa: 0,
+            aquaPack30: 0,
+            aquaFlock650: 0,
+            ufoAcid: 0,
+            mbrAcid: 0,
+            gypochloride: 0,
+            objectDiscription: "",
         }
     }
 
     isValid() {
-        return (
-            this.model.name.length > 0 &&
-            this.model.latitude.length > 0 &&
-            this.model.longitude.length > 0 &&
-            this.model.adress.length > 0 &&
-            this.model.operatingOrganization.length > 0 &&
-            this.model.customerName.length > 0 &&
-            this.model.generalContractorName.length > 0 &&
-            this.model.projectEfficiency > 0 &&
-            this.model.fileId > 0
-        )
+        const model = this.model as { [key: string]: any };
+        const keys = Object.keys(model);
+
+        return keys.every(key => {
+            const value = model[key];
+            // Более строгая проверка
+            if (typeof value === 'string' && value.trim() === '') return false;
+            if (typeof value === 'number' && isNaN(value)) return false;
+
+            return true;
+        });
     }
 
     createObject() {
         if (this.isValid()) {
-            return this.model
+            toast.error("Заполните все обязательные поля")
+            return
         }
+
+        const formData = new FormData();
+        formData.append("File", this.saveIMage);
+
+
+        // const response = await fetch("http://hydrig.gsurso.ru/image/upload", {
+        const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+            method: "POST",
+            body: formData
+        });
+
+
+        const result = await response.json();
+
+        this.model.fileId = result.id;
+
+
     }
 }
 
