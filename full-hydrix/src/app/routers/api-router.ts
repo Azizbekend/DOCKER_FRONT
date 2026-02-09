@@ -163,6 +163,7 @@ export const Service = {
 
 export const PassportObject = {
   create: "/Passport/create",
+  update: "/Passport/update",
   byCompany: "/Passport/object/company/users",
 
   all: "/Passport/all",

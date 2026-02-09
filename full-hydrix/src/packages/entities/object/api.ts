@@ -26,3 +26,7 @@ export const getOneData = (params: { id: number }) => {
 export const objectCreate = (params: PassportDataType) => {
     return reserchInstance.post(PassportObject.create, params)
 }
+
+export const objectUpdate = (params: PassportDataType) => {
+    return reserchInstance.put(PassportObject.update, params)
+}

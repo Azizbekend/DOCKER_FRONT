@@ -178,6 +178,17 @@ export const AppRouter = createBrowserRouter([
                                 Component: RegistryObjectsLayout
                             }
                         },
+                        children: [
+                            {
+                                path: ":id",
+                                async lazy() {
+                                    const { RegistryObjectsLayout } = await import("@/modules/domain/pages/registry-objects")
+                                    return {
+                                        Component: RegistryObjectsLayout
+                                    }
+                                },
+                            }
+                        ]
                     },
                     {
                         path: "passport/:objectId",
