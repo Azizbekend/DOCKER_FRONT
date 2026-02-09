@@ -10,3 +10,6 @@ export const objectDocumenAll = (params: {id: number}) => {
 export const objectDocumentDelete = (params: {id: number}) => {
     return reserchInstance.delete(Documents.objectDocumentDelete, {params})
 }
+export const objectDocumentActive = (params: {id: number}) => {
+    return reserchInstance.get(Documents.objectDocumentActive, {params})
+}

@@ -10,11 +10,11 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
     {
         header: "Изображение",
         key: 'img',
-        width: '160px',
+        width: '140px',
         cell: ({ fileId }) => {
             return (
                 <div className="flex justify-center">
-                    <div className="relative w-28 bg-blue-50 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-center items-center gap-3">
+                    <div className=" w-28 bg-blue-50 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-center items-center gap-3">
                         {
                             fileId ?
                                 <img
@@ -82,14 +82,11 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
     {
         header: "Статус \n подключения \nк ПЛК",
         key: 'plcList',
-        width: '0.5fr',
+        width: '0.7fr',
         cell: ({ plcList }) => {
             return (
-                <div className="flex flex-col justify-center relative gap-2">
-
+                <div className="flex flex-col justify-center gap-2">
                     {plcList.map((item) => {
-
-                        console.log(item)
                         return <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
                             ? "bg-red-100 text-red-800 border border-red-200"
                             : "bg-green-100 text-green-800 border border-green-200"

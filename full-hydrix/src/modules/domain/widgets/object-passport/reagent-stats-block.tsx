@@ -8,9 +8,10 @@ import { PassportStatisticReagentListType } from '@/packages/entities/object/typ
 
 interface ReagentStatsBlockProps {
     data: PassportStatisticReagentListType
+    objectId: string
 }
 
-export const ReagentStatsBlock = observer(({ data }: ReagentStatsBlockProps) => {
+export const ReagentStatsBlock = observer(({ data, objectId }: ReagentStatsBlockProps) => {
 
     // const [reagentStats, setReagentStats] = useState<ReagentStat[]>([
     //     {
@@ -73,7 +74,7 @@ export const ReagentStatsBlock = observer(({ data }: ReagentStatsBlockProps) => 
     return (
         <BlockContainer title="Статистика по реагентам">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.values(data).map((item, idx) => <ReagentStatsCard key={idx} item={item} />)}
+                {Object.entries(data).map(([key, value], idx) => (<ReagentStatsCard key={idx} item={value} propertyKey={key} objectId={objectId} />))}
             </div>
         </BlockContainer>
     );

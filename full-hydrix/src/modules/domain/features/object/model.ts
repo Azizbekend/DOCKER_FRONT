@@ -1,3 +1,4 @@
+import { objectDocumentActive } from "@/packages/entities/file-storage/api";
 import { getOneData, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 import { ObjectStages } from "@/packages/entities/object/config";
 import { PassportDataType, PassportStatisticSedimentListType, PassportStatisticReagentListType, PassportTechnicalSpecificationsType } from "@/packages/entities/object/type";
@@ -6,6 +7,8 @@ import { makeAutoObservable } from "mobx";
 class PassportModel {
 
     isLodaded = true
+
+    docs: any[] = []
 
     objectData: PassportDataType = {
         id: 0,
@@ -141,9 +144,13 @@ class PassportModel {
     async init(id: number) {
         try {
 
-            const [data] = await Promise.all([
+            const [data, docs] = await Promise.all([
                 getOneData({ id: id }),
+                objectDocumentActive({ id: id }),
             ])
+
+            this.docs = docs.data
+
 
             localStorage.setItem("objectData", JSON.stringify(data.data))
             this.objectData = data.data

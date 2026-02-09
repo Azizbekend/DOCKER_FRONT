@@ -25,6 +25,7 @@ export interface TableProps<T> {
     };
     id?: string;
     onRowClick?: (value: any, event?: any) => void;
+    isLoading?: boolean;
 }
 
 export interface TableFooterProps<T> {

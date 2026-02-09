@@ -8,6 +8,7 @@ import { useTableStorageState } from "./hooks/useTablуStorageState";
 
 import { TableHeader } from "./components/TableHeader";
 import { TableBody } from "./components/TableBody";
+import Loader from "../loader/loader";
 
 export function Table<T>(props: TableProps<T>) {
 
@@ -37,11 +38,16 @@ export function Table<T>(props: TableProps<T>) {
             <div className={"overflow-auto h-[80vh] " + props.classNames?.body}>
                 <table className={`min-w-[1100px] w-full ${props.classNames?.table}`}>
                     <TableHeader table={table} gridTemplate={gridTemplate} />
-                    <TableBody
-                        table={table}
-                        gridTemplate={gridTemplate}
-                        onRowClick={props.onRowClick}
-                    />
+                    {props.isLoading ?
+                        <div className="mt-5"><Loader /></div>
+                        :
+                        <TableBody
+                            className={props.classNames?.tbody}
+                            table={table}
+                            gridTemplate={gridTemplate}
+                            onRowClick={props.onRowClick}
+                        />
+                    }
                 </table>
             </div>
 

@@ -19,7 +19,7 @@ export const PassportInformation = observer(() => {
 
   const { objectId } = useParams();
   const { init: participantsInit, listParticipants } = listParticipantsModel;
-  const { technicalSpecifications, objectData, itemObjectData, sludgeStatistics, reagentStatistics } = passportModel;
+  const { technicalSpecifications, objectData, itemObjectData, sludgeStatistics, reagentStatistics, docs } = passportModel;
 
   useEffect(() => {
     if (objectId) {
@@ -77,12 +77,12 @@ export const PassportInformation = observer(() => {
 
           <div className="xl:col-span-1 space-y-6">
             <TechSpecsBlock data={technicalSpecifications} />
-            <SludgeStatsBlock data={sludgeStatistics} />
-            <DocumentListBlock />
+            <SludgeStatsBlock data={sludgeStatistics} objectId={objectId || ""} />
+            {docs.length > 0 && <DocumentListBlock docs={docs} />}
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <ReagentStatsBlock data={reagentStatistics} />
+            <ReagentStatsBlock data={reagentStatistics} objectId={objectId || ""} />
             <ListParticipantsBlock list={listParticipants} />
           </div>
         </div>

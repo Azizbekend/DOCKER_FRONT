@@ -1,10 +1,11 @@
 import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { getAllIncedent } from "@/packages/entities/incident/api";
 import { Incident } from "@/packages/entities/incident/type";
-import { getOneData } from "@/packages/entities/object/api";
+import { getAllObjects, getAllUserObjects, getOneData } from "@/packages/entities/object/api";
 import { cancelServiceRequests, completeServiceRequests, getServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
+import { isAdmin } from "@/packages/entities/user/utils";
 import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
 import { makeAutoObservable } from "mobx";
@@ -32,12 +33,10 @@ class ServicesMapModel {
 
     setIsPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null) {
         this.isPanel = value;
-
         this.isService = {
             id: id,
             status: status
         }
-
     }
 
     async init() {
@@ -45,7 +44,6 @@ class ServicesMapModel {
             this.isLoaded = true;
             this.initService()
             this.initIncident()
-
         } catch (error) {
             console.error('Ошибка инициализации сервисов:', error);
             throw error;
@@ -160,7 +158,14 @@ class ServicesMapModel {
     }
 
 
-    async initIncident() {
+    async initIncident(userId: number) {
+        const [objectsRes] = await Promise.all([
+            isAdmin() ? getAllObjects() : getAllUserObjects({ userId: userId }),
+        ])
+
+        console.log(objectsRes)
+
+
         const incidentResponse = await getAllIncedent();
         const incidents = incidentResponse.data ?? [];
 

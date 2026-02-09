@@ -9,38 +9,48 @@ import { ControlBlockType } from "@/packages/entities/controll-block/type";
 
 class RegistryModel {
     model: PassportRegistryDataType[] = []
+    isLoading: boolean = true
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
     }
 
     async init(userId: number, userRole: Role) {
+        this.isLoading = true;
         try {
             const [objectsRes, charsShapshiRes] = await Promise.all([
                 userRole == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId }),
                 getTechnicalCharsShapshi()
-            ])
+            ]);
 
             const results = await Promise.all(objectsRes.data.map(({ id }) => getOneObjectData({ id })));
 
-            const fullData: PassportRegistryDataType[] = objectsRes.data.map(obj => {
+            const fullDataPromises = objectsRes.data.map(async obj => {
                 const matchedResult = results.find(element =>
                     element.data.some((el: any) => el.staticObjectInfoId === obj.id)
                 );
 
-                const plcList: PassportPlcDataType[] = matchedResult
-                    ? matchedResult.data
-                        .filter((el: any) => el.staticObjectInfoId === obj.id)
-                        .map(async el => {
-                            const info = await checkObjectPlc({ plcIp: el.plcIpAdress })
+                let plcList: PassportPlcDataType[] = [];
+
+                if (matchedResult) {
+                    const plcItems = matchedResult.data
+                        .filter((el: any) => el.staticObjectInfoId === obj.id);
+
+                    // Параллельно проверяем статусы всех PLC
+                    const plcStatuses = await Promise.all(
+                        plcItems.map(async el => {
+                            const info = await checkObjectPlc({ plcIp: el.plcIpAdress });
                             return {
                                 plcId: el.id,
                                 plcName: el.name,
                                 plcIpAdress: el.plcIpAdress,
                                 status: info.data
-                            }
+                            };
                         })
-                    : [];
+                    );
+
+                    plcList = plcStatuses;
+                }
 
                 return {
                     ...obj,
@@ -48,10 +58,12 @@ class RegistryModel {
                 };
             });
 
-            this.model = fullData
-
+            const fullData: PassportRegistryDataType[] = await Promise.all(fullDataPromises);
+            this.model = fullData;
         } catch (error) {
             console.log(error)
+        }finally {
+            this.isLoading = false;
         }
     }
 }

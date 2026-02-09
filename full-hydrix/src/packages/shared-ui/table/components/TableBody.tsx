@@ -2,13 +2,13 @@
 import { flexRender } from "@tanstack/react-table";
 import { TableEmpty } from "./TableEmpty";
 
-export const TableBody = ({ table, gridTemplate, onRowClick }: any) => {
+export const TableBody = ({ table, gridTemplate, onRowClick, className }: any) => {
     const rows = table.getRowModel().rows;
 
     if (!rows.length) return <TableEmpty colSpan={table.getAllColumns().length} />;
 
     return (
-        <tbody className="divide-y divide-gray-100">
+        <tbody className={`divide-y divide-gray-100 ${className}`}>
             {rows.map((row: any, i: number) => (
                 <tr
                     key={i}

@@ -1,26 +1,34 @@
 import { PassportStatisticType } from '@/packages/entities/object/type';
-import { ReagentStat } from '@/packages/entities/participants/type';
 import { Button } from '@/packages/shared-ui/button/button';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 
+
 interface SavedCalculation {
     value: number;
     answer: number;
 }
 
+interface ReagentStatsCardType {
+    item: PassportStatisticType,
+    objectId: string
+    propertyKey: string
+}
 
-
-export const ReagentStatsCard = observer(({ item }: { item: PassportStatisticType }) => {
+export const ReagentStatsCard = observer(({ item, objectId, propertyKey }: ReagentStatsCardType) => {
 
     const [value, setValue] = useState<number>(0);
     const [answer, setAnswer] = useState<number>(0);
 
-    const storageKey = `reagent_${item.name}_calculation`;
+    const storageKey = `reagent_${propertyKey}_calculation_${objectId}`;
     useEffect(() => {
+
+        console.log(item)
+
         const savedData = localStorage.getItem(storageKey);
+
         if (savedData) {
             try {
                 const parsedData: SavedCalculation = JSON.parse(savedData);

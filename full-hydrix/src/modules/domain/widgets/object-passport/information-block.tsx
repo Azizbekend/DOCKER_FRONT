@@ -25,9 +25,9 @@ export const InformationBlock = observer(({ objectData }: InformationBlockProps)
             <div className={`text-[0.9rem] text-justify relative whitespace-pre-line ${isExpanded ? '' : 'line-clamp-6'}`}>
 
                 {objectData.objectDiscription}
-
-
-                <img className='w-[100%] mx-auto mt-5' src={`https://triapi.ru/research/api/FileStorage/images/download?id=${objectData.objectDiscriptionFileId}`} alt="" />
+                {objectData.objectDiscriptionFileId != 0 &&
+                    <img className='w-[100%] mx-auto mt-5' src={`https://triapi.ru/research/api/FileStorage/images/download?id=${objectData.objectDiscriptionFileId}`} alt="" />
+                }
 
                 {!isExpanded && (
                     <div className='absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none'>

@@ -2,7 +2,7 @@ import { Icon } from '@/packages/shared-ui/icon';
 import { useSearch } from '@/packages/shared-ui/Inputs/hooks/hook-search';
 import { Search } from '@/packages/shared-ui/Inputs/input-search';
 import { observer } from 'mobx-react-lite';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import { Link, NavLink, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
@@ -20,7 +20,7 @@ export const RegistryObjectsLayout = observer(() => {
   const { user } = useAuth()
 
   const { page } = useParams();
-  const { model, init } = registryModel;
+  const { model, init,  isLoading } = registryModel;
   const { search, setSearch, results } = useSearch<PassportRegistryDataType>({ data: model, searchFields: ["name", "operatingOrganization"] });
 
   useEffect(() => {
@@ -150,7 +150,7 @@ export const RegistryObjectsLayout = observer(() => {
       </div>
 
       <div className="flex-1 min-h-0">
-        {page == "list" && <RegistryObjects list={results.length > 0 ? results : []} />}
+        {page == "list" && <RegistryObjects list={results.length > 0 ? results : []}  isLoading={isLoading} />}
         {page == "map" && <MapObjects />}
         {page == "form-add" && <ObjectsForm />}
         {page == "form-edit" && <ObjectsFormUpdate />}

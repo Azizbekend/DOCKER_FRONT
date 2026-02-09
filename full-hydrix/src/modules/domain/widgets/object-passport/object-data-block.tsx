@@ -15,10 +15,11 @@ export const ObjectDataBlock = observer(({ data, items }: ObjectDataBlockProps) 
 
     const [copied, setCopied] = useState(false);
 
-
     const handleCopyCoordinates = async () => {
-
-    }
+        await navigator.clipboard.writeText(items[0].coord);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
 
     return (
