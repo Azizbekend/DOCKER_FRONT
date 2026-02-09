@@ -19,10 +19,16 @@ class RegistryModel {
                 getTechnicalCharsShapshi()
             ])
 
-            const objectIds = new Set<number>()
+            // const objectIds = new Set(objectsRes.data.map(data => data.id));
 
-            // objectsRes.data.forEach((data, _) => {
-            // })
+            // try {
+            //     const results = await Promise.all(
+            //         Array.from(objectIds).map(id => console.log(id))
+            //     );
+            //     console.log(results);
+            // } catch (error) {
+            //     console.error('Ошибка при загрузке одного из объектов:', error);
+            // }
 
 
             this.model = objectsRes.data.map((data, _) => {

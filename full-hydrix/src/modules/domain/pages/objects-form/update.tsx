@@ -6,7 +6,6 @@ import { BasicInfoSection } from '../../widgets/object-passport-form/BasicInfoSe
 import { CoordinatesSection } from '../../widgets/object-passport-form/CoordinatesSection';
 import { ParametersSection } from '../../widgets/object-passport-form/ParametersSection';
 import { DescriptionSection } from '../../widgets/object-passport-form/DescriptionSection';
-import { Icon } from '@/packages/shared-ui/icon';
 import { Button } from '@/packages/shared-ui/button/button';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -50,7 +49,6 @@ export const ObjectsFormUpdate = observer(() => {
     } = formObjectModel;
 
     useEffect(() => {
-        clear();
         init(Number(id));
     }, []);
 
