@@ -1,7 +1,7 @@
-import { OderListView } from "./view"
+import { OrderListView } from "./view"
 
 export const OrderList = () => {
     return (
-        <OderListView/>
+        <OrderListView/>
     )
 }

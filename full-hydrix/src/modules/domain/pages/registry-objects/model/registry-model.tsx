@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { getAllObjects, getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 import { Role } from "@/packages/entities/user/enums";
 import { PassportDataType } from "@/packages/entities/object/type";
-import { getOneObjectData } from "@/packages/entities/controll-block/api";
 
 
 
@@ -20,16 +19,16 @@ class RegistryModel {
                 getTechnicalCharsShapshi()
             ])
 
-            const objectIds = new Set(objectsRes.data.map(data => data.id));
+            // const objectIds = new Set(objectsRes.data.map(data => data.id));
 
-            try {
-                const results = await Promise.all(
-                    Array.from(objectIds).map(id => getOneObjectData({ id: id }))
-                );
-                console.log(results);
-            } catch (error) {
-                console.error('Ошибка при загрузке одного из объектов:', error);
-            }
+            // try {
+            //     const results = await Promise.all(
+            //         Array.from(objectIds).map(id => console.log(id))
+            //     );
+            //     console.log(results);
+            // } catch (error) {
+            //     console.error('Ошибка при загрузке одного из объектов:', error);
+            // }
 
 
             this.model = objectsRes.data.map((data, _) => {
