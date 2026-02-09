@@ -20,6 +20,9 @@ export const columns: TableColumn<PassportDataType>[] = [
                                 src={`https://triapi.ru/research/api/FileStorage/images/download?id=${fileId || ''}`}
                                 alt="Объект"
                                 className="h-full w-fit object-cover object-right"
+                                onError={(e) => {
+                                e.currentTarget.src = "https://placehold.co/80x80/e2e8f0/94a3b8?text=Нет\n изображения";
+              }}
                             />
                         </div>
                     </div>
@@ -30,35 +33,52 @@ export const columns: TableColumn<PassportDataType>[] = [
     {
         header: "Наименование",
         key: 'name',
+        width: '0.5fr',
         cell: ({ name }) => {
             return (
-                <div className='font-semibold text-[17px] text-left'>{name}</div>
+                <div className="px-4 py-3 text-sm font-semibold text-gray-800">{name}</div>
             )
         },
     },
+{
+        header: "Этап",
+        key: 'stage',
+        width: '0.5fr',
+        cell: ({ stage }) => {
+            return (
+                <div className={`px-4 py-3`}>
+          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm text-white font-semibold ${getObjectStageColor(ObjectStages.Exploitation)}`}>
+            {objectStagesLabels[ObjectStages.Exploitation]}
+          </span>
+        </div>
+            )
+        },
+    },
+
     {
-        header: "Дата ввода в эксплуатацию",
+        header: "Дата ввода \n в эксплуатацию",
         key: 'dateCommissioning',
         width: '0.5fr',
         cell: ({ dateCommissioning }) => {
             return (
-                <div className='font-semibold text-[17px] text-left'>{getDate(dateCommissioning)}</div>
+                <div className='px-4 py-3 text-sm font-semibold text-gray-700"'>{getDate(dateCommissioning)}</div>
             )
         },
     },
     {
-        header: "Эксплуатирующая организация",
+        header: "Эксплуатирующая \n организация",
         key: 'operatingOrganization',
+        width: '0.5fr',
         cell: ({ operatingOrganization }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-lg'>{operatingOrganization || '—'}</div>
+                <div className='px-4 py-3 text-sm font-semibold text-gray-700"'>{operatingOrganization || '—'}</div>
             );
         },
     },
     {
-        header: "статус подключения к ПЛК",
+        header: "Статус \n подключения \nк ПЛК",
         key: 'true',
-        width: '1.2fr',
+        width: '0.5fr',
         cell: () => {
             // statusСonnection = false;
 
@@ -66,7 +86,7 @@ export const columns: TableColumn<PassportDataType>[] = [
 
             return (
                 <div className="flex justify-center relative">
-                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${true
+                    <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold ${true
                         ? "bg-green-100 text-green-800 border border-green-200"
                         : "bg-red-100 text-red-800 border border-red-200"
                         }`}
@@ -93,20 +113,21 @@ export const columns: TableColumn<PassportDataType>[] = [
     {
         header: "Проектная производительность,\n м³/сут",
         key: 'projectEfficiency',
+        width: '0.5fr',
         cell: ({ projectEfficiency }) => {
             console.log(projectEfficiency)
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-lg'>{projectEfficiency + " м³" || '—'}</div>
+                <div className='px-4 py-3 text-sm font-semibold text-gray-700 text-right'>{projectEfficiency + " м³" || '—'}</div>
             );
         },
     },
     {
         header: "Сред.суточная производительность,\n м³/сут",
         key: 'projectEfficiency',
-        width: '0.8fr',
+        width: '0.5fr',
         cell: ({ projectEfficiency }) => {
             return (
-                <div className='flex items-center justify-center gap-2 font-medium text-lg text-red-600'>
+                <div className='px-4 py-3 text-sm text-red-600 font-medium text-right flex items-center justify-end gap-2'>
                     <Icon systemName="trending-down" />
                     {projectEfficiency + " м³" || '—'}
                 </div>
@@ -114,27 +135,19 @@ export const columns: TableColumn<PassportDataType>[] = [
         },
     },
     {
-        header: "Часовая производительность, м³/ч",
+        header: "Часовая производительность,\n м³/ч",
         key: 'hourEfficiency',
+        width: '0.5fr',
         cell: ({ hourEfficiency }) => {
             return (
-                <div className='flex items-center justify-center gap-2 font-medium text-lg text-[var(--clr-accent)]'>
+                <div className='px-4 py-3 text-sm text-[#4A85F6] font-medium text-right flex items-center justify-end gap-2'>
                     <Icon systemName="trending-up" />
                     {hourEfficiency + " м³" || '—'}
                 </div>
             );
         },
     },
-    {
-        header: "Этап",
-        key: 'stage',
-        width: '0.5fr',
-        cell: ({ stage }) => {
-            return (
-                <div className={`font-semibold text-[17px] text-left text-white p-2 rounded-2xl text-[14px] ${getObjectStageColor(ObjectStages.Designing)}`}>{objectStagesLabels[ObjectStages.Designing]}</div>
-            )
-        },
-    },
+    
     // {
     //     header: "Диспетчеризация",
     //     key: 'dispetcher',
