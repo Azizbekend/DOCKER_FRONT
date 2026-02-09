@@ -1,7 +1,7 @@
 // ObjectsForm.tsx
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { createObjectModel } from './models/create-model';
+import { formObjectModel } from '../../features/object/form-model';
 import { BasicInfoSection } from '../../widgets/object-passport-form/BasicInfoSection';
 import { CoordinatesSection } from '../../widgets/object-passport-form/CoordinatesSection';
 import { ParametersSection } from '../../widgets/object-passport-form/ParametersSection';
@@ -41,7 +41,7 @@ export const ObjectsForm = observer(() => {
         createObject,
         setStage,
         setCommissioningDate
-    } = createObjectModel;
+    } = formObjectModel;
 
     useEffect(() => {
         clear();

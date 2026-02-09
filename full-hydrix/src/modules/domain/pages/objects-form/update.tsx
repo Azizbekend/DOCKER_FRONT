@@ -1,15 +1,19 @@
 // ObjectsForm.tsx
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { createObjectModel } from './models/create-model';
+import { formObjectModel } from '../../features/object/form-model';
 import { BasicInfoSection } from '../../widgets/object-passport-form/BasicInfoSection';
 import { CoordinatesSection } from '../../widgets/object-passport-form/CoordinatesSection';
 import { ParametersSection } from '../../widgets/object-passport-form/ParametersSection';
 import { DescriptionSection } from '../../widgets/object-passport-form/DescriptionSection';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Button } from '@/packages/shared-ui/button/button';
+import { useParams } from 'react-router-dom';
 
-export const ObjectsForm = observer(() => {
+export const ObjectsFormUpdate = observer(() => {
+
+    const { id } = useParams();
+
     const {
         model,
         setName,
@@ -38,13 +42,15 @@ export const ObjectsForm = observer(() => {
         imgPreview,
         imgPreviewDiscription,
         clear,
-        createObject,
         setStage,
-        setCommissioningDate
-    } = createObjectModel;
+        setCommissioningDate,
+        update,
+        init
+    } = formObjectModel;
 
     useEffect(() => {
         clear();
+        init(Number(id));
     }, []);
 
     const formFieldsFace = [
@@ -93,8 +99,7 @@ export const ObjectsForm = observer(() => {
                         <img src={imgPreview} className="p-5 max-w-full max-h-full object-contain" />
                     ) : (
                         <>
-                            <Icon systemName="file-plus-blue" />
-                            <span className="text-[var(--clr-accent)] font-semibold">Загрузить фото</span>
+                            <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${model.fileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
                         </>
                     )}
                 </label>
@@ -111,14 +116,15 @@ export const ObjectsForm = observer(() => {
             <ParametersSection title="Отходы" fields={wasteOutputs} model={model} columns={4} />
 
             <DescriptionSection
+                objectDiscriptionFileId={model.objectDiscriptionFileId}
                 imgPreviewDiscription={imgPreviewDiscription}
                 setImgDiscription={setImgDiscription}
                 description={model.objectDiscription}
                 setDescription={setObjectDiscription}
             />
 
-            <Button styleColor='blue' onClick={createObject} class='px-20 py-5 text-lg'>
-                Создать
+            <Button styleColor='blue' onClick={update} class='px-20 py-5 text-lg'>
+                Обновить
             </Button >
         </div>
     );

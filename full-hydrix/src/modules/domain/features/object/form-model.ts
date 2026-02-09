@@ -2,12 +2,12 @@ import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { toast } from "react-toastify";
 import { PassportDataType } from "@/packages/entities/object/type";
-import { objectCreate } from "@/packages/entities/object/api";
+import { getOneData, objectCreate, objectUpdate } from "@/packages/entities/object/api";
 import { ObjectStages } from "@/packages/entities/object/config";
 
 
 
-class CreateObjectModel {
+class FormObjectModel {
     model: PassportDataType = {
         adress: "г. Казань, Советский район",
         operatingOrganization: "ООО \"Экспо\"",
@@ -135,7 +135,6 @@ class CreateObjectModel {
 
 
     clear() {
-        return
         this.model = {
             adress: "",
             operatingOrganization: "",
@@ -161,7 +160,7 @@ class CreateObjectModel {
             objectDiscription: "",
             objectDiscriptionFileId: 0,
             stage: ObjectStages.Construction,
-            dateCommissioning: null,
+            commissioningDate: null,
         }
     }
 
@@ -228,6 +227,55 @@ class CreateObjectModel {
             })
 
     }
+
+
+    async update() {
+
+        if (this.saveIMage !== null) {
+            const formData = new FormData();
+            formData.append("File", this.saveIMage);
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            })
+            const result = await response.json();
+            this.model.fileId = result.id;
+        }
+
+        if (this.saveIMageDiscription !== null) {
+            const formData = new FormData();
+            formData.append("File", this.saveIMageDiscription);
+            const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+                method: "POST",
+                body: formData
+            })
+            const result = await response.json();
+            this.model.objectDiscriptionFileId = result.id;
+        }
+
+        console.log(this.model)
+
+        await objectUpdate(this.model)
+            .then((res) => {
+                console.log(res.data)
+                toast.success("Объект обновлен")
+            })
+            .catch((error) => {
+                console.log(error.data)
+                toast.error("Объект обновлен")
+            })
+    }
+
+    async init(id: number) {
+        await getOneData({ id: id })
+            .then((res) => {
+                console.log(res.data)
+                this.model = { ...res.data }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 }
 
-export const createObjectModel = new CreateObjectModel()
+export const formObjectModel = new FormObjectModel()

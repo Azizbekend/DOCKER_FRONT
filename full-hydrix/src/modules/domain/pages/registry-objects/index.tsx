@@ -2,7 +2,7 @@ import { Icon } from '@/packages/shared-ui/icon';
 import { useSearch } from '@/packages/shared-ui/Inputs/hooks/hook-search';
 import { Search } from '@/packages/shared-ui/Inputs/input-search';
 import { observer } from 'mobx-react-lite';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
@@ -13,6 +13,7 @@ import { ObjectsForm } from '../objects-form';
 import { useAuth } from '@/packages/entities/user/context';
 import { isAdmin } from '@/packages/entities/user/utils';
 import { PassportDataType } from '@/packages/entities/object/type';
+import { ObjectsFormUpdate } from '../objects-form/update';
 
 export const RegistryObjectsLayout = observer(() => {
 
@@ -106,8 +107,6 @@ export const RegistryObjectsLayout = observer(() => {
               )}
             </NavLink>
 
-
-
             {isAdmin() &&
               <NavLink to={"/domain/form-add"}
                 className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm w-full sm:w-auto"
@@ -154,6 +153,7 @@ export const RegistryObjectsLayout = observer(() => {
         {page == "list" && <RegistryObjects list={results.length > 0 ? results : []} />}
         {page == "map" && <MapObjects />}
         {page == "form-add" && <ObjectsForm />}
+        {page == "form-edit" && <ObjectsFormUpdate />}
       </div>
     </div>
   );

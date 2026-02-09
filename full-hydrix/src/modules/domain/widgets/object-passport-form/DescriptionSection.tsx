@@ -4,6 +4,7 @@ import { Textarea } from '@/packages/shared-ui/textarea';
 import { Icon } from '@/packages/shared-ui/icon';
 
 interface Props {
+    objectDiscriptionFileId: number | null;
     imgPreviewDiscription: string | null;
     setImgDiscription: (e: React.ChangeEvent<HTMLInputElement>) => void;
     description: string;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export const DescriptionSection = ({
+    objectDiscriptionFileId,
     imgPreviewDiscription,
     setImgDiscription,
     description,
@@ -25,10 +27,7 @@ export const DescriptionSection = ({
                     {imgPreviewDiscription ? (
                         <img src={imgPreviewDiscription} className="p-5 max-w-full max-h-full object-contain" />
                     ) : (
-                        <>
-                            <Icon systemName="file-plus-blue" />
-                            <span className="text-[var(--clr-accent)] font-semibold">Загрузить фото</span>
-                        </>
+                        <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${objectDiscriptionFileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
                     )}
                 </label>
 
