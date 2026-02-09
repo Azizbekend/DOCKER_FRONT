@@ -120,6 +120,7 @@ class FormObjectModel {
         this.model.stage = value
     }
     setCommissioningDate(value: Date) {
+        console.log(value)
         this.model.commissioningDate = value
     }
 
@@ -255,14 +256,18 @@ class FormObjectModel {
 
         console.log(this.model)
 
+        const dateSave = this.model.commissioningDate
+        this.model.commissioningDate = new Date(this.model.commissioningDate)
+
         await objectUpdate(this.model)
             .then((res) => {
+                this.model.commissioningDate = dateSave
                 console.log(res.data)
                 toast.success("Объект обновлен")
             })
             .catch((error) => {
                 console.log(error.data)
-                toast.error("Объект обновлен")
+                toast.error("Ошибка при обновлении")
             })
     }
 
