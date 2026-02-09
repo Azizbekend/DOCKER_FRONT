@@ -14,17 +14,21 @@ export const columns: TableColumn<PassportDataType>[] = [
         cell: ({ fileId }) => {
             return (
                 <div className="flex justify-center">
-                    <div className="relative w-28 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex justify-items-end">
-                        <div>
-                            <img
-                                src={`https://triapi.ru/research/api/FileStorage/images/download?id=${fileId || ''}`}
-                                alt="Объект"
-                                className="h-full w-fit object-cover object-right"
-                                onError={(e) => {
-                                e.currentTarget.src = "https://placehold.co/80x80/e2e8f0/94a3b8?text=Нет\n изображения";
-              }}
-                            />
-                        </div>
+                    <div className="relative w-28 bg-blue-50 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col justify-center items-center gap-3">
+                        {
+                            fileId ?
+                                <img
+                                    src={`https://triapi.ru/research/api/FileStorage/images/download?id=${fileId || ''}`}
+                                    alt="Объект"
+                                    className="h-full w-fit object-cover object-right"
+                                    onError={(e) => { e.currentTarget.src = "https://placehold.co/80x80/e2e8f0/94a3b8?text=Нет\n изображения" }}
+                                />
+                                :
+                                <>
+                                    <Icon systemName="gallery" />
+                                    <p>Нет изображения</p>
+                                </>
+                        }
                     </div>
                 </div>
             );
@@ -40,17 +44,17 @@ export const columns: TableColumn<PassportDataType>[] = [
             )
         },
     },
-{
+    {
         header: "Этап",
         key: 'stage',
         width: '0.5fr',
         cell: ({ stage }) => {
             return (
                 <div className={`px-4 py-3`}>
-          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm text-white font-semibold ${getObjectStageColor(ObjectStages.Exploitation)}`}>
-            {objectStagesLabels[ObjectStages.Exploitation]}
-          </span>
-        </div>
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm text-white font-semibold ${getObjectStageColor(ObjectStages.Exploitation)}`}>
+                        {objectStagesLabels[ObjectStages.Exploitation]}
+                    </span>
+                </div>
             )
         },
     },
@@ -147,7 +151,7 @@ export const columns: TableColumn<PassportDataType>[] = [
             );
         },
     },
-    
+
     // {
     //     header: "Диспетчеризация",
     //     key: 'dispetcher',

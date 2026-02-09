@@ -19,7 +19,11 @@ class RegistryModel {
                 getTechnicalCharsShapshi()
             ])
 
-            console.log(objectsRes.data)
+            const objectIds = new Set<number>()
+
+            // objectsRes.data.forEach((data, _) => {
+            // })
+
 
             this.model = objectsRes.data.map((data, _) => {
                 if (data.id == 14) {

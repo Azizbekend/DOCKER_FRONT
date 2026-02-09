@@ -11,7 +11,6 @@ import { DocumentListBlock } from '@/modules/domain/widgets/object-passport/docu
 import { ReagentStatsBlock } from '@/modules/domain/widgets/object-passport/reagent-stats-block';
 import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludge-stats-block';
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
-import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/object-actual.jpg';
 import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
 
@@ -52,6 +51,16 @@ export const PassportInformation = observer(() => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
+
+            <Link
+              to={`/domain/form-edit/${objectId}`}
+              className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
+            >
+              <span>Редактировать данные</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
           </div>
         }
       />
@@ -59,7 +68,7 @@ export const PassportInformation = observer(() => {
       <div className="max-w-auto mx-auto">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="xl:col-span-1 space-y-6">
-            <ImageBlock imagePassport={imagePassport} />
+            <ImageBlock imagePassport={objectData.fileId} />
             <ObjectDataBlock data={objectData} items={itemObjectData} />
             <InformationBlock objectData={objectData} />
           </div>

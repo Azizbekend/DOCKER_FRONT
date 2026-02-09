@@ -8,11 +8,12 @@ import { ParametersSection } from '../../widgets/object-passport-form/Parameters
 import { DescriptionSection } from '../../widgets/object-passport-form/DescriptionSection';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Button } from '@/packages/shared-ui/button/button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const ObjectsFormUpdate = observer(() => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const {
         model,
@@ -123,9 +124,14 @@ export const ObjectsFormUpdate = observer(() => {
                 setDescription={setObjectDiscription}
             />
 
-            <Button styleColor='blue' onClick={update} class='px-20 py-5 text-lg'>
-                Обновить
-            </Button >
+            <div className='flex gap-3'>
+                <Button styleColor='blueOutline' onClick={() => navigate(-1)} class='px-20 py-5 text-lg'>
+                    Назад
+                </Button >
+                <Button styleColor='blue' onClick={update} class='px-20 py-5 text-lg'>
+                    Обновить
+                </Button >
+            </div>
         </div>
     );
 });
