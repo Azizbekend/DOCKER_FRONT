@@ -40,7 +40,7 @@ export const RequestRegistryForm = observer(() => {
 
                 <InputContainer headerText="Тип заявки">
                     <Selector
-                        className="px-4 py-3"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                         placeholder="Тип заявки"
                         classWripper="w-full"
                         items={[
@@ -56,7 +56,7 @@ export const RequestRegistryForm = observer(() => {
                 <InputContainer headerText={model.type == "Поставочная" ? "Наименование товара" : "Наименование заявки"}>
                     <Input
                         placeholder="Наименование"
-                        className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                        className="w-full border border-gray-300 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                         value={model.title}
                         onChange={setTitle}
                         type="text"
@@ -67,7 +67,7 @@ export const RequestRegistryForm = observer(() => {
                     <InputContainer headerText={"Количество"}>
                         <Input
                             placeholder="Количество"
-                            className="border border-gray-300 px-4 py-3 rounded-lg text-gray-900"
+                            className="w-full border border-gray-300 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                             value={model.requiredCount || ""}
                             onChange={(e) => setRequiredCount(Number(e))}
                             type="number"
@@ -75,48 +75,54 @@ export const RequestRegistryForm = observer(() => {
                     </InputContainer>
                 }
 
-                <InputContainer headerText="Выберете оборудование">
+                <InputContainer headerText="Выберите оборудование">
                     <SelectorSearch
                         placeholder="Оборудование"
-                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-700"
+                        classWripper="w-full border border-gray-300 rounded-lg px-3 py-2.5 "
                         items={hardwareList}
                         onSelect={(item) => { setHardwareId(Number(item.value)) }}
                         icon="arrow-down"
                         isLoader={isLodaderHardwares}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                     />
                 </InputContainer>
 
-                <InputContainer headerText="Выберете компанию">
+                <InputContainer headerText="Выберите компанию">
                     <Selector
-                        placeholder="Выберете компанию"
+                        placeholder="Выберите компанию"
                         classWripper="w-full"
                         items={companyList}
                         onSelect={(item) => { getUserList(Number(item.value)) }}
                         icon="arrow-down"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                     />
                 </InputContainer>
 
 
                 {model.implementersCompaneId != 0 && (userList.length > 0 ?
-                    <InputContainer headerText="Выберете ответственное лицо">
+                    <InputContainer headerText="Выберите ответственное лицо">
                         <Selector
-                            placeholder="Выберете ответственное лицо"
+                            placeholder="Выберите ответственное лицо"
                             classWripper="w-full"
                             items={userList}
                             onSelect={(item) => { setImplementerId(Number(item.value)) }}
                             icon="arrow-down"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent transition-colors"
                         />
                     </InputContainer>
-                    : <div>У компании отсутвствуют ответственные лица </div>)
+                    : <div className="px-4 py-3 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800">
+                  У выбранной компании отсутствуют ответственные лица
+                </div>)
                 }
 
                 {model.type != "Поставочная" &&
                     <InputContainer headerText="Описание" >
                         <Textarea
-                            className="h-[116px]"
+                            className="w-full min-h-[120px] border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none"
                             placeholder="Описание"
                             value={model.discription}
                             onChange={setDiscription}
+                            
                         />
                     </InputContainer>
                 }
