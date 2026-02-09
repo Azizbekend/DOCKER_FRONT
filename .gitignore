@@ -4,3 +4,4 @@ dist
 server-save-image/*
 
 .bashrc_user_alias
+scripts

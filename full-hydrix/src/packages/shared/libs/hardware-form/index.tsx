@@ -19,7 +19,9 @@ export const HardwareCreate = observer(({ toBack }: { toBack: string }) => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { init, clear, model, updateInfo, imgPreview, isLoading, deleteHardware, setName, setImg, setCategory, setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController } = equipmentCreateModel
+    const { init, clear, model, updateInfo, imgPreview, isLoading, deleteHardware, setName, setImg, setCategory,
+        setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController } = equipmentCreateModel
+        
     const [tab, setTab] = useState<"review" | "control" | "scheme" | "docs">("review")
 
     useEffect(() => {

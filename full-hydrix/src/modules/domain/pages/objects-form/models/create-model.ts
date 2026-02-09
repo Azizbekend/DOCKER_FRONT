@@ -34,6 +34,9 @@ class CreateObjectModel {
     imgPreview: string = "";
     saveIMage: File | null = null;
 
+    imgPreviewDiscription: string = "";
+    saveIMageDiscription: File | null = null;
+
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -108,6 +111,11 @@ class CreateObjectModel {
         this.imgPreview = URL.createObjectURL(this.saveIMage);
     }
 
+    setImgDiscription(e: ChangeEvent<HTMLInputElement>) {
+        this.saveIMageDiscription = e.target.files && e.target?.files[0]
+        this.imgPreviewDiscription = URL.createObjectURL(this.saveIMageDiscription);
+    }
+
 
     clear() {
         this.model = {
@@ -150,28 +158,36 @@ class CreateObjectModel {
         });
     }
 
-    createObject() {
+    async createObject() {
+
+        console.log(this.model)
+        
         if (this.isValid()) {
             toast.error("Заполните все обязательные поля")
             return
         }
 
-        const formData = new FormData();
-        formData.append("File", this.saveIMage);
+        // if (this.saveIMage === null) {
+        //     const formData = new FormData();
+        //     formData.append("File", this.saveIMage);
+        //     const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+        //         method: "POST",
+        //         body: formData
+        //     })
+        //     const result = await response.json();
+        //     this.model.fileId = result.id;
+        // }
 
-
-        // const response = await fetch("http://hydrig.gsurso.ru/image/upload", {
-        const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
-            method: "POST",
-            body: formData
-        });
-
-
-        const result = await response.json();
-
-        this.model.fileId = result.id;
-
-
+        // if (this.saveIMageDiscription === null) {
+        //     const formData = new FormData();
+        //     formData.append("File", this.saveIMageDiscription);
+        //     const response = await fetch("https://triapi.ru/research/api/FileStorage/images/upload", {
+        //         method: "POST",
+        //         body: formData
+        //     })
+        //     const result = await response.json();
+        //     this.model.fileId = result.id;
+        // }
     }
 }
 
