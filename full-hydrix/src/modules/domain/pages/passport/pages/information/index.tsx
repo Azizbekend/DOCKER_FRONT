@@ -52,6 +52,16 @@ export const PassportInformation = observer(() => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
+
+            <Link
+              to={`/domain/form-edit/${objectId}`}
+              className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
+            >
+              <span>Редактировать данные</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
           </div>
         }
       />
