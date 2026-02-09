@@ -21,8 +21,8 @@ export const LogEventCard = ({ event }: Props) => {
             </div>
             <p className={`text-sm mt-1 ${getColorBorder(event.indicates)} ${getColorBorder(event.discription)}`}>
                 {event.discription}
-                {event.indicates == "1" && "Пуск оборудования"}
-                {event.indicates == "0" && "Стоп оборудования"}
+                {event.indicates == "1" && "Запуск оборудования"}
+                {event.indicates == "0" && "Остановка оборудования"}
             </p>
         </div >
     );
