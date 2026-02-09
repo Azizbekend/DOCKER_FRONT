@@ -73,7 +73,7 @@ export interface TechnicalSpecificationsType extends PassportStatisticType {
 export interface PassportTechnicalSpecificationsType {
     hourEfficiency: TechnicalSpecificationsType,
     electroConsumption: TechnicalSpecificationsType,
-    dayEfficiency: TechnicalSpecificationsType,
+    projectEfficiency: TechnicalSpecificationsType,
     waterConsumption: TechnicalSpecificationsType,
 }
 

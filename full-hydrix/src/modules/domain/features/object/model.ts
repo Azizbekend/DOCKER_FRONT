@@ -40,18 +40,18 @@ class PassportModel {
 
 
     technicalSpecifications: PassportTechnicalSpecificationsType = {
-        hourEfficiency: {
+        projectEfficiency: {
             name: "Проектная производительность",
             projectConsumption: 0,
             unit: "м³/сут",
         },
-        electroConsumption: {
+        hourEfficiency: {
             name: "Часовая производительность",
             projectConsumption: 0,
             unit: "м³/ч",
         },
 
-        dayEfficiency: {
+        electroConsumption: {
             // 1.Расход электроэнергии (значение приходят в Вт, нужно будет делить на 1000 и выводить в кВт) - Сумма  
             name: "Электроэнергия",
             projectConsumption: 0,
@@ -155,9 +155,12 @@ class PassportModel {
             this.itemObjectData.push({ name: "Генеральный подрядчик", value: this.objectData.generalContractorName, })
 
             // Технические характеристики
+            console.log(this.objectData)
+
+
             this.technicalSpecifications.hourEfficiency.projectConsumption = this.objectData.hourEfficiency;
             this.technicalSpecifications.electroConsumption.projectConsumption = this.objectData.powerConsump;
-            this.technicalSpecifications.dayEfficiency.projectConsumption = this.objectData.projectEfficiency;
+            this.technicalSpecifications.projectEfficiency.projectConsumption = this.objectData.projectEfficiency;
             this.technicalSpecifications.waterConsumption.projectConsumption = this.objectData.waterConsump;
 
             // Статистика по реагентам
@@ -182,7 +185,7 @@ class PassportModel {
             const [shapshiChars] = await Promise.all([getTechnicalCharsShapshi()])
             this.technicalSpecifications.hourEfficiency.value = shapshiChars.data.hourEfficiency;
             this.technicalSpecifications.electroConsumption.value = shapshiChars.data.electroConsumption;
-            this.technicalSpecifications.dayEfficiency.value = shapshiChars.data.dayEfficiency;
+            this.technicalSpecifications.projectEfficiency.value = shapshiChars.data.dayEfficiency;
         } catch (error) {
             console.log(error)
         } finally {
