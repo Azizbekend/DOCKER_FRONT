@@ -1,21 +1,23 @@
-import { DespetcherTest } from "@/packages/entities/despetcher/type";
 import { TableColumn } from "@/packages/shared-ui/table/types";
-import imageProfile from "../assets/object-actual.jpg"
+// import imageProfile from "../assets/object-actual.jpg"
 import { Icon } from "@/packages/shared-ui/icon";
-import { useState } from "react";
+import { PassportDataType } from "@/packages/entities/object/type";
+import { getDate } from "@/packages/functions/get-data/get-date";
+import { getObjectStageColor } from "@/packages/functions/get-data/get-object-stage";
+import { ObjectStages, objectStagesLabels } from "@/packages/entities/object/config";
 
-export const columns: TableColumn<DespetcherTest>[] = [
+export const columns: TableColumn<PassportDataType>[] = [
     {
         header: "Изображение",
         key: 'img',
         width: '160px',
-        cell: ({ img }) => {
+        cell: ({ fileId }) => {
             return (
                 <div className="flex justify-center">
                     <div className="relative w-28 h-28 rounded-xl overflow-hidden border-2 border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200 flex justify-items-end">
                         <div>
                             <img
-                                src={imageProfile}
+                                src={`https://triapi.ru/research/api/FileStorage/images/download?id=${fileId || ''}`}
                                 alt="Объект"
                                 className="h-full w-fit object-cover object-right"
                             />
@@ -26,44 +28,54 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Краткое наименование",
-        key: 'nameMinin',
-        cell: ({ nameMinin }) => {
+        header: "Наименование",
+        key: 'name',
+        cell: ({ name }) => {
             return (
-                <div className='font-semibold text-[17px] text-left'>{nameMinin}</div>
+                <div className='font-semibold text-[17px] text-left'>{name}</div>
+            )
+        },
+    },
+    {
+        header: "Дата ввода в эксплуатацию",
+        key: 'dateCommissioning',
+        width: '0.5fr',
+        cell: ({ dateCommissioning }) => {
+            return (
+                <div className='font-semibold text-[17px] text-left'>{getDate(dateCommissioning)}</div>
             )
         },
     },
     {
         header: "Эксплуатирующая организация",
-        key: 'company',
-        cell: ({ company }) => {
+        key: 'operatingOrganization',
+        cell: ({ operatingOrganization }) => {
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-lg'>{company || '—'}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-lg'>{operatingOrganization || '—'}</div>
             );
         },
     },
     {
         header: "статус подключения к ПЛК",
-        key: 'statusСonnection',
+        key: 'true',
         width: '1.2fr',
-        cell: ({ statusСonnection }) => {
+        cell: () => {
             // statusСonnection = false;
 
             // const [show, setShow] = useState(false);
 
             return (
                 <div className="flex justify-center relative">
-                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${statusСonnection
+                    <div className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${true
                         ? "bg-green-100 text-green-800 border border-green-200"
                         : "bg-red-100 text-red-800 border border-red-200"
                         }`}
                         onMouseEnter={() => setShow(true)}
                         onMouseLeave={() => setShow(false)}
                     >
-                        <div className={`w-2 h-2 rounded-full mr-2 ${statusСonnection ? "bg-green-500" : "bg-red-500"
+                        <div className={`w-2 h-2 rounded-full mr-2 ${true ? "bg-green-500" : "bg-red-500"
                             }`}></div>
-                        {statusСonnection ? "Подключено" : "Не подключено"}
+                        {true ? "Подключено" : "Не подключено"}
                     </div>
                     {false && <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
                             absolute top-[100%] border border-2 rounded-xl shadow-xl p-4 bg-white
@@ -79,23 +91,24 @@ export const columns: TableColumn<DespetcherTest>[] = [
         },
     },
     {
-        header: "Проектная производительность, м³/сут",
-        key: 'volumeProjec',
-        cell: ({ volumeProjec }) => {
+        header: "Проектная производительность,\n м³/сут",
+        key: 'projectEfficiency',
+        cell: ({ projectEfficiency }) => {
+            console.log(projectEfficiency)
             return (
-                <div className='text-center w-full text-gray-800 font-medium text-lg'>{volumeProjec + " м³" || '—'}</div>
+                <div className='text-center w-full text-gray-800 font-medium text-lg'>{projectEfficiency + " м³" || '—'}</div>
             );
         },
     },
     {
-        header: "Сред.суточная производительность, м³/сут",
-        key: 'dayEfficiency',
+        header: "Сред.суточная производительность,\n м³/сут",
+        key: 'projectEfficiency',
         width: '0.8fr',
-        cell: ({ dayEfficiency }) => {
+        cell: ({ projectEfficiency }) => {
             return (
                 <div className='flex items-center justify-center gap-2 font-medium text-lg text-red-600'>
                     <Icon systemName="trending-down" />
-                    {dayEfficiency + " м³" || '—'}
+                    {projectEfficiency + " м³" || '—'}
                 </div>
             );
         },
@@ -106,12 +119,20 @@ export const columns: TableColumn<DespetcherTest>[] = [
         cell: ({ hourEfficiency }) => {
             return (
                 <div className='flex items-center justify-center gap-2 font-medium text-lg text-[var(--clr-accent)]'>
-
                     <Icon systemName="trending-up" />
-
                     {hourEfficiency + " м³" || '—'}
                 </div>
             );
+        },
+    },
+    {
+        header: "Этап",
+        key: 'stage',
+        width: '0.5fr',
+        cell: ({ stage }) => {
+            return (
+                <div className={`font-semibold text-[17px] text-left text-white p-2 rounded-2xl text-[14px] ${getObjectStageColor(ObjectStages.Designing)}`}>{objectStagesLabels[ObjectStages.Designing]}</div>
+            )
         },
     },
     // {

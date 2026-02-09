@@ -19,7 +19,7 @@ export const PassportInformation = observer(() => {
 
   const { objectId } = useParams();
   const { init: participantsInit, listParticipants } = listParticipantsModel;
-  const { model, objectData, itemObjectData } = passportModel;
+  const { technicalSpecifications, objectData, itemObjectData, sludgeStatistics, reagentStatistics } = passportModel;
 
   useEffect(() => {
     if (objectId) {
@@ -61,17 +61,17 @@ export const PassportInformation = observer(() => {
           <div className="xl:col-span-1 space-y-6">
             <ImageBlock imagePassport={imagePassport} />
             <ObjectDataBlock data={objectData} items={itemObjectData} />
-            <InformationBlock />
+            <InformationBlock objectData={objectData} />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <TechSpecsBlock cards={model} />
-            <SludgeStatsBlock />
+            <TechSpecsBlock data={technicalSpecifications} />
+            <SludgeStatsBlock data={sludgeStatistics} />
             <DocumentListBlock />
           </div>
 
           <div className="xl:col-span-1 space-y-6">
-            <ReagentStatsBlock />
+            <ReagentStatsBlock data={reagentStatistics} />
             <ListParticipantsBlock list={listParticipants} />
           </div>
         </div>

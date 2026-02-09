@@ -1,13 +1,10 @@
+import { PassportStatisticType } from '@/packages/entities/object/type';
 import { ReagentStat } from '@/packages/entities/participants/type';
 import { Button } from '@/packages/shared-ui/button/button';
 import { Icon } from '@/packages/shared-ui/icon';
 import { Input } from '@/packages/shared-ui/Inputs/input-text';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-
-interface ReagentStatsCardProps {
-    item: ReagentStat
-}
 
 interface SavedCalculation {
     value: number;
@@ -16,12 +13,12 @@ interface SavedCalculation {
 
 
 
-export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
+export const ReagentStatsCard = observer(({ item }: { item: PassportStatisticType }) => {
 
     const [value, setValue] = useState<number>(0);
     const [answer, setAnswer] = useState<number>(0);
 
-    const storageKey = `reagent_${item.id}_calculation`;
+    const storageKey = `reagent_${item.name}_calculation`;
     useEffect(() => {
         const savedData = localStorage.getItem(storageKey);
         if (savedData) {
@@ -44,8 +41,8 @@ export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
     };
 
     const onSave = () => {
-        const project = Number(item.projectConsumption.replace(',', '.'));
-        const actual = Number(value);
+        const project = Number(item.projectConsumption);
+        const actual = value;
 
         if (!isNaN(project) && !isNaN(actual) && project > 0) {
             const result = 100 - (actual / project * 100);
@@ -96,7 +93,7 @@ export const ReagentStatsCard = observer(({ item }: ReagentStatsCardProps) => {
                         className="text-sm font-medium text-right text-blue-600 border border-gray-300 rounded px-2 py-1 !w-[100px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Значение"
                         value={value || ""}
-                        onChange={setValue}
+                        onChange={(e) => setValue(Number(e))}
                         lengthOptions={{
                             maxLength: 8
                         }}

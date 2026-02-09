@@ -1,13 +1,12 @@
-import { DespetcherTest } from '@/packages/entities/despetcher/type';
 import { Table } from '@/packages/shared-ui/table/index';
 import { observer } from 'mobx-react-lite';
 import { columns } from './components/columns';
+import { PassportDataType } from '@/packages/entities/object/type';
 
 
-export const RegistryObjects = observer(({ list }: { list: DespetcherTest[] }) => {
+export const RegistryObjects = observer(({ list }: { list: PassportDataType[] }) => {
 
-
-    const handleRowClick = (row: DespetcherTest) => {
+    const handleRowClick = (row: PassportDataType) => {
         window.location.href = `/domain/passport/${row.id}/information`;
     };
 

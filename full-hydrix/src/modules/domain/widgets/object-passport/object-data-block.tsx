@@ -1,3 +1,5 @@
+import { PassportDataType } from '@/packages/entities/object/type';
+import { getDate } from '@/packages/functions/get-data/get-date';
 import { BlockContainer } from '@/packages/shared-components/container-blocks/block-container';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
@@ -5,7 +7,7 @@ import { useState } from 'react';
 
 
 interface ObjectDataBlockProps {
-    data: any
+    data: PassportDataType
     items: any
 }
 
@@ -28,7 +30,7 @@ export const ObjectDataBlock = observer(({ data, items }: ObjectDataBlockProps) 
 
                 <div>
                     <p className='text-[1rem] font-semibold text-gray-800'>Дата введения в эксплуатацию</p>
-                    <p className='text-[0.9rem] font-semibold text-gray-800'>Декабрь 2025</p>
+                    <p className='text-[0.9rem] font-semibold text-gray-800'>{getDate(data.commissioningDate, "monthNameYear")}</p>
                 </div>
 
                 {items.map((item, index) => (
@@ -41,7 +43,7 @@ export const ObjectDataBlock = observer(({ data, items }: ObjectDataBlockProps) 
                             {item.coord && (
                                 <div className="mt-1.5 flex items-center">
                                     <span className={`text-xs ${copied ? 'text-[#4A85F6]' : 'text-gray-600'}`}>
-                                        {/* {coordinates} */}
+                                        {item.coord}
                                     </span>
                                     <button
                                         onClick={handleCopyCoordinates}

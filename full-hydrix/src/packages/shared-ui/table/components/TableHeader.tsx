@@ -12,7 +12,7 @@ export const TableHeader = ({ table, gridTemplate }: any) => (
                 {group.headers.map((header: any, j: number) => (
                     <th
                         key={j}
-                        className="py-4 px-5 text-xs font-semibold text-gray-700 uppercase text-center"
+                        className="py-4 px-5 text-xs font-semibold text-gray-700 uppercase text-center whitespace-pre-line"
                     >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                     </th>

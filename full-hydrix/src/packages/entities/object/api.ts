@@ -1,5 +1,6 @@
 import { NodeIndicates, PassportObject } from "@/app/routers/api-router";
 import { reserchInstance } from "@/app/api/instances";
+import { PassportDataType } from "./type";
 
 
 export const getTechnicalCharsShapshi = () => {
@@ -20,4 +21,8 @@ export const getAllUserObjects = (params: { userId: number }) => {
 
 export const getOneData = (params: { id: number }) => {
     return reserchInstance.get(PassportObject.single, { params })
+}
+
+export const objectCreate = (params: PassportDataType) => {
+    return reserchInstance.post(PassportObject.create, params)
 }

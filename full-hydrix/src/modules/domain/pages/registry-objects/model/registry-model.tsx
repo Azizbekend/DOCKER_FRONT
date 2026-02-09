@@ -1,13 +1,12 @@
-import { DespetcherTest } from "@/packages/entities/despetcher/type";
 import { makeAutoObservable } from "mobx";
-import { passportObject } from "../service/api";
 import { getAllObjects, getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 import { Role } from "@/packages/entities/user/enums";
+import { PassportDataType } from "@/packages/entities/object/type";
 
 
 
 class RegistryModel {
-    model: DespetcherTest[] = []
+    model: PassportDataType[] = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -24,31 +23,18 @@ class RegistryModel {
 
             this.model = objectsRes.data.map((data, _) => {
                 if (data.id == 14) {
-                    return {
-                        id: data.id,
-                        img: data.fileId,
-                        // nameMinin: data.name,
-                        nameMinin: "Очистные сооружения с. Шапши",
-                        company: data.operatingOrganization,
-                        statusСonnection: true,
-                        volumeProjec: data.projectEfficiency,
-                        dayEfficiency: charsShapshiRes.data.dayEfficiency,
-                        hourEfficiency: charsShapshiRes.data.hourEfficiency,
-                        dispetcher: true,
+                    if (charsShapshiRes.data.hourEfficiency) {
+                        console.log(charsShapshiRes.data.dayEfficiency)
+                        console.log(charsShapshiRes.data.hourEfficiency)
+
+                        return {
+                            ...data,
+                            dayEfficiency: charsShapshiRes.data.dayEfficiency,
+                            hourEfficiency: charsShapshiRes.data.hourEfficiency,
+                        }
                     }
                 }
-
-                return {
-                    id: data.id,
-                    img: data.fileId,
-                    nameMinin: data.name,
-                    company: data.operatingOrganization,
-                    statusСonnection: true,
-                    volumeProjec: data.projectEfficiency,
-                    dayEfficiency: "0",
-                    hourEfficiency: "0",
-                    dispetcher: true,
-                }
+                return data
             })
 
         } catch (error) {

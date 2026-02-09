@@ -8,10 +8,42 @@ export const techSpecs = [
 ];
 
 export const sludgeStats = [
-    { id: 11, name: "Избыточный активный ил (влажный)", area: "Аэробный стабилизатор", projectConsumption: "142,6", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
-    { id: 12, name: "Избыточный активный ил (обезвоженный)", area: "Обезвоживатель", projectConsumption: "6,2", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
-    { id: 13, name: "Отбросы", area: "Барабанное сито", projectConsumption: "0,93", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
-    { id: 14, name: "Пескопульпа", area: "Песколовка", projectConsumption: "0,93", actualConsumption: "Поле ввода", unit: "м³/мес", economy: "формула %" },
+    {
+        id: 11,
+        name: "Избыточный активный ил (влажный)",
+        area: "Аэробный стабилизатор",
+        projectConsumption: "142,6",
+        // actualConsumption: "Поле ввода",
+        unit: "м³/мес",
+        // economy: "формула %"
+    },
+    {
+        id: 12,
+        name: "Избыточный активный ил (обезвоженный)",
+        area: "Обезвоживатель",
+        projectConsumption: "6,2",
+        actualConsumption: "Поле ввода",
+        unit: "м³/мес",
+        economy: "формула %"
+    },
+    {
+        id: 13,
+        name: "Отбросы",
+        area: "Барабанное сито",
+        projectConsumption: "0,93",
+        actualConsumption: "Поле ввода",
+        unit: "м³/мес",
+        economy: "формула %"
+    },
+    {
+        id: 14,
+        name: "Пескопульпа",
+        area: "Песколовка",
+        projectConsumption: "0,93",
+        actualConsumption: "Поле ввода",
+        unit: "м³/мес",
+        economy: "формула %"
+    },
 ];
 
 export const staticDataWater = [

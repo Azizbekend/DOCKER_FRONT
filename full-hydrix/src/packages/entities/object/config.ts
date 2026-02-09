@@ -23,3 +23,17 @@ export const tabLinks: {
             name: "Документация",
         },
     ]
+
+export enum ObjectStages {
+    Construction = "construction",
+    Exploitation = "exploitation",
+    Designing = "designing",
+    Null = "null",
+}
+
+
+export const objectStagesLabels: Record<ObjectStages, string> = {
+    [ObjectStages.Construction]: "Строительство",
+    [ObjectStages.Exploitation]: "Эксплуатация",
+    [ObjectStages.Designing]: "Проектирование",
+};

@@ -6,13 +6,13 @@ import { Link, NavLink, useParams } from 'react-router-dom';
 import { SwitchButton } from '@/packages/shared-ui/switch-button';
 import { FilterObjects } from './components/filter-objects';
 import { useEffect } from 'react';
-import { DespetcherTest } from '@/packages/entities/despetcher/type';
 import { registryModel } from './model/registry-model';
 import { RegistryObjects } from '../registry-list';
 import { MapObjects } from '../registry-map';
 import { ObjectsForm } from '../objects-form';
 import { useAuth } from '@/packages/entities/user/context';
 import { isAdmin } from '@/packages/entities/user/utils';
+import { PassportDataType } from '@/packages/entities/object/type';
 
 export const RegistryObjectsLayout = observer(() => {
 
@@ -20,7 +20,7 @@ export const RegistryObjectsLayout = observer(() => {
 
   const { page } = useParams();
   const { model, init } = registryModel;
-  const { search, setSearch, results } = useSearch<DespetcherTest>({ data: model, searchFields: ["nameMinin", "company"] });
+  const { search, setSearch, results } = useSearch<PassportDataType>({ data: model, searchFields: ["name", "operatingOrganization"] });
 
   useEffect(() => {
     init(user!.id, user.baseRoleId);

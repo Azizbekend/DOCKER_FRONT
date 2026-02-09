@@ -4,3 +4,7 @@ import { reserchInstance } from "@/app/api/instances"
 export const passportObject = () => {
     return reserchInstance.get(PassportObject.all)
 }
+
+export const passportObjectCreate = () => {
+    return reserchInstance.get(PassportObject.create)
+}
