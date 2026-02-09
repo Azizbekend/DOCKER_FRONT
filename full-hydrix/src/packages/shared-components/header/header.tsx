@@ -34,12 +34,21 @@ export const Header = observer(() => {
                     </Link>
                 }
 
-                <div className="flex items-center justify-center min-w-[50px]">
-                    <Icon systemName="bell" />
-                </div>
+                {/* Уведомления */}
+            <button 
+              title="Уведомления"
+            >
+              <Icon systemName="bell" className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
                 <div className="flex flex-row items-center gap-4">
                     <div className="h-full w-[1px] bg-[#C2C2C2]" />
-                    <div className="bg-[#C2C2C2] rounded-full w-[30px] h-[30px] lg:w-[45px] lg:h-[45px] lg:ml-6 ml-3" />
+                   
+                    {/* Аватар */}
+              <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-full w-10 h-10 flex items-center justify-center text-white font-semibold shadow-sm">
+                {user?.firstName?.charAt(0)?.toUpperCase() || 'U'}
+              </div>
                     {user && false &&
                         <div className="flex h-full flex-col justify-center items-start ml-4">
                             <span className="font-semibold text-[16px]">{user?.lastName + " " + user?.firstName}</span>
@@ -51,6 +60,8 @@ export const Header = observer(() => {
                         <Icon systemName="exit" width={25} />
                     </Button>
                 </div>
+
+            
             </div>
         </div>
     )
