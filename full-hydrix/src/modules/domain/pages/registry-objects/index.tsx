@@ -12,7 +12,7 @@ import { MapObjects } from '../registry-map';
 import { ObjectsForm } from '../objects-form';
 import { useAuth } from '@/packages/entities/user/context';
 import { isAdmin } from '@/packages/entities/user/utils';
-import { PassportDataType } from '@/packages/entities/object/type';
+import { PassportRegistryDataType } from '@/packages/entities/object/type';
 import { ObjectsFormUpdate } from '../objects-form/update';
 
 export const RegistryObjectsLayout = observer(() => {
@@ -21,7 +21,7 @@ export const RegistryObjectsLayout = observer(() => {
 
   const { page } = useParams();
   const { model, init } = registryModel;
-  const { search, setSearch, results } = useSearch<PassportDataType>({ data: model, searchFields: ["name", "operatingOrganization"] });
+  const { search, setSearch, results } = useSearch<PassportRegistryDataType>({ data: model, searchFields: ["name", "operatingOrganization"] });
 
   useEffect(() => {
     init(user!.id, user.baseRoleId);

@@ -8,5 +8,7 @@ export function getObjectStageColor(value: ObjectStages) {
             return "bg-green-500"
         case ObjectStages.Designing:
             return "bg-orange-500"
+        case ObjectStages.Null:
+            return "bg-orange-500"
     }
 }

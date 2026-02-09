@@ -59,6 +59,7 @@ export const ControlBlock = {
   all: "/ControlBlock/all",
   create: "/ControlBlock/create",
   getOne: "/ControlBlock/all/passport",
+  checkPlc: "/ControlBlock/connection/check",
 }
 export const Hardware = {
   all: "/Hardware/all",

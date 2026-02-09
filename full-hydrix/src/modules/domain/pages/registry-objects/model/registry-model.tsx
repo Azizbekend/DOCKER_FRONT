@@ -1,12 +1,14 @@
 import { makeAutoObservable } from "mobx";
 import { getAllObjects, getAllUserObjects, getTechnicalCharsShapshi } from "@/packages/entities/object/api";
 import { Role } from "@/packages/entities/user/enums";
-import { PassportDataType } from "@/packages/entities/object/type";
+import { PassportPlcDataType, PassportRegistryDataType } from "@/packages/entities/object/type";
+import { checkObjectPlc, getOneObjectData } from "@/packages/entities/controll-block/api";
+import { ControlBlockType } from "@/packages/entities/controll-block/type";
 
 
 
 class RegistryModel {
-    model: PassportDataType[] = []
+    model: PassportRegistryDataType[] = []
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -19,33 +21,34 @@ class RegistryModel {
                 getTechnicalCharsShapshi()
             ])
 
-            // const objectIds = new Set(objectsRes.data.map(data => data.id));
+            const results = await Promise.all(objectsRes.data.map(({ id }) => getOneObjectData({ id })));
 
-            // try {
-            //     const results = await Promise.all(
-            //         Array.from(objectIds).map(id => console.log(id))
-            //     );
-            //     console.log(results);
-            // } catch (error) {
-            //     console.error('Ошибка при загрузке одного из объектов:', error);
-            // }
+            const fullData: PassportRegistryDataType[] = objectsRes.data.map(obj => {
+                const matchedResult = results.find(element =>
+                    element.data.some((el: any) => el.staticObjectInfoId === obj.id)
+                );
 
+                const plcList: PassportPlcDataType[] = matchedResult
+                    ? matchedResult.data
+                        .filter((el: any) => el.staticObjectInfoId === obj.id)
+                        .map(async el => {
+                            const info = await checkObjectPlc({ plcIp: el.plcIpAdress })
+                            return {
+                                plcId: el.id,
+                                plcName: el.name,
+                                plcIpAdress: el.plcIpAdress,
+                                status: info.data
+                            }
+                        })
+                    : [];
 
-            this.model = objectsRes.data.map((data, _) => {
-                if (data.id == 14) {
-                    if (charsShapshiRes.data.hourEfficiency) {
-                        console.log(charsShapshiRes.data.dayEfficiency)
-                        console.log(charsShapshiRes.data.hourEfficiency)
+                return {
+                    ...obj,
+                    plcList
+                };
+            });
 
-                        return {
-                            ...data,
-                            dayEfficiency: charsShapshiRes.data.dayEfficiency,
-                            hourEfficiency: charsShapshiRes.data.hourEfficiency,
-                        }
-                    }
-                }
-                return data
-            })
+            this.model = fullData
 
         } catch (error) {
             console.log(error)

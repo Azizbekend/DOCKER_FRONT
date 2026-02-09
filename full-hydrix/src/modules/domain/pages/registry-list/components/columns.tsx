@@ -1,12 +1,12 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
 // import imageProfile from "../assets/object-actual.jpg"
 import { Icon } from "@/packages/shared-ui/icon";
-import { PassportDataType } from "@/packages/entities/object/type";
+import { PassportRegistryDataType } from "@/packages/entities/object/type";
 import { getDate } from "@/packages/functions/get-data/get-date";
 import { getObjectStageColor } from "@/packages/functions/get-data/get-object-stage";
 import { ObjectStages, objectStagesLabels } from "@/packages/entities/object/config";
 
-export const columns: TableColumn<PassportDataType>[] = [
+export const columns: TableColumn<PassportRegistryDataType>[] = [
     {
         header: "Изображение",
         key: 'img',
@@ -51,8 +51,8 @@ export const columns: TableColumn<PassportDataType>[] = [
         cell: ({ stage }) => {
             return (
                 <div className={`px-4 py-3`}>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm text-white font-semibold ${getObjectStageColor(ObjectStages.Exploitation)}`}>
-                        {objectStagesLabels[ObjectStages.Exploitation]}
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm text-white font-semibold ${getObjectStageColor(stage)}`}>
+                        {objectStagesLabels[stage]}
                     </span>
                 </div>
             )
@@ -61,11 +61,11 @@ export const columns: TableColumn<PassportDataType>[] = [
 
     {
         header: "Дата ввода \n в эксплуатацию",
-        key: 'dateCommissioning',
+        key: 'commissioningDate',
         width: '0.5fr',
-        cell: ({ dateCommissioning }) => {
+        cell: ({ commissioningDate }) => {
             return (
-                <div className='px-4 py-3 text-sm font-semibold text-gray-700"'>{getDate(dateCommissioning)}</div>
+                <div className='px-4 py-3 text-sm font-semibold text-gray-700"'>{commissioningDate != "0001-01-01T00:00:00" ? getDate(commissioningDate, "short") : "—"}</div>
             )
         },
     },
@@ -81,26 +81,26 @@ export const columns: TableColumn<PassportDataType>[] = [
     },
     {
         header: "Статус \n подключения \nк ПЛК",
-        key: 'true',
+        key: 'plcList',
         width: '0.5fr',
-        cell: () => {
-            // statusСonnection = false;
-
-            // const [show, setShow] = useState(false);
-
+        cell: ({ plcList }) => {
             return (
-                <div className="flex justify-center relative">
-                    <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold ${true
-                        ? "bg-green-100 text-green-800 border border-green-200"
-                        : "bg-red-100 text-red-800 border border-red-200"
-                        }`}
-                        onMouseEnter={() => setShow(true)}
-                        onMouseLeave={() => setShow(false)}
-                    >
-                        <div className={`w-2 h-2 rounded-full mr-2 ${true ? "bg-green-500" : "bg-red-500"
-                            }`}></div>
-                        {true ? "Подключено" : "Не подключено"}
-                    </div>
+                <div className="flex flex-col justify-center relative gap-2">
+
+                    {plcList.map((item) => {
+
+                        console.log(item)
+                        return <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
+                            ? "bg-red-100 text-red-800 border border-red-200"
+                            : "bg-green-100 text-green-800 border border-green-200"
+                            }`}
+                        >
+                            <div className={`w-2 h-2 rounded-full mr-2 ${item.status ? "bg-red-500" : "bg-green-500"}`}></div>
+                            {item.plcName}
+                            {/* {item.status ? "Не подключено" : "Подключено"} */}
+                        </div>
+                    })}
+
                     {false && <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
                             absolute top-[100%] border border-2 rounded-xl shadow-xl p-4 bg-white
                             transition-all duration-300 ease-out
@@ -119,7 +119,6 @@ export const columns: TableColumn<PassportDataType>[] = [
         key: 'projectEfficiency',
         width: '0.5fr',
         cell: ({ projectEfficiency }) => {
-            console.log(projectEfficiency)
             return (
                 <div className='px-4 py-3 text-sm font-semibold text-gray-700 text-right'>{projectEfficiency + " м³" || '—'}</div>
             );
@@ -133,7 +132,7 @@ export const columns: TableColumn<PassportDataType>[] = [
             return (
                 <div className='px-4 py-3 text-sm text-red-600 font-medium text-right flex items-center justify-end gap-2'>
                     <Icon systemName="trending-down" />
-                    {projectEfficiency + " м³" || '—'}
+                    {0 + " м³" || '—'}
                 </div>
             );
         },
@@ -146,7 +145,7 @@ export const columns: TableColumn<PassportDataType>[] = [
             return (
                 <div className='px-4 py-3 text-sm text-[#4A85F6] font-medium text-right flex items-center justify-end gap-2'>
                     <Icon systemName="trending-up" />
-                    {hourEfficiency + " м³" || '—'}
+                    {0 + " м³" || '—'}
                 </div>
             );
         },

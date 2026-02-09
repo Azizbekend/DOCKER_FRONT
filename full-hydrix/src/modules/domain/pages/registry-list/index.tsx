@@ -1,12 +1,12 @@
 import { Table } from '@/packages/shared-ui/table/index';
 import { observer } from 'mobx-react-lite';
 import { columns } from './components/columns';
-import { PassportDataType } from '@/packages/entities/object/type';
+import { PassportRegistryDataType } from '@/packages/entities/object/type';
 
 
-export const RegistryObjects = observer(({ list }: { list: PassportDataType[] }) => {
+export const RegistryObjects = observer(({ list }: { list: PassportRegistryDataType[] }) => {
 
-    const handleRowClick = (row: PassportDataType) => {
+    const handleRowClick = (row: PassportRegistryDataType) => {
         window.location.href = `/domain/passport/${row.id}/information`;
     };
 

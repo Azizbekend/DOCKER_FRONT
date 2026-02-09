@@ -13,6 +13,15 @@ export interface PassportModelType {
     fileId: number,
 }
 
+
+
+export interface PassportPlcDataType {
+    plcId: number,
+    plcName: string,
+    plcIpAdress: string,
+    status: boolean,
+}
+
 export interface PassportDataType extends PassportModelType {
     objectDiscription: string,
     objectDiscriptionFileId: number,
@@ -30,6 +39,11 @@ export interface PassportDataType extends PassportModelType {
     aquaFlock650: number,
     stage: ObjectStages,
     commissioningDate: Date | null,
+}
+
+
+export interface PassportRegistryDataType extends PassportDataType {
+    plcList: PassportPlcDataType[]
 }
 
 
