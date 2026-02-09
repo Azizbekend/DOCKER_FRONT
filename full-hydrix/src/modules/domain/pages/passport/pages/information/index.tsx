@@ -11,7 +11,6 @@ import { DocumentListBlock } from '@/modules/domain/widgets/object-passport/docu
 import { ReagentStatsBlock } from '@/modules/domain/widgets/object-passport/reagent-stats-block';
 import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludge-stats-block';
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
-import imagePassport from '@/modules/domain/pages/passport/pages/information/assets/object-actual.jpg';
 import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
 
@@ -69,7 +68,7 @@ export const PassportInformation = observer(() => {
       <div className="max-w-auto mx-auto">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           <div className="xl:col-span-1 space-y-6">
-            <ImageBlock imagePassport={imagePassport} />
+            <ImageBlock imagePassport={objectData.fileId} />
             <ObjectDataBlock data={objectData} items={itemObjectData} />
             <InformationBlock objectData={objectData} />
           </div>
