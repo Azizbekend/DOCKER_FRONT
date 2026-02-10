@@ -13,7 +13,7 @@ import { SludgeStatsBlock } from '@/modules/domain/widgets/object-passport/sludg
 import { ImageBlock } from '@/modules/domain/widgets/object-passport/image-block';
 import { useEffect } from 'react';
 import { InformationBlock } from '@/modules/domain/widgets/object-passport/information-block';
-import { isAdmin } from '@/packages/entities/user/utils';
+import { isAdmin, isJobRole } from '@/packages/entities/user/utils';
 
 export const PassportInformation = observer(() => {
 
@@ -33,35 +33,39 @@ export const PassportInformation = observer(() => {
         title='Паспорт объекта'
         rightBlock={
           <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-            <Link
-              to="/gis/company/56"
-              className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-white text-[#4A85F6] font-medium rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm text-sm whitespace-nowrap"
-            >
-              <span>Управление ЖБО</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
 
-            <Link
-              to={`/dispatcher`}
-              className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
-            >
-              <span>Диспетчерская</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-            {isAdmin() &&
+            {objectId == "14" && <>
               <Link
-                to={`/domain/form-edit/${objectId}`}
-                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
+                to="/gis/company/56"
+                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-white text-[#4A85F6] font-medium rounded-lg border border-[#4A85F6] hover:bg-[#4A85F6] hover:text-white transition-all duration-200 shadow-sm text-sm whitespace-nowrap"
               >
-                <span>Редактировать данные</span>
+                <span>Управление ЖБО</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </Link>
+
+              <Link
+                to={`/dispatcher`}
+                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
+              >
+                <span>Диспетчерская</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+              {isAdmin() &&
+                <Link
+                  to={`/domain/form-edit/${objectId}`}
+                  className="flex items-center justify-center sm:justify-start gap-2 px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-sm text-sm whitespace-nowrap"
+                >
+                  <span>Редактировать данные</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
+              }
+            </>
             }
           </div>
         }

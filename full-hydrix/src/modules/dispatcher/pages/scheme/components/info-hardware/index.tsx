@@ -12,6 +12,8 @@ import { getHardwareStatus } from "@/packages/shared/libs/hardware/components/ha
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { panelTabs } from "@/packages/shared-ui/button/config";
+import { useAuth } from "@/packages/entities/user/context";
+import { isAdmin } from "@/packages/entities/user/utils";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
@@ -48,12 +50,14 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
                 <span>назад</span>
               </button>
 
-              <Button
-                class="p-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
-                onClick={() => navigate(`/dispatcher/equipment/form/${model.id}`)}
-              >
-                <Icon width={20} height={20} systemName="edit-white" />
-              </Button>
+              {!isAdmin() ? <div></div> :
+                <Button
+                  class="p-2 bg-green-600 hover:bg-green-700 rounded-lg transition-colors shadow-sm"
+                  onClick={() => navigate(`/dispatcher/equipment/form/${model.id}`)}
+                >
+                  <Icon width={20} height={20} systemName="edit-white" />
+                </Button>
+              }
             </div>
             <Link to={`/dispatcher/hardware-about/${model.id}/passport/`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
 

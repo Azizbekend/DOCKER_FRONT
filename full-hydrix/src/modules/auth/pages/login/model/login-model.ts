@@ -172,6 +172,7 @@ class LoginModel {
                     case Role.Sewer:
                     case Role.TransporterCompany:
                     case Role.Participant:
+                    case Role.Ministry:
                     case Role.Admin:
                         setTimeout(() => {
                             window.location.href = '/menu-moduls'

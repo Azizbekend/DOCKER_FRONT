@@ -1,12 +1,11 @@
-import { useEffect, useInsertionEffect, useState } from "react";
-import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "../../entities/service-requests/type";
+import { useEffect } from "react";
+import { ServiceStageType } from "../../entities/service-requests/type";
 import { getDate } from "../../functions/get-data/get-date";
 import { Button } from "../../shared-ui/button/button";
 import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";
-import { Role } from "../../entities/user/enums";
-import { getDostup } from "../../entities/user/utils";
+import { isJobRole } from "../../entities/user/utils";
 import { Selector } from "@/packages/shared-ui/Selector/selector";
 import { StageAction, stageActions } from "./stage-actions";
 import { statusColorStage, statusStage } from "@/packages/functions/get-data/get-stage-status";
@@ -139,7 +138,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
           )}
         </div>
 
-        {typeAction &&
+        {isJobRole() && typeAction &&
           <div className="flex flex-col gap-4 mt-5 mb-5">
             {isDiscription(typeAction) &&
               <InputContainer headerText={getDiscriptionTitle(typeAction)}>
@@ -234,7 +233,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
 
       </div>
 
-      {footerBlock && stage.currentStatus === "New" && (
+      {isJobRole() && footerBlock && stage.currentStatus === "New" && (
         <div className="p-4 border-t border-gray-100 bg-gray-50">
           <div className="flex gap-2">
             <Selector
