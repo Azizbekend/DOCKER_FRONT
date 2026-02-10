@@ -161,17 +161,63 @@ class ServicesMapModel {
     }
 
     async initIncident(userId: number, baseRoleId: Role) {
-        const [objectsRes] = await Promise.all([baseRoleId == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId })])
+        try {
+            // 1. Загружаем объекты с обработкой ошибок
+            const objectsRes = await Promise.allSettled([
+                baseRoleId === Role.Admin
+                    ? getAllObjects()
+                    : getAllUserObjects({ userId })
+            ]);
 
-        return
-        const objectPointsMap = new Map<number, [number, number]>();
+            if (objectsRes[0].status === 'rejected') {
+                throw new Error(`Ошибка загрузки объектов: ${objectsRes[0].reason}`);
+            }
 
-        for (const object of objectsRes.data) {
-            const data = await getSuggestionClick(object.name)
-            objectPointsMap.set(object.id, data.pin)
+            const objects = objectsRes[0].value.data || [];
+
+            if (objects.length === 0) {
+                this.objectPointsMap = new Map();
+                return;
+            }
+
+            // 2. Параллельно загружаем координаты для всех объектов
+            const pointsPromises = objects.map(async (object) => {
+                try {
+                    const data = await getSuggestionClick(object.adress);
+                    return {
+                        id: object.id,
+                        point: data.pin,
+                        success: true
+                    };
+                } catch (error) {
+                    console.error(`Ошибка загрузки координат для объекта ${object.id}:`, error);
+                    return {
+                        id: object.id,
+                        point: null,
+                        success: false,
+                        error
+                    };
+                }
+            });
+
+            const pointsResults = await Promise.all(pointsPromises);
+
+            // 3. Создаем Map только с успешными результатами
+            const objectPointsMap = new Map<number, [number, number]>();
+
+            pointsResults.forEach(result => {
+                if (result.success && result.point) {
+                    objectPointsMap.set(result.id, result.point);
+                }
+            });
+
+            this.objectPointsMap = objectPointsMap;
+
+        } catch (error) {
+            console.error('Ошибка в initIncident:', error);
+            this.objectPointsMap = new Map();
         }
 
-        this.objectPointsMap = objectPointsMap
 
         const incidentResponse = await getAllIncedent();
         const incidents = incidentResponse.data ?? [];

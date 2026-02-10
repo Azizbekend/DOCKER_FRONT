@@ -14,7 +14,8 @@ export const Scheme = observer(() => {
 
 
   useEffect(() => {
-    init([6, 8, 9]);
+    const ids = tabs.map((tab) => tab.schemeId)
+    init(ids);
   }, []);
 
   return (
