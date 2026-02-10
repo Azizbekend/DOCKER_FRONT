@@ -58,7 +58,6 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
             )
         },
     },
-
     {
         header: "Дата ввода \n в эксплуатацию",
         key: 'commissioningDate',
@@ -84,17 +83,24 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
         key: 'plcList',
         width: '0.7fr',
         cell: ({ plcList }) => {
+
+            console.log(plcList)
+
             return (
                 <div className="flex flex-col justify-center gap-2">
                     {plcList.map((item) => {
-                        return <div className={`inline-flex items-center px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
+                        return <div className={`inline-flex items-center  px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
                             ? "bg-red-100 text-red-800 border border-red-200"
                             : "bg-green-100 text-green-800 border border-green-200"
                             }`}
                         >
                             <div className={`w-2 h-2 rounded-full mr-2 ${item.status ? "bg-red-500" : "bg-green-500"}`}></div>
-                            {item.plcName}
-                            {/* {item.status ? "Не подключено" : "Подключено"} */}
+                            <p className="">
+                                {item.plcId == 5 && "ПЛК-1 (технология)"}
+                                {item.plcId == 6 && "ПЛК-2 (общий)"}
+                                {/* {item.plcName == "ШУ"} */}
+                                {/* {item.status ? "Не подключено" : "Подключено"} */}
+                            </p>
                         </div>
                     })}
 

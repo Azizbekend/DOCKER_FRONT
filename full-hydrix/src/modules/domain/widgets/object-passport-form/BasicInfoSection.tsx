@@ -45,6 +45,7 @@ export const BasicInfoSection = observer(({ fields, model }: Props) => {
                             value,
                             title: objectStagesLabels[value],
                         }))}
+                        onSelect={(data) => field.setter(data.value)}
                     />
                 ))}
         </>
