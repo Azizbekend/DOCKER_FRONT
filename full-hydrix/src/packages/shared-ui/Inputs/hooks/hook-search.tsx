@@ -1,4 +1,4 @@
-import { StringKeys } from "@/packages/shared/type/TypeFunctions";
+import { StringKeys } from "@/packages/functions/type/TypeFunctions";
 import { useState, useEffect } from "react";
 
 interface UseSearchProps<T> {

@@ -229,6 +229,39 @@ export const ServiceStageRequests = {
   cancel: "/ServiceRequests/mainEngineer/serviceStage/Cancel",
 };
 
+export const PlanedServices = {
+  factWorkTime: "/PlanedServices/internalMethod/hardware/factWorkTime",
+  byHardware: "/PlanedServices/plannedService/hardware",
+  create: "/PlanedServices/createPlanService",
+
+// /api/PlanedServices/service/instruction
+// /api/PlanedServices/internalMethod/hardware/factWorkTime
+// /api/PlanedServices/plannedService/hardware
+// /api/PlanedServices/createPlanService
+// /api/PlanedServices/instruction/create
+// /api/PlanedServices/instruction/attach
+// /api/PlanedServices/instruction/create&attach
+// /api/PlanedServices/commonService/create
+// /api/PlanedServices/commonService/stage/mainEngineer/create
+
+
+// POST
+// /api/PlanedServices/commonService/mainEngineeer/Complete
+
+
+// POST
+// /api/PlanedServices/commonService/stage/simple/complete
+
+
+// POST
+// /api/PlanedServices/commonService/stage/mainEngineer/complete
+
+
+// POST
+// /api/PlanedServices/commonService/stage/mainEngineer/Cancel
+}
+
+
 export const SupplyRequest = {
   create: "/SupplyRequest/mainEngineer/SupplyRequest/InitialCreate",
   createStage: "/SupplyRequest/mainEngineer/supplyRequest/stage/create",

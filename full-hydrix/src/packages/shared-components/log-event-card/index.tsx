@@ -9,11 +9,6 @@ interface Props {
 }
 
 export const LogEventCard = ({ event }: Props) => {
-
-
-
-
-
     return (
         <div className={`border bg-white p-3 rounded-lg border-l-4 transition-colors duration-200 hover:bg-gray-50`}>
             <div className="flex justify-between items-start mb-1">
