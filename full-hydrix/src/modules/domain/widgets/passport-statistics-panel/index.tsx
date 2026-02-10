@@ -78,7 +78,7 @@ export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds, unit 
 
 
     return (
-        <div className="w-[550px] absolute top-full -right-[50%] h-min"
+        <div className="w-[550px] absolute top-full -right-[0%] xl:-right-[50%] h-min"
             style={{ animation: 'fadeInInOpacity 0.2s ease forwards' }}>
             <div className=" rounded-2xl bg-white p-6 sticky top-10 max-h-[60vh] h-full shadow-lg">
                 <div className="relative h-full max-h-full" ref={containerRef}>
@@ -132,9 +132,6 @@ export const PassportStatisticsPanel = observer(({ show, setShow, nodeIds, unit 
                     </div>
 
                     <p className="text-xs text-gray-600 mb-4 ml-4">{unit}</p>
-
-
-
 
                     {isLoader ? <Loader /> : (model.length == 0 ? <div>Данные пустые</div> : <SumChart type={type} data={model} />)}
 
