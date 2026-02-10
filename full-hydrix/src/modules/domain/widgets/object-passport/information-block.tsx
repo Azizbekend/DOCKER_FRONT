@@ -22,7 +22,7 @@ export const InformationBlock = observer(({ objectData }: InformationBlockProps)
     return (
         <BlockContainer title="Описание технологии очистки">
 
-            <div className={`text-[0.9rem] text-justify relative whitespace-pre-line ${isExpanded ? '' : 'line-clamp-6'}`}>
+            <div className={`text-[0.9rem] text-gray-800 text-justify leading-relaxed relative transition-all whitespace-pre-line ${isExpanded ? '' : 'line-clamp-6'}`}>
 
                 {objectData.objectDiscription}
                 {objectData.objectDiscriptionFileId != 0 &&
@@ -55,5 +55,7 @@ export const InformationBlock = observer(({ objectData }: InformationBlockProps)
             </Button>
 
         </BlockContainer>
+
+        
     )
 });
