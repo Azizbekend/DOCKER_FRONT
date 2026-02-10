@@ -7,7 +7,7 @@ export class MapVKModel {
         this._modelMap = {
             initialZoom: 12,
             initialCenter: [49.106414, 55.796127],
-            token: 'RSb56d5332e76e56dc4edfc97969872b43ee310869573b956b8912c5746da814',
+            token: 'c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887',
         }
     }
 

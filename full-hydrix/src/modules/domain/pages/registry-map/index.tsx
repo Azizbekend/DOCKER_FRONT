@@ -17,15 +17,12 @@ import { useAuth } from '@/packages/entities/user/context';
 export const MapObjects = observer(() => {
 
   const { user } = useAuth()
-  const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter } = servicesMapModel
+  const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter, objectPointsMap } = servicesMapModel
 
   useEffect(() => {
     init(user?.id, user?.baseRoleId);
 
-    const getImage = document.createElement('img');
-    getImage.src = mapPl;
-    getImage.onclick = () => { navigate("/domain/passport/information/information") }
-
+    return
     mmrgl.accessToken = 'c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887';
 
     const map = new mmrgl.Map({
@@ -35,14 +32,22 @@ export const MapObjects = observer(() => {
       style: 'mmr://api/styles/main_style.json',
     })
 
-    var marker = new mmrgl.Marker({
-      element: getImage,
-      draggable: false
-    })
-      .setLngLat([49.495274, 55.957421])
-      .addTo(map);
-  }, [])
 
+    for (let pointKey of objectPointsMap.keys()) {
+
+      const getImage = document.createElement('img');
+      getImage.src = mapPl;
+      getImage.onclick = () => { navigate(`/domain/passport/${pointKey}/information`) }
+
+      var marker = new mmrgl.Marker({
+        element: getImage,
+        draggable: false
+      })
+        .setLngLat(objectPointsMap.get(pointKey))
+        .addTo(map);
+    }
+
+  }, [])
 
 
   const navigate = useNavigate();

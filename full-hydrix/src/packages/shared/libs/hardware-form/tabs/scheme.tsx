@@ -10,7 +10,8 @@ import { equipmentCreateModel } from "../model/hardware-form-model";
 export const Scheme = observer(() => {
 
 
-    const { createScheme, schemaModel, preview, previewRed, previewGreen, saveIMageScheme, setHardwareSchemaId, setTop, setLeft, setHieght, setWidth, setSaveIMage, setSaveIMageRed, setSaveIMageGreen } = equipmentCreateModel
+    const { createScheme, schemaModel, preview, previewRed, previewGreen, saveIMageScheme, setHardwareSchemaId,
+        setTop, setLeft, setHieght, setWidth, setSaveIMage, setSaveIMageRed, setSaveIMageGreen, listSchemes } = equipmentCreateModel
 
     const handleSubmit = () => {
         if (saveIMageScheme) {
@@ -151,20 +152,7 @@ export const Scheme = observer(() => {
                                     classWripper="!w-full"
                                     title="ПЛК"
                                     onSelect={(item) => setHardwareSchemaId(Number(item.value))}
-                                    items={[
-                                        {
-                                            value: 6,
-                                            title: "Механическая очистка"
-                                        },
-                                        {
-                                            value: 8,
-                                            title: "Биологическая очистка"
-                                        },
-                                        {
-                                            value: 9,
-                                            title: "Доочистка"
-                                        },
-                                    ]}
+                                    items={listSchemes}
                                 />
                             }
                         />
@@ -172,7 +160,7 @@ export const Scheme = observer(() => {
                 </div>
             </div>
 
-            <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button>
+            <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50 py-2" onClick={handleSubmit}>Сохранить</Button>
         </>
     )
 });

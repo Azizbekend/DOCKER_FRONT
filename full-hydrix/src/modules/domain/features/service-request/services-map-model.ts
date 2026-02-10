@@ -9,6 +9,7 @@ import { Role } from "@/packages/entities/user/enums";
 import { isAdmin } from "@/packages/entities/user/utils";
 import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
+import { getSuggestionClick } from "@/packages/shared-ui/mapVK/mapVk-functions";
 import { makeAutoObservable } from "mobx";
 import { toast } from "react-toastify";
 
@@ -27,6 +28,8 @@ class ServicesMapModel {
 
     serviceStatusCounter: { new: number, complete: number, cancle: number } = { new: 0, complete: 0, cancle: 0 };
     serviceTypeCounter: { asnser: number, supply: number, incident: number } = { asnser: 0, supply: 0, incident: 0 };
+
+    objectPointsMap = new Map<number, [number, number]>();
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -160,8 +163,15 @@ class ServicesMapModel {
     async initIncident(userId: number, baseRoleId: Role) {
         const [objectsRes] = await Promise.all([baseRoleId == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId })])
 
-    
-        
+        return
+        const objectPointsMap = new Map<number, [number, number]>();
+
+        for (const object of objectsRes.data) {
+            const data = await getSuggestionClick(object.name)
+            objectPointsMap.set(object.id, data.pin)
+        }
+
+        this.objectPointsMap = objectPointsMap
 
         const incidentResponse = await getAllIncedent();
         const incidents = incidentResponse.data ?? [];

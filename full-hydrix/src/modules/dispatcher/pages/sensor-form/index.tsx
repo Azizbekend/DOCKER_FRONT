@@ -139,8 +139,8 @@ export const SensorForm = observer(() => {
             </div>
             <div className="flex gap-4 mt-5 justify-end items-end">
                 <div className="flex gap-4">
-                    <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={create}>Сохранить</Button>
-                    <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/hardware")}>Отменить</Button>
+                    <Button class="h-fit rounded-lg px-10 py-2 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={create}>Сохранить</Button>
+                    <Button class="h-fit rounded-lg px-10 py-2 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/hardware")}>Отменить</Button>
                 </div>
             </div>
         </div>

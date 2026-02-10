@@ -38,7 +38,7 @@ export const Documents = observer(() => {
             </div>
             <Button
                 onClick={handleAddCharacteristic}
-                class="text-white bg-[var(--clr-accent)] hover:opacity-50 px-4 gap-3">
+                class="text-white bg-[var(--clr-accent)] hover:opacity-50 px-4 py-2 gap-3">
                 <Icon systemName="plus-circle-white" />
                 <span>Добавить документы</span>
             </Button>
@@ -191,7 +191,7 @@ export const Documents = observer(() => {
                 }
             </div>
 
-            {/* <Button class="mt-10 rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button> */}
+            {/* <Button class="mt-10 rounded-lg px-10 py-2 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>Сохранить</Button> */}
         </>
     );
 });

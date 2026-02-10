@@ -21,7 +21,7 @@ export const HardwareCreate = observer(({ toBack }: { toBack: string }) => {
 
     const { init, clear, model, updateInfo, imgPreview, isLoading, deleteHardware, setName, setImg, setCategory,
         setModel, setSupplier, setManufacturer, setPosition, create, setOpcName, setIdBlockController } = equipmentCreateModel
-        
+
     const [tab, setTab] = useState<"review" | "control" | "scheme" | "docs">("review")
 
     useEffect(() => {
@@ -211,12 +211,12 @@ export const HardwareCreate = observer(({ toBack }: { toBack: string }) => {
                 </div>
                 <div className="flex gap-4 mt-5 justify-between items-end">
                     <div>
-                        {id && <Button class="h-fit rounded-lg px-10 bg-red-500 text-white hover:opacity-50" onClick={handleDelete}>Удалить</Button>}
+                        {id && <Button class="h-fit rounded-lg px-10 py-2 bg-red-500 text-white hover:opacity-50" onClick={handleDelete}>Удалить</Button>}
                     </div>
 
                     <div className="flex gap-4">
-                        <Button class="h-fit rounded-lg px-10 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>{id ? "Обновить" : "Сохранить"}</Button>
-                        <Button class="h-fit rounded-lg px-10 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/hardware")}>Отменить</Button>
+                        <Button class="h-fit rounded-lg px-10 py-2 bg-[var(--clr-accent)] text-white hover:opacity-50" onClick={handleSubmit}>{id ? "Обновить" : "Сохранить"}</Button>
+                        <Button class="h-fit rounded-lg px-10 py-2 border border-[var(--clr-accent)] text-[var(--clr-accent)] hover:opacity-50" onClick={() => navigate("/dispatcher/hardware")}>Отменить</Button>
                     </div>
                 </div>
 

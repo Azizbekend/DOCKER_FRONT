@@ -2,7 +2,7 @@ import { CharacteristicsCreateInterface, HardwareCreateInterface, SchemaCoordina
 import { makeAutoObservable } from "mobx";
 import { ChangeEvent } from "react";
 import { Characteristic } from "../components/characteristic/type";
-import { createCharacteristic, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, getCharacteristicAll, getCommandAll, getCommandAllInfo, manyCharacteristic, schemaCoordinatesCreate } from "@/packages/entities/hardware/api-general";
+import { createCharacteristic, createManyCommand, createManyInfo, createOndeCommand, createOndeInfo, deleteCharacteristiс, deleteCommandApi, getCharacteristicAll, getCommandAll, getCommandAllInfo, manyCharacteristic, schemaAll, schemaCoordinatesCreate } from "@/packages/entities/hardware/api-general";
 import { toast } from "react-toastify";
 import { ControlType, ControlTypeCreate, } from "../components/control/type";
 import { createHardware, deleteInfoHardware, getInfoHardware, updateInfoHardware } from "@/packages/entities/hardware/api";
@@ -35,8 +35,12 @@ class HardwareCreateModel {
 
     listController: ControlType[] = [];
     listCharacters: Characteristic[] = [];
-
     listDocuments: DocumentsModelType[] = [];
+    listSchemes: {
+        value: string,
+        title: string
+    }[] = []
+
 
     isLoading = false;
     preview: string = "";
@@ -155,12 +159,13 @@ class HardwareCreateModel {
     async init(id: number) {
         this.isLoading = true;
         try {
-            const [info, commands, commandsInfo, characteristics, docs] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, docs, listSchemesData] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
                 getCharacteristicAll({ id }),
-                getDocuments({ id })
+                getDocuments({ id }),
+                schemaAll({ id: 14 })
             ]);
 
             this.model = info.data;
@@ -168,6 +173,16 @@ class HardwareCreateModel {
             this.listController = [... this.listController, commandsInfo.data];
             this.listCharacters = characteristics.data;
             this.listDocuments = docs.data;
+
+            this.listSchemes = []
+            listSchemesData.data.map((item) => {
+                this.listSchemes.push({
+                    value: item.id,
+                    title: item.name
+                })
+            })
+
+
         } catch (error) {
             console.error('Ошибка при загрузке данных', error);
         } finally {
