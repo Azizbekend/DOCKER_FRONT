@@ -16,14 +16,14 @@ export const Header = observer(() => {
 
     return (
         <div className="flex relative max-w-full bg-white py-6 pr-14 pl-10 items-center border-solid border-[#D6D6D6] border-b-[0.5px]">
-            <div className='cursor-pointer flex items-center lg:gap-[22px] gap-[12px] h-fit min-w-fit' onClick={() => navigate("/menu-moduls")}>
-                <img src={logo} alt="" className="lg:w-auto lg:h-auto h-[30px] w-[30px] " />
-                <span className='font-bold flex lg:text-[20px] text-[12px] max-w-[150px] lg:max-w-none'>ИАС “Цифровой Водоканал”</span>
+            <div className='cursor-pointer flex items-center xl:gap-[22px] gap-[12px] h-fit min-w-fit' onClick={() => navigate("/menu-moduls")}>
+                <img src={logo} alt="" className="xl:w-auto xl:h-auto h-[40px] w-[40px] " />
+                <span className='font-bold flex xl:text-[20px] text-[14px] max-w-[150px] xl:max-w-none'>ИАС “Цифровой Водоканал”</span>
             </div>
-            <div className="flex flex-row lg:gap-6 gap-3 w-full justify-end">
+            <div className="flex flex-row xl:gap-6 gap-3 w-full justify-end">
 
                 {location.pathname.includes('/dispatcher') &&
-                    <Link to={"/dispatcher/helper"} className=" hidden lg:flex items-center justify-center gap-6 hover:opacity-50 duration-300 cursor-pointer bg-[var(--clr-accent)] text-white p-[3px_10px_0_20px] rounded-[12px]">
+                    <Link to={"/dispatcher/helper"} className=" hidden xl:flex items-center justify-center gap-6 hover:opacity-50 duration-300 cursor-pointer bg-[var(--clr-accent)] text-white p-[3px_10px_0_20px] rounded-[12px]">
                         <div className="text-[12px] font-medium">
                             <div>Задай вопрос</div>
                             <div>Ильяс — на связи!</div>

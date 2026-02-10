@@ -28,7 +28,7 @@ export const HardwareControll = observer(({ commands, switchIsCommand, changeCom
       {isActiveCommand && <ConfirmModal show={show} setShow={setShow} />}
       <ModalCommanActive show={showAvtive} setShow={setShowAvtive} confirm={confirm} cancle={cancle} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
         <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
           <h3 className="font-bold text-gray-800 text-lg mb-5 flex items-center gap-2">
             <div className="w-2 h-2 bg-[#4A85F6] rounded-full"></div>

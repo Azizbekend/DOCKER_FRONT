@@ -198,7 +198,7 @@ export const OrderListView = observer(() => {
     <div className="max-w-7xl mx-auto px-4" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Управление заявками</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Управление заявками</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 

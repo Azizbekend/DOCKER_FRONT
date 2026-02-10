@@ -118,7 +118,7 @@ export const OrdersView = observer(() => {
 
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Мои заявки</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Мои заявки</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 

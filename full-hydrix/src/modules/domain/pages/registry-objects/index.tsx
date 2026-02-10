@@ -20,7 +20,7 @@ export const RegistryObjectsLayout = observer(() => {
   const { user } = useAuth()
 
   const { page } = useParams();
-  const { model, init,  isLoading } = registryModel;
+  const { model, init, isLoading } = registryModel;
   const { search, setSearch, results } = useSearch<PassportRegistryDataType>({ data: model, searchFields: ["name", "operatingOrganization"] });
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const RegistryObjectsLayout = observer(() => {
                 />
                 <FilterObjects />
 
-                <div className='flex items-center gap-2'>
+                <div className='hidden xl:flex items-center gap-2'>
                   <SwitchButton
                     label=""
                     onChange={() => { console.log() }}
@@ -73,7 +73,7 @@ export const RegistryObjectsLayout = observer(() => {
                   <span className="text-sm text-gray-700 font-medium whitespace-nowrap">Диспетчерская</span>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='hidden xl:flex items-center gap-2'>
                   <SwitchButton
                     label=""
                     onChange={() => { console.log() }}
@@ -150,7 +150,7 @@ export const RegistryObjectsLayout = observer(() => {
       </div>
 
       <div className="flex-1 min-h-0">
-        {page == "list" && <RegistryObjects list={results.length > 0 ? results : []}  isLoading={isLoading} />}
+        {page == "list" && <RegistryObjects list={results.length > 0 ? results : []} isLoading={isLoading} />}
         {page == "map" && <MapObjects />}
         {page == "form-add" && <ObjectsForm />}
         {page == "form-edit" && <ObjectsFormUpdate />}

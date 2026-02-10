@@ -72,7 +72,7 @@ export const AddDetails = observer(({ getPage }: { getPage: () => void }) => {
     >
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Уточните детали вывоза сточных вод</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Уточните детали вывоза сточных вод</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 

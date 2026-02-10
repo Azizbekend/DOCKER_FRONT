@@ -50,12 +50,12 @@ export const RequestRegistryList = observer(() => {
       />
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Реестр заявок</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Реестр заявок</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 
       {/* Статистика */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
         <Statistics
           all={all}
           newCound={newCound}

@@ -129,56 +129,60 @@ export const MapObjects = observer(() => {
       />
 
 
-      <div className='min-h-[50vh] flex gap-5 mb-10'>
-        <div className="w-[75%] col-start-1 col-end-4">
+      <div className='min-h-[50vh] flex flex-col xl:flex-row gap-5 mb-10'>
+        <div className="w-full xl:w-[75%] col-start-1 col-end-4 h-[70vh]">
           <div id="map" className="w-full h-full rounded-xl shadow-sm" />
         </div>
 
-        <div className=" bg-white/90 backdrop-blur-lg rounded-xl shadow-sm p-5 flex-1">
+        <div className="flex xl:block bg-white/90 backdrop-blur-lg rounded-xl shadow-sm p-5 flex-1">
+          <div className='xl:w-full w-[70%]'>
+            <div className="text-gray-900 text-sm font-semibold border-b-2 border-gray-200 mb-6 pb-3 flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <div>Объекты онлайн:  <span className="text-gray-600 font-normal">1 из 1</span></div>
+            </div>
 
-          <div className="text-gray-900 text-sm font-semibold border-b-2 border-gray-200 mb-6 pb-3 flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <div>Объекты онлайн:  <span className="text-gray-600 font-normal">1 из 1</span></div>
-          </div>
+            <div className={`bg-red-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
+              <div className="mb-1">Инциденты</div>
+              <div className={`font-semibold text-red-600`}>{incidents.length}</div>
+            </div>
+            <div className={`bg-blue-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
+              <div className="mb-1">Заявки</div>
+              <div className={`font-semibold text-blue-600`}>{services.length}</div>
+            </div>
 
-          <div className={`bg-red-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
-            <div className="mb-1">Инциденты</div>
-            <div className={`font-semibold text-red-600`}>{incidents.length}</div>
-          </div>
-          <div className={`bg-blue-50 p-2 rounded-xl text-[14px] font-medium mb-2 border-b-red-100 flex items-center justify-between`}>
-            <div className="mb-1">Заявки</div>
-            <div className={`font-semibold text-blue-600`}>{services.length}</div>
-          </div>
+            {/* serviceStatusCounter serviceTypeCounter */}
 
-          {/* serviceStatusCounter serviceTypeCounter */}
-
-          <div className=" p-2 rounded-xl text-[14px] font-medium mb-4 flex items-center justify-between">
-            <div className="mb-1"></div>
-            <div className='text-blue-600'></div>
-          </div>
+            <div className=" p-2 rounded-xl text-[14px] font-medium mb-4 flex items-center justify-between">
+              <div className="mb-1"></div>
+              <div className='text-blue-600'></div>
+            </div>
 
 
-          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Ожидают обработки</span>
-            {/* <div className='flex flex-col'> */}
-            <span className='font-bold text-sm'>{serviceStatusCounter.new}</span>
-            {/* <span className='font-medium text-sm'>1 объект</span> */}
-            {/* </div> */}
-          </div>
-          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Успешно закрыты</span>
-            {/* <div className='flex flex-col'> */}
-            <span className='font-bold text-sm'>{serviceStatusCounter.complete}</span>
-            {/* <span className='font-medium text-sm'>1 объект</span> */}
-            {/* </div> */}
-          </div>
-          <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
-            <span>Отменённые заявки </span>
-            <span className='font-bold text-sm'>{serviceStatusCounter.cancle}</span>
-          </div>
+            <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+              <span>Ожидают обработки</span>
+              {/* <div className='flex flex-col'> */}
+              <span className='font-bold text-sm'>{serviceStatusCounter.new}</span>
+              {/* <span className='font-medium text-sm'>1 объект</span> */}
+              {/* </div> */}
+            </div>
 
+            <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+              <span>Успешно закрыты</span>
+              {/* <div className='flex flex-col'> */}
+              <span className='font-bold text-sm'>{serviceStatusCounter.complete}</span>
+              {/* <span className='font-medium text-sm'>1 объект</span> */}
+              {/* </div> */}
+            </div>
+
+            <div className='flex items-center justify-between pb-2 border-b-[1.5px] mb-3'>
+              <span>Отменённые заявки </span>
+              <span className='font-bold text-sm'>{serviceStatusCounter.cancle}</span>
+            </div>
+          </div>
           {chartData.length > 0 &&
-            <div style={{ width: '100%', height: 300 }}>
+            <div
+              className='w-[50%] xl:w-full h-[300px]'
+            >
               <ResponsiveContainer>
                 <PieChart>
                   <Pie

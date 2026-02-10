@@ -31,7 +31,7 @@ export const DocumentBlock = observer(({ title, list, category }: DocumentBlockP
                 ))
                 }
                 {list.filter(doc => doc.category === category).length === 0 && (
-                    <div className="text-center px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow">
+                    <div className="text-center px-3 py-2.5 xl:px-4 xl:py-3 bg-white rounded-lg shadow">
                         <p>Нет документов</p>
                     </div>
                 )}

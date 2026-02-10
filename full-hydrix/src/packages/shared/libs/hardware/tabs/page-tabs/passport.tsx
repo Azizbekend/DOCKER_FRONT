@@ -25,8 +25,8 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo,
 
     return (
         <>
-            <div className="grid grid-cols-[1fr_1fr_auto] gap-4 relative">
-                <div className="space-y-4">
+            <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr_auto] gap-4 relative">
+                <div className="space-y-4 ">
                     <PassportBlockContainer className="p-3"
                         children={
                             <>
@@ -114,7 +114,7 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo,
                     }
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 ">
                     {(сharacteristic.length > 0 || commandsInfo.length > 0) && (
                         <PassportBlockContainer className="p-6"
                             title="Характеристики"

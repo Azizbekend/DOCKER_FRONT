@@ -72,26 +72,26 @@ export const Layout = () => {
             <div className="absolute bottom-1/3 right-32 w-16 h-16 bg-white/20 rounded-full blur-md animate-pulse delay-1500"></div>
           </div>
 
-          <div className="flex flex-col items-center justify-center text-center relative z-10 flex-1 p-4 md:p-6 lg:p-8">
+          <div className="flex flex-col items-center justify-center text-center relative z-10 flex-1 p-4 md:p-6 xl:p-8">
             {/* Логотип и заголовок */}
             <div className="flex flex-col items-center gap-3 md:gap-4 mb-4 md:mb-6 max-w-2xl">
-              <div className="bg-white/20 backdrop-blur-sm rounded-xl md:rounded-2xl p-3 md:p-4 lg:p-6 shadow-xl md:shadow-2xl border border-white/30 transform hover:scale-105 transition-transform duration-300">
-                <img className='h-10 md:h-12 lg:h-16 w-auto' src={logo} alt="Логотип" />
+              <div className="bg-white/20 backdrop-blur-sm rounded-xl md:rounded-2xl p-3 md:p-4 xl:p-6 shadow-xl md:shadow-2xl border border-white/30 transform hover:scale-105 transition-transform duration-300">
+                <img className='h-10 md:h-12 xl:h-16 w-auto' src={logo} alt="Логотип" />
               </div>
-              <h1 className='font-bold text-white text-xl md:text-2xl lg:text-3xl xl:text-4xl leading-tight px-2'>
+              <h1 className='font-bold text-white text-xl md:text-2xl xl:text-3xl xl:text-4xl leading-tight px-2'>
                 ИАС «ЦИФРОВОЙ ВОДОКАНАЛ»
               </h1>
             </div>
 
             {/* Описание */}
             <div className="relative z-10 mb-4 md:mb-6 max-w-2xl">
-              <p className="text-white/95 text-sm md:text-base lg:text-lg leading-relaxed px-2 md:px-4">
+              <p className="text-white/95 text-sm md:text-base xl:text-lg leading-relaxed px-2 md:px-4">
                 Комплексная интеллектуальная система управления, объединяющая в единый цифровой контур все процессы водоснабжения и водоотведения для обеспечения их надежности, управляемости и экономической эффективности.
               </p>
             </div>
 
             {/* Реестр ПО */}
-            <div className="relative z-10 p-3 md:p-4 lg:p-5 bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl border border-white/20 max-w-lg">
+            <div className="relative z-10 p-3 md:p-4 xl:p-5 bg-white/10 backdrop-blur-sm rounded-lg md:rounded-xl border border-white/20 max-w-lg">
               <p className="text-white/90 text-xs md:text-sm leading-relaxed">
                 Программное обеспечение зарегистрировано в Реестре российского ПО&nbsp;
                 <a
@@ -119,7 +119,7 @@ export const Layout = () => {
         </div>
 
         {/* Правая секция (десктоп) / Нижняя секция (мобильная) */}
-        <div className="md:max-w-[52vw] w-full flex justify-center flex-col px-4 md:px-6 lg:px-[52px] py-6 md:py-8 lg:py-0">
+        <div className="md:max-w-[52vw] w-full flex justify-center flex-col px-4 md:px-6 xl:px-[52px] py-6 md:py-8 xl:py-0">
           <div className='flex justify-center items-center w-full h-full'>
             <Outlet />
           </div>

@@ -152,7 +152,7 @@ const YandexMapComponent = observer(({ getPage }: { getPage: () => void }) => {
     <div className="mx-5 mt-10" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Выберите точку забора сточных вод</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Выберите точку забора сточных вод</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 

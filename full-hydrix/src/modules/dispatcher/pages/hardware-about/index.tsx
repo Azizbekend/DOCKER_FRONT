@@ -35,7 +35,7 @@ export const HardwareAbout = observer(() => {
         <div className="informations-dispatch__requestregistry relative mt-10" >
             <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
 
-            <div className="absolute  top-[-36px] left-[30px] flex gap-3">
+            <div className="absolute  top-[-37px] left-[30px] flex gap-3">
                 {tabsList.map((tab, key) => {
                     return <NavLink to={`/dispatcher/hardware-about/${id}/${tab.to}`} key={key}
                         className={({ isActive }) => `hover:bg-[var(--clr-accent)] hover:text-white duration-300 cursor-pointer px-[15px] pt-[7px] pb-[6px] rounded-tl-lg rounded-tr-lg font-semibold ${isActive ? "bg-[var(--clr-accent)] text-white" : "bg-[#E6E9EF] text-[#757575]"}`}

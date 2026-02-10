@@ -22,7 +22,7 @@ class VideoSurveillanceModel {
         this.userId = userId;
         this.loader = true;
 
-        if (this.CameraIsActive()) {
+        if (await this.CameraIsActive()) {
             return
         }
 

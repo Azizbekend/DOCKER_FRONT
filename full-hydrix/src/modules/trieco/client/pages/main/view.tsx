@@ -60,7 +60,7 @@ export const MainView = observer(() => {
     >
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Мои заявки</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Мои заявки</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 
@@ -103,10 +103,10 @@ export const MainView = observer(() => {
 
       {/* Услуги */}
       <div className="mt-12">
-        <h1 className="text-3xl font-bold text-gray-800">Услуги</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Услуги</h1>
         <div className="mb-8 w-10 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           <div className="space-y-5">
             {services.map((service, index) => (
               <Link 

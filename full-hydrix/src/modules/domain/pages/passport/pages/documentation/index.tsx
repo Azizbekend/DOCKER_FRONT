@@ -100,18 +100,18 @@ export const PassportDocumentation = observer(() => {
                       target="_blank"
                       rel="noopener noreferrer"
                       download={true}
-                      className="flex mb-3 items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
-                      <div className="flex items-center gap-3 lg:gap-4">
+                      className="flex mb-3 items-center justify-between px-3 py-2.5 xl:px-4 xl:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                      <div className="flex items-center gap-3 xl:gap-4">
                         <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
-                        <div className="font-medium text-gray-800 text-sm lg:text-base">{highlightText(document.name, searchTerm)}</div>
+                        <div className="font-medium text-gray-800 text-sm xl:text-base">{highlightText(document.name, searchTerm)}</div>
                       </div>
                       <div></div>
                     </a>
                     :
-                    <div className="flex mb-3 items-center justify-between px-3 py-2.5 lg:px-4 lg:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
-                      <div className="flex items-center gap-3 lg:gap-4">
+                    <div className="flex mb-3 items-center justify-between px-3 py-2.5 xl:px-4 xl:py-3 bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                      <div className="flex items-center gap-3 xl:gap-4">
                         <Icon systemName="docs-blue" className="text-gray-400 w-6 h-6" />
-                        <div className="font-medium text-gray-800 text-sm lg:text-base">{highlightText(document.name, searchTerm)}</div>
+                        <div className="font-medium text-gray-800 text-sm xl:text-base">{highlightText(document.name, searchTerm)}</div>
                       </div>
                       <div></div>
                     </div>
@@ -146,14 +146,13 @@ export const PassportDocumentation = observer(() => {
       </div>
 
       {isLoader ? <Loader /> : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {(activeCategory === 'all' || activeCategory === 'PORJECTS') && <DocumentBlock title="Проектная документация" category="PORJECTS" list={filteredDocuments} />}
           {(activeCategory === 'all' || activeCategory === 'PIR') && <DocumentBlock title="Рабочая документация" category="PIR" list={filteredDocuments} />}
           {(activeCategory === 'all' || activeCategory === 'ITD') && <DocumentBlock title="Исполнительно-техническая документация" category="ITD" list={filteredDocuments} />}
           {(activeCategory === 'all' || activeCategory === 'EXPLOITATION') && <DocumentBlock title="Документация в период эксплуатации" category="EXPLOITATION" list={filteredDocuments} />}
         </div>
       )}
-
     </div>
   );
 });

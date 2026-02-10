@@ -46,12 +46,12 @@ export const StationsListView = observer(() => {
     <div className="mx-auto px-4" style={{ fontFamily: "'Open Sans', sans-serif" }}>
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Сливные станции</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Сливные станции</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 
       {/* Основной контент */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Левая панель: Станции */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           {/* Панель управления */}

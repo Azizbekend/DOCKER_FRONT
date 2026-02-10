@@ -8,7 +8,7 @@ export const FilterObjects = observer(() => {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="relative ml-4">
+        <div className="hidden xl:block relative ml-4">
             {/* Trigger */}
             <button
                 type="button"

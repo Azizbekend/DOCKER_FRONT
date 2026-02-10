@@ -13,7 +13,7 @@ export const RequestRegistry = () => {
       <div className="absolute top-[-40px] px-[30px] max-w-full flex gap-2  overflow-x-auto">
         {tabs.map((tab, key) => {
           return <Link to={tab.to} key={key}
-            className={`lg:px-5 lg:py-2.5 rounded-t-lg font-semibold min-w-max lg:text-sm px-3 py-3 text-[12px] transition-all duration-200 ${location.pathname === tab.to
+            className={`xl:px-5 xl:py-2.5 rounded-t-lg font-semibold min-w-max xl:text-sm px-3 py-3 text-[12px] transition-all duration-200 ${location.pathname === tab.to
               ? 'bg-[#4A85F6] text-white shadow-md' : 'bg-gray-100 text-gray-700 bg-gray-200'
               }`}
           >

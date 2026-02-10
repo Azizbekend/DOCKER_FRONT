@@ -26,8 +26,8 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
   }, [id]);
 
   return (
-    <div className={window.innerWidth < 1024 ? "fixed w-full h-full top-0 left-0" : "overflow-auto"}>
-      <div className={`info-comp w-full lg:pb-0 pb-10 lg:w-auto min-w-[470px] max-w-[470px] w-[470px] h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
+    <div className={`overflow-auto absolute xl:static h-[100%] rounded-2xl shadow-xl xl:shadow-none top-0 right-0`}>
+      <div className={`info-comp w-full pb-10 xl:w-auto min-w-[470px] max-w-[470px] w-[470px] h-full ${className}`} style={{ fontFamily: "'Open Sans', sans-serif" }}>
         {isLoading ? (
 
           <div className="h-full flex items-center justify-center">

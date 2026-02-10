@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 interface CameraItemButtonProps {
     onClick: () => void,
     active: boolean,
-    count: number
+    count: number,
 }
 
 export const CameraItemButton = observer(({ active, onClick, count }: CameraItemButtonProps) => {

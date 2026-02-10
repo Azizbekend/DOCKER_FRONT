@@ -86,13 +86,13 @@ export const WaterCompanyView = observer(() => {
     if (meta !== Meta.SUCCESS) return <></>
 
     return (
-        <div className="flex flex-wrap lg:flex-row items-stretch lg:items-start gap-6 px-4 lg:px-12 py-8 justify-between">
+        <div className="flex flex-wrap xl:flex-row items-stretch xl:items-start gap-6 px-4 xl:px-12 py-8 justify-between">
             <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-4">
                     <div className="bg-[#4A85F6] rounded-md w-10 h-10 flex items-center justify-center cursor-pointer" onClick={() => navigate("/menu-moduls")}>
                         <Icon systemName="arrow-left" />
                     </div>
-                    <span className="text-[#222B45] font-bold text-xl lg:text-3xl">{company.name}</span>
+                    <span className="text-[#222B45] font-bold text-xl xl:text-3xl">{company.name}</span>
                 </div>
                 <div className="mt-6 grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
                     <div className="flex flex-row flex-wrap gap-5">

@@ -33,7 +33,7 @@ export const ProfileView = observer(() => {
     >
       {/* Заголовок */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Профиль пользователя</h1>
+        <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Профиль пользователя</h1>
         <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
       </div>
 
@@ -69,7 +69,7 @@ export const ProfileView = observer(() => {
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-800 mb-6">Персональные данные</h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-3xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-3xl">
               <InputContainer headerText="Фамилия" isRequired>
                 <Input
                   type="text"

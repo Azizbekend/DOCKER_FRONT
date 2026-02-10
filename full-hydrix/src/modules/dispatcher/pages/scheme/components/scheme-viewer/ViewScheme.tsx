@@ -67,6 +67,7 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchEnd}
 
         >
             <div className="scheme-view__wrapper"

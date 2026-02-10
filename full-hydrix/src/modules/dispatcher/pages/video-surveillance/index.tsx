@@ -24,18 +24,16 @@ export const VideoSurveillance = observer(() => {
 
 
     return (
-        <div className="bg-white rounded-2xl p-7 min-h-[70vh] md:min-h-[70vh]">
+        <div className="bg-white rounded-2xl p-7 min-h-[70vh]">
             <div className="mb-8 flex items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-800">Видеонаблюдение</h1>
+                    <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Видеонаблюдение</h1>
                     <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>
                 </div>
             </div>
 
-            <div className="flex flex-col lg:grid lg:grid-cols-1 lg:grid-rows-[auto_1fr] xl:grid-cols-[5fr_1fr] justify-between h-full gap-4 lg:gap-6">
-                {/* Основной контент */}
-                <div className='w-full space-y-4 md:space-y-6 order-2 lg:order-1 flex flex-col'>
-                    {/* Видео блок */}
+            <div className="flex flex-col xl:grid xl:grid-cols-[5fr_1fr] gap-6 justify-between h-full ">
+                <div className='h-[400px] xl:h-auto space-1 w-full space-y-4 md:space-y-6 order-2 xl:order-1 flex flex-col'>
                     <div className={`h-full w-full rounded-xl overflow-hidden ${!isActive ? "bg-gray-900 shadow-lg border-2 border-gray-800" : ""
                         }`}>
                         {isActive
@@ -62,7 +60,6 @@ export const VideoSurveillance = observer(() => {
                         }
                     </div>
 
-                    {/* Админ/Пользователь блоки */}
                     <div className="block">
                         {isAdmin()
                             ? <BlockAdminBtns
@@ -75,12 +72,8 @@ export const VideoSurveillance = observer(() => {
                     </div>
                 </div>
 
-                {/* Слайдер камер */}
-                <div className="order-1 lg:order-2 xl:order-3 w-full h-auto lg:h-full">
-                    <div className="lg:hidden mb-4">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-2">Доступные камеры</h3>
-                    </div>
-                    <div className="w-full h-full max-h-[400px] lg:max-h-none lg:h-auto xl:h-full">
+                <div className="order-3 w-full h-auto xl:h-full">
+                    <div className="w-full h-full max-h-[400px] xl:max-h-none xl:h-auto xl:h-full">
                         <VideoSlider
                             cameraSources={cameraSources}
                             CameraSwitch={CameraSwitch}
