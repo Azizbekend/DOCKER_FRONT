@@ -29,7 +29,11 @@ class ServicesMapModel {
     serviceStatusCounter: { new: number, complete: number, cancle: number } = { new: 0, complete: 0, cancle: 0 };
     serviceTypeCounter: { asnser: number, supply: number, incident: number } = { asnser: 0, supply: 0, incident: 0 };
 
-    objectPointsMap = new Map<number, [number, number]>();
+    objectPoints: Array<{
+        id: number;
+        coordinates: [number, number];
+        name: string;
+    }> = [];
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -176,7 +180,7 @@ class ServicesMapModel {
             const objects = objectsRes[0].value.data || [];
 
             if (objects.length === 0) {
-                this.objectPointsMap = new Map();
+                this.objectPoints = [];
                 return;
             }
 
@@ -186,14 +190,16 @@ class ServicesMapModel {
                     const data = await getSuggestionClick(object.adress);
                     return {
                         id: object.id,
-                        point: data.pin,
+                        coordinates: data.pin,
+                        name: object.name,
                         success: true
                     };
                 } catch (error) {
                     console.error(`Ошибка загрузки координат для объекта ${object.id}:`, error);
                     return {
                         id: object.id,
-                        point: null,
+                        coordinates: null,
+                        name: object.name,
                         success: false,
                         error
                     };
@@ -202,21 +208,30 @@ class ServicesMapModel {
 
             const pointsResults = await Promise.all(pointsPromises);
 
-            // 3. Создаем Map только с успешными результатами
-            const objectPointsMap = new Map<number, [number, number]>();
+            // 3. Создаем массив только с успешными результатами
+            const objectPoints: Array<{
+                id: number;
+                coordinates: [number, number];
+                name: string;
+            }> = [];
 
             pointsResults.forEach(result => {
-                if (result.success && result.point) {
-                    objectPointsMap.set(result.id, result.point);
+                if (result.success && result.coordinates) {
+                    objectPoints.push({
+                        id: result.id,
+                        coordinates: result.coordinates,
+                        name: result.name
+                    });
                 }
             });
 
-            this.objectPointsMap = objectPointsMap;
+            this.objectPoints = objectPoints;
 
         } catch (error) {
             console.error('Ошибка в initIncident:', error);
-            this.objectPointsMap = new Map();
+            this.objectPoints = [];
         }
+
 
 
         const incidentResponse = await getAllIncedent();
