@@ -10,21 +10,23 @@ import { columnsIncidents, columnsService } from './components/columns';
 import { servicesMapModel } from '../../features/service-request/services-map-model';
 import { ServiceStagesPanel } from '@/packages/shared-components/stage/stages-panel';
 import { toJS } from 'mobx';
+import { useAuth } from '@/packages/entities/user/context';
 
 
 
 export const MapObjects = observer(() => {
 
+  const { user } = useAuth()
   const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter } = servicesMapModel
 
   useEffect(() => {
-    init();
+    init(user?.id, user?.baseRoleId);
 
     const getImage = document.createElement('img');
     getImage.src = mapPl;
     getImage.onclick = () => { navigate("/domain/passport/information/information") }
 
-    mmrgl.accessToken = '8d0b8f78327a59037142f25206d2e9f8721c6ff9c8d99d1081b317fb1963d7d9';
+    mmrgl.accessToken = 'c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887';
 
     const map = new mmrgl.Map({
       container: 'map',

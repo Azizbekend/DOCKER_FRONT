@@ -1,6 +1,7 @@
 
 import { makeAutoObservable } from "mobx";
 import mmrgl, { Map, MapLibreGL } from 'mmr-gl';
+import { MapData } from "../service/mapVK";
 
 export class MapVKModel {
     constructor() {
@@ -8,7 +9,7 @@ export class MapVKModel {
         this._modelMap = {
             initialZoom: 12,
             initialCenter: [49.106414, 55.796127],
-            token: '8d0b8f78327a59037142f25206d2e9f8721c6ff9c8d99d1081b317fb1963d7d9',
+            token: 'c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887',
         }
     }
 

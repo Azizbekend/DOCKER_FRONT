@@ -262,4 +262,5 @@ export const tabs = [
     { id: 0, label: "Механическая очистка", schemeId: 6 },
     { id: 1, label: "Биологическая очистка", schemeId: 8 },
     { id: 2, label: "Доочистка", schemeId: 9 },
+    { id: 2, label: "Вентиляция и счетчик", schemeId: 10 },
 ];

@@ -5,6 +5,7 @@ import { getAllObjects, getAllUserObjects, getOneData } from "@/packages/entitie
 import { cancelServiceRequests, completeServiceRequests, getServiceRequestsAll } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
+import { Role } from "@/packages/entities/user/enums";
 import { isAdmin } from "@/packages/entities/user/utils";
 import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
@@ -39,11 +40,11 @@ class ServicesMapModel {
         }
     }
 
-    async init() {
+    async init(userId: number, baseRoleId: Role) {
         try {
             this.isLoaded = true;
             this.initService()
-            this.initIncident()
+            this.initIncident(userId, baseRoleId)
         } catch (error) {
             console.error('Ошибка инициализации сервисов:', error);
             throw error;
@@ -90,7 +91,6 @@ class ServicesMapModel {
             }
         });
 
-        console.log('typesServices', typesServices);
 
 
         const hardwarePromises = Array.from(hardwareIds).map(async (hardwareId) => {
@@ -157,14 +157,11 @@ class ServicesMapModel {
         ]
     }
 
+    async initIncident(userId: number, baseRoleId: Role) {
+        const [objectsRes] = await Promise.all([baseRoleId == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId })])
 
-    async initIncident(userId: number) {
-        const [objectsRes] = await Promise.all([
-            isAdmin() ? getAllObjects() : getAllUserObjects({ userId: userId }),
-        ])
-
-        console.log(objectsRes)
-
+    
+        
 
         const incidentResponse = await getAllIncedent();
         const incidents = incidentResponse.data ?? [];

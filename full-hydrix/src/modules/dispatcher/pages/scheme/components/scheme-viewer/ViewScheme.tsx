@@ -1,6 +1,7 @@
 import image from '../../assets/scheme.png'
 import image2 from '../../assets/scheme-biological.png'
 import image3 from '../../assets/scheme-post-cleaning.png'
+import image4 from '../../assets/ventilation.png'
 import accident from '../../assets/icons/accident.svg'
 import "./ViewScheme.scss";
 import { observer } from "mobx-react-lite";
@@ -43,6 +44,8 @@ export const SchemeViewer = observer(({ timesFunctions, model, setInfo, tabSchem
                 return image2
             case 9:
                 return image3
+            case 10:
+                return image4
         }
     }
 

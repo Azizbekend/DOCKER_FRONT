@@ -84,12 +84,10 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
         width: '0.7fr',
         cell: ({ plcList }) => {
 
-            console.log(plcList)
-
             return (
                 <div className="flex flex-col justify-center gap-2">
-                    {plcList.map((item) => {
-                        return <div className={`inline-flex items-center  px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
+                    {plcList.map((item, key) => {
+                        return <div key={key} className={`inline-flex items-center  px-2 py-0.5 rounded-full text-sm font-semibold ${item.status
                             ? "bg-green-100 text-green-800 border border-green-200"
                             : "bg-red-100 text-red-800 border border-red-200"
                             }`}
@@ -103,6 +101,15 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
                             </p>
                         </div>
                     })}
+
+                    {plcList.length == 0 && <div className={`inline-flex items-center  px-2 py-0.5 rounded-full text-sm font-semibold bg-red-100 text-red-800 border border-red-200`}>
+                        <div className={`w-2 h-2 rounded-full mr-2 bg-red-500`}></div>
+                        <p className="">
+                            Не подключено
+                        </p>
+                    </div>}
+
+
 
                     {false && <div className={`text-[12px] text-gray-600 font-semibold leading-[1.3em] mt-2
                             absolute top-[100%] border border-2 rounded-xl shadow-xl p-4 bg-white
