@@ -13,7 +13,7 @@ import { useAuth } from "@/packages/entities/user/context";
 import { CompleteCancelType } from "@/packages/entities/service-requests/type";
 import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { Input } from "@/packages/shared-ui/Inputs/input-text";
-import { getDostup } from "@/packages/entities/user/utils";
+import { getDostup, isJobRole } from "@/packages/entities/user/utils";
 import { StageSupplyCard } from "./stage-supply-card";
 import { isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
 
@@ -118,7 +118,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
             </div>
           )}
 
-          {isActiveRequest && (isOpenForm ?
+          {isActiveRequest && isJobRole() && (isOpenForm ?
 
             <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
 
@@ -218,7 +218,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
       footerSlot={
         <div className="flex gap-5" >
-          {isActiveRequest &&
+          {isActiveRequest && isJobRole() &&
             <>
               <Button onClick={() => completeService({ requestId: isService.id, implementerId: user!.id, })} styleColor="blue" class="w-full py-2">
                 Завершить заявку

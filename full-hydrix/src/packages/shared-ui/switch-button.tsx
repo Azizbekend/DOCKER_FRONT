@@ -37,7 +37,7 @@ export const SwitchButton = ({
     return (
         <div
             className={`flex items-center ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'} ${classNames?.container}`}
-            onClick={handleClick}
+            onClick={() => !disabled && handleClick}
         >
             <div className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${classNames?.button}`}
                 style={{

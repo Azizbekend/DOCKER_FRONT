@@ -19,7 +19,7 @@ class RegistryModel {
         this.isLoading = true;
         try {
             const [objectsRes, charsShapshiRes] = await Promise.all([
-                userRole == Role.Admin ? getAllObjects() : getAllUserObjects({ userId: userId }),
+                userRole == Role.Admin || userRole == Role.Ministry ? getAllObjects() : getAllUserObjects({ userId: userId }),
                 getTechnicalCharsShapshi()
             ]);
 
@@ -62,7 +62,7 @@ class RegistryModel {
             this.model = fullData;
         } catch (error) {
             console.log(error)
-        }finally {
+        } finally {
             this.isLoading = false;
         }
     }

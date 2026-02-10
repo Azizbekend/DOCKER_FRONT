@@ -5,7 +5,7 @@ import { Button } from "../../shared-ui/button/button";
 import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";
-import { getDostup } from "../../entities/user/utils";
+import { getDostup, isJobRole } from "../../entities/user/utils";
 
 
 interface StageCardProps {
@@ -159,7 +159,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
       {footerBlock && stage.currentStatus === "New" && (
         <div className="p-4 border-t border-gray-100 bg-gray-50">
           <div className="flex gap-2">
-            {(isCanc || isCancComplete) ?
+            {isJobRole() && ((isCanc || isCancComplete) ?
               <>
                 {isCancComplete &&
                   <>
@@ -190,9 +190,8 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                 <Button onClick={() => setIsCanc(true)} class="flex-2 py-2.5 px-4 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors">
                   Отменить этап
                 </Button>
-              </>
+              </>)
             }
-
           </div >
         </div>
       )}

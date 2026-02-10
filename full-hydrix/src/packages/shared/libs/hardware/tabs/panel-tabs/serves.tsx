@@ -10,7 +10,8 @@ import { Button } from '@/packages/shared-ui/button/button';
 import { useState } from 'react';
 import { HardwareServesProps } from '@/packages/entities/hardware/type';
 import { useAuth } from '@/packages/entities/user/context';
-import { isAdmin } from '@/packages/entities/user/utils';
+import { isAdmin, isJobRole } from '@/packages/entities/user/utils';
+import { Role } from '@/packages/entities/user/enums';
 
 export const HardwareServes = observer(({ getCommands, servicesWeek, checkedService, idHardware, missedService }: HardwareServesProps) => {
 
@@ -28,6 +29,8 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
     }
 
     const { user } = useAuth();
+
+    
 
     return (
         <div className="w-full mt-10 p-[0_0_50px_0]">
@@ -84,17 +87,17 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
                     children={
                         <>
 
-                            {(idHardware === 28 || idHardware === 26 || idHardware === 28) && (user.id == 37 || isAdmin()) &&
+                            {/* {(idHardware === 28 || idHardware === 26 || idHardware === 28) && (user.id == 37 || isAdmin()) &&
                                 <InfoObject
                                     className='w-full '
                                     children={
-                                        <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
+                                        <div className='flex items-center gap-2 text-red-500' onClick={() => isJobRole() && handleServiceOpen(item.id)}>
                                             <span className='font-bold'>X</span>
                                             ТО-1 Замена масла через 300 ч (25.12.2025)
                                         </div>
                                     }
                                 />
-                            }
+                            } */}
 
                             {missedService.map((item, key) => {
                                 return (
@@ -103,7 +106,7 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
                                         className='w-full '
                                         info={item.discription}
                                         children={
-                                            <div className='flex items-center gap-2 text-red-500' onClick={() => handleServiceOpen(item.id)}>
+                                            <div className='flex items-center gap-2 text-red-500' onClick={() => isJobRole() && handleServiceOpen(item.id)}>
                                                 <span className='font-bold'>X</span>
                                                 {item.title}
                                             </div>
@@ -144,7 +147,7 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
                                     info={item.discription}
 
                                     children={
-                                        <div className='flex items-center gap-4 justify-between ' onClick={() => handleServiceOpen(item.id)}>
+                                        <div className='flex items-center gap-4 justify-between ' onClick={() => isJobRole() && handleServiceOpen(item.id)}>
                                             <InputCheckbox
                                                 disabled
                                                 label={item.title}

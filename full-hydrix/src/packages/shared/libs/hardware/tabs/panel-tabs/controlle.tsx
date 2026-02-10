@@ -9,6 +9,7 @@ import { ModalCommanActive } from '@/packages/shared-components/hardware-modal-c
 import Loader from '@/packages/shared-ui/loader/loader';
 import { HardwareControlleProps } from '@/packages/entities/hardware/type';
 import { getColorCommandButton, isHardwareCommands } from '@/modules/dispatcher/features/hardware/functions/hardware-commands';
+import { isAdmin } from '@/packages/entities/user/utils';
 
 export const HardwareControlle = observer(({ commands, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand }: HardwareControlleProps) => {
 
@@ -30,10 +31,12 @@ export const HardwareControlle = observer(({ commands, changeCommands, isActiveC
             <ModalCommanActive show={showAvtive} setShow={setShowAvtive} confirm={confirm} cancle={cancle} />
 
             <div className="w-full mt-10 p-[0_0_50px_0]">
-                <div className='border-b border-black pb-5 mb-5 '>
-                    {/* <Button onClick={() => setShowAvtive(true)} class={`border-2 w-full justify-center text-white bg-[var(--clr-gray-dark)] py-2`}>Активировать удалённое управление</Button> */}
-                    <Button onClick={() => setShowAvtive(true)} styleColor={isActiveCommand ? "grayOutline" : "gray"} class='w-full py-2'>{isActiveCommand ? "Деактивировать удалённое управление" : "Активировать удалённое управление"}</Button>
-                </div>
+                {isAdmin() &&
+                    <div className='border-b border-black pb-5 mb-5 '>
+                        {/* <Button onClick={() => setShowAvtive(true)} class={`border-2 w-full justify-center text-white bg-[var(--clr-gray-dark)] py-2`}>Активировать удалённое управление</Button> */}
+                        <Button onClick={() => setShowAvtive(true)} styleColor={isActiveCommand ? "grayOutline" : "gray"} class='w-full py-2'>{isActiveCommand ? "Деактивировать удалённое управление" : "Активировать удалённое управление"}</Button>
+                    </div>
+                }
 
                 {isLoaderCommand ? <Loader /> :
                     <div className={` duration-200 ${!isActiveCommand ? "opacity-50" : "opacity-100"}`}>
@@ -66,7 +69,7 @@ export const HardwareControlle = observer(({ commands, changeCommands, isActiveC
                                             </>
                                             :
                                             <SwitchButton
-                                                disabled={isActiveCommand}
+                                                disabled={isAdmin() && isActiveCommand}
                                                 onChange={() => { console.log() }}
                                                 classNames={{
                                                     button: "w-[40px] rounded-[150px] block bg-[#757575] p-[3px]",

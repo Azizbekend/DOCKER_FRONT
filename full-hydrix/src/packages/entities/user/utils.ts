@@ -44,3 +44,8 @@ export function isAdmin() {
     const { user } = useAuth()
     return user.baseRoleId === Role.Admin
 }
+
+export function isJobRole() {
+    const { user } = useAuth()
+    return user.baseRoleId === Role.Admin || user.baseRoleId === Role.Participant 
+}

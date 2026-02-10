@@ -14,17 +14,20 @@ import { useAuth } from '@/packages/entities/user/context';
 
 
 
+const key = "c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887"
+
+
 export const MapObjects = observer(() => {
 
   const { user } = useAuth()
-  const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter, objectPointsMap } = servicesMapModel
+  const { init, services, incidents, setIsPanel, isPanel, isService, completeService, cancelService, serviceStatusCounter, chartData, serviceTypeCounter, objectPoints } = servicesMapModel
 
   const [map, setMap] = useState<mmrgl.Map | null>(null);
   const markersRef = useRef<mmrgl.Marker[]>([]);
 
   useEffect(() => {
     if (!mmrgl.accessToken) {
-      mmrgl.accessToken = 'c62caf135a4d33c160e9d22b68f27713e6a52c80a69dfcf538ecd76797049887';
+      mmrgl.accessToken = key;
     }
 
     const mapInstance = new mmrgl.Map({
@@ -51,54 +54,62 @@ export const MapObjects = observer(() => {
     }
   }, [user?.id, user?.baseRoleId]);
 
-  // Обновление маркеров при изменении данных
-  useEffect(() => {
-    if (!map || !objectPointsMap || objectPointsMap.size === 0) {
-      return;
-    }
 
-    // Удаляем старые маркеры
-    markersRef.current.forEach(marker => marker.remove());
+  useEffect(() => {
+
+    if (!map) return;
+    markersRef.current.forEach(m => m.remove());
     markersRef.current = [];
 
-    // Создаем новые маркеры
-    Array.from(objectPointsMap.entries()).forEach(([pointKey, coordinates]) => {
-      // Проверяем, что координаты валидны
-      if (!coordinates || coordinates.length !== 2) {
-        return;
-      }
 
-      const getImage = document.createElement('img');
-      getImage.src = mapPl;
-      getImage.style.cursor = 'pointer';
-      getImage.alt = `Маркер объекта ${pointKey}`;
+    const bounds = new mmrgl.LngLatBounds();
 
-      getImage.onclick = () => {
-        navigate(`/domain/passport/${pointKey}/information`);
+    objectPoints.forEach((point, index) => {
+      if (!Array.isArray(point.coordinates)) return;
+
+      const markerDiv = document.createElement('div');
+      markerDiv.style.cssText = `
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: white;
+        border: 2px solid #ff3b30;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+    `;
+
+      markerDiv.textContent = (index + 1).toString();
+      markerDiv.title = `Объект ${point.name}`;
+
+      markerDiv.onclick = () => {
+        navigate(`/domain/passport/${point.id}/information`);
       };
 
       const marker = new mmrgl.Marker({
-        element: getImage,
+        element: markerDiv,
         draggable: false
       })
-        .setLngLat(coordinates)
+        .setLngLat(point.coordinates)
         .addTo(map);
 
       markersRef.current.push(marker);
+      bounds.extend(point.coordinates);
+
     });
 
     // Опционально: центрируем карту на всех маркерах
-    if (markersRef.current.length > 0) {
-      const bounds = new mmrgl.LngLatBounds();
-      markersRef.current.forEach(marker => {
-        bounds.extend(marker.getLngLat());
-      });
+    if (markersRef.current.length) {
       map.fitBounds(bounds, { padding: 50, maxZoom: 15 });
     }
 
-  }, [map, objectPointsMap]); // Зависимость от objectPointsMap
-
-
+  }, [map, objectPoints]);
 
   const navigate = useNavigate();
 
