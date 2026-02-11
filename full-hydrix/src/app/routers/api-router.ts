@@ -243,9 +243,9 @@ export const PlanedCommonServices = {
 
 export const PlanedServicesStage = {
   create: "/PlanedServices/commonService/stage/mainEngineer/create",
-  simpleComplete: "/PlanedServices/commonService/stage/simple/complete",
-  mainComplete: "/PlanedServices/commonService/stage/mainEngineer/complete",
-  mainCancel: "/PlanedServices/commonService/stage/mainEngineer/Cancel",
+  commonComplete: "/PlanedServices/commonService/stage/simple/complete",
+  engineerComplete: "/PlanedServices/commonService/stage/mainEngineer/complete",
+  engineerCancel: "/PlanedServices/commonService/stage/mainEngineer/Cancel",
 }
 
 export const PlanedServicesInstruction = {

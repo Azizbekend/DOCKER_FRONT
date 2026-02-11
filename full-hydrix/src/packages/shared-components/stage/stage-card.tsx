@@ -6,18 +6,24 @@ import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
 import { useAuth } from "../../entities/user/context";
 import { getDostup, isJobRole } from "../../entities/user/utils";
+import { EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 
 
 interface StageCardProps {
   stage: ServiceStageType,
   footerBlock?: boolean,
   number?: number,
-  completeEngineer?: (data: CompleteEngineerStageType) => void
-  cancelEngineer?: (data: CancelStageType) => void,
+  completeEngineer: (data: CompleteEngineerStageType) => void
+  cancelEngineer: (data: CancelStageType) => void,
   completeCommon: (data: CompleteCommonStageType) => void
+  completePlanetServiceEnginner: (data: EnginnerCompletePlanedServicesStageInterface) => void
+  cancelPlanetServiceEngineer: (data: EnginnerCancelPlanedServicesStageInterface) => void
+  // completePlanetServiceCommon: (data: SimpleCompletePlanedServicesInstructionInterface) => void
+  serviceData?: any,
 }
 
-export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon }: StageCardProps) => {
+export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon, serviceData, completePlanetServiceEnginner, cancelPlanetServiceEngineer }: StageCardProps) => {
+  const isPlanedService = serviceData.type == "Тех. Обслуживание"
 
   const [descr, setDescr] = useState<string>("")
   const [isCanc, setIsCanc] = useState<boolean>(false)
@@ -30,15 +36,31 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const { user } = useAuth()
 
   const onComplete = () => {
-    userDD.isCommandsEnabled ? setIsCancComplete(true) : completeCommon({ stageId: Number(stage.id), discription: descr })
+    if (userDD.isCommandsEnabled) {
+      setIsCancComplete(true)
+    } else {
+      // if (isPlanedService) {
+      //   completePlanetServiceCommon({ stageId: Number(stage.id), discription: descr })
+      // } else {
+      completeCommon({ stageId: Number(stage.id), discription: descr })
+      // }
+    }
   }
 
   const NeedComplete = () => {
-    completeEngineer({ stageId: Number(stage.id), engineerId: user.id, discription: descr })
+    if (isPlanedService) {
+      completePlanetServiceEnginner({ stageId: Number(stage.id), engineerId: user.id, discription: descr })
+    } else {
+      completeEngineer({ stageId: Number(stage.id), engineerId: user.id, discription: descr })
+    }
   }
 
   const needCancel = () => {
-    cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })
+    if (isPlanedService) {
+      cancelPlanetServiceEngineer({ stageId: stage.id, cancelDiscriprion: descr })
+    } else {
+      cancelEngineer({ stageId: stage.id, cancelDiscriprion: descr })
+    }
   }
 
   const defultBack = () => {
@@ -46,6 +68,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
     setIsCanc(false)
     setIsCancComplete(false)
   }
+
 
   return (
     <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">

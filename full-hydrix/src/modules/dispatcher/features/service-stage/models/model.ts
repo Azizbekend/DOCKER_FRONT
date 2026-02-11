@@ -1,3 +1,5 @@
+import { cancelEngineerPlanedServicesStageApi, completeCommonPlanedServicesStageApi, completeEngineerPlanedServicesStageApi, } from "@/packages/entities/planed-services/api";
+import { EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageCancel, supplyRequestStageComplete, supplyRequestStageConfirm, supplyRequestStageConfirmNoPay, supplyRequestStageResend } from "@/packages/entities/supply-request/api";
@@ -16,7 +18,6 @@ class ServiceStagesModel {
 
     typeAction: StageAction | null = null
 
-
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
@@ -30,7 +31,6 @@ class ServiceStagesModel {
     }
 
     async init(id: number, userDD: any) {
-
         this.isLoaded = true
         this.isEngener = userDD.isCommandsEnabled
 
@@ -50,6 +50,42 @@ class ServiceStagesModel {
             this.isLoaded = false
         }
     }
+
+    async completePlanetServiceEnginner(data: EnginnerCompletePlanedServicesStageInterface) {
+        await completeEngineerPlanedServicesStageApi(data)
+            .then(() => {
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Completed"
+                    }
+                    return item
+                })
+                toast.success("Заявка успешно завершена", { progressStyle: { background: "green" } })
+            })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
+            })
+    }
+
+    async cancelPlanetServiceEngineer(data: EnginnerCancelPlanedServicesStageInterface) {
+        await cancelEngineerPlanedServicesStageApi(data)
+            .then(() => {
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Canceled"
+                        item.cancelDiscription = data.cancelDiscriprion
+                    }
+                    return item
+                })
+
+                toast.success("Заявка успешно отменена", { progressStyle: { background: "green" } })
+            })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
+            })
+    }
+
+
 
     async completeCommon(data: CompleteCommonStageType) {
         await completeCommonServiceStageRequests(data)
@@ -101,6 +137,8 @@ class ServiceStagesModel {
                 toast.error(error.response.data, { progressStyle: { background: "red" } })
             })
     }
+
+
 
     async supplyRequestAction(data: any) {
 
@@ -185,7 +223,6 @@ class ServiceStagesModel {
             toast.error("Ошибка", { progressStyle: { background: "red" } })
         }
     }
-
 
     async pushStage(data: ServiceStageType) {
         const enrichedItem = await getCompanyUserRequest(data);

@@ -16,19 +16,21 @@ import { Input } from "@/packages/shared-ui/Inputs/input-text";
 import { getDostup, isJobRole } from "@/packages/entities/user/utils";
 import { StageSupplyCard } from "./stage-supply-card";
 import { isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
+import { CompletePlanedCommonServicesInterface, EnginnerCancelPlanedServicesStageInterface } from "@/packages/entities/planed-services/type";
 
 interface ServiceStagesPanelProps {
   show: boolean;
   onClose: () => void;
-  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number }
+  isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number, type: string }
   completeService: (data: CompleteCancelType) => void
+  completePlanedService: (data: CompletePlanedCommonServicesInterface) => void
+
   cancelService: (data: CompleteCancelType) => void,
 }
 
-export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService }: ServiceStagesPanelProps) => {
+export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService, completePlanedService }: ServiceStagesPanelProps) => {
 
-
-  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction, supplyRequestAction } = serviceStagesModel
+  const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, completePlanetServiceEnginner, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction, supplyRequestAction, cancelPlanetServiceEngineer } = serviceStagesModel
   const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
 
   const { user } = useAuth()
@@ -37,6 +39,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
   useEffect(() => {
 
+    console.log(isService)
 
     if (isService) {
       init(isService.id, userDD)
@@ -52,13 +55,15 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
 
   const onSubmit = () => {
-    create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId,)
+    create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId, isService.type)
     setIsOpenForm(false)
   }
 
   useEffect(() => {
     setIsOpenForm(false)
   }, [])
+
+  const isPlanedService = isService.type == "Тех. Обслуживание"
 
 
   return (
@@ -67,7 +72,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
       type="right"
       show={show}
       setShow={onClose}
-
       title={
         <div className="flex gap-4">
           <p>Этапы</p>
@@ -95,7 +99,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               serviceData={isService}
             />
             :
-
             <StageCard
               key={stage.id}
               number={key + 1}
@@ -104,6 +107,9 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
               completeEngineer={completeEngineer}
               cancelEngineer={cancelEngineer}
               completeCommon={completeCommon}
+              completePlanetServiceEnginner={completePlanetServiceEnginner}
+              cancelPlanetServiceEngineer={cancelPlanetServiceEngineer}
+              serviceData={isService}
             />
 
           )))) :
@@ -167,7 +173,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   </InputContainer>
                 }
 
-
                 <InputContainer headerText="Выберете компанию">
                   <Selector
                     placeholder="Выберете компанию"
@@ -177,7 +182,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                     icon="arrow-down"
                   />
                 </InputContainer>
-
 
                 {implementersCompaneId != 0 && (userList.length > 0 ?
                   <InputContainer headerText="Выберете ответственное лицо">
@@ -193,7 +197,6 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                   <div>У компании отсутвствуют ответственные лица </div>)
                 }
               </div>
-
 
               <div className="p-4 border-t border-gray-100 bg-gray-50">
                 <div className="flex gap-2">
@@ -211,7 +214,8 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
             <Button styleColor="blue" class="mb-4 py-2" onClick={() => setIsOpenForm(true)}>
               Добавить этап
-            </Button>)
+            </Button>
+          )
           }
         </div >
       }
@@ -220,12 +224,22 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
         <div className="flex gap-5" >
           {isActiveRequest && isJobRole() &&
             <>
-              <Button onClick={() => completeService({ requestId: isService.id, implementerId: user!.id, })} styleColor="blue" class="w-full py-2">
+              <Button onClick={() => {
+                isPlanedService ? completePlanedService({
+                  requestId: isService.id,
+                  implementerId: user!.id,
+                  implementerCompanyId: user!.companyId,
+                }) : completeService({ requestId: isService.id, implementerId: user!.id, })
+              }} styleColor="blue" class="w-full py-2">
                 Завершить заявку
               </Button>
-              <Button onClick={() => cancelService({ requestId: isService.id, implementerId: user!.id })} styleColor="red" class="w-full py-2">
-                Отменить заявку
-              </Button>
+
+              {!isPlanedService &&
+                <Button onClick={() => cancelService({ requestId: isService.id, implementerId: user!.id })} styleColor="red" class="w-full py-2">
+                  Отменить заявку
+                </Button>
+              }
+
             </>
           }
         </div >

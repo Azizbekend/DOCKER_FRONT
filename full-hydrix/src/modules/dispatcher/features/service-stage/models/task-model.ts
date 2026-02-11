@@ -1,5 +1,7 @@
 import { getCompanyOne } from "@/packages/entities/company/api";
 import { getInfoHardware } from "@/packages/entities/hardware/api";
+import { completeCommonPlanedServicesStageApi } from "@/packages/entities/planed-services/api";
+import { SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 import { completeCommonServiceStageRequests, getByUserStageRequests } from "@/packages/entities/service-requests/api";
 import { CompleteCommonStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageConfirmNoPay, supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageConfirm, supplyRequestStageComplete, supplyRequestStageResend, supplyRequestStageCancel, } from "@/packages/entities/supply-request/api";
@@ -113,6 +115,22 @@ class StageJobModel {
         } finally {
             this.isLoaded = false
         }
+    }
+
+    async completePlanetServiceCommon(data: SimpleCompletePlanedServicesInstructionInterface) {
+        await completeCommonPlanedServicesStageApi(data)
+            .then(() => {
+                this.model = this.model.map((item) => {
+                    if (item.id === data.stageId) {
+                        item.currentStatus = "Completed"
+                    }
+                    return item
+                })
+                toast.success("Успешно отправлена", { progressStyle: { background: "green" } })
+            })
+            .catch((error) => {
+                toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+            })
     }
 
     async completeCommon(data: CompleteCommonStageType) {

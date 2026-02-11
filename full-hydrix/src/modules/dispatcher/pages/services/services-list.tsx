@@ -11,7 +11,7 @@ import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/
 export const RequestRegistryList = observer(() => {
   const [activeFilter, setActiveFilter] = useState<string>('all'); // 'all', 'general', 'supply', 'emergency'
 
-  const { model, isLoader, init, isStagesPanel, setIsStagesPanel, isService, completeService, cancelService } = listRequestModel;
+  const { model, isLoader, init, isStagesPanel, setIsStagesPanel, isService, completeService, cancelService, completePlanedService } = listRequestModel;
 
   useEffect(() => {
     const objectId = JSON.parse(localStorage.getItem('objectData') || "").id
@@ -43,6 +43,7 @@ export const RequestRegistryList = observer(() => {
     <>
       <ServiceStagesPanel
         completeService={completeService}
+        completePlanedService={completePlanedService}
         cancelService={cancelService}
         show={isStagesPanel}
         onClose={() => setIsStagesPanel(false, 0, null)}
@@ -85,7 +86,7 @@ export const RequestRegistryList = observer(() => {
         {filteredRequests.length > 0 ? (filteredRequests.map((item) => (
           <RequestCard key={item.id}
             request={item}
-            onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId)}
+            onClick={() => setIsStagesPanel(true, item.id, item.status, item.hardwareId, item.type)}
           />
         ))) : (
           <div className="text-center py-12">

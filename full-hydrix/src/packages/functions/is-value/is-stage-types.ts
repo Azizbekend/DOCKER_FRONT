@@ -37,3 +37,4 @@ export function isStageIncidentTypes(type: string) {
             break;
     }
 }
+

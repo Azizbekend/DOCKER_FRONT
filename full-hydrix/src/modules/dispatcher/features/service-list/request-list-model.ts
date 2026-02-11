@@ -1,8 +1,9 @@
 import { getCompanyOne } from "@/packages/entities/company/api";
 import { getInfoHardware } from "@/packages/entities/hardware/api";
+import { completePlanedCommonServiceApi } from "@/packages/entities/planed-services/api";
+import { CompletePlanedCommonServicesInterface } from "@/packages/entities/planed-services/type";
 import { cancelServiceRequests, completeServiceRequests, getByObjectServiceRequests } from "@/packages/entities/service-requests/api";
 import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
-import { supplyRequestStageDelete } from "@/packages/entities/supply-request/api";
 import { getByUser } from "@/packages/entities/user/api";
 import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { makeAutoObservable } from "mobx";
@@ -13,18 +14,19 @@ class ListRequestModel {
     model: ServiceType[] = []
     isLoader: boolean = true
     isStagesPanel: boolean = false
-    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number } = { id: 0, status: null, hardwareId: 0 }
+    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number, type?: string } = { id: 0, status: null, hardwareId: 0 }
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
 
-    setIsStagesPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number) {
+    setIsStagesPanel(value: boolean, id = 0, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId?: number, type?: string) {
         this.isStagesPanel = value
         this.isService = {
             id: id,
             status: status,
-            hardwareId: hardwareId
+            hardwareId: hardwareId || 0,
+            type: type,
         }
     }
 
@@ -114,6 +116,15 @@ class ListRequestModel {
         }
     }
 
+    async completePlanedService(data: CompletePlanedCommonServicesInterface) {
+        await completePlanedCommonServiceApi(data)
+            .then(() => {
+                toast.success("Заявка успешно завершен", { progressStyle: { background: "green" } })
+            })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
+            })
+    }
     async completeService(data: CompleteCancelType) {
         await completeServiceRequests(data)
             .then(() => {

@@ -72,13 +72,13 @@ export interface AttachMainPlanedServiceInterface {
     instructionId: number
 }
 
-export interface MainCompletePlanedServicesStageInterface {
+export interface EnginnerCompletePlanedServicesStageInterface {
     stageId: number,
     engineerId: number,
     discription: string
 }
 
-export interface MainCancelPlanedServicesStageInterface {
+export interface EnginnerCancelPlanedServicesStageInterface {
     stageId: number,
     cancelDiscriprion: string
 }

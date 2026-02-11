@@ -1,4 +1,5 @@
 import { getBjCompDataId, getCompanybyObject, getCompanyObjectLinkId, getCompanyUsers } from "@/packages/entities/participants/api";
+import { createPlanedServicesStageApi } from "@/packages/entities/planed-services/api";
 import { createServiceStageRequests } from "@/packages/entities/service-requests/api";
 import { ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestCreateStage } from "@/packages/entities/supply-request/api";
@@ -109,10 +110,17 @@ class ServiceStagesFormModel {
         }));
     }
 
+    async create(
+        data: ServiceStageType,
+        pushStage: (data: any) => void,
+        serviceId: number,
+        userId: number,
+        userCompanyId: number,
+        objectId: number,
+        hardwareId: number,
+        type: string,
+    ) {
 
-
-
-    async create(data: ServiceStageType, pushStage: (data: any) => void, serviceId: number, userId: number, userCompanyId: number, objectId: number, hardwareId: number) {
         if (data.discription === '' || data.stageType === '') {
             toast.error("Заполните все поля", { progressStyle: { background: "red" } })
             return
@@ -122,16 +130,28 @@ class ServiceStagesFormModel {
             let createRes: any = null
 
             if (this.model.stageType == "Общий") {
-                createRes = await createServiceStageRequests({
-                    discription: this.model.discription,
-                    stageType: this.model.stageType,
-                    serviceId: serviceId,
-                    creatorId: userId,
-                    creatorsCompanyId: userCompanyId,
-                    implementerId: this.model.implementerId,
-                    implementersCompanyId: this.implementersCompaneId
 
-                })
+                if (type == "Тех. Обслуживание") {
+                    createRes = await createPlanedServicesStageApi({
+                        discription: this.model.discription,
+                        stageType: this.model.stageType,
+                        serviceId: serviceId,
+                        creatorId: userId,
+                        creatorsCompanyId: userCompanyId,
+                        implementerId: this.model.implementerId,
+                        implementersCompanyId: this.implementersCompaneId,
+                    })
+                } else {
+                    createRes = await createServiceStageRequests({
+                        discription: this.model.discription,
+                        stageType: this.model.stageType,
+                        serviceId: serviceId,
+                        creatorId: userId,
+                        creatorsCompanyId: userCompanyId,
+                        implementerId: this.model.implementerId,
+                        implementersCompanyId: this.implementersCompaneId
+                    })
+                }
 
                 toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
                 pushStage(createRes.data)

@@ -1,6 +1,6 @@
 import { reserchInstance } from "@/app/api/instances"
 import { PlanedCommonServices, PlanedServices, PlanedServicesInstruction, PlanedServicesStage } from "@/app/routers/api-router"
-import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, MainCancelPlanedServicesStageInterface, MainCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "./type"
+import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, EnginnerCompletePlanedServicesStageInterface, EnginnerCancelPlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "./type"
 import { HardwareIdInterface, IdHardwareInterface } from "../hardware/type"
 
 export const getFactWorkTimeApi = (params: HardwareIdInterface) => {
@@ -31,16 +31,16 @@ export const createPlanedServicesStageApi = (params: CreatePlanedServicesStageIn
     return reserchInstance.post(PlanedServicesStage.create, params)
 }
 
-export const completePlanedServicesStageApi = (params: SimpleCompletePlanedServicesInstructionInterface) => {
-    return reserchInstance.post(PlanedServicesStage.simpleComplete, params)
+export const completeCommonPlanedServicesStageApi = (params: SimpleCompletePlanedServicesInstructionInterface) => {
+    return reserchInstance.post(PlanedServicesStage.commonComplete, params)
 }
 
-export const completeMainPlanedServicesStageApi = (params: MainCompletePlanedServicesStageInterface) => {
-    return reserchInstance.post(PlanedServicesStage.mainComplete, params)
+export const completeEngineerPlanedServicesStageApi = (params: EnginnerCompletePlanedServicesStageInterface) => {
+    return reserchInstance.post(PlanedServicesStage.engineerComplete, params)
 }
 
-export const cancelMainPlanedServicesStageApi = (params: MainCancelPlanedServicesStageInterface) => {
-    return reserchInstance.post(PlanedServicesStage.mainCancel, params)
+export const cancelEngineerPlanedServicesStageApi = (params: EnginnerCancelPlanedServicesStageInterface) => {
+    return reserchInstance.post(PlanedServicesStage.engineerCancel, params)
 }
 
 export const getAllPlanedServicesInstructionApi = () => {

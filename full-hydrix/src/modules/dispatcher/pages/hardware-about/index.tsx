@@ -15,6 +15,7 @@ import { isAdmin } from "@/packages/entities/user/utils";
 import { ModalPlanedServicesForm } from "@/packages/widgets/hardware-page-tabs/components/modal-planed-services-form";
 
 export const HardwareAbout = observer(() => {
+
     const { id, tab } = useParams();
     const { setModalService, modalService, closeModal } = hardwareListModel;
 
@@ -78,7 +79,6 @@ export const HardwareAbout = observer(() => {
                             Создать заявку
                         </Link> */}
 
-
                         {isAdmin() &&
                             <Button
                                 styleColor={"blue"}
@@ -90,18 +90,16 @@ export const HardwareAbout = observer(() => {
                             </Button>
                         }
 
-                        {isAdmin() &&
-                            <Button
-                                styleColor={"green"}
-                                class="px-4 gap-3 py-2"
-                                onClick={() => setShowForm(true)}
-                            >
-                                <Icon systemName='edit-white' />
-                                <span>
-                                    Плановый сервис
-                                </span>
-                            </Button>
-                        }
+                        <Button
+                            styleColor={"green"}
+                            class="px-4 gap-3 py-2"
+                            onClick={() => setShowForm(true)}
+                        >
+                            <Icon systemName='edit-white' />
+                            <span>
+                                Плановый сервис
+                            </span>
+                        </Button>
 
                         {isAdmin() &&
                             <Button

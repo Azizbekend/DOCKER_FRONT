@@ -9,7 +9,7 @@ import { StageTaskSupplyCard } from '@/packages/shared-components/stage/stage-ta
 
 export const Stages = observer(() => {
 
-  const { model, isLoaded, init, completeCommon, setTypeAction, typeAction, supplyRequestAction } = stageJobModel;
+  const { model, isLoaded, init, completeCommon, setTypeAction, typeAction, supplyRequestAction, completePlanetServiceCommon } = stageJobModel;
   const { user } = useAuth();
 
   useEffect(() => {
@@ -41,11 +41,13 @@ export const Stages = observer(() => {
                 typeAction={typeAction}
               />
               :
-              <StageTaskCard
-                key={stage.id}
-                stage={stage}
-                completeCommon={completeCommon}
-              />
+              <>
+                <StageTaskCard
+                  key={stage.id}
+                  stage={stage}
+                  completeCommon={stage.stageType == "Тех. Обслуживание" ? completePlanetServiceCommon : completeCommon}
+                />
+              </>
             )
             }
           </div>
