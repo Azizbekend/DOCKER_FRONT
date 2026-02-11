@@ -39,7 +39,6 @@ export const HardwareCreate = observer(({ toBack }: { toBack: string }) => {
     }
 
     const handleSubmit = () => {
-        console.log('asd')
         if (id) {
             updateInfo();
         } else {

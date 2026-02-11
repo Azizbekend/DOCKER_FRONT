@@ -7,8 +7,8 @@ import { Icon } from "@/packages/shared-ui/icon";
 import { hardwareListModel } from "./model/hardware-list-model";
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { ExportButton } from "../../../../packages/shared/libs/hardware/components/hardware-buttons";
-import { columns } from "../../../../packages/shared/libs/hardware/columns/columns";
+import { ExportButton } from "../../../../packages/shared-components/hardware/hardware-buttons";
+import { columns } from "../../../../packages/shared-components/hardware/hardware-list-columns";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
 import { isAdmin } from "@/packages/entities/user/utils";
 

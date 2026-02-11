@@ -1,4 +1,25 @@
-import { formatToTwoDecimalsSafe } from "./formatToTwoDecimalsSafe"
+export function formatToTwoDecimalsSafe(value: string | number | null | undefined): number | null | string {
+    if (value === null || value === undefined) return "—";
+
+    let num: number;
+
+    if (typeof value === 'string') {
+        const normalized = value.replace(',', '.');
+        num = Number(normalized);
+    } else {
+        num = value;
+    }
+
+    if (Number.isNaN(num) || !Number.isFinite(num)) {
+        return "—";
+    }
+
+    return roundToTwoDecimals(num);
+}
+
+function roundToTwoDecimals(num: number): number {
+    return Math.round(num * 100) / 100;
+}
 
 export const getValue = (name: string, value: string) => {
     switch (name) {
@@ -60,6 +81,3 @@ export const getStatusClass = (status: string) => {
         default: return { badge: 'text-gray-700 bg-gray-100', border: '#9ca3af' };
     }
 };
-
-
-

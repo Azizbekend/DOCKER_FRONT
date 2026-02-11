@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
 import { HardwareInterface } from "@/packages/entities/hardware/type";
-import { domainHardwariesColumns } from "@/packages/shared/libs/hardware/columns/columns";
+import { domainHardwariesColumns } from "@/packages/shared-components/hardware/hardware-list-columns";
 import { getObjectId } from "@/packages/functions/get-data/get-object-data";
 import { isAdmin } from "@/packages/entities/user/utils";
 

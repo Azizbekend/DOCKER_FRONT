@@ -1,4 +1,4 @@
-import { HardwareEvents } from "@/packages/shared/libs/hardware/tabs/page-tabs/events";
+import { HardwareEvents } from "@/packages/widgets/hardware-page-tabs/events";
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 

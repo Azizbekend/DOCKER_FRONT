@@ -3,6 +3,8 @@ import { DocumentsType } from "@/packages/entities/documents/type";
 import { getInfoHardware, hardwaresEvents, hardwaresLogs, statusHardwaresCheck } from "@/packages/entities/hardware/api";
 import { checkedServiceApi, getCharacteristicAll, getCommandActive, getCommandAll, getCommandAllInfo, getCommandDeactive, getInfoNodeInfoAllCheck, getInfoNodeInfos, getServiceApi, getServiceHistoryRecordsAllApi, getServiceHistoryRecordsAllOrderedApi, getTodayServiceApi } from "@/packages/entities/hardware/api-general";
 import { HardwareEventsDataType, HardwareInterface, StartEndDates } from "@/packages/entities/hardware/type";
+import { getPlanedServicesByHardwareApi, getPlanedServiceTimeLeftApi } from "@/packages/entities/planed-services/api";
+import { PlanedServicesInterface } from "@/packages/entities/planed-services/type";
 import { sortHardwareEventsLogs } from "@/packages/functions/sort-data/sort-hardware-events-logs";
 import { ControlType, ServiceHistoryDataApiType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
 import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
@@ -41,6 +43,7 @@ class HardwareModel {
     serviceStatistic: ServiceStatisticType[] | any = []
     documents: DocumentsType[] | any = []
     incidentList: { nodeId: number, nodeName: string }[] = []
+    planedServicesList: PlanedServicesInterface[] = []
 
     commandInfoIds: string[] = []
     ids: (string | undefined)[] = []
@@ -97,7 +100,7 @@ class HardwareModel {
         this.clear()
 
         try {
-            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList] = await Promise.all([
+            const [info, commands, commandsInfo, characteristics, servicesToday, week, historyService, statisticService, documents, incidentList, planedServiceList] = await Promise.all([
                 getInfoHardware({ id }),
                 getCommandAll({ id }),
                 getCommandAllInfo({ id }),
@@ -108,6 +111,7 @@ class HardwareModel {
                 getServiceHistoryRecordsAllApi({ id: id }),
                 getDocuments({ id: id }),
                 getInfoNodeInfoAllCheck({ id: id }),
+                getPlanedServicesByHardwareApi({ id: id })
             ]);
 
 
@@ -129,6 +133,15 @@ class HardwareModel {
             this.documents = documents.data;
             this.incidentList = incidentList.data;
 
+            this.planedServicesList = await Promise.all(
+                planedServiceList.data.map(async (item) => {
+                    const time = await getPlanedServiceTimeLeftApi({ id: item.id })
+                    return {
+                        ...item,
+                        time: time.data
+                    }
+                })
+            )
 
             const today = new Date();
             this.missedService = this.servicesToday.filter(service => {
@@ -204,7 +217,7 @@ class HardwareModel {
                 const scheduleDate = new Date(item.sheduleMaintenanceDate);
                 const actualDate = new Date(item.completedMaintenanceDate);
 
-                console.log(item.completedMaintenanceDate.includes("2025-12-17"))
+                // console.log(item.completedMaintenanceDate.includes("2025-12-17"))
 
                 if (item.completedMaintenanceDate.includes("2025-12-17")) {
                     ++count;

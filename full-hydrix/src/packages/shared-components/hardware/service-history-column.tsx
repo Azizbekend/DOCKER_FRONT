@@ -1,5 +1,5 @@
 import { TableColumn } from "@/packages/shared-ui/table/types";
-import { ServiceHistoryType } from "../../hardware-form/components/control/type";
+import { ServiceHistoryType } from "../../shared/libs/hardware-form/components/control/type";
 
 export const columns: TableColumn<ServiceHistoryType>[] = [
     {

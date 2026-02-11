@@ -1,13 +1,64 @@
 import { reserchInstance } from "@/app/api/instances"
-import { PlanedServices } from "@/app/routers/api-router"
-import { PlanedServicesCreate } from "./type"
+import { PlanedCommonServices, PlanedServices, PlanedServicesInstruction, PlanedServicesStage } from "@/app/routers/api-router"
+import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, MainCancelPlanedServicesStageInterface, MainCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "./type"
+import { HardwareIdInterface, IdHardwareInterface } from "../hardware/type"
 
-export const getFactWorkTime = (params: { hardware: number }) => {
+export const getFactWorkTimeApi = (params: HardwareIdInterface) => {
     return reserchInstance.get(PlanedServices.factWorkTime, { params })
 }
-export const getListByHardware = (params: { id: number }) => {
+
+export const getPlanedServicesByHardwareApi = (params: IdHardwareInterface) => {
     return reserchInstance.get(PlanedServices.byHardware, { params })
 }
-export const postCreatePlanedServices = (params: PlanedServicesCreate) => {
+
+export const getPlanedServiceTimeLeftApi = (params: IdPlanedServicesInterface) => {
+    return reserchInstance.get(PlanedServices.timeLeft, { params })
+}
+
+export const createPlanedServiceApi = (params: CreatePlanedServicesInterface) => {
     return reserchInstance.post(PlanedServices.create, params)
+}
+
+export const createPlanedCommonServiceApi = (params: CreatePlanedCommonServicesInterface) => {
+    return reserchInstance.post(PlanedCommonServices.create, params)
+}
+
+export const completePlanedCommonServiceApi = (params: CompletePlanedCommonServicesInterface) => {
+    return reserchInstance.post(PlanedCommonServices.complete, params)
+}
+
+export const createPlanedServicesStageApi = (params: CreatePlanedServicesStageInterface) => {
+    return reserchInstance.post(PlanedServicesStage.create, params)
+}
+
+export const completePlanedServicesStageApi = (params: SimpleCompletePlanedServicesInstructionInterface) => {
+    return reserchInstance.post(PlanedServicesStage.simpleComplete, params)
+}
+
+export const completeMainPlanedServicesStageApi = (params: MainCompletePlanedServicesStageInterface) => {
+    return reserchInstance.post(PlanedServicesStage.mainComplete, params)
+}
+
+export const cancelMainPlanedServicesStageApi = (params: MainCancelPlanedServicesStageInterface) => {
+    return reserchInstance.post(PlanedServicesStage.mainCancel, params)
+}
+
+export const getAllPlanedServicesInstructionApi = () => {
+    return reserchInstance.get(PlanedServicesInstruction.all)
+}
+
+export const getPlanedServicesInstructionApi = (params: IdPlanedServicesInterface) => {
+    return reserchInstance.get(PlanedServicesInstruction.getInstruction, { params })
+}
+
+export const createPlanedServicesInstructionApi = (params: CreatePlanedServicesInstructionInterface) => {
+    return reserchInstance.post(PlanedServicesInstruction.create, params)
+}
+
+export const attachPlanedServicesInstructionApi = (params: AttachMainPlanedServiceInterface) => {
+    return reserchInstance.post(PlanedServicesInstruction.attach, params)
+}
+
+export const createAndAttachPlanedServicesInstructionApi = (params: CreateAttachPlanedServicesInstructionInterface) => {
+    return reserchInstance.post(PlanedServicesInstruction.createAttach, params)
 }

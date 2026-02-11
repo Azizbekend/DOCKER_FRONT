@@ -1,6 +1,15 @@
-import { ControlType, ServiceHistoryType, ServiceModelType } from "@/packages/shared/libs/hardware-form/components/control/type";
+import { ControlType, ServiceHistoryType, ServiceModelType, ServiceStatisticType } from "@/packages/shared/libs/hardware-form/components/control/type";
 import { Characteristic } from "@/packages/shared/libs/hardware-form/components/documents/type";
 import { DocumentsModelType, DocumentsType } from "../documents/type";
+import { PlanedServicesInterface } from "../planed-services/type";
+
+export interface HardwareIdInterface {
+    hardwareId: number,
+}
+
+export interface IdHardwareInterface {
+    id: number,
+}
 
 export interface HardwareInterface {
     id: number,
@@ -87,6 +96,7 @@ export interface HardwareServiceProps {
     servicesWeek: ServiceModelType[],
     servicesHistory: ServiceHistoryType[],
     serviceStatistic: ServiceStatisticType[],
+    planedServicesList: PlanedServicesInterface[],
 
     checkedService: (id: string) => void,
 }

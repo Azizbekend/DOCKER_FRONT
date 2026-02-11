@@ -1,12 +1,12 @@
 import { Icon } from "@/packages/shared-ui/icon";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { getValue } from "../../functions/functions";
+import { getValue } from "../../functions/get-data/get-hardware-functions";
 import { HardwarePassportProps } from "@/packages/entities/hardware/type";
-import { getHardwareStatus } from "../../components/hardware-status";
+import { getHardwareStatus } from "../../shared-components/hardware/hardware-status";
 import accident from "@/app/static/img/accident.svg";
 import { Link } from "react-router-dom";
-import { PassportBlockContainer } from "../../components/passport-block-container";
+import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
 import { svodStatistics } from "@/packages/entities/hardware/data";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { Button } from "@/packages/shared-ui/button/button";

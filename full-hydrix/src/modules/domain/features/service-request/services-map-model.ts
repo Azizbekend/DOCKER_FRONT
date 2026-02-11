@@ -168,7 +168,7 @@ class ServicesMapModel {
         try {
             // 1. Загружаем объекты с обработкой ошибок
             const objectsRes = await Promise.allSettled([
-                baseRoleId === Role.Admin
+                (baseRoleId === Role.Admin || baseRoleId === Role.Ministry)
                     ? getAllObjects()
                     : getAllUserObjects({ userId })
             ]);

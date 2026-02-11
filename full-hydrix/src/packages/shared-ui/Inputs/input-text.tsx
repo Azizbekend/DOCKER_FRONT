@@ -21,7 +21,7 @@ export const Input = (props: InputTextType) => {
 
     return (
         <InputComponent
-            className={`w-full outline-none disabled:bg-zinc-200 ${props.className}`}
+            className={`w-full outline-none border-[1.5px] rounded-lg disabled:bg-zinc-200 ${props.className}`}
             type={props.type}
             placeholder={props.placeholder}
             disabled={props.disabled}

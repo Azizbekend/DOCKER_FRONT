@@ -15,7 +15,7 @@ export const Textarea = (props: InputTextareaProps) => {
 
     return (
         <textarea
-            className={`px-3 py-3 rounded-lg border border-gray-300 text-gray-700 focus:border-[var(--clr-accent)] ${props.className}`}
+            className={`px-3 py-3 rounded-lg border-[1.5px] border-[var(--clr-border-gray)] text-gray-700 focus:border-[var(--clr-accent)] ${props.className}`}
             placeholder={props.placeholder}
             value={props.value}
             onChange={(e) => handleChange(e)}

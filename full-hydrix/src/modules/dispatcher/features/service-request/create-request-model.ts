@@ -55,7 +55,6 @@ class CreateRequestModel {
 
     setImplementerId(value: number) {
         this.model.implementerId = value
-        console.log(this.model.implementerId)
     }
 
     clear() {

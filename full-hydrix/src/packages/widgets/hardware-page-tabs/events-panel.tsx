@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { logsModel } from "@/modules/domain/features/hardware/logs-model";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { Button } from "@/packages/shared-ui/button/button";
-import { PassportBlockContainer } from "../../components/passport-block-container";
+import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
 import { Icon } from "@/packages/shared-ui/icon";
 
 export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { hardwareId: number, show: boolean, setShow: (value: boolean) => void }) => {

@@ -233,32 +233,27 @@ export const PlanedServices = {
   factWorkTime: "/PlanedServices/internalMethod/hardware/factWorkTime",
   byHardware: "/PlanedServices/plannedService/hardware",
   create: "/PlanedServices/createPlanService",
+  timeLeft: "/PlanedServices/plannedService/timeLeft",
+}
 
-// /api/PlanedServices/service/instruction
-// /api/PlanedServices/internalMethod/hardware/factWorkTime
-// /api/PlanedServices/plannedService/hardware
-// /api/PlanedServices/createPlanService
-// /api/PlanedServices/instruction/create
-// /api/PlanedServices/instruction/attach
-// /api/PlanedServices/instruction/create&attach
-// /api/PlanedServices/commonService/create
-// /api/PlanedServices/commonService/stage/mainEngineer/create
+export const PlanedCommonServices = {
+  create: "/PlanedServices/commonService/create",
+  complete: "/PlanedServices/commonService/mainEngineeer/Complete",
+}
 
+export const PlanedServicesStage = {
+  create: "/PlanedServices/commonService/stage/mainEngineer/create",
+  simpleComplete: "/PlanedServices/commonService/stage/simple/complete",
+  mainComplete: "/PlanedServices/commonService/stage/mainEngineer/complete",
+  mainCancel: "/PlanedServices/commonService/stage/mainEngineer/Cancel",
+}
 
-// POST
-// /api/PlanedServices/commonService/mainEngineeer/Complete
-
-
-// POST
-// /api/PlanedServices/commonService/stage/simple/complete
-
-
-// POST
-// /api/PlanedServices/commonService/stage/mainEngineer/complete
-
-
-// POST
-// /api/PlanedServices/commonService/stage/mainEngineer/Cancel
+export const PlanedServicesInstruction = {
+  all: "/PlanedServices/instructions/all",
+  getInstruction: "/PlanedServices/service/instruction",
+  create: "/PlanedServices/instruction/create",
+  attach: "/PlanedServices/instruction/attach",
+  createAttach: "/PlanedServices/instruction/create&attach",
 }
 
 

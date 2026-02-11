@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { SchemaCardInterface } from "@/packages/entities/sensor/type";
 import { ApiSchemaCardAll } from "@/packages/entities/sensor/api";
 import { statusHardwaresCheck } from "@/packages/entities/hardware/api";
-import { formatToTwoDecimalsSafe } from "@/packages/shared/libs/hardware/functions/formatToTwoDecimalsSafe";
+import { formatToTwoDecimalsSafe } from "@/packages/functions/get-data/get-hardware-functions";
 
 class SchemeModel {
 

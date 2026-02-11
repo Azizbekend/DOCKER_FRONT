@@ -1,8 +1,8 @@
 import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';
-import { BlockSelect } from '../../components/block-select';
-import { everyKapitalServerDate, everyPlanerServerDate } from '../../data/hardware-serves-data';
-import { InfoObject } from '../../components/info-object';
+import { BlockSelect } from '../../shared-components/hardware/block-select';
+// import { everyKapitalServerDate, everyPlanerServerDate } from '../../data/hardware-serves-data';
+import { InfoObject } from '../../shared-components/hardware/info-object';
 import InputCheckbox from '@/packages/shared-ui/Inputs/input-checkbox';
 import { Link } from 'react-router-dom';
 import { Modal } from '@/packages/shared-ui/modal/modal';
@@ -27,10 +27,6 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
         setBtnCount(id.toString())
         setShow(true)
     }
-
-    const { user } = useAuth();
-
-    
 
     return (
         <div className="w-full mt-10 p-[0_0_50px_0]">
@@ -197,7 +193,7 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
 
 
             {false && <>
-                <BlockSelect
+                {/* <BlockSelect
                     title="Периодическое (плановое) обслуживание"
                     className='flex flex-col gap-2'
                     children={
@@ -237,7 +233,7 @@ export const HardwareServes = observer(({ getCommands, servicesWeek, checkedServ
                             </>
                         )
                     })
-                } />
+                } /> */}
             </>}
 
         </div>

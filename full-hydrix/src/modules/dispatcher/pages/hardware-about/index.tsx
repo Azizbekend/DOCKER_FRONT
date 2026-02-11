@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { hardwareModel } from "@/modules/domain/features/hardware/model";
@@ -6,22 +6,21 @@ import Loader from "@/packages/shared-ui/loader/loader";
 import { Icon } from "@/packages/shared-ui/icon";
 import { Button } from "@/packages/shared-ui/button/button";
 import { hardwareListModel } from "../hardware-list/model/hardware-list-model";
-import { ModalServiceCreate } from "../../../../packages/shared/libs/hardware/components/modal-service-create";
+import { ModalServiceCreate } from "../../../../packages/shared-components/hardware/modal-service-create";
 import { tabsList } from "@/modules/domain/features/hardware/data";
-import { HardwareControll, HardwarePassport, HardwareService } from "@/packages/shared/libs/hardware/tabs/page-tabs";
+import { HardwarePassport, HardwareService } from "@/packages/widgets/hardware-page-tabs";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
-import { HardwareEvents } from "@/packages/shared/libs/hardware/tabs/page-tabs/events";
-// import { HardwareLogs } from "@/packages/shared/libs/hardware/tabs/page-tabs/logs";
+import { HardwareEvents } from "@/packages/widgets/hardware-page-tabs/events";
 import { isAdmin } from "@/packages/entities/user/utils";
+import { ModalPlanedServicesForm } from "@/packages/widgets/hardware-page-tabs/components/modal-planed-services-form";
 
 export const HardwareAbout = observer(() => {
     const { id, tab } = useParams();
     const { setModalService, modalService, closeModal } = hardwareListModel;
 
-    const { status, model, init, isLoading, commands, switchIsCommand, changeCommands,
-        incidentList, isLoaderCommand, isActiveCommand, getInfoNodeInfoAll, documents,
+    const { status, model, init, isLoading, incidentList, getInfoNodeInfoAll, documents,
         сharacteristic, commandsInfo, getCommands, servicesWeek, checkedService, servicesHistory,
-        serviceStatistic } = hardwareModel
+        serviceStatistic, planedServicesList } = hardwareModel
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,11 +28,16 @@ export const HardwareAbout = observer(() => {
         init(Number(id), weekRange)
     }, [])
 
+    const [showForm, setShowForm] = useState<boolean>(false);
+    const [showServiceForm, setShowServiceForm] = useState<boolean>(false);
+
+
     return isLoading ?
         <Loader />
         :
         <div className="informations-dispatch__requestregistry relative mt-10" >
             <ModalServiceCreate isOpen={modalService} setShow={closeModal} />
+            <ModalPlanedServicesForm show={showForm} setShow={setShowForm} hardwareId={model.id} />
 
             <div className="absolute  top-[-37px] left-[30px] flex gap-3">
                 {tabsList.map((tab, key) => {
@@ -82,8 +86,20 @@ export const HardwareAbout = observer(() => {
                                 onClick={() => setModalService(true, model.id)}
                             >
                                 <Icon systemName="file-plus" />
-
                                 сервис
+                            </Button>
+                        }
+
+                        {isAdmin() &&
+                            <Button
+                                styleColor={"green"}
+                                class="px-4 gap-3 py-2"
+                                onClick={() => setShowForm(true)}
+                            >
+                                <Icon systemName='edit-white' />
+                                <span>
+                                    Плановый сервис
+                                </span>
                             </Button>
                         }
 
@@ -123,6 +139,7 @@ export const HardwareAbout = observer(() => {
                     checkedService={checkedService}
                     servicesHistory={servicesHistory}
                     serviceStatistic={serviceStatistic}
+                    planedServicesList={planedServicesList}
                 />}
 
                 {tab == "events" && <HardwareEvents hardwareId={model.id} />}

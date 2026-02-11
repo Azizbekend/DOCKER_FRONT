@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { PassportBlockContainer } from "../../components/passport-block-container";
+import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
 import { getDate } from "@/packages/functions/get-data/get-date";
 import { dateFilterBtns } from "@/packages/entities/hardware/data";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
