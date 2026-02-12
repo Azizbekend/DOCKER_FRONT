@@ -95,6 +95,15 @@ export type ServiceStageType = {
     implementer?: any,
     hardware?: any,
     requiredCount?: number,
+    files?: any
+}
+
+
+export interface ServiceForStageCardInterface {
+    id: number,
+    status: 'New' | 'Completed' | 'Canceled' | null,
+    hardwareId: number,
+    type?: string
 }
 
 

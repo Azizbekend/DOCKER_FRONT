@@ -3,7 +3,7 @@ import { getInfoHardware } from "@/packages/entities/hardware/api";
 import { completePlanedCommonServiceApi } from "@/packages/entities/planed-services/api";
 import { CompletePlanedCommonServicesInterface } from "@/packages/entities/planed-services/type";
 import { cancelServiceRequests, completeServiceRequests, getByObjectServiceRequests } from "@/packages/entities/service-requests/api";
-import { CompleteCancelType, ServiceType } from "@/packages/entities/service-requests/type";
+import { CompleteCancelType, ServiceForStageCardInterface, ServiceType } from "@/packages/entities/service-requests/type";
 import { getByUser } from "@/packages/entities/user/api";
 import { getGoodName } from "@/packages/functions/get-data/get-good-name";
 import { makeAutoObservable } from "mobx";
@@ -14,7 +14,7 @@ class ListRequestModel {
     model: ServiceType[] = []
     isLoader: boolean = true
     isStagesPanel: boolean = false
-    isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number, type?: string } = { id: 0, status: null, hardwareId: 0 }
+    isService: ServiceForStageCardInterface = { id: 0, status: null, hardwareId: 0 }
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })

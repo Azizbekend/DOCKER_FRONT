@@ -31,6 +31,7 @@ class ServiceStagesFormModel {
         file: File;
         type: 'photo' | 'document';
         preview?: string;
+        fileName: string;
     }> = []
 
 
@@ -67,7 +68,8 @@ class ServiceStagesFormModel {
             id,
             file,
             type,
-            preview: type === 'photo' ? URL.createObjectURL(file) : undefined
+            preview: type === 'photo' ? URL.createObjectURL(file) : undefined,
+            fileName: ""
         };
         this.files.push(newFile);
     }
@@ -86,6 +88,14 @@ class ServiceStagesFormModel {
         });
         this.files = [];
     }
+
+    setFileName(id: number, fileName: string) {
+        const file = this.files.find(f => f.id === id);
+        if (file) {
+            file.fileName = fileName;
+        }
+    }
+
 
 
     clear() {
@@ -146,7 +156,6 @@ class ServiceStagesFormModel {
     }
 
     async create(
-        data: ServiceStageType,
         pushStage: (data: any) => void,
         serviceId: number,
         userId: number,
@@ -157,7 +166,7 @@ class ServiceStagesFormModel {
         setIsOpenForm: (value: boolean) => void
     ) {
 
-        if (data.discription === '' || data.stageType === '') {
+        if (this.model.discription === '' || this.model.stageType === '') {
             toast.error("Заполните все поля", { progressStyle: { background: "red" } })
             return
         }
@@ -181,7 +190,7 @@ class ServiceStagesFormModel {
 
                     const uploadPromises = this.files.map(async (fileItem) => {
                         const formData = new FormData();
-                        formData.append("RequestStageId", serviceId.toString());
+                        formData.append("RequestStageId", createRes.data.id);
                         formData.append("FileName", fileItem.file.name);
                         formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
                         formData.append("File", fileItem.file);
@@ -218,7 +227,7 @@ class ServiceStagesFormModel {
 
                     const uploadPromises = this.files.map(async (fileItem) => {
                         const formData = new FormData();
-                        formData.append("RequestStageId", serviceId.toString());
+                        formData.append("RequestStageId", createRes.data.id);
                         formData.append("FileName", fileItem.file.name);
                         formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
                         formData.append("File", fileItem.file);

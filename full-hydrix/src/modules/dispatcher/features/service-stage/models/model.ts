@@ -1,4 +1,4 @@
-import { cancelEngineerPlanedServicesStageApi, completeCommonPlanedServicesStageApi, completeEngineerPlanedServicesStageApi, } from "@/packages/entities/planed-services/api";
+import { cancelEngineerPlanedServicesStageApi, completeCommonPlanedServicesStageApi, completeEngineerPlanedServicesStageApi, getFileLinkCommonPlanedServicesStageApi, } from "@/packages/entities/planed-services/api";
 import { EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
@@ -36,13 +36,19 @@ class ServiceStagesModel {
 
         try {
             const serviceRes = await getServiceStageRequestsAll({ id });
+            const encrichedItems = [];
             const results = [];
+
 
             for (const item of serviceRes.data) {
                 const enrichedItem = await getCompanyUserRequest(item);
-                results.push(enrichedItem);
+                const dataRes = await getFileLinkCommonPlanedServicesStageApi({ commonServiceId: item.id })
+                console.log(dataRes.data)
+                results.push({
+                    ...enrichedItem,
+                    files: dataRes.data
+                });
             }
-
             this.model = results;
         } catch (error) {
             console.log(error)
@@ -158,8 +164,6 @@ class ServiceStagesModel {
                     })
                     break;
                 case StageAction.attachExpenses:
-
-                    console.log(data)
 
                     dataRes = await supplyRequestStageAttachExpenses({
                         supplierName: data.supplierName,
