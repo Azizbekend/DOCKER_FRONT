@@ -35,14 +35,14 @@ export const ListParticipantsBlock = observer(({ list }: ListParticipantsBlockPr
                     <div className="bg-white divide-y divide-gray-200">
                         {list.map((contact, key) => {
                             return chekCompany(contact.company.companyName) && (contact.users.length > 0 ? contact.users.map((user, userIdx) => (
-                                <div key={`${key}-${userIdx}`} className={`hover:bg-purple-50 transition-colors ${gridGridColumns}`}>
+                                <div key={`${key}-${userIdx}`} className={`hover:bg-blue-50 transition-colors ${gridGridColumns}`}>
                                     <div className="px-3 py-2 text-sm text-gray-800 font-medium">{idblock++}</div>
                                     <div className="px-3 py-2 text-sm text-gray-800">{contact.company.companyName}</div>
                                     <div className="px-3 py-2 text-sm text-gray-800">{getGoodName(user)}</div>
                                     <div className="px-3 py-2 text-sm text-gray-800">{user.phoneNumber}</div>
                                     <div className="px-3 py-2 text-sm text-gray-800 text-center">
-                                        <button className="p-1.5 rounded-full hover:bg-purple-100 transition-colors" title="Просмотреть график работы">
-                                            <Icon systemName="calendar" className="text-purple-600 w-4 h-4" />
+                                        <button className="p-1.5 rounded-full hover:bg-blue-100 transition-colors" title="Просмотреть график работы">
+                                            <Icon systemName="calendar" className="text-blue-600 w-4 h-4" />
                                         </button>
                                     </div>
                                 </div>
