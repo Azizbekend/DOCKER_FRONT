@@ -27,7 +27,7 @@ export const DescriptionSection = ({
                     {imgPreviewDiscription ? (
                         <img src={imgPreviewDiscription} className="p-5 max-w-full max-h-full object-contain" />
                     ) : (
-                        <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${objectDiscriptionFileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
+                        <img src={`https://triapi.ru/research/api/FileStorage/download?id=${objectDiscriptionFileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
                     )}
                 </label>
 

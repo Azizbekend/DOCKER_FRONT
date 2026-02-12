@@ -13,7 +13,6 @@ import { isAdmin } from '@/packages/entities/user/utils';
 
 export const PassportDocumentation = observer(() => {
 
-
   const { model, isLoader, init } = passportDocuments
 
   useEffect(() => {
@@ -75,6 +74,7 @@ export const PassportDocumentation = observer(() => {
 
   return (
     <div className="max-w mx-auto">
+
       <PassportHeaderPanel title="Документация" />
       <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200 mb-6">
         <div className="flex flex-col md:flex-row gap-4">
@@ -96,7 +96,7 @@ export const PassportDocumentation = observer(() => {
 
                 {filteredDocumentsFilter.length > 0 ? filteredDocumentsFilter.map((document) => (
                   isAdmin() ?
-                    <a href={"https://triapi.ru/research/api/FileStorage/images/download?id=" + document.docId}
+                    <a href={"https://triapi.ru/research/api/FileStorage/download?id=" + document.docId}
                       target="_blank"
                       rel="noopener noreferrer"
                       download={true}

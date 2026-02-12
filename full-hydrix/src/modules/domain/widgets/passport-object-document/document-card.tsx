@@ -2,9 +2,10 @@ import { isAdmin } from "@/packages/entities/user/utils";
 import { Icon } from "@/packages/shared-ui/icon";
 import { useEffect, useState } from "react";
 
-export const DocumentCard = ({ doc }: { doc: any }) => {
+export const DocumentCard = ({ doc, onFileViewer }: { doc: any, onFileViewer: (id: number) => void, }) => {
     const [isTablet, setIsTablet] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -20,7 +21,7 @@ export const DocumentCard = ({ doc }: { doc: any }) => {
 
     // Базовые стили для всех устройств
     const baseStyles = "flex items-start justify-between bg-white rounded-lg shadow hover:shadow-md transition-shadow duration-200 cursor-pointer";
-    
+
     // Адаптивные стили в зависимости от устройства
     const getPaddingStyles = () => {
         if (isMobile) {
@@ -70,20 +71,21 @@ export const DocumentCard = ({ doc }: { doc: any }) => {
 
     if (isAdmin()) {
         return (
-            <a
-                href={"https://triapi.ru/research/api/FileStorage/images/download?id=" + doc.docId}
-                target="_blank"
-                rel="noopener noreferrer"
-                download={true}
-                className={`${baseStyles} ${getPaddingStyles()}`}
-                style={{ 
-                    WebkitTapHighlightColor: 'transparent',
-                    touchAction: 'manipulation'
-                }}
-            >
+            <div onClick={() => onFileViewer(doc.docId)} className={`${baseStyles} ${getPaddingStyles()}`}>
+                {/* // <a
+            //     href={"https://triapi.ru/research/api/FileStorage/download?id=" + doc.docId}
+            //     target="_blank"
+            //     rel="noopener noreferrer"
+            //     download={true}
+            //     className={`${baseStyles} ${getPaddingStyles()}`}
+            //     style={{
+            //         WebkitTapHighlightColor: 'transparent',
+            //         touchAction: 'manipulation'
+            //     }}
+            // > */}
                 <div className={`flex items-start ${getGapStyles()} w-full`}>
-                    <Icon 
-                        systemName="docs-blue" 
+                    <Icon
+                        systemName="docs-blue"
                         className={iconStyles}
                     />
                     <div className={`font-medium text-gray-800 ${getTextStyles()} ${getContentWidth()} break-words overflow-wrap-anywhere hyphens-auto`}>
@@ -91,21 +93,22 @@ export const DocumentCard = ({ doc }: { doc: any }) => {
                     </div>
                 </div>
                 <div className="flex-shrink-0"></div>
-            </a>
+                {/* // </a> */}
+            </div >
         );
     }
 
     return (
-        <div 
+        <div
             className={`${baseStyles} ${getPaddingStyles()}`}
-            style={{ 
+            style={{
                 WebkitTapHighlightColor: 'transparent',
                 touchAction: 'manipulation'
             }}
         >
             <div className={`flex items-start ${getGapStyles()} w-full`}>
-                <Icon 
-                    systemName="docs-blue" 
+                <Icon
+                    systemName="docs-blue"
                     className={iconStyles}
                 />
                 <div className={`font-medium text-gray-800 ${getTextStyles()} ${getContentWidth()} break-words overflow-wrap-anywhere hyphens-auto`}>

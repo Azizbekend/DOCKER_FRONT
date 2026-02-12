@@ -37,7 +37,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                 <p className="text-sm text-center mb-2">Обычное</p>
                                 <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                                     <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "default")} />
-                                    <img src={preview.default ? preview.default : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                    <img src={preview.default ? preview.default : "https://triapi.ru/research/api/FileStorage/download?id=" + schemeModel.focusSchemeObjectData?.fileId} className="max-w-[90%] max-h-[150px] object-container" />
                                 </label>
                             </div>
 
@@ -45,7 +45,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                 <p className="text-sm text-center mb-2">Аварии</p>
                                 <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                                     <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "red")} />
-                                    <img src={preview.red ? preview.red : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.redFileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                    <img src={preview.red ? preview.red : "https://triapi.ru/research/api/FileStorage/download?id=" + schemeModel.focusSchemeObjectData?.redFileId} className="max-w-[90%] max-h-[150px] object-container" />
                                 </label>
                             </div>
 
@@ -53,7 +53,7 @@ export const FormSchemaObject = observer(({ className, onClick }: { className: s
                                 <p className="text-sm text-center mb-2">Рабочее</p>
                                 <label className="h-[160px] rounded-lg bg-[#E6E9EF] gap-1 flex flex-col items-center justify-center hover:opacity-50 duration-300 cursor-pointer">
                                     <input className="hidden" type="file" onChange={(e) => setSaveIMage(e, "green")} />
-                                    <img src={preview.green ? preview.green : "https://triapi.ru/research/api/FileStorage/images/download?id=" + schemeModel.focusSchemeObjectData?.greenFileId} className="max-w-[90%] max-h-[150px] object-container" />
+                                    <img src={preview.green ? preview.green : "https://triapi.ru/research/api/FileStorage/download?id=" + schemeModel.focusSchemeObjectData?.greenFileId} className="max-w-[90%] max-h-[150px] object-container" />
                                 </label>
                             </div>
 

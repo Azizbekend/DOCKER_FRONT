@@ -24,39 +24,31 @@ interface ServiceStagesPanelProps {
   isService: { id: number, status: 'New' | 'Completed' | 'Canceled' | null, hardwareId: number, type: string }
   completeService: (data: CompleteCancelType) => void
   completePlanedService: (data: CompletePlanedCommonServicesInterface) => void
-
   cancelService: (data: CompleteCancelType) => void,
 }
 
 export const ServiceStagesPanel = observer(({ show, onClose, isService, completeService, cancelService, completePlanedService }: ServiceStagesPanelProps) => {
 
   const { model, isLoaded, init, completeEngineer, cancelEngineer, pushStage, completeCommon, completePlanetServiceEnginner, isActiveRequest, setIsActiveRequest, setTypeAction, typeAction, supplyRequestAction, cancelPlanetServiceEngineer } = serviceStagesModel
-  const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList } = serviceStagesFormModel
+  const { model: formModel, init: formInit, setServiceId, setCreatorId, setRequiredCount, clear, setImplementerId, setDiscription, setStageType, create, companyList, getUserList, implementersCompaneId, userList, files, addFile, removeFile } = serviceStagesFormModel
 
   const { user } = useAuth()
 
   const userDD = getDostup()
 
   useEffect(() => {
-
-    console.log(isService)
-
     if (isService) {
       init(isService.id, userDD)
       formInit()
       setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)
     }
-
-
-
   }, [isService])
 
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
 
 
   const onSubmit = () => {
-    create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId, isService.type)
-    setIsOpenForm(false)
+    create(formModel, pushStage, isService.id, user!.id, user!.companyId, getObjectId(), isService.hardwareId, isService.type, setIsOpenForm)
   }
 
   useEffect(() => {
@@ -198,6 +190,93 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                 }
               </div>
 
+              {/* МЕСТО ДЛЯ ПОЛЕЙ ФАЙЛОВ */}
+              <div className="px-4 space-y-4 mb-4">
+                {/* Загрузка фото */}
+                <InputContainer headerText="Фотографии">
+                  <label>
+                    <div
+                      className="block w-full text-sm cursor-pointer py-2 px-4 rounded-lg border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100"
+                    >
+                      Загрузка фото
+                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={(e) => {
+                        const files = e.target.files;
+                        if (files) {
+                          Array.from(files).forEach((file) => {
+                            addFile(file, "photo");
+                          });
+                        }
+                      }}
+                      className="!hidden"
+                    />
+                  </label>
+                </InputContainer>
+
+                {/* Загрузка документов */}
+                <InputContainer headerText="Документы">
+                  <label>
+                    <div
+                      className="block w-full text-sm text-green-500 py-2 px-4 rounded-lg border-0 text-sm font-semibold bg-green-50 text-green-700 hover:bg-green-100"
+                    >
+                      Загрузка документов
+                    </div>
+
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip"
+                      multiple
+                      onChange={(e) => {
+                        const files = e.target.files;
+                        if (files) {
+                          Array.from(files).forEach((file) => {
+                            addFile(file, "document");
+                          });
+                        }
+                      }}
+                      className="!hidden"
+                    />
+
+                  </label>
+                </InputContainer>
+
+                {/* Список добавленных файлов */}
+                {files.length > 0 && (
+                  <div className="">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2">Загруженные файлы:</h4>
+                    <ul className="space-y-2 max-h-40 overflow-y-auto">
+                      {files.map((fileItem) => (
+                        <li
+                          key={fileItem.id}
+                          className="flex items-center justify-between p-2 bg-gray-50 rounded-lg text-sm"
+                        >
+                          <div className="flex items-center gap-2 truncate">
+                            {fileItem.type === "photo" ? (
+                              <span className="text-blue-500">📷</span>
+                            ) : (
+                              <span className="text-green-500">📄</span>
+                            )}
+                            <span className="truncate">{fileItem.file.name}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(fileItem.id)}
+                            className="text-red-500 hover:text-red-700 text-xs font-bold"
+                          >
+                            Удалить
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+
               <div className="p-4 border-t border-gray-100 bg-gray-50">
                 <div className="flex gap-2">
                   <Button onClick={onSubmit} styleColor="blue" class="w-full py-2">
@@ -215,8 +294,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
             <Button styleColor="blue" class="mb-4 py-2" onClick={() => setIsOpenForm(true)}>
               Добавить этап
             </Button>
-          )
-          }
+          )}
         </div >
       }
 

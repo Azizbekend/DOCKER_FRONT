@@ -77,6 +77,7 @@ export const PassportInformation = observer(() => {
             <ImageBlock imagePassport={objectData.fileId} />
             <ObjectDataBlock data={objectData} items={itemObjectData} />
             <InformationBlock objectData={objectData} />
+
           </div>
 
           <div className="xl:col-span-1 space-y-6">

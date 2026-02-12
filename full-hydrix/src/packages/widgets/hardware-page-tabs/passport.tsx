@@ -11,6 +11,7 @@ import { svodStatistics } from "@/packages/entities/hardware/data";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { Button } from "@/packages/shared-ui/button/button";
 import { HardwareEventsPanel } from "./events-panel";
+import { FileViewer } from "@/packages/shared-ui/file-viewer";
 
 export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo, model, documents, сharacteristic, commandsInfo, incidentList, status, evengLog = "none" }: HardwarePassportProps) => {
 
@@ -23,15 +24,31 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo,
     const [show, setShow] = useState(false);
 
 
+    const [openViewer, setOpenViewer] = useState<boolean>(false)
+    const [fileId, setFileId] = useState<number>(0)
+
+    const openFileViewer = (id: number) => {
+        setFileId(id)
+        setOpenViewer(true)
+    }
+
+    const closeFileViewer = () => {
+        setFileId(0)
+        setOpenViewer(false)
+    }
+
     return (
         <>
             <div className="grid grid-cols-1 xl:grid-cols-[1fr_1fr_auto] gap-4 relative">
+
+                {openViewer && <FileViewer fileId={fileId} isOpen={openViewer} onClose={closeFileViewer} type="hardware" />}
+
                 <div className="space-y-4 ">
                     <PassportBlockContainer className="p-3"
                         children={
                             <>
                                 <div className="relative overflow-hidden mb-6 rounded-2xl bg-gray-100">
-                                    <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${model?.fileId || ''}`} alt="Оборудование"
+                                    <img src={`https://triapi.ru/research/api/FileStorage/download?id=${model?.fileId || ''}`} alt="Оборудование"
                                         className="w-30 h-60 object-cover center mx-auto rounded-2xl"
                                         onError={(e) => {
                                             e.currentTarget.src = "https://placehold.co/400x224/e2e8f0/94a3b8?text=Изображение\nнедоступно";
@@ -99,8 +116,10 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, evengLogLinksTo,
                             children={
                                 <div className="space-y-2">
                                     {documents.map((item, key) => (
-                                        <div className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
-                                            {/* // <a key={key} href={"https://triapi.ru/research/api/FileStorage/document/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer"> */}
+                                        <div key={item.id}
+                                            className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer"
+                                            onClick={() => openFileViewer(item.id)}>
+                                            {/* // <a key={key} href={"https://triapi.ru/research/api/FileStorage/documentStorage/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer"> */}
                                             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                                 <Icon systemName="docs" className="text-blue-700" />
                                             </div>

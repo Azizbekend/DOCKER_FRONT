@@ -9,7 +9,7 @@ export const ImageBlock = observer(({ imagePassport }: ImageBlockProps) => {
         <div className="bg-white rounded-xl p-4 shadow-sm">
             <div className="relative w-full aspect-video">
                 <img
-                    src={`https://triapi.ru/research/api/FileStorage/images/download?id=${imagePassport || ''}`}
+                    src={`https://triapi.ru/research/api/FileStorage/download?id=${imagePassport || ''}`}
                     alt="Объект"
                     className="w-full h-full object-cover rounded-lg object-right"
                 />

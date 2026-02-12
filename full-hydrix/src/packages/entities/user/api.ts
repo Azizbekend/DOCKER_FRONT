@@ -13,6 +13,6 @@ export const getByUser = (params: { id: number }) => {
     return authorizationInstance.get(User.byOne, { params })
 }
 
-export const authoriseDespetcher = (params: { login: string, password: string, }) => {
+export const authoriseDespetcher = (params: { eMail: string, password: string, }) => {
     return authorizationInstance.post(User.authorise, params)
 }

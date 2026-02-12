@@ -60,7 +60,7 @@ export const HardwareCreate = observer(({ toBack }: { toBack: string }) => {
                         <input className="hidden" type="file" onChange={(e) => setImg(e)} />
                         {
                             imgPreview || id ?
-                                <img src={imgPreview ? imgPreview : "https://triapi.ru/research/api/FileStorage/images/download?id=" + model.fileId} className="p-5 max-w-full max-h-full object-container" />
+                                <img src={imgPreview ? imgPreview : "https://triapi.ru/research/api/FileStorage/download?id=" + model.fileId} className="p-5 max-w-full max-h-full object-container" />
                                 :
                                 <>
                                     <Icon systemName="file-plus-blue" />

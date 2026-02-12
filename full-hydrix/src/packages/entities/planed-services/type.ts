@@ -51,6 +51,11 @@ export interface CreatePlanedServicesStageInterface {
     implementersCompanyId: number
 }
 
+export interface IdPlanedServicesStageInterface {
+    // НАЗВАНИЕ ПЕРЕПУТАНО, ДОЛЖНО БЫТЬ stageId
+    commonServiceId: string
+}
+
 export interface SimpleCompletePlanedServicesInstructionInterface {
     stageId: number,
     discription: string

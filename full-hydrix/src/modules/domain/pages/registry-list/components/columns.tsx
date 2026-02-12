@@ -18,7 +18,7 @@ export const columns: TableColumn<PassportRegistryDataType>[] = [
                         {
                             fileId ?
                                 <img
-                                    src={`https://triapi.ru/research/api/FileStorage/images/download?id=${fileId || ''}`}
+                                    src={`https://triapi.ru/research/api/FileStorage/download?id=${fileId || ''}`}
                                     alt="Объект"
                                     className="h-full w-fit object-cover object-right"
                                     onError={(e) => { e.currentTarget.src = "https://placehold.co/80x80/e2e8f0/94a3b8?text=Нет\n изображения" }}

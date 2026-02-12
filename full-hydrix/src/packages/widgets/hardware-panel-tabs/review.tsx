@@ -70,7 +70,7 @@ export const HardwareReview = observer(({ сharacteristic, getInfoNodeInfoAll, c
                 <div className="info-comp__section">
                     <div className="info-comp__subtitle">Документация</div>
                     {documents.map((item, key) => (
-                        <a key={key} href={"https://triapi.ru/research/api/FileStorage/document/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
+                        <a key={key} href={"https://triapi.ru/research/api/FileStorage/documentStorage/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
                             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <Icon systemName="docs" className="text-blue-700" />
                             </div>

@@ -1,6 +1,6 @@
 import { reserchInstance } from "@/app/api/instances"
 import { PlanedCommonServices, PlanedServices, PlanedServicesInstruction, PlanedServicesStage } from "@/app/routers/api-router"
-import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, EnginnerCompletePlanedServicesStageInterface, EnginnerCancelPlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "./type"
+import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, EnginnerCompletePlanedServicesStageInterface, EnginnerCancelPlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface, IdPlanedServicesStageInterface } from "./type"
 import { HardwareIdInterface, IdHardwareInterface } from "../hardware/type"
 
 export const getFactWorkTimeApi = (params: HardwareIdInterface) => {
@@ -29,6 +29,10 @@ export const completePlanedCommonServiceApi = (params: CompletePlanedCommonServi
 
 export const createPlanedServicesStageApi = (params: CreatePlanedServicesStageInterface) => {
     return reserchInstance.post(PlanedServicesStage.create, params)
+}
+
+export const getFileLinkCommonPlanedServicesStageApi = (params: IdPlanedServicesStageInterface) => {
+    return reserchInstance.get(PlanedServicesStage.fileLink, { params })
 }
 
 export const completeCommonPlanedServicesStageApi = (params: SimpleCompletePlanedServicesInstructionInterface) => {

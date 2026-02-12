@@ -62,7 +62,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
             <Link to={`/dispatcher/hardware-about/${model.id}/passport/`} className="font-bold text-xl text-gray-800 mb-4">{model.name || '—'}</Link>
 
             <div className="info-comp__image">
-              <img src={'https://triapi.ru/research/api/FileStorage/images/download?id=  ' + model.fileId} alt="Info" />
+              <img src={'https://triapi.ru/research/api/FileStorage/download?id=  ' + model.fileId} alt="Info" />
             </div>
 
             {getHardwareStatus({

@@ -26,6 +26,15 @@ class ServiceStagesFormModel {
     implementersCompaneId: number = 0
 
 
+    files: Array<{
+        id: number;
+        file: File;
+        type: 'photo' | 'document';
+        preview?: string;
+    }> = []
+
+
+
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true })
     }
@@ -48,10 +57,36 @@ class ServiceStagesFormModel {
     setStageType(value: string) {
         this.model.stageType = value
     }
-
     setRequiredCount(value: number) {
         this.model.requiredCount = value
     }
+
+    addFile(file: File, type: 'photo' | 'document') {
+        const id = Date.now() + Math.random();
+        const newFile = {
+            id,
+            file,
+            type,
+            preview: type === 'photo' ? URL.createObjectURL(file) : undefined
+        };
+        this.files.push(newFile);
+    }
+    removeFile(id: number) {
+        const fileToRemove = this.files.find(f => f.id === id);
+        if (fileToRemove && fileToRemove.preview) {
+            URL.revokeObjectURL(fileToRemove.preview);
+        }
+        this.files = this.files.filter(f => f.id !== id);
+    }
+    clearFiles() {
+        this.files.forEach(file => {
+            if (file.preview) {
+                URL.revokeObjectURL(file.preview);
+            }
+        });
+        this.files = [];
+    }
+
 
     clear() {
         this.model = {
@@ -61,6 +96,7 @@ class ServiceStagesFormModel {
             creatorId: 0,
             implementerId: 0
         }
+        this.clearFiles();
     }
 
     async init() {
@@ -84,7 +120,6 @@ class ServiceStagesFormModel {
             console.log(error)
         } finally {
             this.isLodaderHardwares = false
-
         }
     }
 
@@ -119,6 +154,7 @@ class ServiceStagesFormModel {
         objectId: number,
         hardwareId: number,
         type: string,
+        setIsOpenForm: (value: boolean) => void
     ) {
 
         if (data.discription === '' || data.stageType === '') {
@@ -130,8 +166,8 @@ class ServiceStagesFormModel {
             let createRes: any = null
 
             if (this.model.stageType == "Общий") {
-
                 if (type == "Тех. Обслуживание") {
+
                     createRes = await createPlanedServicesStageApi({
                         discription: this.model.discription,
                         stageType: this.model.stageType,
@@ -141,6 +177,33 @@ class ServiceStagesFormModel {
                         implementerId: this.model.implementerId,
                         implementersCompanyId: this.implementersCompaneId,
                     })
+
+
+                    const uploadPromises = this.files.map(async (fileItem) => {
+                        const formData = new FormData();
+                        formData.append("RequestStageId", serviceId.toString());
+                        formData.append("FileName", fileItem.file.name);
+                        formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
+                        formData.append("File", fileItem.file);
+
+                        try {
+                            const response = await fetch("https://triapi.ru/research/api/PlanedServices/commonService/file/upload", {
+                                method: "POST",
+                                body: formData
+                            });
+
+                            if (!response.ok) {
+                                console.error(`Ошибка загрузки файла: ${fileItem.file.name}`, await response.text());
+                            } else {
+                                const result = await response.json();
+                                console.log("Файл успешно загружен, ID:", result.id);
+                            }
+                        } catch (uploadError) {
+                            console.error("Ошибка при отправке файла:", fileItem.file.name, uploadError);
+                        }
+                    });
+
+                    await Promise.all(uploadPromises);
                 } else {
                     createRes = await createServiceStageRequests({
                         discription: this.model.discription,
@@ -151,6 +214,34 @@ class ServiceStagesFormModel {
                         implementerId: this.model.implementerId,
                         implementersCompanyId: this.implementersCompaneId
                     })
+
+
+                    const uploadPromises = this.files.map(async (fileItem) => {
+                        const formData = new FormData();
+                        formData.append("RequestStageId", serviceId.toString());
+                        formData.append("FileName", fileItem.file.name);
+                        formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
+                        formData.append("File", fileItem.file);
+
+                        try {
+                            const response = await fetch("https://triapi.ru/research/api/ServiceRequests/commonService/file/upload", {
+                                method: "POST",
+                                body: formData
+                            });
+
+                            if (!response.ok) {
+                                console.error(`Ошибка загрузки файла: ${fileItem.file.name}`, await response.text());
+                            } else {
+                                const result = await response.json();
+                                console.log("Файл успешно загружен, ID:", result.id);
+                            }
+                        } catch (uploadError) {
+                            console.error("Ошибка при отправке файла:", fileItem.file.name, uploadError);
+                        }
+                    });
+
+                    await Promise.all(uploadPromises);
+
                 }
 
                 toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
@@ -176,7 +267,7 @@ class ServiceStagesFormModel {
             } else {
                 toast.error("Ошибка при создании этапа", { progressStyle: { background: "red" } })
             }
-
+            setIsOpenForm(false)
             this.clear()
         } catch (error) {
             toast.error("Ошибка при создании этапа", { progressStyle: { background: "red" } })

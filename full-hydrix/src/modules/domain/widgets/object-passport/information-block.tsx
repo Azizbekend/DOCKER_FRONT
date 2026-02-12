@@ -26,7 +26,7 @@ export const InformationBlock = observer(({ objectData }: InformationBlockProps)
 
                 {objectData.objectDiscription}
                 {objectData.objectDiscriptionFileId != 0 &&
-                    <img className='w-[100%] mx-auto mt-5' src={`https://triapi.ru/research/api/FileStorage/images/download?id=${objectData.objectDiscriptionFileId}`} alt="" />
+                    <img className='w-[100%] mx-auto mt-5' src={`https://triapi.ru/research/api/FileStorage/download?id=${objectData.objectDiscriptionFileId}`} alt="" />
                 }
 
                 {!isExpanded && (

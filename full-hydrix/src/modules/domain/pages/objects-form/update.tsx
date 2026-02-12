@@ -98,7 +98,7 @@ export const ObjectsFormUpdate = observer(() => {
                         <img src={imgPreview} className="p-5 max-w-full max-h-full object-contain" />
                     ) : (
                         <>
-                            <img src={`https://triapi.ru/research/api/FileStorage/images/download?id=${model.fileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
+                            <img src={`https://triapi.ru/research/api/FileStorage/download?id=${model.fileId || ''}`} className="p-5 max-w-full max-h-full object-contain" />
                         </>
                     )}
                 </label>

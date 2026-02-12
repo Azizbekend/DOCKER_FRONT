@@ -246,6 +246,7 @@ export const PlanedServicesStage = {
   commonComplete: "/PlanedServices/commonService/stage/simple/complete",
   engineerComplete: "/PlanedServices/commonService/stage/mainEngineer/complete",
   engineerCancel: "/PlanedServices/commonService/stage/mainEngineer/Cancel",
+  fileLink: "/PlanedServices/commonService/fileLink",
 }
 
 export const PlanedServicesInstruction = {
@@ -281,7 +282,10 @@ export const Company = {
 export const User = {
   byOne: "/User/users/user/id",
   byName: "/User/users/user/name",
-  create: "/User/users/user/create",
-  authorise: "/User/users/user/authorise",
+  // create: "/User/users/user/create",
+  create: "/User/users/user/createHashed",
+  // authorise: "/User/users/user/authorise",
+  // /User/users/user/authoriseHash
+  authorise: "/User/users/user/authoriseHash",
   attachCompany: "/User/usets/user/attachCompany",
 }
