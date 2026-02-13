@@ -49,7 +49,8 @@ class HardwareModel {
     ids: (string | undefined)[] = []
     status: boolean = false;
 
-    evengLog: HardwareEventsDataType[] = [];
+    events: HardwareEventsDataType[] = [];
+    logs: HardwareEventsDataType[] = [];
 
 
     constructor() {
@@ -93,6 +94,9 @@ class HardwareModel {
         this.incidentList = [];
         this.commandInfoIds = []
         this.ids = []
+
+        this.events = []
+        this.logs = []
     }
 
     async init(id: number, dateData: StartEndDates) {
@@ -184,7 +188,8 @@ class HardwareModel {
             console.error('Ошибка загрузки logs:', error);
         }
 
-        this.evengLog = sortHardwareEventsLogs([...eventsData, ...logsData]);
+        this.events = sortHardwareEventsLogs(eventsData);
+        this.logs = sortHardwareEventsLogs(logsData);
 
         await getInfoHardware({ id: id })
             .then((res) => {

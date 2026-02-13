@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
-import { dateFilterBtns } from "@/packages/entities/hardware/data";
+import { PassportBlockContainer } from "../../../shared-components/hardware/passport-block-container";
+import { getColorBorder } from "@/packages/functions/get-data/get-color-border";
+import { logsModel } from "@/modules/domain/features/hardware/logs-model";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
+import { dateFilterBtns } from "@/packages/entities/hardware/data";
+import Loader from "@/packages/shared-ui/loader/loader";
 import { toast } from "react-toastify";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
-import { eventsModel } from "@/modules/domain/features/hardware/events-model";
-import Loader from "@/packages/shared-ui/loader/loader";
-
-export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) => {
 
 
-  const { eventsList, loader, init, getEvents } = eventsModel
+interface Props {
+  hardwareId: number;
+}
+
+export const HardwareLogs = observer(({ hardwareId }: Props) => {
+
+  const { logsList, loader, init, getLogs } = logsModel
 
   const [filterPeriod, setFilterPeriod] = useState<string>("day");
   const [startDate, setStartDate] = useState<string>('');
@@ -24,29 +29,28 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
     init(hardwareId, todayRange)
   }, [hardwareId])
 
-
   const onFilterSubmit = (type: string) => {
     setFilterPeriod(type)
 
     switch (type) {
       case 'day':
-        getEvents(todayRange)
+        getLogs(todayRange)
         break;
       case 'yesterday':
-        getEvents(yesterdayRange)
+        getLogs(yesterdayRange)
         break;
       case 'week':
-        getEvents(weekRange)
+        getLogs(weekRange)
         break;
       case 'month':
-        getEvents(monthRange)
+        getLogs(monthRange)
         break;
       case 'custom':
 
         if (startDate.length === 0 || endDate.length === 0) {
           toast.error('Выберите даты')
         } else {
-          getEvents({
+          getLogs({
             start: startDate,
             end: endDate
           })
@@ -100,9 +104,11 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
               </div>
             </div>
 
+            {/* Таблица */}
             <div className="space-y-3 max-h-[560px] overflow-y-auto pr-2">
-              {loader ? <Loader /> : eventsList.length > 0 ?
-                eventsList.map((event, key) => (<LogEventCard event={event} key={key} />)) :
+
+              {loader ? <Loader /> : logsList.length > 0 ?
+                logsList.map((log, key) => (<LogEventCard event={log} key={key} />)) :
                 <p className="text-center text-gray-500 mt-10">Нет данных</p>
               }
             </div>

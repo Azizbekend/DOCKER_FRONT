@@ -8,9 +8,6 @@ import { ConfirmModal } from '@/packages/shared-components/hardware-modal-confir
 import { ModalCommanActive } from '@/packages/shared-components/hardware-modal-confirms/modal-comman-active';
 import { observer } from "mobx-react-lite";
 import { HardwareControlleProps } from "@/packages/entities/hardware/type";
-import { logsModel } from "@/modules/domain/features/hardware/logs-model";
-import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
-import { getDate } from "@/packages/functions/get-data/get-date";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 
 export const HardwareControll = observer(({ commands, switchIsCommand, changeCommands, isLoaderCommand, isActiveCommand, evengLog }: HardwareControlleProps) => {

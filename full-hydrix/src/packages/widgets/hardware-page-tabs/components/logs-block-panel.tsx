@@ -6,13 +6,13 @@ import { toast } from "react-toastify";
 import { logsModel } from "@/modules/domain/features/hardware/logs-model";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { Button } from "@/packages/shared-ui/button/button";
-import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
+import { PassportBlockContainer } from "../../../shared-components/hardware/passport-block-container";
 import { Icon } from "@/packages/shared-ui/icon";
 
-export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { hardwareId: number, show: boolean, setShow: (value: boolean) => void }) => {
+export const HardwareLogsPanel = observer(({ hardwareId, show, setShow }: { hardwareId: number, show: boolean, setShow: (value: boolean) => void }) => {
 
 
-  const { evengLog, init, getEvents } = logsModel
+  const { logsList, init, getLogs } = logsModel
 
   const [filterPeriod, setFilterPeriod] = useState<string>("day");
   const [startDate, setStartDate] = useState<string>('');
@@ -45,16 +45,16 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
 
     switch (type) {
       case 'day':
-        getEvents(todayRange)
+        getLogs(todayRange)
         break;
       case 'yesterday':
-        getEvents(yesterdayRange)
+        getLogs(yesterdayRange)
         break;
       case 'week':
-        getEvents(weekRange)
+        getLogs(weekRange)
         break;
       case 'month':
-        getEvents(monthRange)
+        getLogs(monthRange)
         break;
     }
   }
@@ -63,7 +63,7 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
     if (startDate.length === 0 || endDate.length === 0) {
       toast.error('Выберите даты')
     } else {
-      getEvents({
+      getLogs({
         start: startDate,
         end: endDate
       })
@@ -75,7 +75,7 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
   }
 
   return (
-    <PassportBlockContainer title="Журнал событий" className="p-6 w-[550px] absolute top-0 right-0 h-full !shadow-lg"
+    <PassportBlockContainer title="Журнал логов" className="p-6 w-[550px] absolute top-0 right-0 h-full !shadow-lg"
       style={{ animation: 'fadeInInOpacity 0.2s ease forwards' }}>
       <div className="relative h-full max-h-full" ref={containerRef}>
 
@@ -126,7 +126,7 @@ export const HardwareEventsPanel = observer(({ hardwareId, show, setShow }: { ha
 
         <div className="space-y-3 overflow-y-auto pr-2"
           style={{ maxHeight: filterPeriod == "custom" ? "65%" : "75%" }}>
-          {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
+          {logsList && logsList.map((event, key) => (<LogEventCard event={event} key={key} />))}
         </div>
       </div>
     </PassportBlockContainer>

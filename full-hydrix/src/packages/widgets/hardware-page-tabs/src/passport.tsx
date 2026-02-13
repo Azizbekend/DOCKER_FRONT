@@ -1,19 +1,20 @@
 import { Icon } from "@/packages/shared-ui/icon";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { getValue } from "../../functions/get-data/get-hardware-functions";
+import { getValue } from "../../../functions/get-data/get-hardware-functions";
 import { HardwarePassportProps } from "@/packages/entities/hardware/type";
-import { getHardwareStatus } from "../../shared-components/hardware/hardware-status";
+import { getHardwareStatus } from "../../../shared-components/hardware/hardware-status";
 import accident from "@/app/static/img/accident.svg";
 import { Link } from "react-router-dom";
-import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
+import { PassportBlockContainer } from "../../../shared-components/hardware/passport-block-container";
 import { svodStatistics } from "@/packages/entities/hardware/data";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { Button } from "@/packages/shared-ui/button/button";
-import { HardwareEventsPanel } from "./events-panel";
 import { FileViewer } from "@/packages/shared-ui/file-viewer";
+import { HardwareLogsPanel } from "../components/logs-block-panel";
+import { HardwareEventsPanel } from "../components/events-block-panel";
 
-export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents, сharacteristic, commandsInfo, incidentList, status, evengLog = "none" }: HardwarePassportProps) => {
+export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents, сharacteristic, commandsInfo, incidentList, status, events, logs }: HardwarePassportProps) => {
 
     useEffect(() => {
         getInfoNodeInfoAll();
@@ -21,7 +22,8 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
         return () => clearInterval(interval);
     }, []);
 
-    const [show, setShow] = useState(false);
+    const [showLogs, setShowLogs] = useState(false);
+    const [showEvents, setShowEvents] = useState(false);
 
 
     const [openViewer, setOpenViewer] = useState<boolean>(false)
@@ -177,34 +179,52 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
                     }
                 />
 
-
-                {evengLog != "none" && (
-                    <PassportBlockContainer className="p-4"
-                        title={
-                            <div className="mb-5 flex justify-between items-center">
-                                <h3 className="font-bold text-gray-800">Журнал событий</h3>
-                                <div className="text-right">
-                                    <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShow(!show)}>
-                                        Показать все →
-                                    </Button>
-                                </div>
+                <PassportBlockContainer className="p-4"
+                    title={
+                        <div className="mb-5 flex justify-between items-center">
+                            <h3 className="font-bold text-gray-800">Журнал событий</h3>
+                            <div className="text-right">
+                                <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowEvents(!showEvents)}>
+                                    Показать все →
+                                </Button>
                             </div>
-                        }
-                        children={evengLog.length > 0 ?
-                            <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
-                                {evengLog && evengLog.map((event, key) => (<LogEventCard event={event} key={key} />))}
+                        </div>
+                    }
+                    children={events.length > 0 ?
+                        <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
+                            {events && events.map((event, key) => (<LogEventCard event={event} key={key} />))}
+                        </div>
+                        :
+                        <div className="text-center text-gray-500">
+                            Нет данных
+                        </div>
+                    }
+                />
+                <PassportBlockContainer className="p-4"
+                    title={
+                        <div className="mb-5 flex justify-between items-center">
+                            <h3 className="font-bold text-gray-800">Журнал логов</h3>
+                            <div className="text-right">
+                                <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowLogs(!showLogs)}>
+                                    Показать все →
+                                </Button>
                             </div>
-                            :
-                            <div className="text-center text-gray-500">
-                                Нет данных
-                            </div>
-                        }
-                    />
-                )}
+                        </div>
+                    }
+                    children={logs.length > 0 ?
+                        <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
+                            {logs && logs.map((event, key) => (<LogEventCard event={event} key={key} />))}
+                        </div>
+                        :
+                        <div className="text-center text-gray-500">
+                            Нет данных
+                        </div>
+                    }
+                />
 
-                {show && <HardwareEventsPanel hardwareId={model.id} show={show} setShow={setShow} />}
+                {showEvents && <HardwareEventsPanel hardwareId={model.id} show={showEvents} setShow={setShowEvents} />}
 
-                {show && <HardwareEventsPanel hardwareId={model.id} show={show} setShow={setShow} />}
+                {showLogs && <HardwareLogsPanel hardwareId={model.id} show={showLogs} setShow={setShowLogs} />}
 
             </div >
         </>

@@ -8,12 +8,11 @@ import { Button } from "@/packages/shared-ui/button/button";
 import { hardwareListModel } from "../hardware-list/model/hardware-list-model";
 import { ModalServiceCreate } from "../../../../packages/shared-components/hardware/modal-service-create";
 import { tabsList } from "@/modules/domain/features/hardware/data";
-import { HardwarePassport, HardwareService } from "@/packages/widgets/hardware-page-tabs";
+import { HardwareLogs, HardwarePassport, HardwareService } from "@/packages/widgets/hardware-page-tabs";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
-import { HardwareEvents } from "@/packages/widgets/hardware-page-tabs/events";
+import { HardwareEvents } from "@/packages/widgets/hardware-page-tabs/src/events";
 import { isAdmin } from "@/packages/entities/user/utils";
 import { ModalPlanedServicesForm } from "@/packages/widgets/hardware-page-tabs/components/modal-planed-services-form";
-import { HardwareLogs } from "@/packages/widgets/hardware-page-tabs/logs";
 
 export const HardwareAbout = observer(() => {
 

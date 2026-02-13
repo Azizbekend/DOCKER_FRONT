@@ -1,16 +1,16 @@
 import { Icon } from "@/packages/shared-ui/icon";
-import { InfoObject } from "../../shared-components/hardware/info-object";
+import { InfoObject } from "../../../shared-components/hardware/info-object";
 import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 import { Modal } from "@/packages/shared-ui/modal/modal";
 import { Button } from "@/packages/shared-ui/button/button";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { BlockContainer, BlockListContainer, BlockTitle } from "../../shared-components/hardware/tab-service-components";
-import { ServiceFilterBtn } from "../../shared-components/hardware/service-filter-btn";
-import { ServiceStatisticItem } from "../../shared-components/hardware/service-statistic-item";
+import { BlockContainer, BlockListContainer, BlockTitle } from "../../../shared-components/hardware/tab-service-components";
+import { ServiceFilterBtn } from "../../../shared-components/hardware/service-filter-btn";
+import { ServiceStatisticItem } from "../../../shared-components/hardware/service-statistic-item";
 import { HardwareServiceProps } from "@/packages/entities/hardware/type";
 import { getDate } from "@/packages/functions/get-data/get-date";
-import { ModalPlanedCommonServiceForm } from "./components/modal-planed-common-service-form";
+import { ModalPlanedCommonServiceForm } from "../components/modal-planed-common-service-form";
 
 export const HardwareService = observer(({ getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic, planedServicesList }: HardwareServiceProps) => {
 
