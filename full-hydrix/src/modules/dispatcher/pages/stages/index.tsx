@@ -19,10 +19,7 @@ export const Stages = observer(() => {
 
   return (
     <div className="informations-dispatch__requestregistry">
-
-      {/* Основной контент */}
       <div className="bg-white rounded-2xl p-7">
-        {/* Заголовок */}
         <div className="mb-8">
           <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Задачи</h1>
           <div className="w-24 h-0.5 bg-[#4A85F6] rounded-full mt-1"></div>

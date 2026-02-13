@@ -23,7 +23,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
           <div className="flex items-center gap-3 mb-2">
             {/* Номер заявки */}
             <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-lg">
-              №{request.id}
+              № {request.id}
             </span>
 
             {/* Заголовок */}

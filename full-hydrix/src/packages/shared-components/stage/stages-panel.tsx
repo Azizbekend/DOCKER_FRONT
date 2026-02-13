@@ -72,6 +72,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   }
 
   return showFilePanel ? <FileViewer fileId={showFileId} isOpen={showFilePanel} onClose={() => switchShowFile(0, false)} /> :
+
     <Modal wrapperId="stages" type="right" show={show} setShow={onClose} title="Этапы"
       classNames={{
         panel: "max-w-2xl w-full rounded-l-2xl h-full",

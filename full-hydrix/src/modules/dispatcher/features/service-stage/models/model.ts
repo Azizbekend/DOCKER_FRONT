@@ -43,7 +43,6 @@ class ServiceStagesModel {
             for (const item of serviceRes.data) {
                 const enrichedItem = await getCompanyUserRequest(item);
                 const dataRes = await getFileLinkCommonPlanedServicesStageApi({ commonServiceId: item.id })
-                console.log(dataRes.data)
                 results.push({
                     ...enrichedItem,
                     files: dataRes.data

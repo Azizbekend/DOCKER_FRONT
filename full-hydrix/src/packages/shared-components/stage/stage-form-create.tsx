@@ -10,6 +10,7 @@ import { Textarea } from '@/packages/shared-ui/textarea';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
 import { StageFileList } from './stage-file-list';
+import { StageFormFileInput } from './stage-form-file-input';
 
 
 
@@ -28,10 +29,9 @@ export const StageFormCreate = observer(({
 
     const { user } = useAuth()
 
-    const { model, init: formInit, setServiceId, setCreatorId,
-        setRequiredCount, clear, setImplementerId, setDiscription,
+    const { model, init: formInit, setRequiredCount, clear, setImplementerId, setDiscription,
         setStageType, create, companyList, getUserList, implementersCompaneId, userList,
-        files, addFile, removeFile, setFileName } = serviceStagesFormModel
+        files, addFile, removeFile } = serviceStagesFormModel
 
     useEffect(() => {
         formInit()
@@ -40,12 +40,6 @@ export const StageFormCreate = observer(({
     const onSubmit = () => {
         create(pushStage, serviceData.id, user!.id, user!.companyId, getObjectId(), serviceData.hardwareId, serviceData.type, setIsOpenForm)
     }
-
-    const fileInputs = [
-        { label: "Фотографии", type: "photo" as const, accept: "image/*", color: "blue" },
-        { label: "Документы", type: "document" as const, accept: ".pdf,.doc,.docx,.xls,.xlsx,.txt,.zip", color: "green" }
-    ];
-
 
     return (
         <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
@@ -118,26 +112,7 @@ export const StageFormCreate = observer(({
             </div>
 
             <div className="px-4 space-y-4 mb-4">
-                {fileInputs.map((input) => (
-                    <InputContainer key={input.label} headerText={input.label}>
-                        <label className="cursor-pointer">
-                            <div className={`w-full py-2 px-4 text-sm font-semibold text-${input.color}-700 bg-${input.color}-50 rounded-lg hover:bg-${input.color}-100 transition-colors`}>
-                                Загрузка {input.type == "photo" ? "фото" : "документов"}
-                            </div>
-                            <input
-                                type="file"
-                                accept={input.accept}
-                                multiple
-                                className="hidden"
-                                onChange={(e) =>
-                                    Array.from(e.target.files || []).forEach((file) => addFile(file, input.type))
-                                }
-                            />
-                        </label>
-                    </InputContainer>
-                ))}
-
-
+                <StageFormFileInput addFile={addFile} />
                 {files.length > 0 && <StageFileList files={files} onAction={removeFile} />}
             </div>
 

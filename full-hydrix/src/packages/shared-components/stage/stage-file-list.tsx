@@ -23,8 +23,8 @@ export const StageFileList = ({ files, onAction }: Props) => {
                         </div>
                         <button
                             type="button"
-                            onClick={() => onAction(fileItem.id)}
-                            className={`${fileItem.fileId ? "text-green-500 hover:text-green-700" : "text-red-500 hover:text-red-700"} text-xs font-semibold`}
+                            onClick={() => onAction(fileItem.fileId)}
+                            className={`${fileItem.fileId ? "text-gray-600 hover:text-black" : "text-red-500 hover:text-red-700"} text-xs font-semibold`}
                         >
                             {fileItem.fileId ? "Посмотреть" : "Удалить"}
                         </button>

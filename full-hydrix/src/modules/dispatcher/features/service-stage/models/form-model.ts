@@ -62,17 +62,21 @@ class ServiceStagesFormModel {
         this.model.requiredCount = value
     }
 
-    addFile(file: File, type: 'photo' | 'document') {
+    addFile(file: File, name: string) {
+        const isImage = file.type.startsWith('image/');
+        const type: 'photo' | 'document' = isImage ? 'photo' : 'document';
+
         const id = Date.now() + Math.random();
         const newFile = {
             id,
             file,
             type,
             preview: type === 'photo' ? URL.createObjectURL(file) : undefined,
-            fileName: ""
+            fileName: name
         };
         this.files.push(newFile);
     }
+
     removeFile(id: number) {
         const fileToRemove = this.files.find(f => f.id === id);
         if (fileToRemove && fileToRemove.preview) {
@@ -88,15 +92,6 @@ class ServiceStagesFormModel {
         });
         this.files = [];
     }
-
-    setFileName(id: number, fileName: string) {
-        const file = this.files.find(f => f.id === id);
-        if (file) {
-            file.fileName = fileName;
-        }
-    }
-
-
 
     clear() {
         this.model = {
@@ -191,7 +186,7 @@ class ServiceStagesFormModel {
                     const uploadPromises = this.files.map(async (fileItem) => {
                         const formData = new FormData();
                         formData.append("RequestStageId", createRes.data.id);
-                        formData.append("FileName", fileItem.file.name);
+                        formData.append("FileName", fileItem.fileName);
                         formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
                         formData.append("File", fileItem.file);
 
