@@ -32,7 +32,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const [isCancComplete, setIsCancComplete] = useState<boolean>(false)
 
   const statusStage = { New: "Новый", Completed: "Завершен", Canceled: "Отменен" }
-  const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-500", Canceled: "bg-red-500" }
+  const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-100", Canceled: "bg-red-500" }
   const userDD = getDostup()
 
   const { user } = useAuth()
@@ -76,7 +76,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
       <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-bold text-gray-800">Этап {number}</h3>
-          <div className={`px-2 py-1 rounded-lg text-white ${statusColorStage[[stage!.currentStatus]]}`}>
+          <div className={`px-2 py-1 rounded-lg text-green-800 rounded-xl p-5 ${statusColorStage[[stage!.currentStatus]]}`}>
             {statusStage[stage!.currentStatus]}
           </div>
         </div>
@@ -204,7 +204,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                       Отмена
                     </Button>
                   </>}
-              </>
+              </> 
               :
               <>
                 <Button onClick={onComplete} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">
