@@ -41,17 +41,21 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
           </div>
         </div>
 
+
         {/* Статусы */}
         <div className="flex-shrink-0 flex gap-3">
           {getStatusColor(request.status)}
           {getRequestTypeColor(request.type)}
         </div>
+
+        
       </div>
 
       {/* Основная информация */}
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div className="grid grid-cols-[1fr_2fr_40px] items-start min-w-[300px]">
+        <div className="grid grid-cols items-start min-w-[300px]">
           {/* Оборудование */}
+          
           <div className="space-y-2">
             {request.hardware && (
               <Link to={`/dispatcher/hardware-about/${request.hardware.id}/passport/`} onClick={(e) => e.stopPropagation()}>
@@ -63,10 +67,14 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                   <div className="text-xs text-gray-500 font-medium">Оборудование</div>
                 </div>
                 <div className="font-medium text-gray-800">{request.hardware.name}</div>
-
-
               </Link>
+
+              
             )}
+ {/* Результат */}
+      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
+
+            
           </div>
         </div>
 
@@ -84,12 +92,12 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
               <div>{getDate(request.closedAt)}</div>
             </div>
           )}
+
+          
         </div>
       </div>
 
-      {/* Причина отмены (только для отменённых заявок) */}
-      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
-
+     
       {/* Участники заявки */}
       <div className="pt-4 border-t border-gray-100 flex justify-between">
         <div className="flex flex-col gap-4">
