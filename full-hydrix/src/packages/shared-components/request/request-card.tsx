@@ -3,6 +3,7 @@ import { getDate } from '@/packages/functions/get-data/get-date';
 import { Button } from '@/packages/shared-ui/button/button';
 import { Link } from 'react-router-dom';
 import { RequestDescription } from './request-discription';
+import { isStageCancelled, isTOStageClose } from '@/packages/functions/is-value/is-stage-types';
 
 type RequestCardProps = {
   request: any;
@@ -13,7 +14,6 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
   // Определяем, является ли заявка завершённой
   const isCompleted = ['Done', 'Cancelled', 'Completed'].includes(request.status);
   // Проверяем, отменена ли заявка
-  const isCancelled = request.status === 'Cancelled';
 
   return (
     <div onClick={onClick} className="cursor-pointer border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors duration-200 hover:shadow-md">
@@ -88,8 +88,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
       </div>
 
       {/* Причина отмены (только для отменённых заявок) */}
-      {isCancelled && request.cancelDiscription && <RequestDescription description={request.cancelDiscription} title="Причина отмены" />}
-      {isCancelled && request.cancelDiscription && <RequestDescription description={request.cancelDiscription} title="Причина отмены" />}
+      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
 
       {/* Участники заявки */}
       <div className="pt-4 border-t border-gray-100 flex justify-between">

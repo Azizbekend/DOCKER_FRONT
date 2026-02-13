@@ -36,11 +36,6 @@ class ListRequestModel {
             const serviceRes = await getByObjectServiceRequests({ id });
             const results = [];
 
-
-            console.log(serviceRes)
-
-
-
             for (const item of serviceRes.data) {
                 try {
                     const requests: { key: string; promise: Promise<any> }[] = [];
@@ -108,6 +103,7 @@ class ListRequestModel {
             }
 
             this.model = results;
+            console.log(results)
         } catch (error) {
             console.error('Error in init:', error);
             this.model = [];
