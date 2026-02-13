@@ -38,3 +38,4 @@ export function isStageIncidentTypes(type: string) {
     }
 }
 
+// const isCancelled = request.status === 'Cancelled';

@@ -179,48 +179,54 @@ export const HardwarePassport = observer(({ getInfoNodeInfoAll, model, documents
                     }
                 />
 
-                <PassportBlockContainer className="p-4"
-                    title={
-                        <div className="mb-5 flex justify-between items-center">
-                            <h3 className="font-bold text-gray-800">Журнал событий</h3>
-                            <div className="text-right">
-                                <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowEvents(!showEvents)}>
-                                    Показать все →
-                                </Button>
+
+                {events &&
+                    <PassportBlockContainer className="p-4"
+                        title={
+                            <div className="mb-5 flex justify-between items-center">
+                                <h3 className="font-bold text-gray-800">Журнал событий</h3>
+                                <div className="text-right">
+                                    <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowEvents(!showEvents)}>
+                                        Показать все →
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-                    }
-                    children={events.length > 0 ?
-                        <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
-                            {events && events.map((event, key) => (<LogEventCard event={event} key={key} />))}
-                        </div>
-                        :
-                        <div className="text-center text-gray-500">
-                            Нет данных
-                        </div>
-                    }
-                />
-                <PassportBlockContainer className="p-4"
-                    title={
-                        <div className="mb-5 flex justify-between items-center">
-                            <h3 className="font-bold text-gray-800">Журнал логов</h3>
-                            <div className="text-right">
-                                <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowLogs(!showLogs)}>
-                                    Показать все →
-                                </Button>
+                        }
+                        children={events.length > 0 ?
+                            <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
+                                {events && events.map((event, key) => (<LogEventCard event={event} key={key} />))}
                             </div>
-                        </div>
-                    }
-                    children={logs.length > 0 ?
-                        <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
-                            {logs && logs.map((event, key) => (<LogEventCard event={event} key={key} />))}
-                        </div>
-                        :
-                        <div className="text-center text-gray-500">
-                            Нет данных
-                        </div>
-                    }
-                />
+                            :
+                            <div className="text-center text-gray-500">
+                                Нет данных
+                            </div>
+                        }
+                    />
+                }
+
+                {logs &&
+                    <PassportBlockContainer className="p-4"
+                        title={
+                            <div className="mb-5 flex justify-between items-center">
+                                <h3 className="font-bold text-gray-800">Журнал логов</h3>
+                                <div className="text-right">
+                                    <Button class="text-[#4A85F6] text-sm font-medium hover:underline" onClick={() => setShowLogs(!showLogs)}>
+                                        Показать все →
+                                    </Button>
+                                </div>
+                            </div>
+                        }
+                        children={logs.length > 0 ?
+                            <div className="space-y-2 mb-3 max-h-[400px] overflow-y-auto">
+                                {logs && logs.map((event, key) => (<LogEventCard event={event} key={key} />))}
+                            </div>
+                            :
+                            <div className="text-center text-gray-500">
+                                Нет данных
+                            </div>
+                        }
+                    />
+                }
 
                 {showEvents && <HardwareEventsPanel hardwareId={model.id} show={showEvents} setShow={setShowEvents} />}
 

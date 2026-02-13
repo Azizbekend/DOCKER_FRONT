@@ -21,7 +21,7 @@ export const Header = observer(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout } = useAuth();
-  
+
   // Состояние уведомлений
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications] = useState<Notification[]>([
@@ -50,7 +50,7 @@ export const Header = observer(() => {
       read: true
     }
   ]);
-  
+
   const notificationsRef = useRef<HTMLDivElement>(null);
 
   // Закрытие при клике вне области
@@ -120,7 +120,7 @@ export const Header = observer(() => {
 
         {/* Уведомления */}
         <div className="relative" ref={notificationsRef}>
-          <button 
+          <button
             className="relative p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
             title="Уведомления"
             onClick={() => setNotificationsOpen(!notificationsOpen)}
@@ -143,23 +143,21 @@ export const Header = observer(() => {
               <div className="max-h-80 overflow-y-auto">
                 {notifications.length > 0 ? (
                   notifications.slice(0, 5).map((notification) => (
-                    <div 
+                    <div
                       key={notification.id}
                       className={`p-4 border-l-4 ${getNotificationColor(notification.type)} hover:bg-gray-50 cursor-pointer transition-colors duration-150`}
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          notification.type === 'success' ? 'bg-green-100' :
-                          notification.type === 'warning' ? 'bg-yellow-100' :
-                          notification.type === 'error' ? 'bg-red-100' : 'bg-blue-100'
-                        }`}>
-                          <Icon 
-                            systemName={getNotificationIcon(notification.type)} 
-                            className={`w-4 h-4 ${
-                              notification.type === 'success' ? 'text-green-600' :
-                              notification.type === 'warning' ? 'text-yellow-600' :
-                              notification.type === 'error' ? 'text-red-600' : 'text-blue-600'
-                            }`} 
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${notification.type === 'success' ? 'bg-green-100' :
+                            notification.type === 'warning' ? 'bg-yellow-100' :
+                              notification.type === 'error' ? 'bg-red-100' : 'bg-blue-100'
+                          }`}>
+                          <Icon
+                            systemName={getNotificationIcon(notification.type)}
+                            className={`w-4 h-4 ${notification.type === 'success' ? 'text-green-600' :
+                                notification.type === 'warning' ? 'text-yellow-600' :
+                                  notification.type === 'error' ? 'text-red-600' : 'text-blue-600'
+                              }`}
                           />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -186,8 +184,8 @@ export const Header = observer(() => {
               {/* Кнопка "Показать все" */}
               {notifications.length > 0 && (
                 <div className="px-4 py-3 border-t border-gray-200">
-                  <Link 
-                    to="/notifications" 
+                  <Link
+                    to="/notifications"
                     className="w-full text-center text-[#4A85F6] font-medium text-sm hover:text-[#3a6bc9] transition-colors duration-200"
                     onClick={() => setNotificationsOpen(false)}
                   >
