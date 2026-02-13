@@ -6,11 +6,10 @@ import { Button } from "@/packages/shared-ui/button/button";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { BlockContainer, BlockListContainer, BlockTitle } from "../../../shared-components/hardware/tab-service-components";
-import { ServiceFilterBtn } from "../../../shared-components/hardware/service-filter-btn";
-import { ServiceStatisticItem } from "../../../shared-components/hardware/service-statistic-item";
 import { HardwareServiceProps } from "@/packages/entities/hardware/type";
 import { getDate } from "@/packages/functions/get-data/get-date";
 import { ModalPlanedCommonServiceForm } from "../components/modal-planed-common-service-form";
+import { ModalPlanedServicesList } from "../components/modal-planed-services-list";
 
 export const HardwareService = observer(({ getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic, planedServicesList }: HardwareServiceProps) => {
 
@@ -19,7 +18,6 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
   const [focusServiceId, setFocusServiceId] = useState<number>(0);
 
   const [btnCount, setBtnCount] = useState<string>("");
-  const [filterPeriod, setFilterPeriod] = useState<"day" | "week" | "month" | "year">("day");
 
   const handleServiceOpen = (id: number) => {
     setBtnCount(id.toString())
@@ -37,10 +35,29 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
   }
 
 
+  const [showPlanedList, setShowPlanedList] = useState<boolean>(false)
+  const [focusIdPlaned, setFocusIdPlaned] = useState<number>(0)
+
+  const switchPnaledList = (value: boolean, id: number) => {
+    setShowPlanedList(value)
+    setFocusIdPlaned(id)
+  }
+
+
   return (
     <div>
+      <ModalPlanedCommonServiceForm
+        serviceId={focusServiceId}
+        show={showServiceForm}
+        setShow={(value: boolean) => onSwitchPlanerCommonServiceForm(value, 0)}
+      />
 
-      <ModalPlanedCommonServiceForm serviceId={focusServiceId} show={showServiceForm} setShow={(value: boolean) => onSwitchPlanerCommonServiceForm(value, 0)} />
+      <ModalPlanedServicesList
+        show={showPlanedList}
+        idPlaned={focusIdPlaned}
+        setShow={() => switchPnaledList(false, 0)}
+      />
+
 
       <Modal title="Подтвердить значение"
         wrapperId="wardhare"
@@ -118,14 +135,23 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
                   children={
                     <div className='flex items-center gap-4 justify-between mb-2 pb-2 border-b border-gray-300'>
                       <span className={`${Number(item.time) <= 0 && "text-red-500"}`}>
-                        {item.title} до следующей замены {item.time} ч.
+                        {item.title} {Number(item.time) <= 0 ? "просрочено на" : "до следующей замены"}  {Math.abs(Number(item.time))} ч.
                       </span>
 
-                      <Button
-                        onClick={() => onSwitchPlanerCommonServiceForm(true, item.id)}
-                        styleColor="green"
-                        class="px-2 py-1 text-sm"
-                      >Создать заявку</Button>
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => {
+                            switchPnaledList(true, item.id)
+                          }}
+                          styleColor="blue"
+                          class="px-2 py-1 text-sm"
+                        >История заявок</Button>
+                        <Button
+                          onClick={() => onSwitchPlanerCommonServiceForm(true, item.id)}
+                          styleColor="green"
+                          class="px-2 py-1 text-sm"
+                        >Создать заявку</Button>
+                      </div>
                     </div>
                   }
                 />
@@ -137,10 +163,10 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
 
 
 
-         {/* Обслуживание на ближайшую неделю */}
+        {/* Обслуживание на ближайшую неделю */}
         <BlockContainer>
           <BlockTitle title="Обслуживание на ближайшую неделю" />
-          
+
           <BlockListContainer>
             {servicesWeek.length === 0 ? (
               <div className="border border-gray-200 rounded-lg p-4 text-center text-gray-500">
@@ -148,7 +174,7 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
               </div>
             ) : (
               servicesWeek.map((item, key) => (
-                <InfoObject 
+                <InfoObject
                   key={key}
                   className="w-full"
                   info={item.discription}

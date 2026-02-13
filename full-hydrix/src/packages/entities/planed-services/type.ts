@@ -1,6 +1,9 @@
 export interface IdPlanedServicesInterface {
     id: number
 }
+export interface IdPlanedServicesPlanInterface {
+    planId: number
+}
 
 export interface CreatePlanedServicesInterface {
     title: string,

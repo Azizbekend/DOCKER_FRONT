@@ -235,6 +235,7 @@ export const PlanedServices = {
   byHardware: "/PlanedServices/plannedService/hardware",
   create: "/PlanedServices/createPlanService",
   timeLeft: "/PlanedServices/plannedService/timeLeft",
+  commonServices: "/PlanedServices/commonServices",
 }
 
 export const PlanedCommonServices = {

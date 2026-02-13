@@ -1,6 +1,6 @@
 import { reserchInstance } from "@/app/api/instances"
 import { PlanedCommonServices, PlanedServices, PlanedServicesInstruction, PlanedServicesStage } from "@/app/routers/api-router"
-import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, EnginnerCompletePlanedServicesStageInterface, EnginnerCancelPlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface, IdPlanedServicesStageInterface } from "./type"
+import { AttachMainPlanedServiceInterface, CompletePlanedCommonServicesInterface, CreateAttachPlanedServicesInstructionInterface, CreatePlanedCommonServicesInterface, CreatePlanedServicesInstructionInterface, CreatePlanedServicesStageInterface, CreatePlanedServicesInterface, IdPlanedServicesInterface, EnginnerCompletePlanedServicesStageInterface, EnginnerCancelPlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface, IdPlanedServicesStageInterface, IdPlanedServicesPlanInterface } from "./type"
 import { HardwareIdInterface, IdHardwareInterface } from "../hardware/type"
 
 export const getFactWorkTimeApi = (params: HardwareIdInterface) => {
@@ -17,6 +17,10 @@ export const getPlanedServiceTimeLeftApi = (params: IdPlanedServicesInterface) =
 
 export const createPlanedServiceApi = (params: CreatePlanedServicesInterface) => {
     return reserchInstance.post(PlanedServices.create, params)
+}
+
+export const getPlanedServiceByPlanApi = (params: IdPlanedServicesPlanInterface) => {
+    return reserchInstance.get(PlanedServices.commonServices, { params })
 }
 
 export const createPlanedCommonServiceApi = (params: CreatePlanedCommonServicesInterface) => {
