@@ -31,7 +31,8 @@ export const StageFormFileInput = observer(({ addFile }: Props) => {
     };
 
     return (
-        <InputContainer key="Документы" headerText="Документы" classNames={{ children: "w-full flex-col !items-start" }}>
+        <InputContainer key="documents" headerText="Файлы" classNames={{ children: "w-full flex-col !items-start" }}>
+
             <div className="flex gap-3 items-center w-full">
                 <label className="cursor-pointer">
                     <div className="p-2 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors min-w-[35px] w-[35px] flex items-center justify-center">

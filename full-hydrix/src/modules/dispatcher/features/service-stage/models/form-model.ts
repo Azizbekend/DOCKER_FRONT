@@ -168,6 +168,7 @@ class ServiceStagesFormModel {
 
         try {
             let createRes: any = null
+            let filesRes: any = []
 
             if (this.model.stageType == "Общий") {
                 if (type == "Тех. Обслуживание") {
@@ -200,6 +201,7 @@ class ServiceStagesFormModel {
                                 console.error(`Ошибка загрузки файла: ${fileItem.file.name}`, await response.text());
                             } else {
                                 const result = await response.json();
+                                filesRes.push({ ...result })
                                 console.log("Файл успешно загружен, ID:", result.id);
                             }
                         } catch (uploadError) {
@@ -237,6 +239,7 @@ class ServiceStagesFormModel {
                                 console.error(`Ошибка загрузки файла: ${fileItem.file.name}`, await response.text());
                             } else {
                                 const result = await response.json();
+                                filesRes.push({ ...result })
                                 console.log("Файл успешно загружен, ID:", result.id);
                             }
                         } catch (uploadError) {
@@ -248,7 +251,13 @@ class ServiceStagesFormModel {
                 }
 
                 toast.success("Этап успешно создан", { progressStyle: { background: "green" } })
-                pushStage(createRes.data)
+
+                const resData = {
+                    ...createRes.data,
+                    files: filesRes,
+                }
+
+                pushStage(resData)
 
             } else if (this.model.stageType == "Поставочная") {
 

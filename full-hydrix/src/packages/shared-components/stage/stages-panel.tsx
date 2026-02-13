@@ -66,6 +66,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const [showFilePanel, setShowFilePanel] = useState<boolean>(false);
   const [showFileId, setShowFileId] = useState<number>(0);
   const [showFileType, setShowFileType] = useState<"image" | "object">("object");
+  
   const switchShowFile = (id: number, value: boolean, type: string) => {
     console.log(type)
     setShowFileId(id);

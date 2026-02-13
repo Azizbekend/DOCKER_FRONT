@@ -58,7 +58,8 @@ export interface IdPlanedServicesStageInterface {
 
 export interface SimpleCompletePlanedServicesInstructionInterface {
     stageId: number,
-    discription: string
+    discription: string,
+    files?: any
 }
 
 export interface CreatePlanedServicesInstructionInterface {

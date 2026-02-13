@@ -82,11 +82,11 @@ export const StageTaskSupplyCard = observer(({ setTypeAction, stage, supplyReque
                 </div>
               </div>
 
-              {stage.creatorsCompany &&
+              {stage.creatorsCompany?.length > 0 &&
                 <div className="flex items-center gap-3 min-w-0 text-xs">
                   <div className="min-w-0">
                     <div className="text-gray-500 uppercase tracking-wide">Компания</div>
-                    <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                    <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.shortName}</div>
                   </div>
                 </div>
               }
@@ -110,7 +110,7 @@ export const StageTaskSupplyCard = observer(({ setTypeAction, stage, supplyReque
                 <div className="flex items-center gap-3 min-w-0 text-xs">
                   <div className="min-w-0">
                     <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
-                    <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                    <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.shortName}</div>
                   </div>
                 </div>
               }

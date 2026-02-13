@@ -113,7 +113,7 @@ export const StageFormCreate = observer(({
 
             <div className="px-4 space-y-4 mb-4">
                 <StageFormFileInput addFile={addFile} />
-                {files.length > 0 && <StageFileList files={files} onAction={removeFile} />}
+                {files.length > 0 && <StageFileList files={files} onAction={removeFile} isForm />}
             </div>
 
 

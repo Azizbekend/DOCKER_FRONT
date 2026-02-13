@@ -229,6 +229,7 @@ class ServiceStagesModel {
 
     async pushStage(data: ServiceStageType) {
         const enrichedItem = await getCompanyUserRequest(data);
+
         this.model.push(enrichedItem)
     }
 }

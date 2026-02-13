@@ -89,11 +89,11 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
               </div>
             </div>
 
-            {stage.creatorsCompany &&
+            {stage.creatorsCompany?.length > 0 &&
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.shortName}</div>
                 </div>
               </div>
             }
@@ -117,7 +117,7 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.shortName}</div>
                 </div>
               </div>
             }
@@ -201,8 +201,6 @@ export const StageSupplyCard = observer(({ stage, footerBlock, number, setTypeAc
 
             {isCompanyUsers(typeAction) &&
               <div className="border-t border-gray-400 mt-6 pt-8 space-y-4 ">
-
-
 
                 <InputContainer headerText="Выберете компанию">
                   <Selector

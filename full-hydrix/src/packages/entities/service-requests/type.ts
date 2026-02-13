@@ -64,6 +64,7 @@ export type CompleteCancelType = {
 export type CompleteCommonStageType = {
     stageId: number,
     discription: string
+    files?: any
 }
 export type CompleteEngineerStageType = {
     stageId: number,

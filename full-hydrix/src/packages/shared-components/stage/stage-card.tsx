@@ -107,11 +107,11 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
               </div>
             </div>
 
-            {stage.creatorsCompany &&
+            {stage.creatorsCompany?.length > 0 &&
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.shortName}</div>
                 </div>
               </div>
             }
@@ -135,7 +135,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.shortName}</div>
                 </div>
               </div>
             }
@@ -153,7 +153,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
             </div>
           )}
 
-          {stage.files.length > 0 && <StageFileList files={stage.files} onAction={(id, type) => switchShowFile(id, true, type)} type />}
+          {stage.files.length > 0 && <StageFileList files={stage.files} onAction={(id, type) => switchShowFile(id, true, type)} />}
         </div>
 
         {stage.currentStatus === "New" && isCanc && (

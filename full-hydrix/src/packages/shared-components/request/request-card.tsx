@@ -119,7 +119,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                 <div className="flex items-center gap-3">
                   <div className="">
                     <div className="text-xs text-gray-500 uppercase">Компания</div>
-                    <div className="font-medium text-gray-800 truncate">{request.creatorsCompany.companyName}</div>
+                    <div className="font-medium text-gray-800 truncate">{request.creatorsCompany.shortName}</div>
                   </div>
                 </div>
               )}
@@ -142,7 +142,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="min-w-0">
                     <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
-                    <div className="font-medium text-gray-800 truncate">{request.implementersCompany.companyName}</div>
+                    <div className="font-medium text-gray-800 truncate">{request.implementersCompany.shortName}</div>
                   </div>
                 </div>
               )}

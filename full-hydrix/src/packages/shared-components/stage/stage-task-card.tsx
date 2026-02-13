@@ -1,35 +1,78 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CompleteCommonStageType, ServiceStageType } from "../../entities/service-requests/type";
 import { getDate } from "../../functions/get-data/get-date";
 import { Button } from "../../shared-ui/button/button";
 import { InputContainer } from "../../shared-ui/Inputs/input-container";
 import { Textarea } from "../../shared-ui/textarea";
-import { useAuth } from "../../entities/user/context";
-import { Role } from "../../entities/user/enums";
+import { StageFileList } from "./stage-file-list";
+import { StageFormFileInput } from "./stage-form-file-input";
 
 
 
 interface StageCardProps {
   stage: ServiceStageType,
-  completeCommon: (data: CompleteCommonStageType) => void
+  completeCommon: (data: CompleteCommonStageType, files: any) => void
+  switchShowFile: (id: number, value: boolean, showFileType: string) => void
 }
 
 
-export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
+export const StageTaskCard = ({ stage, completeCommon, switchShowFile }: StageCardProps) => {
 
-  const { user } = useAuth()
+
+  const [files, setFiles] = useState<Array<{
+    id: number;
+    file: File;
+    type: 'photo' | 'document';
+    preview?: string;
+    fileName: string;
+  }>>([])
+
+  const addFile = (file: File, name: string) => {
+    const isImage = file.type.startsWith('image/');
+    const type: 'photo' | 'document' = isImage ? 'photo' : 'document';
+
+    const id = Date.now() + Math.random();
+    const newFile = {
+      id,
+      file,
+      type,
+      preview: type === 'photo' ? URL.createObjectURL(file) : undefined,
+      fileName: name
+    };
+    setFiles([...files, newFile]);
+  }
+  const removeFile = (id: number) => {
+    const fileToRemove = files.find(f => f.id === id);
+    if (fileToRemove && fileToRemove.preview) {
+      URL.revokeObjectURL(fileToRemove.preview);
+    }
+    setFiles(files.filter(f => f.id !== id));
+  }
+  const clearFiles = () => {
+    files.forEach(file => {
+      if (file.preview) {
+        URL.revokeObjectURL(file.preview);
+      }
+    });
+    setFiles([]);
+  }
+
+  useEffect(() => {
+    clearFiles()
+  }, [])
+
   const [isСonfirm, setConfirm] = useState<boolean>(false)
-
   const [descr, setDescr] = useState<string>("")
+
   const statusStage = { New: "Новый", Completed: "Завершен", Canceled: "Отменен" }
   const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-500", Canceled: "bg-red-500" }
 
   const onComplete = () => {
-    completeCommon({ stageId: Number(stage.id), discription: descr })
+    completeCommon({ stageId: Number(stage.id), discription: descr, files: files })
   }
 
   return (
-    <div className="mb-4 bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
       <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <p className="text-gray-800 font-medium">{getDate(stage.createdAt)}</p>
@@ -40,10 +83,7 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
         </div>
       </div>
 
-
-
       <div className="p-4">
-
         {stage.discription &&
           <div className="mb-6 border-b-[1.5px] pb-4 border-gray-300">
             {stage.discription}
@@ -64,11 +104,11 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
               </div>
             </div>
 
-            {stage.creatorsCompany &&
+            {stage.creatorsCompany?.length > 0 &&
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.creatorsCompany.shortName}</div>
                 </div>
               </div>
             }
@@ -92,22 +132,44 @@ export const StageTaskCard = ({ stage, completeCommon }: StageCardProps) => {
               <div className="flex items-center gap-3 min-w-0 text-xs">
                 <div className="min-w-0">
                   <div className="text-xs text-gray-500 uppercase tracking-wide">Компания</div>
-                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.companyName}</div>
+                  <div className="font-medium text-gray-800 truncate">{stage.implementersCompany.shortName}</div>
                 </div>
               </div>
             }
           </div>
+
+          <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
+            <p className="mb-1 text-gray-600">{(stage.stageType == "Общий" || stage.stageType == "Тех. Обслуживание") ? "Описание:" : "Требования к поставке"}</p>
+            {stage.discription}
+          </div>
+
+          {(stage.cancelDiscription !== "None") && (
+            <div className="mt-4 p-3 bg-red-50 rounded-lg border border-red-100">
+              <div className="text-xs text-red-700 uppercase tracking-wide mb-1">Причина отмены</div>
+              <p className="text-red-800 text-sm">{stage.cancelDiscription}</p>
+            </div>
+          )}
+
+          {stage.files && stage.files.length > 0 && <StageFileList files={stage.files} onAction={(id, type) => switchShowFile(id, true, type)} />}
+
         </div>
 
         {stage.currentStatus === "New" && isСonfirm &&
-          <InputContainer headerText="Введите что было выполнено" classNames={{ wrapper: "mt-5" }}>
-            <Textarea
-              placeholder="Введите что было выполнено..."
-              value={descr}
-              onChange={setDescr}
-              className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none mb-6"
-            />
-          </InputContainer>
+          <>
+            <InputContainer headerText="Введите что было выполнено" classNames={{ wrapper: "mt-5" }}>
+              <Textarea
+                placeholder="Введите что было выполнено..."
+                value={descr}
+                onChange={setDescr}
+                className="w-full h-24 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#4A85F6] focus:border-transparent resize-none mb-6"
+              />
+            </InputContainer>
+
+            <div className="px-4 space-y-4 mb-4">
+              <StageFormFileInput addFile={addFile} />
+              {files.length > 0 && <StageFileList files={files} onAction={removeFile} isForm />}
+            </div>
+          </>
         }
 
         {stage.currentStatus == "New" && (isСonfirm ?
