@@ -9,6 +9,9 @@ export const getTimeRanges = () => {
         end: now
     };
 
+    console.log(todayRange)
+
+
     // 2. Вчера: с 00:00 до 23:59:59:999
     const yesterdayStart = new Date(now);
     yesterdayStart.setDate(now.getDate() - 1);

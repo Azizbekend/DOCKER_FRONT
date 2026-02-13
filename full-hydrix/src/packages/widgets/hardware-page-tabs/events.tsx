@@ -4,13 +4,14 @@ import { PassportBlockContainer } from "../../shared-components/hardware/passpor
 import { dateFilterBtns } from "@/packages/entities/hardware/data";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { toast } from "react-toastify";
-import { logsModel } from "@/modules/domain/features/hardware/logs-model";
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
+import { eventsModel } from "@/modules/domain/features/hardware/events-model";
+import Loader from "@/packages/shared-ui/loader/loader";
 
 export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) => {
 
 
-  const { evengLog, loader, init, getEvents } = logsModel
+  const { eventsList, loader, init, getEvents } = eventsModel
 
   const [filterPeriod, setFilterPeriod] = useState<string>("day");
   const [startDate, setStartDate] = useState<string>('');
@@ -100,8 +101,8 @@ export const HardwareEvents = observer(({ hardwareId }: { hardwareId: number }) 
             </div>
 
             <div className="space-y-3 max-h-[560px] overflow-y-auto pr-2">
-              {evengLog && evengLog.length > 0 ?
-                evengLog.map((event, key) => (<LogEventCard event={event} key={key} />)) :
+              {loader ? <Loader /> : eventsList.length > 0 ?
+                eventsList.map((event, key) => (<LogEventCard event={event} key={key} />)) :
                 <p className="text-center text-gray-500 mt-10">Нет данных</p>
               }
             </div>

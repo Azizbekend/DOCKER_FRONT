@@ -1,39 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportBlockContainer } from "../../shared-components/hardware/passport-block-container";
-import { eventLogData } from "@/packages/entities/hardware/data";
 import { getColorBorder } from "@/packages/functions/get-data/get-color-border";
+import { logsModel } from "@/modules/domain/features/hardware/logs-model";
+import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
+import { dateFilterBtns } from "@/packages/entities/hardware/data";
+import Loader from "@/packages/shared-ui/loader/loader";
+import { toast } from "react-toastify";
+import { LogEventCard } from "@/packages/shared-components/log-event-card";
 
 
-export const HardwareLogs = observer(() => {
+interface Props {
+  hardwareId: number;
+}
 
-  const [filterPeriod, setFilterPeriod] = useState<'day' | 'week' | 'month' | 'custom'>('day');
+export const HardwareLogs = observer(({ hardwareId }: Props) => {
+
+  const { logsList, loader, init, getLogs } = logsModel
+
+  const [filterPeriod, setFilterPeriod] = useState<string>("day");
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
 
+  const { todayRange, yesterdayRange, weekRange, monthRange } = getTimeRanges()
 
-  const filteredEventLog = eventLogData.filter(entry => {
-    const entryDate = new Date(entry.timestamp);
-    const now = new Date();
 
-    if (filterPeriod === 'day') {
-      return entryDate.toDateString() === now.toDateString();
+  useEffect(() => {
+    init(hardwareId, todayRange)
+  }, [hardwareId])
+
+  const onFilterSubmit = (type: string) => {
+    setFilterPeriod(type)
+
+    switch (type) {
+      case 'day':
+        getLogs(todayRange)
+        break;
+      case 'yesterday':
+        getLogs(yesterdayRange)
+        break;
+      case 'week':
+        getLogs(weekRange)
+        break;
+      case 'month':
+        getLogs(monthRange)
+        break;
+      case 'custom':
+
+        if (startDate.length === 0 || endDate.length === 0) {
+          toast.error('Выберите даты')
+        } else {
+          getLogs({
+            start: startDate,
+            end: endDate
+          })
+        }
+
+        break;
     }
-    if (filterPeriod === 'week') {
-      const startOfWeek = new Date(now);
-      startOfWeek.setDate(now.getDate() - now.getDay());
-      return entryDate >= startOfWeek && entryDate <= now;
-    }
-    if (filterPeriod === 'month') {
-      return entryDate.getMonth() === now.getMonth() && entryDate.getFullYear() === now.getFullYear();
-    }
-    if (filterPeriod === 'custom' && startDate && endDate) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      return entryDate >= start && entryDate <= end;
-    }
-    return true;
-  });
+  }
 
   return (
     <div>
@@ -44,32 +69,26 @@ export const HardwareLogs = observer(() => {
             {/* Фильтры */}
             <div className="flex flex-col sm:flex-row gap-3 mb-4">
               <div className="flex gap-2">
-                <button
-                  onClick={() => setFilterPeriod('day')}
-                  className={`px-3 py-1 rounded-md text-sm ${filterPeriod === 'day' ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
-                >
-                  День
-                </button>
-                <button
-                  onClick={() => setFilterPeriod('week')}
-                  className={`px-3 py-1 rounded-md text-sm ${filterPeriod === 'week' ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
-                >
-                  Неделя
-                </button>
-                <button
-                  onClick={() => setFilterPeriod('month')}
-                  className={`px-3 py-1 rounded-md text-sm ${filterPeriod === 'month' ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
-                >
-                  Месяц
-                </button>
+                {dateFilterBtns.map((btn) => btn.value !== "custom" && (
+                  <button
+                    onClick={() => onFilterSubmit(btn.value)}
+                    className={`px-3 py-1 rounded-md text-sm ${filterPeriod === btn.value ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
+                  >
+                    {btn.label}
+                  </button>
+                ))}
+
               </div>
-              <div className="flex gap-2">
+
+              <div className="flex items-center ml-3 gap-2">
+                <span>с:</span>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   className="border border-gray-300 rounded-md px-2 py-1 text-sm"
                 />
+                <span>до:</span>
                 <input
                   type="date"
                   value={endDate}
@@ -77,7 +96,7 @@ export const HardwareLogs = observer(() => {
                   className="border border-gray-300 rounded-md px-2 py-1 text-sm"
                 />
                 <button
-                  onClick={() => setFilterPeriod('custom')}
+                  onClick={() => onFilterSubmit('custom')}
                   className={`px-3 py-1 rounded-md text-sm ${filterPeriod === 'custom' ? 'bg-[#4A85F6] text-white' : 'bg-gray-200 text-gray-700'}`}
                 >
                   Применить
@@ -87,23 +106,11 @@ export const HardwareLogs = observer(() => {
 
             {/* Таблица */}
             <div className="space-y-3 max-h-[560px] overflow-y-auto pr-2">
-              {filteredEventLog.map((event, idx) => (
-                <div
-                  key={idx}
-                  className="border bg-white p-3 rounded-lg border-l-4 transition-colors duration-200 hover:bg-gray-50"
 
-                >
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="text-xs text-gray-500 font-mono">{event.timestamp}</span>
-
-                  </div>
-                  <p className={`text-sm mt-1 ${getColorBorder(event.indicates)} ${getColorBorder(event.discription)}`}>
-                    {event.discription}
-                    {event.indicates == "1" && "Запуск оборудования"}
-                    {event.indicates == "0" && "Остановка оборудования"}
-                  </p>
-                </div>
-              ))}
+              {loader ? <Loader /> : logsList.length > 0 ?
+                logsList.map((log, key) => (<LogEventCard event={log} key={key} />)) :
+                <p className="text-center text-gray-500 mt-10">Нет данных</p>
+              }
             </div>
           </>
         }

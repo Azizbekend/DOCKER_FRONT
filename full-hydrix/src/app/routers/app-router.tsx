@@ -237,35 +237,6 @@ export const AppRouter = createBrowserRouter([
                                                 Component: HardwareInformation
                                             }
                                         },
-                                        children: [
-                                            {
-                                                index: true,
-                                                async lazy() {
-                                                    const { HardwareInformationPassport } = await import("@/modules/domain/pages/passport/pages/hardware/hardware-passport")
-                                                    return {
-                                                        Component: HardwareInformationPassport
-                                                    }
-                                                },
-                                            },
-                                            {
-                                                path: "logs",
-                                                async lazy() {
-                                                    const { HardwareInformationLogs } = await import("@/modules/domain/pages/passport/pages/hardware/hardware-logs")
-                                                    return {
-                                                        Component: HardwareInformationLogs
-                                                    }
-                                                },
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        path: "form",
-                                        async lazy() {
-                                            const { HardwareForm } = await import("@/modules/domain/pages/passport/pages/hardware-form")
-                                            return {
-                                                Component: HardwareForm
-                                            }
-                                        },
                                     },
                                 ]
                             },

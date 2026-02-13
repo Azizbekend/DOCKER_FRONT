@@ -48,8 +48,8 @@ export const tabsList: { to: string, name: string }[] = [
         to: "events",
         name: "События"
     },
-    // {
-    //     to: "logs",
-    //     name: "Логи"
-    // },
+    {
+        to: "logs",
+        name: "Логи"
+    },
 ]

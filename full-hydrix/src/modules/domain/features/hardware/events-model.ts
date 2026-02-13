@@ -1,13 +1,12 @@
-import { hardwaresLogs } from "@/packages/entities/hardware/api";
+import { hardwaresEvents } from "@/packages/entities/hardware/api";
 import { HardwareEventsDataType, StartEndDates } from "@/packages/entities/hardware/type";
 import { sortHardwareEventsLogs } from "@/packages/functions/sort-data/sort-hardware-events-logs";
 import { makeAutoObservable } from "mobx";
 
-class LogsModel {
-    logsList: HardwareEventsDataType[] = [];
-    loader: boolean = false;
+class EventsModel {
+    eventsList: HardwareEventsDataType[] = [];
+    loader: boolean = true;
     hardwareId: number = 0;
-
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -15,12 +14,13 @@ class LogsModel {
 
     init(hardwareId: number, dateData: StartEndDates) {
         this.hardwareId = hardwareId;
-        this.logsList = [];
-        this.getLogs(dateData)
+        this.eventsList = []
+        this.getEvents(dateData)
     }
 
-    async getLogs({ start, end }: StartEndDates) {
+    async getEvents({ start, end }: StartEndDates) {
         this.loader = true;
+
         const startDate = start instanceof Date ? start : new Date(start);
         const endDate = end instanceof Date ? end : new Date(end);
 
@@ -30,20 +30,19 @@ class LogsModel {
         }
 
         try {
-            const hardwaresLogsRes = await hardwaresLogs({
+            const hardwaresEventsRes = await hardwaresEvents({
                 hadrwareId: this.hardwareId,
                 start: startDate,
                 end: endDate,
             });
+            this.eventsList = sortHardwareEventsLogs(hardwaresEventsRes.data);
 
-            this.logsList = sortHardwareEventsLogs(hardwaresLogsRes.data);
         } catch (error) {
-            console.error('Ошибка загрузки logs:', error);
+            console.error('Ошибка загрузки событий:', error);
         } finally {
             this.loader = false;
         }
-
     }
 }
 
-export const logsModel = new LogsModel();
+export const eventsModel = new EventsModel();

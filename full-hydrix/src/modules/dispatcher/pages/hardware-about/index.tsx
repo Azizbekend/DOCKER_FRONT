@@ -13,6 +13,7 @@ import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { HardwareEvents } from "@/packages/widgets/hardware-page-tabs/events";
 import { isAdmin } from "@/packages/entities/user/utils";
 import { ModalPlanedServicesForm } from "@/packages/widgets/hardware-page-tabs/components/modal-planed-services-form";
+import { HardwareLogs } from "@/packages/widgets/hardware-page-tabs/logs";
 
 export const HardwareAbout = observer(() => {
 
@@ -142,7 +143,7 @@ export const HardwareAbout = observer(() => {
 
                 {tab == "events" && <HardwareEvents hardwareId={model.id} />}
 
-                {/* {tab == "logs" && <HardwareLogs />} */}
+                {tab == "logs" && <HardwareLogs hardwareId={model.id} />}
 
             </div>
         </div>
