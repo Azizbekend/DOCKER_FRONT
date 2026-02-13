@@ -65,13 +65,15 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
 
   const [showFilePanel, setShowFilePanel] = useState<boolean>(false);
   const [showFileId, setShowFileId] = useState<number>(0);
-
-  const switchShowFile = (id: number, value: boolean) => {
+  const [showFileType, setShowFileType] = useState<"image" | "object">("object");
+  const switchShowFile = (id: number, value: boolean, type: string) => {
+    console.log(type)
     setShowFileId(id);
     setShowFilePanel(value);
+    setShowFileType(type == "Photo" ? "image" : "object")
   }
 
-  return showFilePanel ? <FileViewer fileId={showFileId} isOpen={showFilePanel} onClose={() => switchShowFile(0, false)} /> :
+  return showFilePanel ? <FileViewer fileId={showFileId} isOpen={showFilePanel} onClose={() => switchShowFile(0, false, "object")} type={showFileType} /> :
 
     <Modal wrapperId="stages" type="right" show={show} setShow={onClose} title="Этапы"
       classNames={{

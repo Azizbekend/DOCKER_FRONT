@@ -209,6 +209,7 @@ class ServiceStagesFormModel {
 
                     await Promise.all(uploadPromises);
                 } else {
+
                     createRes = await createServiceStageRequests({
                         discription: this.model.discription,
                         stageType: this.model.stageType,
@@ -218,7 +219,6 @@ class ServiceStagesFormModel {
                         implementerId: this.model.implementerId,
                         implementersCompanyId: this.implementersCompaneId
                     })
-
 
                     const uploadPromises = this.files.map(async (fileItem) => {
                         const formData = new FormData();
@@ -245,7 +245,6 @@ class ServiceStagesFormModel {
                     });
 
                     await Promise.all(uploadPromises);
-
                 }
 
                 toast.success("Этап успешно создан", { progressStyle: { background: "green" } })

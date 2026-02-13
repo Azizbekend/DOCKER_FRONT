@@ -5,7 +5,7 @@ interface FileViewerProps {
     fileId: number;
     isOpen: boolean;
     onClose: () => void;
-    type?: "object" | "hardware";
+    type?: "object" | "hardware" | "image";
 }
 
 export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileViewerProps) => {
@@ -14,6 +14,9 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
+
+        console.log(type)
+
         if (isOpen && fileId) {
             loadFile();
         }
@@ -26,6 +29,9 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
         let getDownloadUrl: string = "";
 
         switch (type) {
+            case "image":
+                getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
+
             case "object":
                 getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
                 break;
@@ -38,6 +44,8 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
             console.log("type = null");
             return
         }
+
+
 
 
         try {
@@ -66,6 +74,19 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
     }, [fileData]);
 
     const renderContent = () => {
+
+        if (type == "image") {
+            if (fileData) {
+                return (
+                    <img
+                        src={`https://triapi.ru/research/api/FileStorage/download?id=${fileId}`}
+                        alt="Изображение"
+                        className="w-full"
+                    />
+                );
+            }
+        }
+
         if (loading) {
             return (
                 <div className="flex items-center justify-center h-64">

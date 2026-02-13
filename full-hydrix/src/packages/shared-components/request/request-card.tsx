@@ -48,17 +48,17 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
           {getRequestTypeColor(request.type)}
         </div>
 
-        
+
       </div>
 
       {/* Основная информация */}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="grid grid-cols items-start min-w-[300px]">
           {/* Оборудование */}
-          
+
           <div className="space-y-2">
             {request.hardware && (
-              <Link to={`/dispatcher/hardware-about/${request.hardware.id}/passport/`} onClick={(e) => e.stopPropagation()}>
+              <Link to={`/dispatcher/hardware-about/${request.hardware.id}/passport/`} onClick={(e) => e.stopPropagation()} className='block w-fit'>
                 <div className="flex items-center gap-1 mb-1">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -69,12 +69,12 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                 <div className="font-medium text-gray-800">{request.hardware.name}</div>
               </Link>
 
-              
-            )}
- {/* Результат */}
-      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
 
-            
+            )}
+            {/* Результат */}
+            {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
+
+
           </div>
         </div>
 
@@ -93,11 +93,11 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
             </div>
           )}
 
-          
+
         </div>
       </div>
 
-     
+
       {/* Участники заявки */}
       <div className="pt-4 border-t border-gray-100 flex justify-between">
         <div className="flex flex-col gap-4">
