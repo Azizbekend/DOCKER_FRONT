@@ -34,7 +34,7 @@ export const Stages = observer(() => {
 
       {showFilePanel && <FileViewer fileId={showFileId} isOpen={showFilePanel} onClose={() => switchShowFile(0, false, "object")} type={showFileType} />}
 
-
+    
       <div className="bg-white rounded-2xl p-7">
         <div className="mb-8">
           <h1 className="text-xl font-bold text-gray-800 xl:text-3xl">Задачи</h1>
