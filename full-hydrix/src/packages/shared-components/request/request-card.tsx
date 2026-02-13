@@ -71,9 +71,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
 
 
             )}
-            {/* Результат */}
             {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
-
 
           </div>
         </div>

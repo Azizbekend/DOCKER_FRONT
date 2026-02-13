@@ -6,13 +6,14 @@ type FilterButtonsProps = {
     commonRes: number,
     supplyRes: number,
     incidentsRes: number,
+    stageToRes: number,
 
     setActiveFilter: (string: string) => void,
     activeFilter: string,
 }
 
 
-export const FilterButtons = observer(({ allRes, commonRes, supplyRes, incidentsRes, setActiveFilter, activeFilter }: FilterButtonsProps) => {
+export const FilterButtons = observer(({ allRes, commonRes, supplyRes, incidentsRes, stageToRes, setActiveFilter, activeFilter }: FilterButtonsProps) => {
     return (
         <div className="flex flex-wrap gap-3 mb-6">
             <button
@@ -32,6 +33,15 @@ export const FilterButtons = observer(({ allRes, commonRes, supplyRes, incidents
                     }`}
             >
                 Общая {commonRes}
+            </button>
+            <button
+                onClick={() => setActiveFilter('stageTO')}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeFilter === 'stageTO'
+                    ? 'bg-orange-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+            >
+                Тех. обслуживание {stageToRes}
             </button>
             <button
                 onClick={() => setActiveFilter('supply')}

@@ -1,4 +1,4 @@
-import { serviceStagesFormModel } from '@/modules/dispatcher/features/service-stage/models/form-model';
+import { serviceStagesFormModel } from '@/modules/dispatcher/features/service-stage/form-model';
 import { ServiceForStageCardInterface, ServiceStageType } from '@/packages/entities/service-requests/type';
 import { useAuth } from '@/packages/entities/user/context';
 import { getObjectId } from '@/packages/functions/get-data/get-object-data';

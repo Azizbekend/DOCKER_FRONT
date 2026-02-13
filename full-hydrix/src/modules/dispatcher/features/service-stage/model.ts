@@ -1,5 +1,5 @@
-import { cancelEngineerPlanedServicesStageApi, completeCommonPlanedServicesStageApi, completeEngineerPlanedServicesStageApi, getFileLinkCommonPlanedServicesStageApi, } from "@/packages/entities/planed-services/api";
-import { EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
+import { cancelEngineerPlanedServicesStageApi, completeCommonPlanedServicesStageApi, completeEngineerPlanedServicesStageApi, completePlanedCommonServiceApi, getFileLinkCommonPlanedServicesStageApi, } from "@/packages/entities/planed-services/api";
+import { CreatePlanedCommonServicesInterface, EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 import { cancelServiceStageRequests, completeCommonServiceStageRequests, completeServiceStageRequests, getServiceStageRequestsAll } from "@/packages/entities/service-requests/api";
 import { CancelStageType, CompleteCommonStageType, CompleteEngineerStageType, ServiceStageType } from "@/packages/entities/service-requests/type";
 import { supplyRequestStageAttachExpenses, supplyRequestStageAttachPay, supplyRequestStageCancel, supplyRequestStageComplete, supplyRequestStageConfirm, supplyRequestStageConfirmNoPay, supplyRequestStageResend } from "@/packages/entities/supply-request/api";
@@ -91,6 +91,51 @@ class ServiceStagesModel {
     }
 
 
+
+    async completePlanetServiceCommon(data: SimpleCompletePlanedServicesInstructionInterface) {
+        try {
+            const resData = await completeCommonPlanedServicesStageApi(data)
+            const uploadPromises = data.files.map(async (fileItem) => {
+                const formData = new FormData();
+                formData.append("RequestStageId", resData.data.id);
+                formData.append("FileName", fileItem.fileName);
+                formData.append("FileType", fileItem.type === 'photo' ? 'Photo' : 'Document');
+                formData.append("File", fileItem.file);
+
+                try {
+                    const response = await fetch("https://triapi.ru/research/api/PlanedServices/commonService/file/upload", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        console.error(`Ошибка загрузки файла: ${fileItem.file.name}`, await response.text());
+                    } else {
+                        const result = await response.json();
+                        // filesRes.push({ ...result })
+                        console.log("Файл успешно загружен, ID:", result.id);
+                    }
+                } catch (uploadError) {
+                    console.error("Ошибка при отправке файла:", fileItem.file.name, uploadError);
+                }
+            });
+
+            await Promise.all(uploadPromises);
+
+            this.model = this.model.map((item) => {
+                if (item.id === data.stageId) {
+                    item.currentStatus = "Completed"
+                }
+                return item
+            })
+            toast.success("Успешно отправлена", { progressStyle: { background: "green" } })
+
+
+        } catch (error) {
+            console.error(error)
+            toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
+        }
+    }
 
     async completeCommon(data: CompleteCommonStageType) {
         await completeCommonServiceStageRequests(data)

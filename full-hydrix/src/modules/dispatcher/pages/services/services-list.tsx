@@ -6,10 +6,10 @@ import { ServiceStagesPanel } from "../../../../packages/shared-components/stage
 import { listRequestModel } from "../../features/service-list/request-list-model";
 import { FilterButtons } from "./components/filter-buttons";
 import { RequestCard } from "@/packages/shared-components/request/request-card";
-import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes } from "@/packages/functions/is-value/is-stage-types";
+import { isStageAnswerTypes, isStageIncidentTypes, isStageSupplyTypes, isStageTOTypes } from "@/packages/functions/is-value/is-stage-types";
 
 export const RequestRegistryList = observer(() => {
-  const [activeFilter, setActiveFilter] = useState<string>('all'); // 'all', 'general', 'supply', 'emergency'
+  const [activeFilter, setActiveFilter] = useState<string>('all'); // 'all', 'general', 'supply', 'emergency', 'stageTO'
 
   const { model, isLoader, init, isStagesPanel, setIsStagesPanel, isService, completeService, cancelService, completePlanedService } = listRequestModel;
 
@@ -24,6 +24,7 @@ export const RequestRegistryList = observer(() => {
     if (activeFilter === 'general' && isStageAnswerTypes(request.type)) return true;
     if (activeFilter === 'supply' && isStageSupplyTypes(request.type)) return true;
     if (activeFilter === 'emergency' && isStageIncidentTypes(request.type)) return true;
+    if (activeFilter === 'stageTO' && isStageTOTypes(request.type)) return true;
     return false;
   });
 
@@ -38,6 +39,7 @@ export const RequestRegistryList = observer(() => {
   const commonRes = model.filter(r => isStageAnswerTypes(r.type)).length;
   const supplyRes = model.filter(r => isStageSupplyTypes(r.type)).length;
   const incidentsRes = model.filter(r => isStageIncidentTypes(r.type)).length;
+  const stageToRes = model.filter(r => isStageTOTypes(r.type)).length;
 
   return isLoader ? <Loader /> : (
     <>
@@ -71,6 +73,7 @@ export const RequestRegistryList = observer(() => {
         commonRes={commonRes}
         supplyRes={supplyRes}
         incidentsRes={incidentsRes}
+        stageToRes={stageToRes}
         setActiveFilter={setActiveFilter}
         activeFilter={activeFilter}
       />
@@ -79,7 +82,9 @@ export const RequestRegistryList = observer(() => {
       <h2 className="text-xl font-semibold text-gray-800 mb-5">
         {activeFilter === 'all' ? 'Все заявки' :
           activeFilter === 'general' ? 'Общие заявки' :
-            activeFilter === 'supply' ? 'Поставочные заявки' : 'Аварийные заявки'}
+            activeFilter === 'supply' ? 'Поставочные заявки' :
+              'Аварийные заявки'
+        }
       </h2>
 
       <div className="space-y-5">

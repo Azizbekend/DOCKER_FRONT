@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { stageJobModel } from '../../features/service-stage/models/task-model';
+import { stageJobModel } from '../../features/service-stage/task-model';
 import Loader from '@/packages/shared-ui/loader/loader';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/packages/entities/user/context';

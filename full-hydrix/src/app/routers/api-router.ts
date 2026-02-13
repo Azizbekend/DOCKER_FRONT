@@ -229,6 +229,7 @@ export const ServiceStageRequests = {
   cancel: "/ServiceRequests/mainEngineer/serviceStage/Cancel",
 };
 
+
 export const PlanedServices = {
   factWorkTime: "/PlanedServices/internalMethod/hardware/factWorkTime",
   byHardware: "/PlanedServices/plannedService/hardware",

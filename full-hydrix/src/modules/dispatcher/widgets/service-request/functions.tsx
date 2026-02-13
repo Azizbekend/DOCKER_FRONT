@@ -22,30 +22,25 @@ export const getStatusColor = (status: 'New' | 'Completed' | 'Canceled') => {
     );
 };
 
-export const getRequestTypeColor = (type: 'Общая' | "Общий" | 'Поставочная' | 'Аварийная' | "InitialSupply" | "Incident" | "Поставочная заявка") => {
+export const getRequestTypeColor = (type: 'Общая' | "Общий" | 'Поставочная' | 'Аварийная' | "InitialSupply" | "Incident" | "Поставочная заявка" | "Тех. Обслуживание") => {
     let data = { color: '', text: '' };
 
     switch (type) {
         case 'Общая':
-            data = { color: 'bg-blue-600 text-white', text: "Общий" };
-            break;
         case 'Общий':
             data = { color: 'bg-blue-600 text-white', text: "Общий" };
             break;
         case 'Поставочная':
-            data = { color: 'bg-yellow-500 text-white', text: type };
-            break;
         case 'InitialSupply':
-            data = { color: 'bg-yellow-500 text-white', text: "Поставочная" };
-            break;
         case 'Поставочная заявка':
             data = { color: 'bg-yellow-500 text-white', text: "Поставочная" };
             break;
         case 'Аварийная':
-            data = { color: 'bg-red-600 text-white', text: type };
-            break;
         case 'Incident':
             data = { color: 'bg-red-600 text-white', text: "Аварийная" };
+            break;
+        case 'Тех. Обслуживание':
+            data = { color: 'bg-orange-600 text-white', text: "Тех. Обслуживание" };
             break;
         default:
             data = { color: 'bg-gray-800 text-white', text: type };

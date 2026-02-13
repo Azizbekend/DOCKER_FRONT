@@ -58,6 +58,11 @@ export const StageTaskCard = ({ stage, completeCommon, switchShowFile }: StageCa
   }
 
   useEffect(() => {
+
+
+    console.log(stage)
+
+
     clearFiles()
   }, [])
 

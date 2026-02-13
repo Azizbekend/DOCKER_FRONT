@@ -20,12 +20,12 @@ interface StageCardProps {
   completeCommon: (data: CompleteCommonStageType) => void
   completePlanetServiceEnginner: (data: EnginnerCompletePlanedServicesStageInterface) => void
   cancelPlanetServiceEngineer: (data: EnginnerCancelPlanedServicesStageInterface) => void
-  // completePlanetServiceCommon: (data: SimpleCompletePlanedServicesInstructionInterface) => void
+  completePlanetServiceCommon: (data: SimpleCompletePlanedServicesInstructionInterface) => void
   serviceData?: any,
   switchShowFile: (id: number, value: boolean, showFileType: string) => void
 }
 
-export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon, serviceData, completePlanetServiceEnginner, cancelPlanetServiceEngineer, switchShowFile }: StageCardProps) => {
+export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancelEngineer, completeCommon, serviceData, completePlanetServiceEnginner, cancelPlanetServiceEngineer, switchShowFile, completePlanetServiceCommon }: StageCardProps) => {
   const isPlanedService = serviceData.type == "Тех. Обслуживание"
 
   const [descr, setDescr] = useState<string>("")
@@ -40,11 +40,11 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
     if (userDD.isCommandsEnabled) {
       setIsCancComplete(true)
     } else {
-      // if (isPlanedService) {
-      //   completePlanetServiceCommon({ stageId: Number(stage.id), discription: descr })
-      // } else {
-      completeCommon({ stageId: Number(stage.id), discription: descr })
-      // }
+      if (isPlanedService) {
+        completePlanetServiceCommon({ stageId: Number(stage.id), discription: descr })
+      } else {
+        completeCommon({ stageId: Number(stage.id), discription: descr })
+      }
     }
   }
 

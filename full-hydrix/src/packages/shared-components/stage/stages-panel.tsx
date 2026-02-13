@@ -1,5 +1,5 @@
 import { Modal } from "@/packages/shared-ui/modal/modal";
-import { serviceStagesModel } from "../../../modules/dispatcher/features/service-stage/models/model";
+import { serviceStagesModel } from "../../../modules/dispatcher/features/service-stage/model";
 import { observer } from "mobx-react-lite";
 import Loader from "@/packages/shared-ui/loader/loader";
 import { useEffect, useState } from "react";
@@ -44,13 +44,14 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
     cancelEngineer,
     pushStage,
     completeCommon,
+    completePlanetServiceCommon,
     completePlanetServiceEnginner,
     isActiveRequest,
     setIsActiveRequest,
     setTypeAction,
     typeAction,
     supplyRequestAction,
-    cancelPlanetServiceEngineer
+    cancelPlanetServiceEngineer,
   } = serviceStagesModel
 
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false)
@@ -66,7 +67,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const [showFilePanel, setShowFilePanel] = useState<boolean>(false);
   const [showFileId, setShowFileId] = useState<number>(0);
   const [showFileType, setShowFileType] = useState<"image" | "object">("object");
-  
+
   const switchShowFile = (id: number, value: boolean, type: string) => {
     console.log(type)
     setShowFileId(id);
@@ -111,6 +112,7 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
                 cancelPlanetServiceEngineer={cancelPlanetServiceEngineer}
                 serviceData={isService}
                 switchShowFile={switchShowFile}
+                completePlanetServiceCommon={completePlanetServiceCommon}
               />
           ))}
 
