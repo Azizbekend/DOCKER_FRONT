@@ -24,7 +24,7 @@ export const ModalPlanedServicesList = observer(({ show, setShow, idPlaned }: Pr
 
 
     return (
-        <Modal title="Создать заявку на обслуживание"
+        <Modal title="История заявок"
             wrapperId="ModalPlanedServicesList"
             type="right"
             show={show}
