@@ -1,9 +1,11 @@
-import { HardwareControll } from './controll'
-import { HardwarePassport } from './passport'
-import { HardwareService } from './service'
+import { HardwareControll } from './src/controll'
+import { HardwareService } from './src/service'
+import { HardwareLogs } from './src/logs'
+import { HardwarePassport } from './src/passport'
 
 export {
     HardwareControll,
+    HardwareService,
     HardwarePassport,
-    HardwareService
+    HardwareLogs
 }

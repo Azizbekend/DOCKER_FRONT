@@ -1,8 +1,8 @@
 import { Icon } from '@/packages/shared-ui/icon';
 import { observer } from 'mobx-react-lite';
-import { BlockSelect } from '../../shared-components/hardware/block-select';
+import { BlockSelect } from '../../../shared-components/hardware/block-select';
 // import { everyKapitalServerDate, everyPlanerServerDate } from '../../data/hardware-serves-data';
-import { InfoObject } from '../../shared-components/hardware/info-object';
+import { InfoObject } from '../../../shared-components/hardware/info-object';
 import InputCheckbox from '@/packages/shared-ui/Inputs/input-checkbox';
 import { Link } from 'react-router-dom';
 import { Modal } from '@/packages/shared-ui/modal/modal';

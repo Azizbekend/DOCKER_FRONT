@@ -8,6 +8,7 @@ import { useAuth } from "../../entities/user/context";
 import { getDostup, isJobRole } from "../../entities/user/utils";
 import { EnginnerCancelPlanedServicesStageInterface, EnginnerCompletePlanedServicesStageInterface, SimpleCompletePlanedServicesInstructionInterface } from "@/packages/entities/planed-services/type";
 import { StageFileList } from "./stage-file-list";
+import { statusColorStage, statusStage } from "@/packages/functions/get-data/get-stage-status";
 
 
 interface StageCardProps {
@@ -31,8 +32,6 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
   const [isCanc, setIsCanc] = useState<boolean>(false)
   const [isCancComplete, setIsCancComplete] = useState<boolean>(false)
 
-  const statusStage = { New: "Новый", Completed: "Завершен", Canceled: "Отменен" }
-  const statusColorStage = { New: "bg-blue-500", Completed: "bg-green-100", Canceled: "bg-red-500" }
   const userDD = getDostup()
 
   const { user } = useAuth()
@@ -76,7 +75,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
       <div className="p-4 border-b rounded-xl border-gray-100 bg-gray-50">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-bold text-gray-800">Этап {number}</h3>
-          <div className={`px-2 py-1 rounded-lg text-green-800 rounded-xl p-5 ${statusColorStage[[stage!.currentStatus]]}`}>
+          <div className={`px-2 py-1 rounded-lg text-white rounded-xl p-5 ${statusColorStage[[stage!.currentStatus]]}`}>
             {statusStage[stage!.currentStatus]}
           </div>
         </div>
@@ -143,7 +142,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
           </div>
 
           <div className="mt-5 pt-4 border-black-500 border-t-[1.5px]">
-            <p className="mb-1 text-gray-600">{stage.stageType == "Общий" ? "Описание:" : "Требования к поставке"}</p>
+            <p className="mb-1 text-gray-600">{(stage.stageType == "Общий" || stage.stageType == "Тех. Обслуживание") ? "Описание:" : "Требования к поставке"}</p>
             {stage.discription}
           </div>
 
@@ -204,7 +203,7 @@ export const StageCard = ({ stage, footerBlock, number, completeEngineer, cancel
                       Отмена
                     </Button>
                   </>}
-              </> 
+              </>
               :
               <>
                 <Button onClick={onComplete} class="flex-2 py-2.5 px-4 bg-[#4A85F6] text-white font-medium rounded-lg hover:bg-[#3a6bc9] transition-colors">

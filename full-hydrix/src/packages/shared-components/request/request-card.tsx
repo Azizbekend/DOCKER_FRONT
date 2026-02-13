@@ -2,6 +2,8 @@ import { getRequestTypeColor, getStatusColor } from '@/modules/dispatcher/widget
 import { getDate } from '@/packages/functions/get-data/get-date';
 import { Button } from '@/packages/shared-ui/button/button';
 import { Link } from 'react-router-dom';
+import { RequestDescription } from './request-discription';
+import { isStageCancelled, isTOStageClose } from '@/packages/functions/is-value/is-stage-types';
 
 type RequestCardProps = {
   request: any;
@@ -12,13 +14,9 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
   // Определяем, является ли заявка завершённой
   const isCompleted = ['Done', 'Cancelled', 'Completed'].includes(request.status);
   // Проверяем, отменена ли заявка
-  const isCancelled = request.status === 'Cancelled';
-  
+
   return (
-    <div 
-      onClick={onClick}
-      className="cursor-pointer border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors duration-200 hover:shadow-md"
-    >
+    <div onClick={onClick} className="cursor-pointer border border-gray-200 rounded-xl p-5 bg-white hover:bg-blue-50 transition-colors duration-200 hover:shadow-md">
       {/* Заголовок с номером заявки */}
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="min-w-0">
@@ -27,10 +25,10 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
             <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-lg">
               №{request.id}
             </span>
-            
+
             {/* Заголовок */}
             <h3 className="font-bold text-gray-800 text-lg truncate">{request.title}</h3>
-            
+
             {/* Аварийная метка */}
             {request.type === 'Аварийная' && (
               <span className="px-2 py-0.5 bg-red-100 text-red-800 text-xs font-medium rounded-full flex items-center gap-1">
@@ -65,8 +63,8 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                   <div className="text-xs text-gray-500 font-medium">Оборудование</div>
                 </div>
                 <div className="font-medium text-gray-800">{request.hardware.name}</div>
-                
-                
+
+
               </Link>
             )}
           </div>
@@ -78,7 +76,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
             <div className="font-medium">Создано</div>
             <div>{getDate(request.createdAt)}</div>
           </div>
-          
+
           {/* Дата закрытия (только для завершённых заявок) */}
           {isCompleted && request.closedAt && (
             <div className="text-xs text-gray-500 mt-2">
@@ -90,12 +88,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
       </div>
 
       {/* Причина отмены (только для отменённых заявок) */}
-      {isCancelled && request.cancelDiscription && (
-        <div className="p-3 bg-red-50 rounded-lg border border-red-200 mb-4">
-          <div className="text-xs text-red-700 uppercase tracking-wide mb-1 font-medium">Причина отмены</div>
-          <p className="text-red-800 text-sm">{request.cancelDiscription}</p>
-        </div>
-      )}
+      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
 
       {/* Участники заявки */}
       <div className="pt-4 border-t border-gray-100 flex justify-between">
@@ -113,7 +106,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                   <div className="font-medium text-gray-800 truncate">{request.creator}</div>
                 </div>
               </div>
-              
+
               {request.creatorsCompany && (
                 <div className="flex items-center gap-3">
                   <div className="">

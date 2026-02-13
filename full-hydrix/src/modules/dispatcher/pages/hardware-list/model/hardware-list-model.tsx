@@ -28,7 +28,7 @@ class HardwareListModel {
         this.inService = 0;
     }
 
-    async init() {
+    async init(objectId: number) {
         await getAllHardware().then((res) => {
             this.model = res.data
         })

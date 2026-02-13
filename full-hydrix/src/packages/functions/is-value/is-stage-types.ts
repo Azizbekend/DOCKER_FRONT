@@ -38,3 +38,5 @@ export function isStageIncidentTypes(type: string) {
     }
 }
 
+export const isStageCancelled = (status: string) => status == 'Cancelled'
+export const isTOStageClose = (status: string, stageType: string) => stageType == "Тех. Обслуживание" && status != 'New'

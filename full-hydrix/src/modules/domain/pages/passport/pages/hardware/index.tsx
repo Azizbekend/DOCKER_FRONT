@@ -11,7 +11,7 @@ import { HardwarePassport } from "@/packages/widgets/hardware-page-tabs";
 export const HardwareInformation = observer(() => {
     const { id } = useParams();
     const objectId = getObjectId()
-    const { init, model, status, isLoading, getInfoNodeInfoAll, documents, сharacteristic, incidentList, commandsInfo, evengLog } = hardwareModel
+    const { init, model, status, isLoading, getInfoNodeInfoAll, documents, сharacteristic, incidentList, commandsInfo, events, logs } = hardwareModel
 
     useEffect(() => {
         const { weekRange } = getTimeRanges()
@@ -32,7 +32,8 @@ export const HardwareInformation = observer(() => {
                 commandsInfo={commandsInfo}
                 incidentList={incidentList}
                 status={status}
-                evengLog={evengLog}
+                events={events}
+                logs={logs}
                 evengLogLinksTo={`/domain/passport/${objectId}/hardwares/${model?.id}/logs`}
             />
         }

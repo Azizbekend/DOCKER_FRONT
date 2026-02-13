@@ -4,7 +4,7 @@ import { Search } from "@/packages/shared-ui/Inputs/input-search";
 import { useSearch } from "@/packages/shared-ui/Inputs/hooks/hook-search";
 import { ButtonCheckList } from "@/packages/shared-ui/button-check-list";
 import { Icon } from "@/packages/shared-ui/icon";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { PassportHeaderPanel } from "../../components/header-panel";
 import { hardwareListModel } from "@/modules/dispatcher/pages/hardware-list/model/hardware-list-model";
@@ -24,7 +24,7 @@ export const HardwareRegistry = observer(() => {
   });
 
   useEffect(() => {
-    init();
+    init(objectId);
   }, []);
 
   return (

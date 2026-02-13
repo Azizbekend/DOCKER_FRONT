@@ -1,6 +1,6 @@
-import { HardwareControlle } from './controlle'
-import { HardwareReview } from './review'
-import { HardwareServes } from './serves'
+import { HardwareControlle } from './src/controlle'
+import { HardwareReview } from './src/review'
+import { HardwareServes } from './src/serves'
 
 
 export {

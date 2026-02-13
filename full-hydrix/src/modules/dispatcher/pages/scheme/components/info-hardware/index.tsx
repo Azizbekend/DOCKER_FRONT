@@ -12,13 +12,13 @@ import { getHardwareStatus } from "@/packages/shared-components/hardware/hardwar
 import { LogEventCard } from "@/packages/shared-components/log-event-card";
 import { getTimeRanges } from "@/packages/functions/get-data/get-time-ranges";
 import { panelTabs } from "@/packages/shared-ui/button/config";
-import { useAuth } from "@/packages/entities/user/context";
 import { isAdmin } from "@/packages/entities/user/utils";
 
 export const HardwareCard = observer(({ className, id, onClick, focusHardwareStatus }: InfoCompType) => {
   const [mode, setMode] = useState<number>(0);
   const { todayRange } = getTimeRanges()
-  const { init, model, evengLog, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands, isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, missedService, checkedService } = hardwareModel;
+  const { init, model, events, logs, isLoading, incidentList, сharacteristic, getInfoNodeInfoAll, commands, commandsInfo, documents, changeCommands,
+    isActiveCommand, isLoaderCommand, switchIsCommand, getCommands, servicesWeek, missedService, checkedService } = hardwareModel;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
               </div>
 
               <div className="space-y-3 max-h-40 overflow-y-auto pr-1">
-                {evengLog && (evengLog.length > 0 ? evengLog.map((event, key) => (<LogEventCard event={event} key={key} />)) : <p className="text-center text-gray-500">Нет данных</p>)}
+                {events && (events.length > 0 ? events.map((event, key) => (<LogEventCard event={event} key={key} />)) : <p className="text-center text-gray-500">Нет данных</p>)}
 
                 {/* {evengLog.map((event, idx) => {
                   const { badge, border } = getStatusClass(event.status);
@@ -172,8 +172,6 @@ export const HardwareCard = observer(({ className, id, onClick, focusHardwareSta
                     </div>
                   );
                 })} */}
-
-
               </div>
             </div>
           </div>

@@ -67,7 +67,8 @@ export interface HardwareControlleProps {
     isLoaderCommand: boolean,
     switchIsCommand: () => void,
     
-    evengLog?: HardwareEventsDataType[],
+    events?: HardwareEventsDataType[],
+    logs?: HardwareEventsDataType[],
 }
 
 export interface HardwareServesProps {
@@ -84,7 +85,8 @@ export interface HardwarePassportProps {
     documents: DocumentsType[],
     сharacteristic: Characteristic[],
     commandsInfo: ControlType[],
-    evengLog?: HardwareEventsDataType[] | string,
+    events?: HardwareEventsDataType[] | string,
+    logs?: HardwareEventsDataType[] | string,
     evengLogLinksTo?: string,
     status: boolean,
     incidentList: { nodeId: number, nodeName: string }[],
