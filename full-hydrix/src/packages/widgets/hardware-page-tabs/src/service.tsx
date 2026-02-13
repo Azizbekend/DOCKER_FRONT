@@ -137,39 +137,42 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
 
 
 
+         {/* Обслуживание на ближайшую неделю */}
         <BlockContainer>
           <BlockTitle title="Обслуживание на ближайшую неделю" />
-
+          
           <BlockListContainer>
-            {servicesWeek.length == 0 && <div className='border-y border-gray-300 py-4'>В ближайщие дни задач нету</div>}
-
-            {servicesWeek.length > 0 && servicesWeek.map((item, key) => {
-              return (
-                <InfoObject key={key}
-                  className='w-full'
+            {servicesWeek.length === 0 ? (
+              <div className="border border-gray-200 rounded-lg p-4 text-center text-gray-500">
+                В ближайшие дни задач нет
+              </div>
+            ) : (
+              servicesWeek.map((item, key) => (
+                <InfoObject 
+                  key={key}
+                  className="w-full"
                   info={item.discription}
                   children={
-                    <div className='flex items-end gap-4 justify-between border-b border-gray-300 pb-2 mb-2'>
-                      <div className='flex flex-col flex-1'>
-                        <span className='font-bold text-[var(--clr-accent)] mt-1 text-[12px]'>
+                    <div className="flex items-end gap-4 justify-between border-b border-gray-200 pb-2 mb-2">
+                      <div className="flex flex-col flex-1">
+                        <span className="font-bold text-[#4A85F6] text-sm">
                           {new Date(item.nextMaintenanceDate).toLocaleDateString('ru-RU', {
                             day: '2-digit',
                             month: '2-digit',
                             year: 'numeric'
                           }).replace(/\//g, '.')}
                         </span>
-                        <span>{item.title}</span>
+                        <span className="text-gray-800">{item.title}</span>
                       </div>
                     </div>
                   }
                 />
-              )
-            })}
-
+              ))
+            )}
           </BlockListContainer>
         </BlockContainer>
 
-        <BlockContainer>
+        {/* <BlockContainer>
           <BlockTitle title="Статистика обслуживания" />
 
           <div className="flex flex-wrap items-center gap-2 mb-6">
@@ -183,7 +186,7 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
           <div className="">
             {serviceStatistic.map((item, key) => { return <ServiceStatisticItem key={key} name={item.name} progress={item.progress} /> })}
           </div>
-        </BlockContainer>
+        </BlockContainer> */}
 
         <BlockContainer>
           <BlockTitle title="История выполнения" />
