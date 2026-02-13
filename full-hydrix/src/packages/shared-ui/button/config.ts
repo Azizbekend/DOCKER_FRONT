@@ -5,6 +5,7 @@ export const styleColorEnum = {
     gray: 'bg-gray-300 text-gray-700 hover:bg-gray-400',
     yellow: 'bg-yellow-300 text-yellow-700 hover:bg-yellow-400',
 
+    white: "border border-gray-300 text-gray-800 hover:bg-gray-50 bg-white active:bg-gray-100 shadow-sm hover:shadow-md",
     greenOutline: 'border border-green-500 text-green-500 hover:bg-green-50',
     blueOutline: 'border border-blue-500 text-blue-500 hover:bg-blue-50',
     redOutline: 'border border-red-500 text-red-500 hover:bg-red-50',
