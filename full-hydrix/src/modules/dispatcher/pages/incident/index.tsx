@@ -12,7 +12,7 @@ export const Incident = observer(() => {
     const [filterBtn, setFilterBtn] = useState<"all" | "critical" | "important" | "planned">("all");
 
 
-    const { model, isLoader, init, showPanel, focusIncedent, setShowPanel, showStagePanel, setShowStagePanel, completeService, cancelService, focusService } = incedentListModel
+    const { model, isLoader, init, showPanel, focusIncedent, setShowPanel, showStagePanel, setShowStagePanel, completeService, cancelService, completePlanedService, focusService } = incedentListModel
 
     const handleRow = (row: any) => {
         setShowPanel(true, row)
@@ -48,6 +48,7 @@ export const Incident = observer(() => {
             cancelService={cancelService}
             show={showStagePanel}
             onClose={StagePanelClose}
+            completePlanedService={completePlanedService}
             isService={focusService}
         />
 

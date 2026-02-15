@@ -10,7 +10,6 @@ export type GetClientCompanyByWaterCompanyRequest = {
 }
 
 
-
 export type CompanyCreate = {
     companyName: string,
     shortName: string,

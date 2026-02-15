@@ -1,5 +1,7 @@
 import { getInfoHardware } from '@/packages/entities/hardware/api';
 import { getByObject } from '@/packages/entities/incident/api';
+import { completePlanedCommonServiceApi } from '@/packages/entities/planed-services/api';
+import { CompletePlanedCommonServicesInterface } from '@/packages/entities/planed-services/type';
 import { cancelServiceRequests, completeServiceRequests } from '@/packages/entities/service-requests/api';
 import { CompleteCancelType } from '@/packages/entities/service-requests/type';
 import { makeAutoObservable } from 'mobx';
@@ -87,6 +89,17 @@ class IncidentListModel {
                 toast.error("Ошибка при завершении", { progressStyle: { background: "red" } })
             })
     }
+
+    async completePlanedService(data: CompletePlanedCommonServicesInterface) {
+        await completePlanedCommonServiceApi(data)
+            .then(() => {
+                toast.success("Заявка успешно завершен", { progressStyle: { background: "green" } })
+            })
+            .catch((error) => {
+                toast.error(error.response.data, { progressStyle: { background: "red" } })
+            })
+    }
+
 }
 
 export const incedentListModel = new IncidentListModel()

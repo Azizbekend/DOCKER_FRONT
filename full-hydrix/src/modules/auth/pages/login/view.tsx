@@ -102,7 +102,7 @@ export const LoginView = observer(() => {
               <Button
                 type="submit"
                 disabled={!canSubmit}
-                class="bg-[#4A85F6] text-center justify-center py-3 sm:py-3.5 text-white font-semibold rounded-lg shadow-[0px_4px_20px_0px_rgba(74,133,246,0.25)] hover:shadow-[0px_6px_25px_0px_rgba(74,133,246,0.35)] transition-all duration-200 w-full"
+                class="bg-[#4A85F6] text-center justify-cen1ter py-3 sm:py-3.5 text-white font-semibold rounded-lg shadow-[0px_4px_20px_0px_rgba(74,133,246,0.25)] hover:shadow-[0px_6px_25px_0px_rgba(74,133,246,0.35)] transition-all duration-200 w-full"
               >
                 <span className="font-bold text-base text-white">
                   {isLoading ? "Загрузка..." : "Вход"}
