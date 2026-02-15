@@ -1,19 +1,39 @@
 import { observer } from 'mobx-react-lite';
 import { Icon } from "@/packages/shared-ui/icon"
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HardwareReviewProps } from '@/packages/entities/hardware/type';
 import { getValue } from '../../../functions/get-data/get-hardware-functions';
+import { FileViewer } from '@/packages/shared-ui/file-viewer';
+
+
+
 
 export const HardwareReview = observer(({ сharacteristic, getInfoNodeInfoAll, commandsInfo, documents, data }: HardwareReviewProps) => {
 
     useEffect(() => {
+        console.log(documents)
         getInfoNodeInfoAll();
         const interval = setInterval(getInfoNodeInfoAll, 3000);
         return () => clearInterval(interval);
-    }, []);
+    }, [documents]);
+
+
+
+    const [showFile, setShowFile] = useState<boolean>(false);
+    const [fileId, setFileId] = useState<number>(0);
+
+    const switchShowFile = (id: number, isOpen: boolean) => {
+        setFileId(id);
+        setShowFile(isOpen)
+    }
+
+
+
 
     return (
         <div className="info-comp__content">
+            {showFile && <FileViewer fileId={fileId} isOpen={showFile} onClose={() => switchShowFile(0, false)} type={"hardware"} />}
+
             <div className="info-comp__section">
                 <div className="info-comp__item gap-3 border-b border-gray-300 pb-4 mt-8">
                     <div className="info-comp__title">Модель</div>
@@ -70,12 +90,13 @@ export const HardwareReview = observer(({ сharacteristic, getInfoNodeInfoAll, c
                 <div className="info-comp__section">
                     <div className="info-comp__subtitle">Документация</div>
                     {documents.map((item, key) => (
-                        <a key={key} href={"https://triapi.ru/research/api/FileStorage/documentStorage/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
+                        // <a key={key} href={"https://triapi.ru/research/api/FileStorage/documentStorage/download?id=" + item.id} download={true} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
+                        <div key={key} onClick={() => switchShowFile(item.id, true)} className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-blue-50 transition-colors duration-150 cursor-pointer">
                             <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
                                 <Icon systemName="docs" className="text-blue-700" />
                             </div>
                             <span className="text-gray-800 font-medium">{item.title}</span>
-                        </a>
+                        </div>
                     ))}
                 </div>
             }

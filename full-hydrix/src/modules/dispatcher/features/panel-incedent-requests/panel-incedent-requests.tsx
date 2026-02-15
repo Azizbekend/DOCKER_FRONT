@@ -141,8 +141,6 @@ export const PanelIncedentRequests = observer(({ show, onClose, incident, stageP
                                 Создать заявку
                             </Button>
                         }
-
-                        {/*  setIsOpenForm */}
                     </div >
                 </div >
             }

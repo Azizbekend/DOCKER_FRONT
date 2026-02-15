@@ -3,67 +3,93 @@ import { InfoObject } from "../../../shared-components/hardware/info-object";
 import InputCheckbox from "@/packages/shared-ui/Inputs/input-checkbox";
 import { Modal } from "@/packages/shared-ui/modal/modal";
 import { Button } from "@/packages/shared-ui/button/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { BlockContainer, BlockListContainer, BlockTitle } from "../../../shared-components/hardware/tab-service-components";
 import { HardwareServiceProps } from "@/packages/entities/hardware/type";
 import { getDate } from "@/packages/functions/get-data/get-date";
 import { ModalPlanedCommonServiceForm } from "../components/modal-planed-common-service-form";
 import { ModalPlanedServicesList } from "../components/modal-planed-services-list";
+import { ServiceStagesPanel } from "@/packages/shared-components/stage/stages-panel";
+import { hardwareServiceModalsModel } from "@/modules/domain/features/hardware/hardware-service-modals-model";
 
 export const HardwareService = observer(({ getCommands, servicesWeek, checkedService, servicesHistory, serviceStatistic, planedServicesList }: HardwareServiceProps) => {
 
-  const [show, setShow] = useState<boolean>(false);
-  const [showServiceForm, setShowServiceForm] = useState<boolean>(false);
-  const [focusServiceId, setFocusServiceId] = useState<number>(0);
 
-  const [btnCount, setBtnCount] = useState<string>("");
+  const {
+    show,
+    showServiceForm,
+    showPlanedList,
+    showStagePanel,
+    focusServiceId,
+    focusIdPlaned,
+    focusService,
+    serviceChecked,
+    completeService,
+    cancelService,
+    completePlanedService,
+    handleServiceOpen,
+    handleService,
+    onSwitchPlanerCommonServiceForm,
+    switchPlanedList,
+    closeStagePanel,
+    openStagePanel,
+    modelPlaned,
+    isLoadedPlaned
+  } = hardwareServiceModalsModel
 
-  const handleServiceOpen = (id: number) => {
-    setBtnCount(id.toString())
-    setShow(true)
+  const switchHandleService = (id: number, show: boolean) => {
+    if (show) {
+      handleServiceOpen(id)
+    } else {
+      if (id > 0) {
+        checkedService(id.toString())
+      }
+      handleService()
+    }
   }
-
-  const handleService = () => {
-    checkedService(btnCount)
-    setShow(false)
-  }
-
-  const onSwitchPlanerCommonServiceForm = (value: boolean, id: number) => {
-    setShowServiceForm(value)
-    setFocusServiceId(id)
-  }
-
-
-  const [showPlanedList, setShowPlanedList] = useState<boolean>(false)
-  const [focusIdPlaned, setFocusIdPlaned] = useState<number>(0)
-
-  const switchPnaledList = (value: boolean, id: number) => {
-    setShowPlanedList(value)
-    setFocusIdPlaned(id)
-  }
-
 
   return (
     <div>
-      <ModalPlanedCommonServiceForm
-        serviceId={focusServiceId}
-        show={showServiceForm}
-        setShow={(value: boolean) => onSwitchPlanerCommonServiceForm(value, 0)}
-      />
+      {/* Модальные окна */}
+      {showServiceForm && (
+        <ModalPlanedCommonServiceForm
+          serviceId={focusServiceId}
+          show={showServiceForm}
+          setShow={(value: boolean) =>
+            onSwitchPlanerCommonServiceForm(value, 0)
+          }
+        />
+      )}
 
-      <ModalPlanedServicesList
-        show={showPlanedList}
-        idPlaned={focusIdPlaned}
-        setShow={() => switchPnaledList(false, 0)}
-      />
+      {showPlanedList && (
+        <ModalPlanedServicesList
+          show={showPlanedList}
+          model={modelPlaned}
+          isLoaded={isLoadedPlaned}
+          onClick={openStagePanel}
+          setShow={() => switchPlanedList(false, 0)}
+        />
+      )}
+
+      {showStagePanel && (
+        <ServiceStagesPanel
+          completeService={completeService}
+          cancelService={cancelService}
+          show={showStagePanel}
+          onClose={() => closeStagePanel()}
+          completePlanedService={completePlanedService}
+          isService={focusService}
+        />
+      )}
+
 
 
       <Modal title="Подтвердить значение"
         wrapperId="wardhare"
         type="center"
         show={show}
-        setShow={setShow}
+        setShow={() => switchHandleService(0, false)}
         children={
           <div
             className="py-6 px-8 text-gray-800 text-lg font-medium text-center leading-relaxed"
@@ -74,12 +100,12 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
         }
         footerSlot={
           <div className="flex justify-end gap-3 p-6">
-            <Button class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors" onClick={() => setShow(false)}>
+            <Button class="px-5 py-2.5 rounded-lg font-medium text-white bg-gray-600 hover:bg-gray-700 transition-colors" onClick={() => switchHandleService(0, false)}>
               Отмена
             </Button>
             <Button
               class="px-5 py-2.5 rounded-lg font-medium text-white bg-[#4A85F6] hover:bg-[#3a6bc9] transition-colors shadow-sm"
-              onClick={handleService}
+              onClick={() => switchHandleService(serviceChecked, false)}
             >
               Подтвердить
             </Button>
@@ -108,7 +134,7 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
 
                   children={
                     <div className='flex items-center gap-4 justify-between mb-2'>
-                      <div onClick={() => handleServiceOpen(item.id)}>
+                      <div onClick={() => switchHandleService(item.id, true)}>
                         <InputCheckbox disabled label={item.title} />
                       </div>
                       <div className="flex gap-3">
@@ -141,7 +167,7 @@ export const HardwareService = observer(({ getCommands, servicesWeek, checkedSer
                       <div className="flex gap-2">
                         <Button
                           onClick={() => {
-                            switchPnaledList(true, item.id)
+                            switchPlanedList(true, item.id)
                           }}
                           styleColor="blue"
                           class="px-2 py-1 text-sm"

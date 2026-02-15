@@ -30,6 +30,9 @@ export const ServiceStagesPanel = observer(({ show, onClose, isService, complete
   const isPlanedService = (isService.type == "Тех. Обслуживание")
 
   useEffect(() => {
+
+    console.log(isService)
+
     if (isService) {
       init(isService.id, userDD)
       setIsActiveRequest(isService.status == "New" && userDD.isCommandsEnabled)

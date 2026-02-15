@@ -29,14 +29,11 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
         let getDownloadUrl: string = "";
 
         switch (type) {
-            case "image":
-                getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
+            case "image": getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
 
-            case "object":
-                getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
+            case "object": getDownloadUrl = `https://triapi.ru/research/api/FileStorage/download?id=${fileId}`;
                 break;
-            case "hardware":
-                getDownloadUrl = `https://triapi.ru/research/api/FileStorage/documentStorage/download?id=${fileId}`;
+            case "hardware": getDownloadUrl = `https://triapi.ru/research/api/FileStorage/documentStorage/download?id=${fileId}`;
                 break;
         }
 
@@ -44,9 +41,6 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
             console.log("type = null");
             return
         }
-
-
-
 
         try {
             const response = await fetch(getDownloadUrl);
@@ -81,7 +75,7 @@ export const FileViewer = ({ fileId, isOpen, onClose, type = "object" }: FileVie
                     <img
                         src={`https://triapi.ru/research/api/FileStorage/download?id=${fileId}`}
                         alt="Изображение"
-                        className="w-full"
+                        className="w-full max-h-[70vh] object-contain"
                     />
                 );
             }

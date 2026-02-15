@@ -43,7 +43,7 @@ export const Stages = observer(() => {
 
         {isLoaded && <div className="flex items-center justify-center py-12"><Loader /></div>}
 
-        {!isLoaded && model.length > 0 ? (
+        {!isLoaded && (model.length > 0 ? (
           <div className='space-y-4'>
             {model.map((stage) => isStageSupplyTypes(stage.stageType) ?
               <StageTaskSupplyCard
@@ -79,7 +79,7 @@ export const Stages = observer(() => {
             <p className="text-gray-600">В настоящий момент нет активных задач для отображения</p>
           </div>
 
-        )}
+        ))}
       </div>
 
     </div>

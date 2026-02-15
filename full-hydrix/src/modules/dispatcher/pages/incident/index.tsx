@@ -43,14 +43,14 @@ export const Incident = observer(() => {
             stagePanelOpen={stagePanelOpen}
         />
 
-        <ServiceStagesPanel
+        {showStagePanel && <ServiceStagesPanel
             completeService={completeService}
             cancelService={cancelService}
             show={showStagePanel}
             onClose={StagePanelClose}
             completePlanedService={completePlanedService}
             isService={focusService}
-        />
+        />}
 
         <div className='flex items-center gap-3 mb-7'>
             <FilterButton name='Все' isActive={filterBtn == "all"} onClick={() => setFilterBtn("all")} />

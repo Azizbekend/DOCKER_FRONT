@@ -5,8 +5,6 @@ import { makeAutoObservable } from "mobx";
 
 class ModelPlanedServiceList {
 
-    model: ServiceType[] = []
-    isLoaded: boolean = true
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -14,22 +12,7 @@ class ModelPlanedServiceList {
 
     async init(id: number) {
 
-        try {
-            const serviceRes = await getPlanedServiceByPlanApi({ planId: id });
-            const results = [];
-
-            for (const item of serviceRes.data) {
-                const enrichedItem = await getCompanyUserRequest(item);
-                results.push({
-                    ...enrichedItem,
-                });
-            }
-            this.model = results;
-        } catch (error) {
-            console.log(error)
-        } finally {
-            this.isLoaded = false
-        }
+        
 
     }
 }

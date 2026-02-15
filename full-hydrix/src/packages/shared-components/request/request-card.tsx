@@ -1,6 +1,5 @@
 import { getRequestTypeColor, getStatusColor } from '@/modules/dispatcher/widgets/service-request/functions';
 import { getDate } from '@/packages/functions/get-data/get-date';
-import { Button } from '@/packages/shared-ui/button/button';
 import { Link } from 'react-router-dom';
 import { RequestDescription } from './request-discription';
 import { isStageCancelled, isTOStageClose } from '@/packages/functions/is-value/is-stage-types';
@@ -40,15 +39,11 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
             )}
           </div>
         </div>
-
-
         {/* Статусы */}
         <div className="flex-shrink-0 flex gap-3">
           {getStatusColor(request.status)}
           {getRequestTypeColor(request.type)}
         </div>
-
-
       </div>
 
       {/* Основная информация */}
@@ -68,11 +63,7 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
                 </div>
                 <div className="font-medium text-gray-800">{request.hardware.name}</div>
               </Link>
-
-
             )}
-            {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
-
           </div>
         </div>
 
@@ -94,6 +85,8 @@ export const RequestCard = ({ request, onClick }: RequestCardProps) => {
 
         </div>
       </div>
+
+      {isTOStageClose(request.status, request.type) && request.cancelDiscription && <RequestDescription className="mb-4" isCancelled={isStageCancelled(request.status)} description={request.cancelDiscription} />}
 
 
       {/* Участники заявки */}

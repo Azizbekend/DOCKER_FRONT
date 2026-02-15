@@ -14,7 +14,7 @@ interface ModalPlanedCommonServiceFormProps {
     setShow: (value: boolean) => void;
     serviceId: number;
 }
-
+    
 export const ModalPlanedCommonServiceForm = observer(({ show, setShow, serviceId }: ModalPlanedCommonServiceFormProps) => {
     const { model, companyList, userList, setDiscription, getUserList, setImplementerId, init, create } = planedCommonServiceFormModel
 
